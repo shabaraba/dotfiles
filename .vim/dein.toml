@@ -1,0 +1,35 @@
+#[[plugins]]
+#repo = 'Sougo/dein.vim'
+
+[[plugins]]
+repo = 'tpope/vim-endwise'
+
+[[plugins]]
+repo = 'Townk/vim-autoclose'
+
+[[plugins]]
+repo = 'w0rp/ale'
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'easymotion/vim-easymotion'
+hook_add = '''
+    nmap <Leader>s <Plug>(easymotion-s2)
+    let g:EasyMotion_keys = 'hgjfkdls'
+'''
+
+[[plugins]]
+repo = 'phpactor/phpactor'
+on_ft = ['php']
+build = 'composer install'
+
+[[plugins]]
+repo = 'Shougo/unite.vim'
+
+#[[plugins]]
+#repo = 'joshdick/onedark.vim'
+#hook_add = '''
+#    colorscheme onedark
+#'''
