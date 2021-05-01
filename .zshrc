@@ -90,3 +90,8 @@ setopt pushd_ignore_dups
 setopt extended_glob
 
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+
+# for genie (run systemctl as root)
+if [ "`ps -eo pid,cmd | grep systemd | grep -v grep | sort -n -k 1 | awk 'NR==1 { print $1 }'`" != "1" ]; then
+  genie -s
+fi
