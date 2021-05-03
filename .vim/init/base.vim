@@ -46,6 +46,4 @@ noremap! <C-n> <Down>
 noremap! <C-p> <Up>
 noremap! <C-a> <Home>
 noremap! <C-e> <End>
-noremap! <C-h> <Backspace>
-noremap! <C-d> <Delete>
-
+set backspace=indent,eol,start
