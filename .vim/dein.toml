@@ -21,15 +21,46 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'Shougo/unite.vim'
+
+# indent
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+hook_add = '''
+  let g:indent_guides_enable_on_vim_startup=1
+  let g:indent_guides_auto_colors = 0
+  let g:indent_guides_exclude_filetypes = ['help', 'vimfiler']
+'''
+
+[[plugins]]
+repo = 'preservim/nerdtree'
+hook_add = '''
+  nnoremap <C-b> :NERDTreeToggle<CR>
+'''
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+hook_add = '''
+    let g:deoplete#enable_at_startup = 1
+'''
+
+[[plugins]]
+repo = 'roxma/nvim-yarp'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+
+# python suggestion
+[[plugins]]
+repo = 'deoplete-plugins/deoplete-jedi'
+
+# vim suggestion
+[[plugins]]
+repo = 'Shougo/neco-vim'
+
+# php suggestion
+[[plugins]]
 repo = 'phpactor/phpactor'
 on_ft = ['php']
 build = 'composer install'
 
-[[plugins]]
-repo = 'Shougo/unite.vim'
-
-#[[plugins]]
-#repo = 'joshdick/onedark.vim'
-#hook_add = '''
-#    colorscheme onedark
-#'''
