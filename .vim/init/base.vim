@@ -42,8 +42,13 @@ set hlsearch
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 noremap! <C-b> <Left>
 noremap! <C-f> <Right>
-noremap! <C-n> <Down>
-noremap! <C-p> <Up>
+"noremap! <C-n> <Down>
+"noremap! <C-p> <Up>
 noremap! <C-a> <Home>
 noremap! <C-e> <End>
+if has('nvim')
+    command! -nargs=* T split | terminal <args>
+    command! -nargs=* TV vsplit | terminal <args>
+    tnoremap <silent> <ESC> <C-\><C-n>
+endif
 set backspace=indent,eol,start
