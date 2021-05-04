@@ -35,6 +35,6 @@ hook_add = '''
 [[plugins]]
 repo = 'preservim/nerdtree'
 hook_add = '''
-  nnoremap <C-b> :NERDTreeToggle<CR>
+  nnoremap <A-b> :NERDTreeToggle<CR>
 '''
 
