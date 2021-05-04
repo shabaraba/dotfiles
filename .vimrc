@@ -49,6 +49,6 @@ endif
 
 "End dein Scripts-------------------------
         
-runtime init/*.vim
-runtime visual/*.vim
+source ~/.vim/init/*.vim
+source ~/.vim/visual/*.vim
 
