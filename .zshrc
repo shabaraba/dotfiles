@@ -3,6 +3,16 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # zplugの読み込み・初期化
+if [ -f ~/.zplug/init.zsh ]; then
+else
+	if [ -d ~/.zplug ]; then
+	else
+		mkdir ~/.zplug
+	fi
+	git clone https://github.com/zplug/zplug ~/.zplug
+fi
+
+export ZPLUG_LOADFILE=~/.zsh/zplug.zsh
 source ~/.zplug/init.zsh
 
 ########################
