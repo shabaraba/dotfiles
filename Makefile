@@ -14,10 +14,16 @@ install: ## Create symlink to home directory
 	@echo 'Copyright (c) 2013-2015 BABAROT All Rights Reserved.'
 	@echo '==> Install neovim'
 	@echo ''
+	@pip3 install neovim
+	@pip3 install pynvim
 	@wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
 	@tar xzvf nvim-linux64.tar.gz
-	@cp nvim-linux64/bin/nvim /usr/local/bin/
-	@cp -r nvim-linux64/share/nvim /usr/share/
+	@mv nvim-linux64/bin/nvim /usr/local/bin/
+	@mv -r nvim-linux64/share/nvim /usr/share/
+	@rm -rf nvim-linux64.tar.gz
+	@echo '==> Start to deploy dotfiles to home directory.'
+	@echo ''
+	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 
 deploy: ## Create symlink to home directory
 	@echo 'Copyright (c) 2013-2015 BABAROT All Rights Reserved.'

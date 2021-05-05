@@ -50,7 +50,7 @@ if has('nvim')
     command! -nargs=* T split | terminal <args>
     command! -nargs=* TV vsplit | terminal <args>
     tnoremap <silent> <ESC> <C-\><C-n>
-    nmap <A-p> :tabn<CR>
-    nmap <A-P> :tabp<CR>
+    nmap <A-}> :tabn<CR>
+    nmap <A-{> :tabp<CR>
 endif
 set backspace=indent,eol,start
