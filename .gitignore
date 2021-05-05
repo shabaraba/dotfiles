@@ -2,3 +2,5 @@
 /.vim/.netrwhist
 .config/coc/extensions/node_modules
 .config/TabNine/monitoring
+.config/TabNine/metrics.db
+
