@@ -5,6 +5,12 @@ DOTFILES   := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 
 .DEFAULT_GOAL := help
 
+define _installNeoVim
+	@pip3 install neovim
+	@pip3 install pynvim
+	@add-apt-repository ppa:neovim-ppa/stable && apt-get update && apt-get install neovim
+endef
+
 define _setUpCoc
 	@cd .config/coc/extensions && npm install
 endef
@@ -22,13 +28,7 @@ install: ## Create symlink to home directory
 	@echo 'Copyright (c) 2013-2015 BABAROT All Rights Reserved.'
 	@echo '==> Install neovim'
 	@echo ''
-	@pip3 install neovim
-	@pip3 install pynvim
-	@wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
-	@tar xzvf nvim-linux64.tar.gz
-	@mv nvim-linux64/bin/nvim /usr/local/bin/
-	@mv -r nvim-linux64/share/nvim /usr/share/
-	@rm -rf nvim-linux64.tar.gz
+	@$(call _installNeoVim)
 	@echo '==> Start to deploy dotfiles to home directory.'
 	@echo ''
 	@$(call _linkDotFiles)
