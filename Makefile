@@ -24,12 +24,6 @@ install: ## Create symlink to home directory
 	@echo ''
 	@pip3 install neovim
 	@pip3 install pynvim
-	@wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
-	@tar xzvf nvim-linux64.tar.gz
-	@mv nvim-linux64/bin/nvim /usr/local/bin/
-	@mv nvim-linux64/share/nvim /usr/share/
-	@rm -rf nvim-linux64
-	@rm -rf nvim-linux64.tar.gz
 	@echo '==> Start to deploy dotfiles to home directory.'
 	@echo ''
 	@$(call _linkDotFiles)
