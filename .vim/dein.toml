@@ -35,13 +35,34 @@ hook_add = '''
   nnoremap <A-b> :NERDTreeToggle<CR>
 '''
 
-# status bar
-[[plugins]]
-repo = 'itchyny/lightline.vim'
-
 # vim suggestion
 [[plugins]]
 repo = 'Shougo/neco-vim'
+
+# status bar
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+hook_add = '''
+    " カラーテーマ指定してかっこよく
+    "let g:airline_theme = 'badwolf'
+    let g:airline_powerline_fonts = 1
+    set laststatus=2
+    " タブバーをかっこよく
+    let g:airline#extensions#tabline#enabled = 1
+    " 選択行列の表示をカスタム(デフォルトだと長くて横幅を圧迫するので最小限に)
+    let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
+    " virtulenvを認識しているか確認用に、現在activateされているvirtualenvを表示(vim-virtualenvの拡張)
+    let g:airline#extensions#virtualenv#enabled = 1
+    " gitのHEADから変更した行の+-を非表示(vim-gitgutterの拡張)
+    let g:airline#extensions#hunks#enabled = 0
+    " Lintツールによるエラー、警告を表示(ALEの拡張)
+    let g:airline#extensions#ale#enabled = 1
+    let g:airline#extensions#ale#error_symbol = 'E:'
+    let g:airline#extensions#ale#warning_symbol = 'W:'
+'''
 
 # language server plotocol
 [[plugins]]
@@ -51,6 +72,20 @@ on_i = 1
 merged = '0'
 hook_source = 'call coil398#init#coc#hook_source()'
 hook_add = '''
+    "ノーマルモードで
+    "スペース2回でCocList
+    nmap <silent> <space><space> :<C-u>CocList<cr>
+    "スペースhでHover
+    nmap <silent> <space>h :<C-u>call CocAction('doHover')<cr>
+    "スペースdfでDefinition
+    nmap <silent> <C-]> <Plug>(coc-definition)
+    "スペースrfでReferences
+    nmap <silent> <C-]> <Plug>(coc-references)
+    "スペースrnでRename
+    nmap <silent> <space>rn <Plug>(coc-rename)
+    "スペースfmtでFormat
+    nmap <silent> <A-S-f> <Plug>(coc-format)
+
     "LightLineにcoc.nvimのステータスを載せます
     let g:lightline = {
       \'active': {
