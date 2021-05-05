@@ -1,33 +1,12 @@
 
-#[[plugins]]
-#repo = 'Shougo/deoplete.nvim'
-#hook_add = '''
-#    let g:deoplete#enable_at_startup = 1
-#'''
-
-# deoplete for vim 1/2
-#[[plugins]]
-#repo = 'roxma/nvim-yarp'
-
-# deoplete for vim 2/2
-#[[plugins]]
-#repo = 'roxma/vim-hug-neovim-rpc'
-
-# python suggestion
-#[[plugins]]
-#repo = 'deoplete-plugins/deoplete-jedi'
-
 # vim suggestion
 [[plugins]]
 repo = 'Shougo/neco-vim'
 
-# php suggestion
-#[[plugins]]
-#repo = 'phpactor/phpactor'
-#on_ft = ['php']
-#build = 'composer install'
-
 # language server plotocol
 [[plugins]]
 repo = 'neoclide/coc.nvim'
-
+rev = 'realease'
+on_i = 1
+merged = '0'
+hook_source = 'call call398#init#coc#hook_source()'
