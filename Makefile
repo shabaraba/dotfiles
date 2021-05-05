@@ -12,6 +12,15 @@ list: ## Show dot files in this repo
 
 install: ## Create symlink to home directory
 	@echo 'Copyright (c) 2013-2015 BABAROT All Rights Reserved.'
+	@echo '==> Install neovim'
+	@echo ''
+	@wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
+	@tar xzvf nvim-linux64.tar.gz
+	@cp nvim-linux64/bin/nvim /usr/local/bin/
+	@cp -r nvim-linux64/share/nvim /usr/share/
+
+deploy: ## Create symlink to home directory
+	@echo 'Copyright (c) 2013-2015 BABAROT All Rights Reserved.'
 	@echo '==> Start to deploy dotfiles to home directory.'
 	@echo ''
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)

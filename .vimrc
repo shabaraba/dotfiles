@@ -1,3 +1,7 @@
+" runtimepathを正す
+let $VIMRUNTIME="/usr/share/nvim/runtime"
+set runtimepath+=/usr/share/nvim/runtime
+
 " プラグインが実際にインストールされるディレクトリ
 let s:dein_dir = expand('~/.cache/dein')
 " dein.vim 本体
