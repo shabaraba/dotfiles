@@ -45,8 +45,9 @@ zplug load
 ########################
 # end zplug setting
 ########################
+export PATH=/usr/bin/node:$PATH
 
-# load settings
+ #load settings
 source ~/.zsh/prompt.zsh
 
 
