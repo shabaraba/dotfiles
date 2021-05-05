@@ -27,7 +27,8 @@ install: ## Create symlink to home directory
 	@wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
 	@tar xzvf nvim-linux64.tar.gz
 	@mv nvim-linux64/bin/nvim /usr/local/bin/
-	@mv -r nvim-linux64/share/nvim /usr/share/
+	@mv nvim-linux64/share/nvim /usr/share/
+	@rm -rf nvim-linux64
 	@rm -rf nvim-linux64.tar.gz
 	@echo '==> Start to deploy dotfiles to home directory.'
 	@echo ''
