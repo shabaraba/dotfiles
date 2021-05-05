@@ -47,10 +47,16 @@ noremap! <C-f> <Right>
 noremap! <C-a> <Home>
 noremap! <C-e> <End>
 if has('nvim')
+    " for tab
     command! -nargs=* T split | terminal <args>
     command! -nargs=* TV vsplit | terminal <args>
     tnoremap <silent> <ESC> <C-\><C-n>
     nmap <A-}> :tabn<CR>
     nmap <A-{> :tabp<CR>
+    nmap <A-w> :tabc<CR>
+
+    " for buffer
+    nmap <C-j> :bn<CR>
+    nmap <C-k> :bp<CR>
 endif
 set backspace=indent,eol,start
