@@ -34,6 +34,7 @@ repo = 'preservim/nerdtree'
 hook_add = '''
   nnoremap <A-b> :NERDTreeToggle<CR>
 '''
+# if you want to see dot files or folders, press "shift + i" after :NERDTreeToggle.
 
 # vim suggestion
 [[plugins]]
