@@ -1,5 +1,8 @@
 " setting --------------------------------
 set fenc=utf-8
+set encoding=utf-8
+set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+set fileformats=unix,dos,mac
 set nobackup
 set noswapfile
 set autoread
@@ -56,7 +59,7 @@ if has('nvim')
     nmap <A-w> :tabc<CR>
 
     " for buffer
-    nmap <C-j> :bn<CR>
-    nmap <C-k> :bp<CR>
+    nmap <C-j> :bp<CR>
+    nmap <C-k> :bn<CR>
 endif
 set backspace=indent,eol,start

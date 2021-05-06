@@ -1,13 +1,13 @@
-" runtimepath$B$r@5$9(B
+" runtimepathを正す
 let $VIMRUNTIME="/usr/share/nvim/runtime"
 set runtimepath+=/usr/share/nvim/runtime
 
-" $B%W%i%0%$%s$,<B:]$K%$%s%9%H!<%k$5$l$k%G%#%l%/%H%j(B
+" プラグインが実際にインストールされるディレクトリ
 let s:dein_dir = expand('~/.cache/dein')
-" dein.vim $BK\BN(B
+" dein.vim 本体
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
-" dein.vim $B$,$J$1$l$P(B github $B$+$iMn$H$7$F$/$k(B
+" dein.vim がなければ github から落としてくる
 if &runtimepath !~# '/dein.vim'
   if !isdirectory(s:dein_repo_dir)
     execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
