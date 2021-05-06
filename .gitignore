@@ -4,3 +4,6 @@
 .config/TabNine/*
 .config/coc/extensions/coc-tabnine-data/*
 .config/coc/extensions/coc-phpls-data/*
+.config/code-server
+.config/composer
+.config/configstore
