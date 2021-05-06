@@ -1,0 +1,22 @@
+[[plugins]]
+repo = "puremourning/vimspector"
+on_ft = ["python", "javascript"]
+build = '''
+    /install_gadget.py 
+        --enable-python
+        --force-enable-node
+        --force-enable-php
+'''
+hook_add = '''
+    nmap <Space>b <Plug>VimspectorToggleBreakpoint
+    nmap <Space>dl :call vimspector#Launch()<CR>
+    nmap <Space>dr :VimspectorReset<CR>
+    nmap <Space>de :VimspectorEval
+    nmap <Space>dw :VimspectorWatch
+    nmap <Space>do :VimspectorShowOutput
+    nmap <Space>di <Plug>VimspectorBalloonEval
+    xmap <Space>di <Plug>VimspectorBalloonEval
+'''
+
+
+
