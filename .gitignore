@@ -1,6 +1,6 @@
 /sample_programs
 /.vim/.netrwhist
 .config/coc/extensions/node_modules
-.config/TabNine/monitoring
-.config/TabNine/metrics.db
-
+.config/TabNine/*
+.config/coc/extensions/coc-tabnine-data/*
+.config/coc/extensions/coc-phpls-data/*

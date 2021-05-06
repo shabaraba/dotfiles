@@ -1,0 +1,87 @@
+{
+  "adapters": {
+    "python-remote": {
+      "port": "${port}",
+      "host": "${host}",
+      "launch": {
+        "remote": {
+          "host": "${host}",
+          "account": "${account}",
+          "runCommands": [
+              [
+                "python", "-m", "debugpy",
+                "--listen", "0.0.0.0:${port}",
+                "--wait-for-client",
+                "%CMD%"
+              ]
+          ]
+        }
+      },
+      "attach": {
+        "remote": {
+          "host": "${host}",
+          "account": "${account}",
+          "pidCommand": [
+            "/path/to/secret/script/GetPIDForService", "${ServiceName}"
+          ],
+          "attachCommands": [
+              [
+                "python", "-m", "debugpy", "--listen", "0.0.0.0:${port}",
+                "--pid", "%PID%"
+              ]
+          ]
+        }
+      }
+    }
+  },
+  "configurations": {
+    "remote-launch": {
+      "adapter": "python-remote",
+
+      "remote-request": "launch",
+      "remote-cmdLine": [
+        "${RemoteRoot}/${fileBasename}", "*${args}"
+      ],
+
+      "configuration": {
+        "request": "attach",
+        "pathMappings": [
+          {
+            "localRoot": "${workspaceRoot}",
+            "remoteRoot": "${RemoteRoot}"
+          }
+        ]
+      }
+    },
+    "remote-attach": {
+      "variables": {
+        "ServiceName": "${fileBasenameNoExtention}"
+      },
+
+      "adapter": "python-remote",
+      "remote-request": "attach",
+
+      "configuration": {
+        "request": "attach",
+        "pathMappings": [
+          {
+            "localRoot": "${workspaceRoot}",
+            "remoteRoot": "${RemoteRoot}"
+          }
+        ]
+      }
+    },
+    "<name>: Launch": {
+      "adapter": "debugpy",
+      "configuration": {
+        "name": "Python: Launch",
+        "type": "python",
+        "request": "launch",
+        "stopOnEntry": true,
+        "console": "externalTerminal",
+        "debugOptions": [],
+        "program": "${file}"
+      }
+    }
+  }  
+}
