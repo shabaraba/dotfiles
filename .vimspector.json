@@ -32,10 +32,40 @@
           ]
         }
       }
+    },
+    "python-docker": {
+      "port": "${port}",
+      "launch": {
+        "remote": {
+          "container": "${container}",
+          "runCommands": [
+              [
+                "python", "-m", "debugpy",
+                "--listen", "0.0.0.0:${port}",
+                "--wait-for-client",
+                "%CMD%"
+              ]
+          ]
+        }
+      },
+      "attach": {
+        "remote": {
+          "container": "${container}",
+          "pidCommand": [
+            "/path/to/secret/script/GetPIDForService", "${ServiceName}"
+          ],
+          "attachCommands": [
+              [
+                "python", "-m", "debugpy", "--listen", "0.0.0.0:${port}",
+                "--pid", "%PID%"
+              ]
+          ]
+        }
+      }
     }
   },
   "configurations": {
-    "remote-launch": {
+    "python-remote-launch": {
       "adapter": "python-remote",
 
       "remote-request": "launch",
@@ -53,7 +83,7 @@
         ]
       }
     },
-    "remote-attach": {
+    "python-remote-attach": {
       "variables": {
         "ServiceName": "${fileBasenameNoExtention}"
       },
@@ -71,7 +101,7 @@
         ]
       }
     },
-    "<name>: Launch": {
+    "python-run-file": {
       "adapter": "debugpy",
       "configuration": {
         "name": "Python: Launch",
@@ -81,6 +111,38 @@
         "console": "externalTerminal",
         "debugOptions": [],
         "program": "${file}"
+      }
+    },
+    "python-docker-launch": {
+      "adapter": "python-docker",
+      "remote-request": "launch",
+      "remote-cmdLine": [
+        "${RemoteRoot}/${fileBasename}", "*${args}"
+      ],
+      "configuration": {
+        "request": "attach",
+        "pathMappings": [
+          {
+            "localRoot": "${workspaceRoot}",
+            "remoteRoot": "${RemoteRoot}"
+          }
+        ]
+      }
+    },
+    "python-docker-attach": {
+      "variables": {
+        "FileName": "${fileName}"
+      },
+      "adapter": "python-docker",
+      "remote-request": "attach",
+      "configuration": {
+        "request": "attach",
+        "pathMappings": [
+          {
+            "localRoot": "${workspaceRoot}",
+            "remoteRoot": "${RemoteRoot}"
+          }
+        ]
       }
     }
   }  
