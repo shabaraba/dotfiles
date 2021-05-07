@@ -73,6 +73,7 @@ on_i = 1
 merged = '0'
 hook_source = 'call coil398#init#coc#hook_source()'
 hook_add = '''
+    autocmd FileType json syntax match Comment +\/\/.\+$+
     nmap <silent> <space><space> :<C-u>CocList<cr>
     nmap <silent> <space>h :<C-u>call CocAction('doHover')<cr>
     nmap <silent> <C-]> <Plug>(coc-definition)
