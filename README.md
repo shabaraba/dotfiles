@@ -28,5 +28,5 @@ Executing [the above command](#usage), you can install as following:
 - zplug
 
 # dockerfile
-If you want to use this repository in docker, I present you to sample Dockerfile.  
+If you want to use this repository in docker, I present you to [a sample Dockerfile](https://github.com/shabaraba/dotfiles/blob/main/Dockerfile).  
 You use my Dockefile or make a Dockefile Inheriting it. 
