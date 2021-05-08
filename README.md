@@ -1,13 +1,20 @@
 # .dotfiles
-dotfiles
+dotfiles for me.
 
-# pre install
-you should install
+# required
+if you use WSL2, you should install following:
+- genie (for systemd)
+
+# usage
+```sh
+git clone https://github.com/shabaraba/dotfiles.git
+cd dotfiles 
+make install
+```
+
+# install
+Executing [the above command](#usage), you can install as following:
+- neovim
 - dein
 - zplug
 
-if you use WSL2, you should also install
-- genie (for systemd)
-
-#install
-make install()
