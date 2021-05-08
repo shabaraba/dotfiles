@@ -6,9 +6,13 @@ DOTFILES   := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 .DEFAULT_GOAL := help
 
 define _installNeoVim
-	@pip3 install neovim
-	@pip3 install pynvim
-	@add-apt-repository ppa:neovim-ppa/stable && apt-get update && apt-get install neovim
+	# @pip3 install neovim
+	# @pip3 install pynvim
+	@sudo add-apt-repository ppa:neovim-ppa/stable && sudo apt-get update && sudo apt-get install -y neovim
+endef
+
+define _installZplug
+	@curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 endef
 
 define _setUpCoc
@@ -29,6 +33,9 @@ install: ## Create symlink to home directory
 	@echo '==> Install neovim'
 	@echo ''
 	@$(call _installNeoVim)
+	@echo '==> Install zplug'
+	@echo ''
+	@$(call _installZplug)
 	@echo '==> Start to deploy dotfiles to home directory.'
 	@echo ''
 	@$(call _linkDotFiles)
