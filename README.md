@@ -27,3 +27,6 @@ Executing [the above command](#usage), you can install as following:
 - dein
 - zplug
 
+# dockerfile
+If you want to use this repository in docker, I present you to sample Dockerfile.  
+You use my Dockefile or make a Dockefile Inheriting it. 
