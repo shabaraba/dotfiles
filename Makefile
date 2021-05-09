@@ -32,7 +32,7 @@ install: ## Create symlink to home directory
 	@echo 'Copyright (c) 2013-2015 BABAROT All Rights Reserved.'
 	@echo '==> Install neovim'
 	@echo ''
-	@$(call _installNeoVim)
+#	@$(call _installNeoVim)
 	@echo '==> Install zplug'
 	@echo ''
 	@$(call _installZplug)

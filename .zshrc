@@ -150,3 +150,7 @@ if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
       genie -s
     fi
 fi
+export PATH="/usr/local/opt/ncurses/bin:$PATH"
+export PATH="/usr/local/opt/ncurses/bin:$PATH"
+
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"

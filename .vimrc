@@ -1,6 +1,9 @@
 " runtimepathを正す
-let $VIMRUNTIME="/usr/share/nvim/runtime"
-set runtimepath+=/usr/share/nvim/runtime
+if has("mac")
+else
+    let $VIMRUNTIME="/usr/share/nvim/runtime"
+    set runtimepath+=/usr/share/nvim/runtime
+endif
 
 " プラグインが実際にインストールされるディレクトリ
 let s:dein_dir = expand('~/.cache/dein')
@@ -44,7 +47,7 @@ call dein#end()
 
 " Required:
 filetype plugin indent on
-syntax enable
+" syntax enable
 
 " If you want to install not installed plugins on startup.
 if dein#check_install()
