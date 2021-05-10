@@ -32,7 +32,11 @@ hook_add = '''
 [[plugins]]
 repo = 'preservim/nerdtree'
 hook_add = '''
-  nnoremap <A-b> :NERDTreeToggle<CR>
+  if has('mac')
+    nnoremap <Leader>b :NERDTreeToggle<CR>
+  else
+    nnoremap <A-b> :NERDTreeToggle<CR>
+  endif
 '''
 # if you want to see dot files or folders, press "shift + i" after :NERDTreeToggle.
 
@@ -70,7 +74,7 @@ hook_add = '''
 repo = 'neoclide/coc.nvim'
 rev = 'realease'
 on_i = 1
-merged = '0'
+#merged = '0'
 hook_source = 'call coil398#init#coc#hook_source()'
 hook_add = '''
     autocmd FileType json syntax match Comment +\/\/.\+$+
