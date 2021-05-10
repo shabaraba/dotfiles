@@ -27,6 +27,7 @@ nnoremap k gk
 set list listchars=tab:\>\-
 set expandtab
 set tabstop=4
+set softtabstop=4
 set shiftwidth=4
 
 
@@ -36,12 +37,12 @@ set incsearch
 set wrapscan
 set hlsearch
 
-:set encoding=utf-8
-:set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8,shift_jis,cp932,ucs-bom
-:set shell=zsh
+set encoding=utf-8
+set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8,shift_jis,cp932,ucs-bom
+set shell=zsh
 
 " Keys
-:let mapleader = "\<Space>"
+let mapleader = "\<Space>"
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 noremap! <C-b> <Left>
 noremap! <C-f> <Right>

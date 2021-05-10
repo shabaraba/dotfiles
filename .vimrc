@@ -5,6 +5,8 @@ else
     set runtimepath+=/usr/share/nvim/runtime
 endif
 
+source ~/.vim/init/*.vim
+
 " プラグインが実際にインストールされるディレクトリ
 let s:dein_dir = expand('~/.cache/dein')
 " dein.vim 本体
@@ -56,6 +58,4 @@ endif
 
 "End dein Scripts-------------------------
         
-source ~/.vim/init/*.vim
 source ~/.vim/visual/*.vim
-
