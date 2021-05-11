@@ -1,4 +1,7 @@
 [[plugins]]
+repo = 'sickill/vim-monokai'
+
+[[plugins]]
 repo = 'tpope/vim-endwise'
 
 [[plugins]]
@@ -24,9 +27,10 @@ repo = 'Shougo/unite.vim'
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
 hook_add = '''
-  let g:indent_guides_enable_on_vim_startup=1
-  let g:indent_guides_auto_colors = 0
-  let g:indent_guides_exclude_filetypes = ['help', 'vimfiler']
+    let g:indent_guides_enable_on_vim_startup=1
+    let g:indent_guides_auto_colors = 1
+    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=236
+                autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=237
 '''
 
 [[plugins]]

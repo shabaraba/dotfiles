@@ -1,2 +1,2 @@
 set background=dark
-colorscheme iceberg
+colorscheme monokai
