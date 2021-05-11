@@ -106,3 +106,7 @@ repo = 'tpope/vim-commentary'
 hook_add = '''
     autocmd FileType python setlocal commentstring=#\ %s
 '''
+
+# git
+[[plugins]]
+repo = 'tpope/vim-fugitive'
