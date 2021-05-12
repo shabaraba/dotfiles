@@ -2,15 +2,6 @@
 repo = 'sickill/vim-monokai'
 
 [[plugins]]
-repo = 'tpope/vim-endwise'
-
-[[plugins]]
-repo = 'Townk/vim-autoclose'
-
-[[plugins]]
-repo = 'w0rp/ale'
-
-[[plugins]]
 repo = 'tpope/vim-surround'
 
 [[plugins]]
@@ -44,10 +35,6 @@ hook_add = '''
 '''
 # if you want to see dot files or folders, press "shift + i" after :NERDTreeToggle.
 
-# vim suggestion
-[[plugins]]
-repo = 'Shougo/neco-vim'
-
 # status bar
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
@@ -71,40 +58,6 @@ hook_add = '''
     let g:airline#extensions#ale#enabled = 1
     let g:airline#extensions#ale#error_symbol = 'E:'
     let g:airline#extensions#ale#warning_symbol = 'W:'
-'''
-
-# language server plotocol
-[[plugins]]
-repo = 'neoclide/coc.nvim'
-rev = 'realease'
-on_i = 1
-#merged = '0'
-hook_source = 'call coil398#init#coc#hook_source()'
-hook_add = '''
-    autocmd FileType json syntax match Comment +\/\/.\+$+
-    nmap <silent> <space><space> :<C-u>CocList<cr>
-    nmap <silent> <space>h :<C-u>call CocAction('doHover')<cr>
-    nmap <silent> <C-]> <Plug>(coc-definition)
-    nmap <silent> <C-]><C-]>  <Plug>(coc-references)
-    nmap <silent> <space>rn <Plug>(coc-rename)
-    nmap <silent> <A-S-f> <Plug>(coc-format)
-    let g:lightline = {
-      \'active': {
-        \'right': [
-          \['coc']
-        \]
-      \},
-      \'component_function': {
-        \'coc': 'coc#status'
-      \}
-    \}
-'''
-
-# comment out
-[[plugins]]
-repo = 'tpope/vim-commentary'
-hook_add = '''
-    autocmd FileType python setlocal commentstring=#\ %s
 '''
 
 # git
