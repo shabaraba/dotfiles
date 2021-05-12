@@ -8,14 +8,15 @@ FROM ubuntu:18.04
 # common env
 ENV TZ Asia/Tokyo
 ENV DEBIAN_FRONTEND=noninteractive
-ENV TERMINFO=/usr/lib/terminfo
-ENV TERM=xterm
-ENV LC_ALL en_US.UTF-8
 
 SHELL ["/bin/bash", "-oeux", "pipefail", "-c"]
 
 # add software-properties-common to install "add-apt-repository" command for installing neovim
 RUN apt-get update && apt-get -y upgrade && apt-get install -y software-properties-common
+
+# languages
+# php
+RUN apt-add-repository ppa:ondrej/php && apt-get update && apt install -y php7.4
 
 # ubuntu18以降でtzdataとgitを同時に入れると止まってしまうので、gitだけ外だし+ nointeractiveを追加
 RUN apt-get update && apt-get -y upgrade && apt-get install -y git
@@ -40,14 +41,15 @@ RUN apt-get update && apt-get -y upgrade && apt-get install -y --fix-missing\
     ncurses-dev \
     tzdata \
     nginx \
-    php-mbstring \
-    php-xml \
-    php-fpm \
-    php-zip \
-    php-common \
-    php-fpm \
-    php-cli \
-    php-xdebug \
+    php7.4-mbstring \
+    php7.4-xml \
+    php7.4-fpm \
+    php7.4-zip \
+    php7.4-common \
+    php7.4-fpm \
+    php7.4-cli \
+    php7.4-xdebug \
+    php7.4-mysql \
     python \
     python-dev \
     python3 \
@@ -58,9 +60,6 @@ RUN apt-get update && apt-get -y upgrade && apt-get install -y --fix-missing\
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
   # && docker-php-ext-install intl pdo_mysql zip bcmath
-
-# php
-RUN apt-add-repository ppa:ondrej/php && apt-get update && apt install -y php7.4
 
 #composer
 ENV COMPOSER_ALLOW_SUPERUSER=1 \
@@ -91,6 +90,9 @@ RUN mkdir /opt/work && chown -R ${USER_NAME} /opt/work
 USER ${USER_NAME}
 
 # dotfilees
+ENV TERMINFO=/usr/lib/terminfo
+ENV TERM=xterm
+ENV LC_ALL en_US.UTF-8
 RUN zsh && cd ~/ && git clone https://github.com/shabaraba/dotfiles.git && cd dotfiles && make install
 
 WORKDIR /opt/work
