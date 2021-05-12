@@ -63,3 +63,4 @@ hook_add = '''
 # git
 [[plugins]]
 repo = 'tpope/vim-fugitive'
+
