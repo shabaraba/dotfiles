@@ -95,4 +95,4 @@ RUN zsh && cd ~/ && git clone https://github.com/shabaraba/dotfiles.git && cd do
 
 WORKDIR /opt/work
 
-COPY php.ini /usr/local/etc/php
+COPY php.ini /etc/php/7.4/cli/php.ini
