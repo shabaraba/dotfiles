@@ -58,6 +58,9 @@ RUN apt-get update && apt-get -y upgrade && apt-get install -y --fix-missing\
   && rm -rf /var/lib/apt/lists/*
   # && docker-php-ext-install intl pdo_mysql zip bcmath
 
+# php
+RUN apt-add-repository ppa:ondrej/php && apt-get update && apt install -y php7.4
+
 #composer
 ENV COMPOSER_ALLOW_SUPERUSER=1 \
   COMPOSER_HOME=/composer
