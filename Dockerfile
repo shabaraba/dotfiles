@@ -55,7 +55,7 @@ RUN apt-get update && apt-get -y upgrade && apt-get install -y --fix-missing\
   && mkdir /home/ubuntu \
   && rm -f /etc/nginx/sites-enabled/default \
   && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* \
+  && rm -rf /var/lib/apt/lists/*
   # && docker-php-ext-install intl pdo_mysql zip bcmath
 
 #composer
