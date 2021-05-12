@@ -47,6 +47,7 @@ RUN apt-get update && apt-get -y upgrade && apt-get install -y --fix-missing\
     php-common \
     php-fpm \
     php-cli \
+    php-xdebug \
     python \
     python-dev \
     python3 \
