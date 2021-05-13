@@ -64,3 +64,5 @@ hook_add = '''
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
