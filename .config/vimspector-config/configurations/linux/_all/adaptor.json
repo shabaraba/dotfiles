@@ -1,0 +1,68 @@
+{
+  "$schema": "https://puremourning.github.io/vimspector/schema/gadgets.schema.json#",
+  "adapters": {
+    "python-remote": {
+      "port": "${port}",
+      "host": "${host}",
+      "launch": {
+        "remote": {
+          "host": "${host}",
+          "account": "${account}",
+          "runCommands": [
+              [
+                "python", "-m", "debugpy",
+                "--listen", "0.0.0.0:${port}",
+                "--wait-for-client",
+                "%CMD%"
+              ]
+          ]
+        }
+      },
+      "attach": {
+        "remote": {
+          "host": "${host}",
+          "account": "${account}",
+          "pidCommand": [
+            "/path/to/secret/script/GetPIDForService", "${ServiceName}"
+          ],
+          "attachCommands": [
+              [
+                "python", "-m", "debugpy", "--listen", "0.0.0.0:${port}",
+                "--pid", "%PID%"
+              ]
+          ]
+        }
+      }
+    },
+    "python-docker": {
+      "port": "${port}",
+      "launch": {
+        "remote": {
+          "container": "${container}",
+          "runCommands": [
+              [
+                "python", "-m", "debugpy",
+                "--listen", "0.0.0.0:${port}",
+                "--wait-for-client",
+                "%CMD%"
+              ]
+          ]
+        }
+      },
+      "attach": {
+        "remote": {
+          "container": "${container}",
+          "pidCommand": [
+            "sh", "-c", "pgrep", "-f", "${filename}"
+          ],
+          "attachCommands": [
+              [
+                "sh", "-c", "python", "-m", "debugpy", "--listen", "0.0.0.0:${port}",
+                "--pid", "%PID%"
+              ]
+          ]
+        }
+      }
+    }
+  }
+}
