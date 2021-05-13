@@ -6,8 +6,8 @@ DOTFILES   := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 .DEFAULT_GOAL := help
 
 define _installNeoVim
-	# @pip3 install neovim
-	# @pip3 install pynvim
+	@pip3 install neovim
+	@pip3 install pynvim
 	@sudo add-apt-repository ppa:neovim-ppa/stable && sudo apt-get update && sudo apt-get install -y neovim
 endef
 
@@ -31,8 +31,8 @@ list: ## Show dot files in this repo
 install: ## Create symlink to home directory
 	@echo 'Copyright (c) 2013-2015 BABAROT All Rights Reserved.'
 	@echo '==> Install neovim'
-	@echo ''
-#	@$(call _installNeoVim)
+		@echo ''
+	@$(call _installNeoVim)
 	@echo '==> Install zplug'
 	@echo ''
 	@$(call _installZplug)

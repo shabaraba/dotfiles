@@ -154,7 +154,7 @@
         "port": 9000,
         "stopOnEntry": false,
         "pathMappings": {
-          "/var/www/html": "${workspaceRoot}"
+          "/var/www/html/src": "${workspaceRoot}"
         }
       }
     },
