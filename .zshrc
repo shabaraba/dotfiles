@@ -19,9 +19,13 @@ source ~/.zplug/init.zsh
 # zplug setting
 ########################
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-# theme (https://github.com/sindresorhus/pure#zplug)　好みのスキーマをいれてくだされ。
-#zplug "mafredri/zsh-async"
-#zplug "sindresorhus/pure"
+# theme ( https://github.com/sindresorhus/pure#zplug)　好みのスキーマをいれてくだされ。
+#zplug mafredri/zsh-async, from:github
+#zplug caiogondim/bullet-train.zsh, use:bullet-train.zsh-theme, from:github, as:theme
+#setopt prompt_subst # Make sure prompt is able to be generated properly.
+#zplug caiogondim/bullet-train.zsh, from:github, use:bullet-train.zsh-theme, as:theme  # defer until other plugins like oh-my-zsh is loaded
+#zplug "caiogondim/bullet-train.zsh", use:bullet-train.zsh-theme, as:theme, defer:3 # defer until other plugins like oh-my-zsh is loaded
+
 # 構文のハイライト(https://github.com/zsh-users/zsh-syntax-highlighting)
 zplug "zsh-users/zsh-syntax-highlighting"
 # history関係
