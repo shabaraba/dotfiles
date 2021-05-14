@@ -8,3 +8,4 @@
 .config/composer
 .config/configstore
 .config/yarn/*
+.config/vimspector-config/gadgets/*
