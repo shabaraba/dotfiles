@@ -99,6 +99,11 @@ alias gst='git stash'
 alias gsl='git stash list'
 alias gsu='git stash -u'
 alias gsp='git stash pop'
+
+# docker
+alias dc='docker-compose'
+alias dp='docker ps'
+alias de='{docker exec -it $1 zsh}'
  
 autoload -Uz colors
 colors
