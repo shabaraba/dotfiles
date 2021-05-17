@@ -43,6 +43,7 @@ set shell=zsh
 
 " Keys
 let mapleader = "\<Space>"
+inoremap jj <Esc>
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 noremap! <C-b> <Left>
 noremap! <C-f> <Right>
