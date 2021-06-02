@@ -8,7 +8,8 @@ DOTFILES   := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 define _installNeoVim
 	@pip3 install neovim
 	@pip3 install pynvim
-	@sudo add-apt-repository ppa:neovim-ppa/stable && sudo apt-get update && sudo apt-get install -y neovim
+	@sudo snap install nvim --classic
+	# @sudo add-apt-repository ppa:neovim-ppa/stable && sudo apt-get update && sudo apt-get install -y neovim
 endef
 
 define _installZplug

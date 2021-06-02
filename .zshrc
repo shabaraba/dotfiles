@@ -108,6 +108,9 @@ alias gsp='git stash pop'
 alias dc='docker-compose'
 alias dp='docker ps'
 de () {docker exec -it $1 zsh}
+
+# for file
+alias open='xdg-open'
  
 autoload -Uz colors
 colors

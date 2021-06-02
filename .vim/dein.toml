@@ -66,3 +66,10 @@ repo = 'tpope/vim-fugitive'
 
 [[plugins]]
 repo = 'leafgarland/typescript-vim'
+
+# quick run
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+hook_add = '''
+'''
+
