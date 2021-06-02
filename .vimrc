@@ -1,8 +1,8 @@
 " runtimepathを正す
 if has("mac")
 else
-    let $VIMRUNTIME="/usr/share/nvim/runtime"
-    set runtimepath+=/usr/share/nvim/runtime
+    let $VIMRUNTIME="/usr/local/share/nvim/runtime"
+    set runtimepath+=/usr/local/share/nvim/runtime
 endif
 
 source ~/.vim/init/*.vim
