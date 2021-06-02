@@ -1,16 +1,11 @@
+INSTALL := apt install -y
+
 DOTPATH    := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 CANDIDATES := $(wildcard .??*) bin
 EXCLUSIONS := .DS_Store .git .gitmodules .travis.yml
 DOTFILES   := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 
 .DEFAULT_GOAL := help
-
-define _installNeoVim
-	@pip3 install neovim
-	@pip3 install pynvim
-	@sudo snap install nvim --classic
-	# @sudo add-apt-repository ppa:neovim-ppa/stable && sudo apt-get update && sudo apt-get install -y neovim
-endef
 
 define _installZplug
 	@curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
@@ -32,13 +27,24 @@ list: ## Show dot files in this repo
 install: ## Create symlink to home directory
 	@echo 'Copyright (c) 2013-2015 BABAROT All Rights Reserved.'
 	@echo '==> Install neovim'
-		@echo ''
-	@$(call _installNeoVim)
+	@if !(type "nvim" > /dev/null 2>&1); then \
+		pip3 install neovim \
+		&& pip3 install pynvim \
+		&& git clone https://github.com/neovim/neovim.git \
+		&& $(INSTALL) libtool automake cmake libncurses5-dev g++ gettext \
+		&& cd neovim \
+		&& make CMAKE_BUILD_TYPE=RelWithDebInfo \
+		&& sudo make install \
+	else \
+		echo 'neovim already installed, skip.';\
+	fi
 	@echo '==> Install zplug'
-	@echo ''
-	@$(call _installZplug)
+	@if !(type "zsh" > /dev/null 2>&1); then \
+		@curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh \
+	else \
+		echo 'zsh already installed, skip.'; \
+	fi
 	@echo '==> Start to deploy dotfiles to home directory.'
-	@echo ''
 	@$(call _linkDotFiles)
 	@$(call _setUpCoc)
 
