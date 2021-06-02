@@ -1,6 +1,20 @@
+# # snipets
+# [[plugins]]
+# repo = 'SirVer/ultisnips'
+# hook_add = '''
+#     let g:UltiSnipsSnippetDirectories=["~/.config/ultisnips"]
+#     let g:UltiSnipsExpandTrigger="<tab>"
+#     let g:UltiSnipsJumpForwardTrigger="<c-b>"
+#     let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+#     let g:UltiSnipsEditSplit="vertical"
+# '''
+
 # php doc
 [[plugins]]
-repo = 'vim-scripts/PDV--phpDocumentor-for-Vim'
+# 古いのでphp7に対応してくれているプルリク先のものを使用する
+# repo = 'vim-scripts/PDV--phpDocumentor-for-Vim'
+repo = 'nanndemoiikara/PDV--phpDocumentor-for-Vim'
 hook_add = '''
     let g:pdv_cfg_Type = "mixed"
     let g:pdv_cfg_Package = ""

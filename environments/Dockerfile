@@ -41,6 +41,9 @@ RUN apt-get update && apt-get -y upgrade && apt-get install -y --fix-missing\
     ncurses-dev \
     tzdata \
     nginx \
+    automake \
+    autoconf \
+    pkg-config \
     php7.4-mbstring \
     php7.4-xml \
     php7.4-fpm \
@@ -50,6 +53,7 @@ RUN apt-get update && apt-get -y upgrade && apt-get install -y --fix-missing\
     php7.4-cli \
     php7.4-xdebug \
     php7.4-mysql \
+    php7.4-curl \
     python \
     python-dev \
     python3 \
@@ -60,6 +64,15 @@ RUN apt-get update && apt-get -y upgrade && apt-get install -y --fix-missing\
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
   # && docker-php-ext-install intl pdo_mysql zip bcmath
+
+# ctags
+RUN cd ~/ && git clone https://github.com/universal-ctags/ctags.git \
+    && cd ctags \
+    && ./autogen.sh \
+    && ./configure \
+    && make \
+    && make install \
+    && cd ../ && rm -rf ctags
 
 #composer
 ENV COMPOSER_ALLOW_SUPERUSER=1 \
