@@ -34,14 +34,14 @@ install: ## Create symlink to home directory
 		&& $(INSTALL) libtool automake cmake libncurses5-dev g++ gettext \
 		&& cd neovim \
 		&& make CMAKE_BUILD_TYPE=RelWithDebInfo \
-		&& sudo make install \
-	else \
+		&& sudo make install; \
+	else; \
 		echo 'neovim already installed, skip.';\
 	fi
 	@echo '==> Install zplug'
 	@if !(type "zsh" > /dev/null 2>&1); then \
-		@curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh \
-	else \
+		@curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh; \
+	else; \
 		echo 'zsh already installed, skip.'; \
 	fi
 	@echo '==> Start to deploy dotfiles to home directory.'
