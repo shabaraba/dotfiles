@@ -8,5 +8,6 @@
                 "storagePath": "/tmp/intelephense"
             }
         }
-    }
+    },
+    "python.jediEnabled": false
 }
