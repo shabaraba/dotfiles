@@ -37,6 +37,14 @@ hook_add = '''
 
 # status bar
 [[plugins]]
+repo = 'majutsushi/tagbar'
+hook_add = '''
+    let g:tagbar_width = 30
+    let g:tagbar_autoshowtag = 1
+    let g:tagar_autofocus = 1
+'''
+
+[[plugins]]
 repo = 'vim-airline/vim-airline-themes'
 
 [[plugins]]
@@ -47,7 +55,9 @@ hook_add = '''
     let g:airline_powerline_fonts = 1
     set laststatus=2
     " タブバーをかっこよく
+    let g:airline#extensions#tagbar#enabled = 1
     let g:airline#extensions#tabline#enabled = 1
+    "let g:airline_section_c = airline#section#create(['bufferline', 'filename', 'radonly', 'tagbar'])
     " 選択行列の表示をカスタム(デフォルトだと長くて横幅を圧迫するので最小限に)
     let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
     " virtulenvを認識しているか確認用に、現在activateされているvirtualenvを表示(vim-virtualenvの拡張)
