@@ -34,7 +34,7 @@ install: ## Create symlink to home directory
 		&& $(INSTALL) libtool automake cmake libncurses5-dev g++ gettext \
 		&& cd neovim \
 		&& make CMAKE_BUILD_TYPE=RelWithDebInfo \
-		&& sudo make install; \
+		&& make install; \
 	else \
 		echo 'neovim already installed, skip.';\
 	fi
