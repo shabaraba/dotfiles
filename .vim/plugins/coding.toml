@@ -12,7 +12,6 @@
 
 # php doc
 [[plugins]]
-# 古いのでphp7に対応してくれているプルリク先のものを使用する
 # repo = 'vim-scripts/PDV--phpDocumentor-for-Vim'
 repo = 'nanndemoiikara/PDV--phpDocumentor-for-Vim'
 hook_add = '''
@@ -71,3 +70,6 @@ hook_add = '''
     autocmd FileType python setlocal commentstring=#\ %s
 '''
 
+# pug syntax highlighting
+[[plugins]]
+repo = 'digitaltoad/vim-pug'
