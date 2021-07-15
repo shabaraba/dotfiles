@@ -1,9 +1,7 @@
 /sample_programs
 /.vim/.netrwhist
-.config/coc/extensions/*/*
 .config/TabNine/*
-.config/coc/extensions/coc-tabnine-data/*
-.config/coc/extensions/coc-phpls-data/*
+.config/coc/*
 .config/code-server
 .config/composer
 .config/configstore
