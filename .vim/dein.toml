@@ -2,6 +2,9 @@
 repo = 'sickill/vim-monokai'
 
 [[plugins]]
+repo = 'jacoborus/tender.vim'
+
+[[plugins]]
 repo = 'tpope/vim-surround'
 
 [[plugins]]
@@ -52,6 +55,7 @@ repo = 'vim-airline/vim-airline'
 hook_add = '''
     " カラーテーマ指定してかっこよく
     "let g:airline_theme = 'badwolf'
+    let g:airline_theme = 'tender'
     let g:airline_powerline_fonts = 1
     set laststatus=2
     " タブバーをかっこよく
