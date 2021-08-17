@@ -1,4 +1,5 @@
-INSTALL := apt install -y
+# INSTALL := apt install -y
+INSTALL := yum install -y
 
 DOTPATH    := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 CANDIDATES := $(wildcard .??*) bin
