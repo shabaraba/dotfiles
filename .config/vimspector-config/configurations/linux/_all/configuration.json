@@ -52,14 +52,14 @@
       "adapter": "python-docker",
       "remote-request": "launch",
       "remote-cmdLine": [
-        "${RemoteRoot}/${fileBasename}", "*${args}"
+        "python3 run.py"
       ],
       "configuration": {
         "request": "attach",
         "pathMappings": [
           {
-            "localRoot": "${workspaceRoot}",
-            "remoteRoot": "${RemoteRoot}"
+            "localRoot": "${cwd}",
+            "remoteRoot": "/var/www/html"
           }
         ]
       }
