@@ -39,6 +39,7 @@ call dein#load_toml('~/.vim/dein.toml', {'lazy': 0})
 call dein#load_toml('~/.vim/dein_lazy.toml', {'lazy': 1})
 
 call dein#load_toml('~/.vim/plugins/coding.toml', {'lazy': 0})
+call dein#load_toml('~/.vim/plugins/database.toml', {'lazy': 0})
 
 " Add or remove your plugins here like this:
 call dein#add('Shougo/neosnippet.vim')

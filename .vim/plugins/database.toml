@@ -1,0 +1,9 @@
+[[plugins]]
+repo = 'tpope/vim-dadbod'
+
+[[plugins]]
+repo = 'pbogut/vim-dadbod-ssh'
+
+[[plugins]]
+repo = 'kristijanhusak/vim-dadbod-ui'
+
