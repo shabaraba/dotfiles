@@ -12,18 +12,17 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'Shougo/unite.vim'
+repo = "Shougo/denite.nvim"
+hook_add = """
+source ~/dotfiles/.vim/plugins/denite.rc.vim
+"""
 
-# indent
 [[plugins]]
-repo = 'nathanaelkane/vim-indent-guides'
-hook_add = '''
-    let g:indent_guides_enable_on_vim_startup=1
-    let g:indent_guides_auto_colors = 1
-    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=236
-                autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=237
-'''
-
+repo = "shougo/deol.nvim"
+hook_add = """
+source ~/dotfiles/.vim/plugins/deol.rc.vim
+"""
+ 
 [[plugins]]
 repo = 'preservim/nerdtree'
 hook_add = '''
@@ -34,6 +33,12 @@ hook_add = '''
   endif
 '''
 # if you want to see dot files or folders, press "shift + i" after :NERDTreeToggle.
+
+# icon for NERDTREE
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+hook_add = '''
+'''
 
 # status bar
 [[plugins]]
@@ -55,11 +60,10 @@ hook_add = '''
     let g:airline_powerline_fonts = 1
     set laststatus=2
     " タブバーをかっこよく
-    let g:airline#extensions#tagbar#enabled = 1
     let g:airline#extensions#tabline#enabled = 1
-    "let g:airline_section_c = airline#section#create(['bufferline', 'filename', 'radonly', 'tagbar'])
+    "let g:airline_section_c = airline#section#create(['bufferline', 'filename', 'readonly'])
     " 選択行列の表示をカスタム(デフォルトだと長くて横幅を圧迫するので最小限に)
-    let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
+"    let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
     " virtulenvを認識しているか確認用に、現在activateされているvirtualenvを表示(vim-virtualenvの拡張)
     let g:airline#extensions#virtualenv#enabled = 1
     " gitのHEADから変更した行の+-を非表示(vim-gitgutterの拡張)

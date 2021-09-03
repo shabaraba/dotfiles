@@ -3,4 +3,4 @@ if (has("termguicolors"))
 endif
 
 set background=dark
-colorscheme tender
+colorscheme monokai

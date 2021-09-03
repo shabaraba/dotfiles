@@ -44,6 +44,7 @@ on_i = 1
 #merged = '0'
 hook_source = 'call coil398#init#coc#hook_source()'
 hook_add = '''
+    set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
     autocmd FileType json syntax match Comment +\/\/.\+$+
     nmap <silent> <space><space> :<C-u>CocList<cr>
     nmap <silent> <space>h :<C-u>call CocAction('doHover')<cr>
@@ -73,3 +74,10 @@ hook_add = '''
 # pug syntax highlighting
 [[plugins]]
 repo = 'digitaltoad/vim-pug'
+
+# show current function in status bar "
+[[plugins]]
+repo = "tyru/current-func-info.vim"
+hook_add = '''
+    let &statusline .= ' [%{cfi#format("%s", "")}]'
+'''
