@@ -41,7 +41,7 @@ repo = 'Shougo/neco-vim'
 repo = 'neoclide/coc.nvim'
 rev = 'realease'
 on_i = 1
-#merged = '0'
+merged = '0'
 hook_source = 'call coil398#init#coc#hook_source()'
 hook_add = '''
     set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
@@ -52,16 +52,6 @@ hook_add = '''
     nmap <silent> <C-]><C-]>  <Plug>(coc-references)
     nmap <silent> <space>rn <Plug>(coc-rename)
     nmap <silent> <A-S-f> <Plug>(coc-format)
-    let g:lightline = {
-      \'active': {
-        \'right': [
-          \['coc']
-        \]
-      \},
-      \'component_function': {
-        \'coc': 'coc#status'
-      \}
-    \}
 '''
 
 # comment out
@@ -76,8 +66,8 @@ hook_add = '''
 repo = 'digitaltoad/vim-pug'
 
 # show current function in status bar "
-[[plugins]]
-repo = "tyru/current-func-info.vim"
-hook_add = '''
-    let &statusline .= ' [%{cfi#format("%s", "")}]'
-'''
+#[[plugins]]
+#repo = "tyru/current-func-info.vim"
+#hook_add = '''
+#    let &statusline .= ' [%{cfi#format("%s", "")}]'
+#'''
