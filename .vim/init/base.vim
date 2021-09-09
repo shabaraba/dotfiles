@@ -87,3 +87,24 @@ augroup ctags
   autocmd!
   autocmd BufWritePost * call s:execute_ctags()
 augroup END
+
+" ウィンドウを閉じずにバッファを閉じる
+command! BD call EBufdelete()
+function! EBufdelete()
+  let l:currentBufNum = bufnr("%")
+  let l:alternateBufNum = bufnr("#")
+
+  if buflisted(l:alternateBufNum)
+    buffer #
+  else
+    bnext
+  endif
+
+  if buflisted(l:currentBufNum)
+    execute "silent bwipeout".l:currentBufNum
+    " bwipeoutに失敗した場合はウインドウ上のバッファを復元
+    if bufloaded(l:currentBufNum) != 0
+      execute "buffer " . l:currentBufNum
+    endif
+  endif
+endfunction
