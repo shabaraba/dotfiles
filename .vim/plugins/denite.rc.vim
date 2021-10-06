@@ -1,18 +1,35 @@
-" 【Ctrl + d + a】 カレントディレクトリとバッファを表示
+let s:ignore_globs = ['.git', '.svn', 'node_modules', 'logs']
+
+" そもそも ag のレベルで検索対象からはずす
+call denite#custom#var('file/rec', 'command', [
+      \ 'ag',
+      \ '--follow',
+      \ ] + map(deepcopy(s:ignore_globs), { k, v -> '--ignore=' . v }) + [
+      \ '--nocolor',
+      \ '--nogroup',
+      \ '-g',
+      \ ''
+      \ ])
+
+" matcher/ignore_globs 以外のお好みの matcher を指定する
+call denite#custom#source('file/rec', 'matchers', ['matcher/substring'])
+
+" 他のソース向けに ignore_globs 自体は初期化
+call denite#custom#filter('matcher/ignore_globs', 'ignore_globs', s:ignore_globs)" 【Ctrl + d + a】 カレントディレクトリとバッファを表示
 nnoremap <silent>,a :<C-u>Denite file buffer -split=floating file:new<CR>
-" 【Ctrl + d + b】 バッファを表示
+" 【,b】 バッファを表示
 nnoremap <silent>,b :<C-u>Denite buffer -split=floating file:new<CR>
-" 【Ctrl + d + f】 カレントディレクトリを表示
+" 【,f】 カレントディレクトリを表示
 nnoremap <silent>,f :<C-u>Denite file -split=floating file:new<CR>
-" 【Ctrl + d + r】 カレントディレクトリ以下を再帰的に表示
+" 【,r】 カレントディレクトリ以下を再帰的に表示
 nnoremap <silent>,r :<C-u>Denite file/rec -split=floating file:new<CR>
-" 【Ctrl + d + gr】 カレントディレクトリ以下のファイルから指定した文字列を検索
+" 【,gr】 カレントディレクトリ以下のファイルから指定した文字列を検索
 nnoremap <silent>,gr :<C-u>Denite grep -buffer-name=search<CR>
-" 【Ctrl + d + ,】 カレントディレクトリ以下のファイルからカーソル下の文字列を検索
+" 【,,】 カレントディレクトリ以下のファイルからカーソル下の文字列を検索
 nnoremap <silent>,, :<C-u>DeniteCursorWord grep -buffer-name=search line<CR>
-" 【Ctrl + d + gs】 grepした結果を再表示
+" 【,gs】 grepした結果を再表示
 nnoremap <silent>,gs :<C-u>Denite -resume -buffer-name=search<CR>
-" 【Ctrl + d + c】 Neovim内で実行したコマンドを表示
+" 【,c】 Neovim内で実行したコマンドを表示
 nnoremap <silent>,c :<C-u>Denite command_history -split=floating<CR>
 
 autocmd FileType denite call s:denite_my_settings()
