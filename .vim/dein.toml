@@ -1,5 +1,9 @@
 [[plugins]]
 repo = 'sickill/vim-monokai'
+[[plugins]]
+repo = 'nanotech/jellybeans.vim'
+[[plugins]]
+repo = 'w0ng/vim-hybrid'
 
 [[plugins]]
 repo = 'tpope/vim-surround'
@@ -11,13 +15,21 @@ hook_add = '''
     let g:EasyMotion_keys = 'hgjfkdls'
 '''
 
+# yank highlight
+[[plugins]]
+repo = 'machakann/vim-highlightedyank'
+hook_add = '''
+    let g:highlightedyank_highlight_duration = 200
+'''
+
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
 hook_add = '''
     let g:indent_guides_enable_on_vim_startup=1
-    let g:indent_guides_auto_colors=1
-    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=red ctermbg=236
-    autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=237
+    let g:indent_guides_auto_colors=0
+    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=#444433 ctermbg=black
+    autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#333344 ctermbg=darkgray
+    let g:indent_guides_guide_size = 1
 '''
 
 [[plugins]]
