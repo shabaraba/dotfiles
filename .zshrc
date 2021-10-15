@@ -90,7 +90,8 @@ alias gg='git grep'
 alias ga='git add'
 alias gd='git diff'
 alias gl='git log'
-alias gcma='git checkout master'
+alias gla='git log --graph --all --decorate'
+alias gcma='git checkout main'
 alias gfu='git fetch upstream'
 alias gfo='git fetch origin'
 alias gmod='git merge origin/develop'
@@ -170,3 +171,11 @@ export PATH="/usr/local/opt/ncurses/bin:$PATH"
 export PATH="/usr/local/opt/ncurses/bin:$PATH"
 
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="$PATH:/usr/local/opt/mysql-client@5.7/bin"
+
+# nodenv
+[[ -d ~/.nodenv  ]] && \
+    export PATH="$HOME/.nodenv/bin:$PATH" && \
+    eval "$(nodenv init -)"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

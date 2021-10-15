@@ -1,4 +1,5 @@
 " setting --------------------------------
+set redrawtime=10000
 set fenc=utf-8
 set encoding=utf-8
 set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
@@ -73,19 +74,13 @@ set fileencodings=utf-8,sjis
 set tags=.tags;$HOME
 
 function! s:execute_ctags() abort
-  " $BC5$9%?%0%U%!%$%kL>(B
   let tag_name = '.tags'
-  " $B%G%#%l%/%H%j$rAL$j!"%?%0%U%!%$%k$rC5$7!"%Q%9<hF@(B
   let tags_path = findfile(tag_name, '.;')
-  " $B%?%0%U%!%$%k%Q%9$,8+$D$+$i$J$+$C$?>l9g(B
   if tags_path ==# ''
     return
   endif
 
-  " $B%?%0%U%!%$%k$N%G%#%l%/%H%j%Q%9$r<hF@(B
-  " `:p:h`$B$NItJ,$O!"(B:h filename-modifiers$B$G3NG'(B
   let tags_dirpath = fnamemodify(tags_path, ':p:h')
-  " $B8+$D$+$C$?%?%0%U%!%$%k$N%G%#%l%/%H%j$K0\F0$7$F!"(Bctags$B$r%P%C%/%0%i%&%s%I<B9T!J%(%i!<=PNOGK4~!K(B
   execute 'silent !cd' tags_dirpath '&& ctags -R -f' tag_name '2> /dev/null &'
 endfunction
 
@@ -93,3 +88,24 @@ augroup ctags
   autocmd!
   autocmd BufWritePost * call s:execute_ctags()
 augroup END
+
+" ウィンドウを閉じずにバッファを閉じる
+command! BD call EBufdelete()
+function! EBufdelete()
+  let l:currentBufNum = bufnr("%")
+  let l:alternateBufNum = bufnr("#")
+
+  if buflisted(l:alternateBufNum)
+    buffer #
+  else
+    bnext
+  endif
+
+  if buflisted(l:currentBufNum)
+    execute "silent bwipeout".l:currentBufNum
+    " bwipeoutに失敗した場合はウインドウ上のバッファを復元
+    if bufloaded(l:currentBufNum) != 0
+      execute "buffer " . l:currentBufNum
+    endif
+  endif
+endfunction
