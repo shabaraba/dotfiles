@@ -126,3 +126,14 @@ eval `dircolors`
 if [ "`ps -eo pid,cmd | grep systemd | grep -v grep | sort -n -k 1 | awk 'NR==1 { print $1 }'`" != "1" ]; then
   genie -s
 fi
+
+
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export PATH=$PATH:$JAVA_HOME/bin
+
+export ANDROID_HOME=$HOME/Android/SDK
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+export FLUTTER_ROOT=$HOME/Flutter/SDK
+export PATH=$PATH:$FLUTTER_ROOT/bin
