@@ -41,9 +41,10 @@ repo = 'Shougo/neco-vim'
 repo = 'neoclide/coc.nvim'
 rev = 'realease'
 on_i = 1
-#merged = '0'
+merged = '0'
 hook_source = 'call coil398#init#coc#hook_source()'
 hook_add = '''
+    set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
     autocmd FileType json syntax match Comment +\/\/.\+$+
     nmap <silent> <space><space> :<C-u>CocList<cr>
     nmap <silent> <space>h :<C-u>call CocAction('doHover')<cr>
@@ -51,17 +52,52 @@ hook_add = '''
     nmap <silent> <C-]><C-]>  <Plug>(coc-references)
     nmap <silent> <space>rn <Plug>(coc-rename)
     nmap <silent> <A-S-f> <Plug>(coc-format)
-    let g:lightline = {
-      \'active': {
-        \'right': [
-          \['coc']
-        \]
-      \},
-      \'component_function': {
-        \'coc': 'coc#status'
-      \}
-    \}
 '''
+
+# [[plugins]]
+# repo = 'yuki-yano/fzf-preview.vim'
+[[plugins]]
+repo = 'junegunn/fzf'
+build = './install --all'
+merged = '0'
+hook_add = '''
+    nmap <Leader>f [fzf-p]
+    xmap <Leader>f [fzf-p]
+
+    nnoremap <silent> [fzf-p]p     :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
+    nnoremap <silent> [fzf-p]gs    :<C-u>CocCommand fzf-preview.GitStatus<CR>
+    nnoremap <silent> [fzf-p]ga    :<C-u>CocCommand fzf-preview.GitActions<CR>
+    nnoremap <silent> [fzf-p]b     :<C-u>CocCommand fzf-preview.Buffers<CR>
+    nnoremap <silent> [fzf-p]B     :<C-u>CocCommand fzf-preview.AllBuffers<CR>
+    nnoremap <silent> [fzf-p]o     :<C-u>CocCommand fzf-preview.FromResources buffer project_mru<CR>
+    nnoremap <silent> [fzf-p]<C-o> :<C-u>CocCommand fzf-preview.Jumps<CR>
+    nnoremap <silent> [fzf-p]g;    :<C-u>CocCommand fzf-preview.Changes<CR>
+    nnoremap <silent> [fzf-p]/     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
+    nnoremap <silent> [fzf-p]*     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
+    nnoremap          [fzf-p]gr    :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
+    xnoremap          [fzf-p]gr    "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
+    nnoremap <silent> [fzf-p]t     :<C-u>CocCommand fzf-preview.BufferTags<CR>
+    nnoremap <silent> [fzf-p]q     :<C-u>CocCommand fzf-preview.QuickFix<CR>
+    nnoremap <silent> [fzf-p]l     :<C-u>CocCommand fzf-preview.LocationList<CR>
+'''
+
+# jump
+[[plugins]]
+repo = 'pechorin/any-jump.vim'
+hook_add = '''
+    " Normal mode: Jump to definition under cursor
+    nnoremap <leader>j :AnyJump<CR>
+
+    " Visual mode: jump to selected text in visual mode
+    xnoremap <leader>j :AnyJumpVisual<CR>
+
+    " Normal mode: open previous opened file (after jump)
+    nnoremap <leader>ab :AnyJumpBack<CR>
+
+    " Normal mode: open last closed search window again
+    nnoremap <leader>al :AnyJumpLastResults<CR>
+'''
+
 
 # comment out
 [[plugins]]
@@ -73,3 +109,10 @@ hook_add = '''
 # pug syntax highlighting
 [[plugins]]
 repo = 'digitaltoad/vim-pug'
+
+# show current function in status bar "
+#[[plugins]]
+#repo = "tyru/current-func-info.vim"
+#hook_add = '''
+#    let &statusline .= ' [%{cfi#format("%s", "")}]'
+#'''

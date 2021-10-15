@@ -89,7 +89,12 @@
         "port": 9000,
         "stopOnEntry": false,
         "pathMappings": {
-          "/var/www/html": "${cwd}"
+            "/var/www/html": "${cwd}"
+        },
+        "xdebugSettings": {
+            "max_children": 516,
+            "max_data": 40960,
+            "max_depth": 5
         }
       }
     },
