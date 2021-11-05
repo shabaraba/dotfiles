@@ -111,7 +111,16 @@ alias dp='docker ps'
 de () {docker exec -it $1 zsh}
 
 # for file
-alias open='xdg-open'
+case ${OSTYPE} in
+  darwin*)
+    # ここに Mac 向けの設定
+    alias open='open'
+    ;;
+  linux*)
+    alias open='xdg-open'
+    # ここに Linux 向けの設定
+    ;;
+esac
  
 autoload -Uz colors
 colors
