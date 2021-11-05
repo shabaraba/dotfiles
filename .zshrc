@@ -171,7 +171,6 @@ export PATH="/usr/local/opt/ncurses/bin:$PATH"
 export PATH="/usr/local/opt/ncurses/bin:$PATH"
 
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-<<<<<<< HEAD
 export PATH="$PATH:/usr/local/opt/mysql-client@5.7/bin"
 
 # nodenv
@@ -180,7 +179,6 @@ export PATH="$PATH:/usr/local/opt/mysql-client@5.7/bin"
     eval "$(nodenv init -)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-=======
 
 
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
@@ -192,4 +190,3 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 export FLUTTER_ROOT=$HOME/Flutter/SDK
 export PATH=$PATH:$FLUTTER_ROOT/bin
->>>>>>> for-flutter
