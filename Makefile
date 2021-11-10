@@ -1,12 +1,14 @@
-ifeq ($(shell ls /etc | grep ".*-release$"),lsb-release)
-	INSTALL := apt install -y
-else\
-	INSTALL := yum install -y
-endif
+ubuntu := lsb-release
+centos := centos-release
+redhat := redhat-release
 
-ifeq ($(shell uname),Debian)
+ifeq ($(shell ls /etc | grep ${ubuntu}),${ubuntu})
 	INSTALL := apt install -y
 else
+	INSTALL := yum install -y
+endif
+ifeq ($(shell uname),Debian)
+	INSTALL := apt install -y
 endif
 
 DOTPATH    := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
@@ -34,6 +36,8 @@ list: ## Show dot files in this repo
 	@$(foreach val, $(DOTFILES), /bin/ls -dF $(val);)
 
 install: ## Create symlink to home directory
+	@echo $(shell ls /etc | grep ${ubuntu})
+	@echo $(INSTALL)
 	@echo 'Copyright (c) 2013-2015 BABAROT All Rights Reserved.'
 	@echo '==> Install neovim'
 	@if !(type "nvim" > /dev/null 2>&1); then \
