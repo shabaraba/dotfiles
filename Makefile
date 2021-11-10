@@ -1,5 +1,13 @@
-# INSTALL := apt install -y
-INSTALL := yum install -y
+ifeq ($(shell ls /etc | grep ".*-release$"),lsb-release)
+	INSTALL := apt install -y
+else\
+	INSTALL := yum install -y
+endif
+
+ifeq ($(shell uname),Debian)
+	INSTALL := apt install -y
+else
+endif
 
 DOTPATH    := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 CANDIDATES := $(wildcard .??*) bin
