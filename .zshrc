@@ -199,3 +199,8 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 export FLUTTER_ROOT=$HOME/Flutter/SDK
 export PATH=$PATH:$FLUTTER_ROOT/bin
+[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
+
+# phpenv
+export PATH="$HOME/.phpenv/bin:$PATH"
+eval "$(phpenv init -)"
