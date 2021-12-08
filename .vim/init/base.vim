@@ -9,6 +9,7 @@ set noswapfile
 set autoread
 set hidden
 set showcmd
+set nowrap "行を折り返さない
 
 set clipboard=unnamedplus
 
