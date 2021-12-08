@@ -9,6 +9,12 @@ colorscheme monokai
 " colorscheme hybrid
 
 " 背景透過
+highlight Normal ctermbg=NONE guibg=NONE
+highlight NonText ctermbg=NONE guibg=NONE
+highlight LineNr ctermbg=NONE guibg=NONE
+highlight Folded ctermbg=NONE guibg=NONE
+highlight EndOfBuffer ctermbg=NONE guibg=NONE
+
 augroup TransparentBG
     autocmd!
     autocmd Colorscheme * highlight Normal ctermbg=none
