@@ -116,3 +116,17 @@ repo = 'digitaltoad/vim-pug'
 #hook_add = '''
 #    let &statusline .= ' [%{cfi#format("%s", "")}]'
 #'''
+
+# dart
+# [[plugins]]
+# repo = 'dart-lang/dart-vim-plugin'
+# on_ft = ['dart']
+# 
+# [[plugins]]
+# repo = 'thosakwe/vim-flutter'
+# 
+# [[plugins]]
+# repo = 'natebosch/vim-lsc'
+# 
+# [[plugins]]
+# repo = 'natebosch/vim-lsc-dart'
