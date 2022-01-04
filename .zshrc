@@ -190,16 +190,33 @@ export PATH="$PATH:/usr/local/opt/mysql-client@5.7/bin"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
+export ANDROID_SDK_ROOT=$HOME/.android
+export PATH=$ANDROID_SDK_ROOT/cmdline-tools/tools:$PATH
+export PATH=$ANDROID_SDK_ROOT/cmdline-tools/tools/bin:$PATH
+export PATH=$ANDROID_SDK_ROOT/cmdline-tools/tools/lib:$PATH
+export PATH=$ANDROID_SDK_ROOT/platform-tools:$PATH
+export PATH=$ANDROID_SDK_ROOT/emulator:$PATH
+
+[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
+
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 export PATH=$PATH:$JAVA_HOME/bin
 
-export ANDROID_HOME=$HOME/Android/SDK
+export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
-export FLUTTER_ROOT=$HOME/Flutter/SDK
-export PATH=$PATH:$FLUTTER_ROOT/bin
-[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
+# export FLUTTER_ROOT=$HOME/Flutter/Sdk
+# export PATH=$FLUTTER_ROOT/bin:$PATH
+
+# android device bridgh
+# wsl2ではusb接続されたデバイスを認識できず、実機デバッグしにくいので、
+# windowsのadbを使用する（rootにadbという名前でwindowsのadb.exeにシンボリックリンクを張っている）
+# alias adb='~/adb'
+alias adb='/mnt/d/tools/platform-tools/adb.exe'
+alias flutter='/mnt/c/flutter/bin/flutter'
+alias dart='/mnt/c/flutter/bin/dart'
+
 
 # phpenv
 export PATH="$HOME/.phpenv/bin:$PATH"
