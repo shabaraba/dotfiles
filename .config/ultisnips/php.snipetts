@@ -1,8 +1,0 @@
-snippet doc "php-doc"
-/**
- * ${1:php-doc}
- *
- * ${2:}
- *
- */
- endsnippet

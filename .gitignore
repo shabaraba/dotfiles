@@ -1,9 +1,9 @@
 /sample_programs
 /.vim/.netrwhist
-.config/TabNine/*
-.config/coc/*
-.config/code-server
-.config/composer
-.config/configstore
-.config/yarn/*
-.config/vimspector-config/gadgets/*
+
+.vim/plugins/coc/extensions/*
+!.vim/plugins/coc/extensions/package.json
+
+.vim/plugins/coc/*
+!.vim/plugins/coc/extensions
+
