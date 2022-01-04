@@ -94,3 +94,16 @@ repo = 'digitaltoad/vim-pug'
 [[plugins]]
 repo = 'mechatroner/rainbow_csv'
 
+# dart
+# [[plugins]]
+# repo = 'dart-lang/dart-vim-plugin'
+# on_ft = ['dart']
+# 
+# [[plugins]]
+# repo = 'thosakwe/vim-flutter'
+# 
+# [[plugins]]
+# repo = 'natebosch/vim-lsc'
+# 
+# [[plugins]]
+# repo = 'natebosch/vim-lsc-dart'
