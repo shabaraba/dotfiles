@@ -23,11 +23,12 @@ define _installZplug
 endef
 
 define _setUpCoc
-	@cd .config/coc/extensions && npm install
+	@cd $(HOME)/.config/coc/extensions && npm install
 endef
 
 define _linkDotFiles
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
+	@ln -sfnv $(abspath .vim/plugins/coc/) $(HOME)/.config/
 endef
 
 all:
