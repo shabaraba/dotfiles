@@ -42,9 +42,14 @@ call dein#load_toml('~/.vim/dein.toml', {'lazy': 0})
 call dein#load_toml('~/.vim/dein_lazy.toml', {'lazy': 1})
 
 call dein#load_toml('~/.vim/plugins/coding.toml', {'lazy': 0})
-call dein#load_toml('~/.vim/plugins/git.toml', {'lazy': 0})
 call dein#load_toml('~/.vim/plugins/finder.toml', {'lazy': 0})
+call dein#load_toml('~/.vim/plugins/git.toml', {'lazy': 0})
+
+call dein#load_toml('~/.vim/plugins/api_client.toml', {'lazy': 0})
 call dein#load_toml('~/.vim/plugins/database.toml', {'lazy': 0})
+
+" call dein#load_toml('~/.vim/plugins/lazy/api_client.toml', {'lazy': 1})
+" call dein#load_toml('~/.vim/plugins/lazy/database.toml', {'lazy': 1})
 
 " Add or remove your plugins here like this:
 call dein#add('Shougo/neosnippet.vim')

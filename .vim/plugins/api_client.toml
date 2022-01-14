@@ -1,0 +1,5 @@
+[[plugins]]
+repo = 'baverman/vial'
+
+[[plugins]]
+repo = 'baverman/vial-http'

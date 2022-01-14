@@ -1,6 +1,13 @@
 # git
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
+
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
+[[plugins]]
+repo = 'APZelos/blamer.nvim'
+hook_add = '''
+    let g:blamer_enabled = 1
+    let g:blamer_delay = 2000
+'''

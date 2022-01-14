@@ -1,0 +1,15 @@
+{
+  "adapters": {
+    "multi-session": {
+      "host": "${host}",
+      "port": "${port}"
+    },
+    "vscode-php-debug": {
+      "command": [
+        "node",
+        "${gadgetDir}/vscode-php-debug/out/phpDebug.js"
+      ],
+      "name": "php-debug"
+    }
+  }
+}
