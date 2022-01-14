@@ -28,7 +28,6 @@ endef
 
 define _linkDotFiles
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
-	@ln -sfnv $(abspath .vim/plugins/coc/) $(HOME)/.config/
 endef
 
 all:

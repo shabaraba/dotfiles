@@ -8,7 +8,7 @@ build = '''
         --force-enable-php
 '''
 hook_add = '''
-    let g:vimspector_base_dir = expand('$HOME/.config/vimspector-config')
+    let g:vimspector_base_dir = expand('$HOME/.vimspector-config')
     nmap <Space>db <Plug>VimspectorToggleBreakpoint
     nmap <Space>dl :call vimspector#Launch()<CR>
     nmap <Space>dq :VimspectorReset<CR>

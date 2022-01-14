@@ -104,7 +104,8 @@ hook_add = '''
     set laststatus=2
     " タブバーをかっこよく
     let g:airline#extensions#tabline#enabled = 1
-    "let g:airline_section_c = airline#section#create(['bufferline', 'filename', 'readonly'])
+
+    "let g:airline_section_c = airline#section#create(['bufferline', 'filename', %{coc#status()}%{get(b:,'coc_current_function','')}, 'readonly'])
     " 選択行列の表示をカスタム(デフォルトだと長くて横幅を圧迫するので最小限に)
 "    let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
     " virtulenvを認識しているか確認用に、現在activateされているvirtualenvを表示(vim-virtualenvの拡張)
