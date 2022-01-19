@@ -18,10 +18,6 @@ DOTFILES   := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 
 .DEFAULT_GOAL := help
 
-define _installZplug
-	@curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-endef
-
 define _setUpCoc
 	@cd $(HOME)/.config/coc/extensions && npm install
 endef
@@ -36,27 +32,14 @@ list: ## Show dot files in this repo
 	@$(foreach val, $(DOTFILES), /bin/ls -dF $(val);)
 
 install: ## Create symlink to home directory
-	@echo $(shell ls /etc | grep ${ubuntu})
-	@echo $(INSTALL)
-	@echo 'Copyright (c) 2013-2015 BABAROT All Rights Reserved.'
+	@echo 'Copyright (c) 2020-2021 shabaraba All Rights Reserved.'
+	@echo $(shell uname)
 	@echo '==> Install neovim'
-	@if !(type "nvim" > /dev/null 2>&1); then \
-		pip3 install neovim \
-		&& pip3 install pynvim \
-		&& git clone https://github.com/neovim/neovim.git \
-		&& $(INSTALL) libtool automake cmake libncurses5-dev g++ gettext \
-		&& cd neovim \
-		&& make CMAKE_BUILD_TYPE=RelWithDebInfo \
-		&& make install; \
-	else \
-		echo 'neovim already installed, skip.';\
-	fi
+	@echo 'sh installers/neovim_installer.sh $(shell uname)'
+	@sh installers/neovim_installer.sh $(shell uname)
 	@echo '==> Install zplug'
-	@if !(type "zsh" > /dev/null 2>&1); then \
-		@curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh; \
-	else \
-		echo 'zsh already installed, skip.'; \
-	fi
+	@sh installers/zplug_installer.sh $(shell uname)
+
 	@echo '==> Start to deploy dotfiles to home directory.'
 	@$(call _linkDotFiles)
 	@$(call _setUpCoc)
