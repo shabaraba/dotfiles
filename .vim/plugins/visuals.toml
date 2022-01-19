@@ -1,41 +1,3 @@
-[[plugins]]
-repo = 'sickill/vim-monokai'
-[[plugins]]
-repo = 'nanotech/jellybeans.vim'
-[[plugins]]
-repo = 'w0ng/vim-hybrid'
-
-[[plugins]]
-repo = 'jacoborus/tender.vim'
-
-[[plugins]]
-repo = 'tpope/vim-surround'
-[[plugins]]
-repo = 'bkad/CamelCaseMotion'
-hook_add = '''
-    map <silent> W <Plug>CamelCaseMotion_w
-    map <silent> B <Plug>CamelCaseMotion_b
-    map <silent> E <Plug>CamelCaseMotion_e
-    map <silent> ge <Plug>CamelCaseMotion_ge
-    sunmap W
-    sunmap B
-    sunmap E
-    sunmap ge
-    omap <silent> iW <Plug>CamelCaseMotion_iw
-    xmap <silent> iW <Plug>CamelCaseMotion_iw
-    omap <silent> iB <Plug>CamelCaseMotion_ib
-    xmap <silent> iB <Plug>CamelCaseMotion_ib
-    omap <silent> ie <Plug>CamelCaseMotion_ie
-    xmap <silent> ie <Plug>CamelCaseMotion_ie
-'''
-
-[[plugins]]
-repo = 'easymotion/vim-easymotion'
-hook_add = '''
-    nmap <Leader>s <Plug>(easymotion-s2)
-    let g:EasyMotion_keys = 'hgjfkdls'
-'''
-
 # yank highlight
 [[plugins]]
 repo = 'machakann/vim-highlightedyank'
@@ -51,35 +13,6 @@ hook_add = '''
     autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=#444433 ctermbg=black
     autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#333344 ctermbg=darkgray
     let g:indent_guides_guide_size = 1
-'''
-
-[[plugins]]
-repo = "Shougo/denite.nvim"
-hook_add = """
-source ~/dotfiles/.vim/plugins/denite.rc.vim
-"""
-
-[[plugins]]
-repo = "shougo/deol.nvim"
-hook_add = """
-source ~/dotfiles/.vim/plugins/deol.rc.vim
-"""
- 
-[[plugins]]
-repo = 'preservim/nerdtree'
-hook_add = '''
-  if has('mac')
-    nnoremap <Leader>b :NERDTreeToggle<CR>
-  else
-    nnoremap <A-b> :NERDTreeToggle<CR>
-  endif
-'''
-# if you want to see dot files or folders, press "shift + i" after :NERDTreeToggle.
-
-# icon for NERDTREE
-[[plugins]]
-repo = 'ryanoasis/vim-devicons'
-hook_add = '''
 '''
 
 # status bar
@@ -116,14 +49,5 @@ hook_add = '''
     let g:airline#extensions#ale#enabled = 1
     let g:airline#extensions#ale#error_symbol = 'E:'
     let g:airline#extensions#ale#warning_symbol = 'W:'
-'''
-
-[[plugins]]
-repo = 'leafgarland/typescript-vim'
-
-# quick run
-[[plugins]]
-repo = 'thinca/vim-quickrun'
-hook_add = '''
 '''
 

@@ -1,0 +1,11 @@
+[[plugins]]
+repo = 'sickill/vim-monokai'
+[[plugins]]
+repo = 'nanotech/jellybeans.vim'
+[[plugins]]
+repo = 'w0ng/vim-hybrid'
+
+[[plugins]]
+repo = 'jacoborus/tender.vim'
+
+
