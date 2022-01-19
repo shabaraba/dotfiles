@@ -1,7 +1,7 @@
 #! /usr/bin/sh
 
-if [ "$1" = Linux ]; then
-    echo 'Linux' 1>&2
+if [ "$1" = ubuntu ]; then
+    echo 'ubuntu' 1>&2
     install_cmd='apt install -y'
     apt update -y && apt upgrade -y
 elif [ "$1" = centos ]; then
