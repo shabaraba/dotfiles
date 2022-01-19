@@ -2,12 +2,18 @@ ubuntu := lsb-release
 centos := centos-release
 redhat := redhat-release
 
+os_name := 'macos'
+INSTALL := brew install -y
 ifeq ($(shell ls /etc | grep ${ubuntu}),${ubuntu})
+	os_name := 'ubuntu'
 	INSTALL := apt install -y
-else
-	INSTALL := yum install -y
 endif
-ifeq ($(shell uname),Debian)
+ifeq ($(shell ls /etc | grep ${redhat}),${redhat})
+	os_name := 'ubuntu'
+	INSTALL := apt install -y
+endif
+ifeq ($(shell ls /etc | grep ${centos}),${centos})
+	os_name := 'centos'
 	INSTALL := apt install -y
 endif
 
@@ -33,12 +39,12 @@ list: ## Show dot files in this repo
 
 install: ## Create symlink to home directory
 	@echo 'Copyright (c) 2020-2021 shabaraba All Rights Reserved.'
-	@echo $(shell uname)
+	@echo $(os_name)
 	@echo '==> Install neovim'
-	@echo 'sh installers/neovim_installer.sh $(shell uname)'
-	@sh installers/neovim_installer.sh $(shell uname)
+	@echo 'sh installers/neovim_installer.sh $(os_name)'
+	@sh installers/neovim_installer.sh $(os_name)
 	@echo '==> Install zplug'
-	@sh installers/zplug_installer.sh $(shell uname)
+	@sh installers/zplug_installer.sh $(os_name)
 
 	@echo '==> Start to deploy dotfiles to home directory.'
 	@$(call _linkDotFiles)
