@@ -5,6 +5,14 @@ hook_add = '''
     let g:highlightedyank_highlight_duration = 200
 '''
 
+# [[plugins]]
+# repo = 'lukas-reineke/indent-blankline.nvim'
+# hook_add = '''
+#     let g:space_char_blankline = " "
+#     let g:show_current_context = 1
+#     let g:show_current_context_start = 1
+# '''
+
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
 hook_add = '''
