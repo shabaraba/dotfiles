@@ -1,4 +1,11 @@
 [[plugins]]
+repo = 'dbakker/vim-projectroot'
+hook_add = '''
+    nnoremap <silent> <space>lcd :ProjectRootCD<CR>
+    nnoremap <silent> <space>cdn :ProjectRootCD<CR>:NERDTreeCWD<CR>
+'''
+
+[[plugins]]
 repo = 'tpope/vim-surround'
 
 [[plugins]]
@@ -9,9 +16,6 @@ repo = 'leafgarland/typescript-vim'
 repo = 'thinca/vim-quickrun'
 hook_add = '''
 '''
-
-[[plugins]]
-repo = 'airblade/vim-rooter'
 
 # # snipets
 # [[plugins]]
