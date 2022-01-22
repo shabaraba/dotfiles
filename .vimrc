@@ -44,6 +44,7 @@ call dein#load_toml('~/.vim/plugins/finder.toml', {'lazy': 0})
 call dein#load_toml('~/.vim/plugins/jumps.toml', {'lazy': 0})
 call dein#load_toml('~/.vim/plugins/visuals.toml', {'lazy': 0})
 call dein#load_toml('~/.vim/plugins/git.toml', {'lazy': 0})
+" call dein#load_toml('~/.vim/plugins/xxx.toml', {'lazy': 0, 'on_lua': 'modulexxx'})
 
 call dein#load_toml('~/.vim/plugins/api_client.toml', {'lazy': 0})
 call dein#load_toml('~/.vim/plugins/database.toml', {'lazy': 0})
