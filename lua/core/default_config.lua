@@ -167,8 +167,8 @@ M.mappings = {
       pick_term = "<leader>W",
 
       -- spawn terminals
-      new_horizontal = "<leader>h",
-      new_vertical = "<leader>v",
+      new_horizontal = "<leader>hterm",
+      new_vertical = "<leader>vterm",
       new_window = "<leader>w",
    },
 }
@@ -186,10 +186,10 @@ M.mappings.plugins = {
 
    dashboard = {
       bookmarks = "<leader>bm",
-      new_file = "<leader>fn", -- basically create a new buffer
-      open = "<leader>db", -- open dashboard
-      session_load = "<leader>l",
-      session_save = "<leader>s",
+      -- new_file = "<leader>fn", -- basically create a new buffer
+      -- open = "<leader>db", -- open dashboard
+      session_load = "<leader>wl",
+      session_save = "<leader>ws",
    },
 
    -- map to <ESC> with no lag
@@ -199,7 +199,7 @@ M.mappings.plugins = {
 
    lspconfig = {
       declaration = "gD",
-      definition = "gd",
+      definition = "<C-]>",
       hover = "<leader>h",
       implementation = "gi",
       signature_help = "gk",
@@ -209,7 +209,7 @@ M.mappings.plugins = {
       type_definition = "<leader>D",
       rename = "<leader>rn",
       code_action = "<leader>ca",
-      references = "gr",
+      references = "<C-]><C-]>",
       float_diagnostics = "ge",
       goto_prev = "[d",
       goto_next = "]d",

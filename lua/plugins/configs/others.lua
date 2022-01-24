@@ -3,14 +3,18 @@ local M = {}
 local chadrc_config = require("core.utils").load_config()
 
 M.autopairs = function()
-   local present1, autopairs = pcall(require, "nvim-autopairs")
-   local present2, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
+    local present1, autopairs = pcall(require, "nvim-autopairs")
+    local present2, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
 
-   if present1 and present2 then
-      autopairs.setup({fast_wrap = {}})
+    if present1 and present2 then
+        autopairs.setup({fast_wrap = {}})
+        if override_flag then
+            default = require("core.utils").tbl_override_req("nvim_autopairs", default)
+      end
+      autopairs.setup(default)
 
-
-      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+      local cmp = require "cmp"
+        cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
    end
 end
 
@@ -23,8 +27,8 @@ end
 
 M.blankline = function()
     vim.opt.list = true
-    vim.opt.listchars:append("space:⋅")
-    vim.opt.listchars:append("eol:↴")
+    -- vim.opt.listchars:append("space:⋅")
+    -- vim.opt.listchars:append("eol:↴")
     vim.opt.termguicolors = true
     vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]]
     vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]]
@@ -33,23 +37,7 @@ M.blankline = function()
     vim.cmd [[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]]
     vim.cmd [[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]]
 
-    vim.opt.list = true
-    vim.opt.listchars:append("space:⋅")
-    vim.opt.listchars:append("eol:↴")
-
     require("indent_blankline").setup {
-        space_char_blankline = " ",
-        char_highlight_list = {
-            "IndentBlanklineIndent1",
-            "IndentBlanklineIndent2",
-            "IndentBlanklineIndent3",
-            "IndentBlanklineIndent4",
-            "IndentBlanklineIndent5",
-            "IndentBlanklineIndent6",
-        },
-    }
-
-   require("indent_blankline").setup {
         indentLine_enabled = 1,
         char = "▏",
         space_char_blankline = " ",
@@ -64,32 +52,41 @@ M.blankline = function()
             "nvchad_cheatsheet",
             "",
         },
+
+        char_highlight_list = {
+            "IndentBlanklineIndent1",
+            "IndentBlanklineIndent2",
+            "IndentBlanklineIndent3",
+            "IndentBlanklineIndent4",
+            "IndentBlanklineIndent5",
+            "IndentBlanklineIndent6",
+        },
         buftype_exclude = { "terminal" },
-        show_trailing_blankline_indent = false,
-        show_first_indent_level = false,
+        show_trailing_blankline_indent = true,
+        show_first_indent_level = true,
         show_current_context = true,
         show_current_context_start = true,
-   }
+    }
 end
 
 M.colorizer = function()
-   local present, colorizer = pcall(require, "colorizer")
-   if present then
-      colorizer.setup({ "*" }, {
-         RGB = true, -- #RGB hex codes
-         RRGGBB = true, -- #RRGGBB hex codes
-         names = false, -- "Name" codes like Blue
-         RRGGBBAA = false, -- #RRGGBBAA hex codes
-         rgb_fn = false, -- CSS rgb() and rgba() functions
-         hsl_fn = false, -- CSS hsl() and hsla() functions
-         css = false, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-         css_fn = false, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+    local present, colorizer = pcall(require, "colorizer")
+    if present then
+        colorizer.setup({ "*" }, {
+            RGB = true, -- #RGB hex codes
+            RRGGBB = true, -- #RRGGBB hex codes
+            names = false, -- "Name" codes like Blue
+            RRGGBBAA = false, -- #RRGGBBAA hex codes
+            rgb_fn = false, -- CSS rgb() and rgba() functions
+            hsl_fn = false, -- CSS hsl() and hsla() functions
+            css = false, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+            css_fn = false, -- Enable all CSS *functions*: rgb_fn, hsl_fn
 
-         -- Available modes: foreground, background
-         mode = "background", -- Set the display mode.
-      })
+            -- Available modes: foreground, background
+            mode = "background", -- Set the display mode.
+        })
       vim.cmd "ColorizerReloadAllBuffers"
-   end
+    end
 end
 
 M.comment = function()
