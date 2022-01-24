@@ -109,7 +109,7 @@ M.misc = function()
       -- TODO this opens on top of an existing vert/hori term, fixme
       map("n", term_maps.new_horizontal, ":execute 15 .. 'new +terminal' | let b:term_type = 'hori' | startinsert <CR>")
       map("n", term_maps.new_vertical, ":execute 'vnew +terminal' | let b:term_type = 'vert' | startinsert <CR>")
-      map("n", term_maps.new_window, ":execute 'terminal' | let b:term_type = 'wind' | startinsert <CR>")
+      -- map("n", term_maps.new_window, ":execute 'terminal' | let b:term_type = 'wind' | startinsert <CR>")
       -- terminal mappings end --
 
       -- Add Packer commands because we are not loading it at startup
@@ -149,8 +149,8 @@ M.dashboard = function()
    local m = plugin_maps.dashboard
 
    map("n", m.bookmarks, ":DashboardJumpMarks <CR>")
-   map("n", m.new_file, ":DashboardNewFile <CR>")
-   map("n", m.open, ":Dashboard <CR>")
+   -- map("n", m.new_file, ":DashboardNewFile <CR>")
+   -- map("n", m.open, ":Dashboard <CR>")
    map("n", m.session_load, ":SessionLoad <CR>")
    map("n", m.session_save, ":SessionSave <CR>")
 end

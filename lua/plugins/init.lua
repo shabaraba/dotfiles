@@ -107,18 +107,19 @@ return packer.startup(function()
 
    -- lsp stuff
 
-   use {
-      "neovim/nvim-lspconfig",
-      opt = true,
-      setup = function()
-         require("core.utils").packer_lazy_load "nvim-lspconfig"
-         -- reload the current file so lsp actually starts for it
-         vim.defer_fn(function()
-            vim.cmd 'if &ft == "packer" | echo "" | else | silent! e %'
-         end, 0)
-      end,
-      config = override_req("lspconfig", "plugins.configs.lspconfig"),
-   }
+    use {
+        "neovim/nvim-lspconfig",
+        opt = false,
+        setup = function()
+          --
+        end,
+        -- config = override_req("lspconfig", "plugins.configs.lspconfig"),
+        config = function()
+            -- require('lspconfig').intelephense.setup{}
+        end
+    }
+
+   use { 'williamboman/nvim-lsp-installer', }
 
    use {
       "ray-x/lsp_signature.nvim",
@@ -164,6 +165,12 @@ return packer.startup(function()
       wants = "friendly-snippets",
       after = plugin_settings.options.cmp.lazy_load and "nvim-cmp",
       config = override_req("luasnip", "(plugins.configs.others).luasnip()"),
+   }
+
+   use {
+       'tzachar/cmp-tabnine',
+       run = './install.sh',
+       after = plugin_settings.options.cmp.lazy_load and "nvim-cmp",
    }
 
    use {
@@ -219,7 +226,7 @@ return packer.startup(function()
       config = override_req("nvim_comment", "(plugins.configs.others).comment()"),
       setup = function()
          require("core.mappings").comment()
-      end,
+     end,
    }
 
    -- file managing , picker etc
@@ -235,22 +242,26 @@ return packer.startup(function()
       end,
    }
 
-   use {
-      "nvim-telescope/telescope.nvim",
-      module = "telescope",
-      cmd = "Telescope",
-      config = override_req("telescope", "plugins.configs.telescope"),
-      setup = function()
-         require("core.mappings").telescope()
-      end,
-   }
+   -- use {
+   --      "nvim-telescope/telescope.nvim",
+   --      module = "telescope",
+   --      cmd = "Telescope",
+   --      config = override_req("telescope", "plugins.configs.telescope"),
+   --      setup = function()
+   --          require("core.mappings").telescope()
+   --      end,
+   --      requires = {
+   --          {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
+   --      }
+   -- }
+
    -- load user defined plugins
-   require("core.customPlugins").run(use)
+   -- require("core.customPlugins").run(use)
 
    use 'tpope/vim-surround'
    use 'thinca/vim-quickrun'
    -- csv syntax highlight
-   use{ 'mechatroner/rainbow_csv', }
+   use 'mechatroner/rainbow_csv'
 
 	-- comment out
 	use{
@@ -275,12 +286,30 @@ return packer.startup(function()
         run = './install --all',
     }
 
+    -- git
+    use'airblade/vim-gitgutter'
+    use'tpope/vim-fugitive'
+
+    -- use {
+    --     'APZelos/blamer.nvim',
+    --     config = [[
+    --         vim.g.blamer_enabled = 1
+    --         vim.g.blamer_delay = 2000
+    --     ]]
+    -- }
+
     use{
         'easymotion/vim-easymotion',
-        config = [[
-            vim.api.nvim_set_keymap('n', '<leader>s', '<Plug>(easymotino-s2)', {noremap = false, silent = false})
-            vim.g.EasyMotion_keys = 'hgjfkdls'
-        ]]
+        config = function()
+            require'plugins.configs.easy_motion'
+        end
+    }
+
+    use{
+        'bkad/CamelCaseMotion',
+        config = function()
+            require('plugins.configs.camel_case_motion')
+        end,
     }
 
     -- DB
@@ -300,4 +329,31 @@ return packer.startup(function()
         ]]
     }
 
+    use {
+        "rcarriga/nvim-dap-ui",
+        requires = {
+            "mfussenegger/nvim-dap",
+            "Pocco81/DAPInstall.nvim"
+        },
+        setup = function()
+            require'plugins.configs.dap'.setup()
+        end,
+        -- run = [[
+        --     git clone https://github.com/xdebug/vscode-php-debug.git ~/dotfiles/debugger &&
+        --     cd ~/dotfiles/debugger/vscode-php-debug &&
+        --     npm install && npm run build
+        -- ]],
+        config = function()
+            require'plugins.configs.dap'.config()
+        end,
+    }
+
+	-- language server plotocol
+	use{
+		'neoclide/coc.nvim',
+        run = [[:call coc#util#install()]],
+		config = function()
+            require('plugins.configs.coc').config()
+        end
+	}
 end)

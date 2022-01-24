@@ -8,6 +8,20 @@ opt.clipboard = options.clipboard
 opt.cmdheight = options.cmdheight
 opt.cul = true -- cursor line
 
+vim.opt.redrawtime=10000
+vim.opt.fenc='utf-8'
+vim.opt.encoding='utf-8'
+vim.opt.fileencodings='iso-2022-jp,euc-jp,sjis,utf-8'
+vim.opt.fileformats="unix,dos,mac"
+vim.opt.backup = false
+vim.opt.swapfile = false
+vim.opt.autoread = true
+vim.opt.hidden = true
+vim.opt.showcmd = true
+vim.opt.wrap = false --行を折り返さない
+
+vim.opt.clipboard='unnamedplus'
+
 -- Indentline
 opt.expandtab = options.expandtab
 opt.shiftwidth = options.shiftwidth
