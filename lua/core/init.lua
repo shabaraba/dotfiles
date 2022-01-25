@@ -14,6 +14,3 @@ end
 -- non plugin mappings
 require("core.mappings").misc()
 
--- try to call custom init
-pcall(require, "custom")
-

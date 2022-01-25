@@ -116,6 +116,32 @@ local dir_name = {
    },
 }
 
+local function_name = {
+    provider = function()
+        local success, function_name = pcall(vim.api.nvim_buf_get_var, 0, 'coc_current_function')
+        if function_name == nil or success == false then
+            function_name = ''
+        end
+        return " ƒ "..function_name..""
+    end,
+
+   enabled = shortline or function(winid)
+      return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 80
+   end,
+
+   hl = {
+      fg = colors.grey_fg2,
+      bg = colors.lightbg2,
+   },
+   right_sep = {
+      str = statusline_style.right,
+      hi = {
+         fg = colors.lightbg2,
+         bg = colors.statusline_bg,
+      },
+   },
+}
+
 local diff = {
    add = {
       provider = "git_diff_added",
@@ -381,9 +407,12 @@ local middle = {}
 local right = {}
 
 -- left
-add_table(left, main_icon)
-add_table(left, file_name)
+-- add_table(left, main_icon)
+add_table(left, mode_icon)
+add_table(left, empty_space2)
 add_table(left, dir_name)
+add_table(left, file_name)
+add_table(left, function_name)
 add_table(left, diff.add)
 add_table(left, diff.change)
 add_table(left, diff.remove)
@@ -399,8 +428,6 @@ add_table(right, lsp_icon)
 add_table(right, git_branch)
 add_table(right, empty_space)
 add_table(right, empty_spaceColored)
-add_table(right, mode_icon)
-add_table(right, empty_space2)
 add_table(right, separator_right)
 add_table(right, separator_right2)
 add_table(right, position_icon)

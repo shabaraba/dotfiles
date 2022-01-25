@@ -27,6 +27,7 @@ M.config = function()
         'coc-fzf-preview',
     }
     -- vim.opt.statusline ^= "%{coc#status()}%{get(b:,'coc_current_function','')}"
+    vim.g.coc_config_home = '~/dotfiles/lua/plugins/configs'
 
     -- vim.cmd('autocmd FileType json syntax match Comment +//.+$+')
     vim.api.nvim_set_keymap('n', '<space><space>', ':<C-u>CocList<CR>', {noremap = false, silent = true})
@@ -50,8 +51,8 @@ M.config = function()
     vim.api.nvim_set_keymap('n', '[fzf-p]g', '<cmd>CocCommand fzf-preview.Changes<CR>', {noremap = true, silent = true})
     vim.api.nvim_set_keymap('n', '[fzf-p]/', '<cmd>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="\'"<CR>', {noremap = true, silent = true})
     vim.api.nvim_set_keymap('n', '[fzf-p]*', '<cmd>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="\'<C-r>=expand(\'<cword>\')<CR>"<CR>', {noremap = true, silent = true})
-    vim.api.nvim_set_keymap('n', '[fzf-p]gr', '<cmd>CocCommand fzf-preview.ProjectGrep<Space>', {noremap = true, silent = true})
-    vim.api.nvim_set_keymap('n', '[fzf-p]gr', 'sy:CocCommand fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, \'\n\', \'\', \'g\'), \'/\', \'\\/\', \'g\')<CR>"', {noremap = true, silent = true})
+    vim.api.nvim_set_keymap('n', '[fzf-p]gr', ':CocCommand fzf-preview.ProjectGrep<Space>', {noremap = true, silent = true})
+    -- vim.api.nvim_set_keymap('n', '[fzf-p]gr', 'sy:CocCommand fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, \'\n\', \'\', \'g\'), \'/\', \'\\/\', \'g\')<CR>"', {noremap = true, silent = true})
     vim.api.nvim_set_keymap('n', '[fzf-p]t', '<cmd>CocCommand fzf-preview.BufferTags<CR>', {noremap = true, silent = true})
     vim.api.nvim_set_keymap('n', '[fzf-p]q', '<cmd>CocCommand fzf-preview.QuickFix<CR>', {noremap = true, silent = true})
     vim.api.nvim_set_keymap('n', '[fzf-p]l', '<cmd>CocCommand fzf-preview.LocationList<CR>', {noremap = true, silent = true})

@@ -13,46 +13,46 @@ local M = {}
 
 -- these mappings will only be called during initialization
 M.misc = function()
-   local function non_config_mappings()
-      -- Don't copy the replaced text after pasting in visual mode
-      map("v", "p", '"_dP')
+    local function non_config_mappings()
+        -- Don't copy the replaced text after pasting in visual mode
+        map("v", "p", '"_dP')
 
-      -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
-      -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
-      -- empty mode is same as using :map
-      -- also don't use g[j|k] when in operator pending mode, so it doesn't alter d, y or c behaviour
-      map("", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
-      map("", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
-      map("", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
-      map("", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
+        -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
+        -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
+        -- empty mode is same as using :map
+        -- also don't use g[j|k] when in operator pending mode, so it doesn't alter d, y or c behaviour
+        map("", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
+        map("", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
+        map("", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
+        map("", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
 
-      -- use ESC to turn off search highlighting
-      map("n", "<Esc>", ":noh <CR>")
+        -- use ESC to turn off search highlighting
+        map("n", "<Esc>", ":noh <CR>")
 
-      -- center cursor when moving (goto_definition)
+        -- center cursor when moving (goto_definition)
 
-      -- yank from current cursor to end of line
-      map("n", "Y", "yg$")
+        -- yank from current cursor to end of line
+        map("n", "Y", "yg$")
 
-      map('n', 'j', 'gj', {noremap = true})
-      map('n', 'k', 'gk', {noremap = true})
+        map('n', 'j', 'gj', {noremap = true})
+        map('n', 'k', 'gk', {noremap = true})
 
-      map('i', 'jj', '<Esc>', {noremap = true})
-      map('n', '9', '$', {noremap = true})
-      map('n', '}', '%', {noremap = true})
-      map('n', '{', '%', {noremap = true})
-      map('n', '<Esc><Esc>', ':nohlsearch<CR><Esc>', {noremap = false})
-      map('n', '<C-b>', '<Left>', {noremap = true})
-      map('n', '<C-f>', '<Right>', {noremap = true})
-      map('i', '<C-a>', '<Home>', {noremap = true})
-      map('i', '<C-e>', '<End>', {noremap = true})
+        map('i', 'jj', '<Esc>', {noremap = true})
+        map('n', '9', '$', {noremap = true})
+        map('n', '}', '%', {noremap = true})
+        map('n', '{', '%', {noremap = true})
+        map('n', '<Esc><Esc>', ':nohlsearch<CR><Esc>', {noremap = false})
+        map('n', '<C-b>', '<Left>', {noremap = true})
+        map('n', '<C-f>', '<Right>', {noremap = true})
+        map('i', '<C-a>', '<Home>', {noremap = true})
+        map('i', '<C-e>', '<End>', {noremap = true})
 
-      map('n', '<C-j>', ':bp<CR>', {noremap = false})
-      map('n', '<C-k>', ':bn<CR>', {noremap = false})
+        map('n', '<C-j>', ':bp<CR>', {noremap = false})
+        map('n', '<C-k>', ':bn<CR>', {noremap = false})
 
-      map('t', '<Esc>', '<C-\\><C-n>', {noremap = true, silent = true})
+        map('t', '<Esc>', '<C-\\><C-n>', {noremap = true, silent = true})
 
-   end
+    end
 
    local function optional_mappings()
       -- don't yank text on cut ( x )
@@ -69,11 +69,10 @@ M.misc = function()
       if nvChad_options.insert_nav then
          local inav = maps.insert_nav
 
-         map("i", inav.backward, "<Left>")
-         map("i", inav.end_of_line, "<End>")
-         map("i", inav.forward, "<Right>")
-         map("i", inav.next_line, "<Up>")
-         map("i", inav.prev_line, "<Down>")
+         map("i", '<C-h>', "<Left>")
+         map("i", '<C-l>', "<Right>")
+         -- map("i", next_line, "<Up>")
+         -- map("i", inav.prev_line, "<Down>")
          map("i", inav.beginning_of_line, "<ESC>^i")
       end
 

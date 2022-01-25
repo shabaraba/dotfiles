@@ -110,7 +110,7 @@ M.config = function()
     map('n', '<leader>di', "<cmd>lua require'dap'.step_into()<CR>")
     map('n', '<leader>db', "<cmd>lua require'dap'.toggle_breakpoint()<CR>")
     map('n', '<leader>ds', "<cmd>lua require'dapui'.toggle()<CR>")
-    map('n', '<leader>dq', "<cmd>lua require'dapui'.close()<CR>")
+    map('n', '<leader>dq', "<cmd>lua require'dap'.close()<CR><cmd>lua require'dapui'.close()<CR>")
 end
 
 return M

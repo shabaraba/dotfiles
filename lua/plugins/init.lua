@@ -13,13 +13,14 @@ return packer.startup(function()
    -- this is arranged on the basis of when a plugin starts
 
    -- this is the nvchad core repo containing utilities for some features like theme swticher, no need to lazy load
-   use "Nvchad/extensions"
-   use "nvim-lua/plenary.nvim"
+    use "Nvchad/extensions"
+    use "nvim-lua/plenary.nvim"
 
-   use {
-      "wbthomason/packer.nvim",
-      event = "VimEnter",
-   }
+
+    use {
+        "wbthomason/packer.nvim",
+        event = "VimEnter",
+    }
 
    use {
       "NvChad/nvim-base16.lua",
@@ -29,27 +30,35 @@ return packer.startup(function()
       end,
    }
 
-   use {
-     "xiyaowong/nvim-transparent",
-     after = "nvim-base16.lua",
-     config = function()
-      require("transparent").setup({
-        enable = true, -- boolean: enable transparent
-        extra_groups = { -- table/string: additional groups that should be clear
-          -- In particular, when you set it to 'all', that means all avaliable groups
+    use {
+        'tanvirtin/monokai.nvim',
+        config = function()
+            require('monokai').setup {}
+            require('monokai').setup { palette = require('monokai').pro }
+            -- require('monokai').setup { palette = require('monokai').soda }
+        end
+    }
+   -- use {
+   --   "xiyaowong/nvim-transparent",
+   --   after = "nvim-base16.lua",
+   --   config = function()
+   --    require("transparent").setup({
+   --      enable = true, -- boolean: enable transparent
+   --      extra_groups = { -- table/string: additional groups that should be clear
+   --        -- In particular, when you set it to 'all', that means all avaliable groups
 
-          -- example of akinsho/nvim-bufferline.lua
-          "BufferLineTabClose",
-          "BufferlineBufferSelected",
-          "BufferLineFill",
-          "BufferLineBackground",
-          "BufferLineSeparator",
-          "BufferLineIndicatorSelected",
-        },
-        exclude = {}, -- table: groups you don't want to clear
-      })
-    end,
-   }
+   --        -- example of akinsho/nvim-bufferline.lua
+   --        "BufferLineTabClose",
+   --        "BufferlineBufferSelected",
+   --        "BufferLineFill",
+   --        "BufferLineBackground",
+   --        "BufferLineSeparator",
+   --        "BufferLineIndicatorSelected",
+   --      },
+   --      exclude = {}, -- table: groups you don't want to clear
+   --    })
+   --  end,
+   -- }
 
    use {
       "kyazdani42/nvim-web-devicons",
@@ -299,9 +308,12 @@ return packer.startup(function()
     -- }
 
     use{
-        'easymotion/vim-easymotion',
+        -- 'easymotion/vim-easymotion',
+        'phaazon/hop.nvim',
+        branch = 'v1', -- optional but strongly recommended
         config = function()
-            require'plugins.configs.easy_motion'
+            -- require'plugins.configs.easy_motion'
+            require'plugins.configs.hop'
         end
     }
 
