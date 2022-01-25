@@ -1,4 +1,4 @@
-vim.opt.colorscheme = 'monokai'
+vim.colorscheme = 'monokai'
 
 --背景透過
 vim.cmd([[highlight Normal ctermbg=NONE guibg=NONE]])
