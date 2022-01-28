@@ -45,7 +45,7 @@ M.options = {
 M.ui = {
    hl_override = "", -- path of your file that contains highlights
    italic_comments = false,
-   theme = "gruvchad", -- default theme
+   theme = "penokai", -- default theme
 
    -- Change terminal bg to nvim theme's bg color so it'll match well
    -- For Ex : if you have onedark set in nvchad, set onedark's bg color on your terminal
@@ -109,7 +109,7 @@ M.plugins = {
 
          -- truncate statusline on small screens
          shortline = true,
-         style = "default", -- default, round , slant , block , arrow
+         style = "arrow", -- default, round , slant , block , arrow
       },
       esc_insertmode_timeout = 300,
    },

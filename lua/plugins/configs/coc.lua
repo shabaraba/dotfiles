@@ -25,6 +25,7 @@ M.config = function()
         'coc-pyright',
         'coc-tabnine',
         'coc-fzf-preview',
+        'sumneko-lua-ls',
     }
     -- vim.opt.statusline ^= "%{coc#status()}%{get(b:,'coc_current_function','')}"
     vim.g.coc_config_home = '~/dotfiles/lua/plugins/configs'
@@ -40,7 +41,7 @@ M.config = function()
     vim.api.nvim_set_keymap('n', '<Leader>f', '[fzf-p]', {noremap = false, silent = false})
     vim.api.nvim_set_keymap('x', '<Leader>f', '[fzf-p]', {noremap = false, silent = false})
 
-    vim.api.nvim_set_keymap('n', '[fzf-p]p', '<cmd>CocCommand fzf-preview.FromResources project_mru git<CR>', {noremap = true, silent = true})
+    vim.api.nvim_set_keymap('n', '[fzf-p]f', '<cmd>CocCommand fzf-preview.FromResources project_mru git<CR>', {noremap = true, silent = true})
     vim.api.nvim_set_keymap('n', '[fzf-p]af', '<cmd>CocCommand fzf-preview.MruFiles<CR>', {noremap = true, silent = true}) -- all files
     vim.api.nvim_set_keymap('n', '[fzf-p]gs', '<cmd>CocCommand fzf-preview.GitStatus<CR>', {noremap = true, silent = true})
     vim.api.nvim_set_keymap('n', '[fzf-p]ga', '<cmd>CocCommand fzf-preview.GitActions<CR>', {noremap = true, silent = true})

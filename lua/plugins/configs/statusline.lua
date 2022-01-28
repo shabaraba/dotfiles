@@ -122,7 +122,7 @@ local function_name = {
         if function_name == nil or success == false then
             function_name = ''
         end
-        return " ƒ "..function_name..""
+        return "  "..function_name.." "
     end,
 
    enabled = shortline or function(winid)
@@ -275,16 +275,16 @@ local lsp_icon = {
 }
 
 local mode_colors = {
-   ["n"] = { "NORMAL", colors.red },
-   ["no"] = { "N-PENDING", colors.red },
-   ["i"] = { "INSERT", colors.dark_purple },
-   ["ic"] = { "INSERT", colors.dark_purple },
+   ["n"] = { "NORMAL", colors.green },
+   ["no"] = { "N-PENDING", colors.green },
+   ["i"] = { "INSERT", colors.yellow },
+   ["ic"] = { "INSERT", colors.yellow },
    ["t"] = { "TERMINAL", colors.green },
    ["v"] = { "VISUAL", colors.cyan },
    ["V"] = { "V-LINE", colors.cyan },
    [""] = { "V-BLOCK", colors.cyan },
-   ["R"] = { "REPLACE", colors.orange },
-   ["Rv"] = { "V-REPLACE", colors.orange },
+   ["R"] = { "REPLACE", colors.red },
+   ["Rv"] = { "V-REPLACE", colors.red },
    ["s"] = { "SELECT", colors.nord_blue },
    ["S"] = { "S-LINE", colors.nord_blue },
    [""] = { "S-BLOCK", colors.nord_blue },
