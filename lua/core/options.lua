@@ -3,8 +3,6 @@ local g = vim.g
 
 local options = require("core.utils").load_config().options
 
--- opt.colorscheme = 'monokai'
-
 opt.title = true
 opt.clipboard = options.clipboard
 opt.cmdheight = options.cmdheight
@@ -13,7 +11,9 @@ opt.cul = true -- cursor line
 vim.opt.redrawtime=10000
 vim.opt.fenc='utf-8'
 vim.opt.encoding='utf-8'
-vim.opt.fileencodings='iso-2022-jp,euc-jp,sjis,utf-8'
+vim.opt.fileencodings='iso-2022-jp,euc-jp,sjis,utf-8,shift_jis,cp932,ucs-bom'
+vim.opt.shell = 'zsh'
+
 vim.opt.fileformats="unix,dos,mac"
 vim.opt.backup = false
 vim.opt.swapfile = false

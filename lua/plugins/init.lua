@@ -22,6 +22,7 @@ return packer.startup(function()
         event = "VimEnter",
     }
 
+    -- highlightを上書きしている可能性があるので、highlightを使用するプラグインはこのプラグイン読み込み後に読み込む
    use {
       "NvChad/nvim-base16.lua",
       after = "packer.nvim",
@@ -30,14 +31,6 @@ return packer.startup(function()
       end,
    }
 
-    use {
-        'tanvirtin/monokai.nvim',
-        config = function()
-            require('monokai').setup {}
-            require('monokai').setup { palette = require('monokai').pro }
-            -- require('monokai').setup { palette = require('monokai').soda }
-        end
-    }
    -- use {
    --   "xiyaowong/nvim-transparent",
    --   after = "nvim-base16.lua",
@@ -296,7 +289,7 @@ return packer.startup(function()
     }
 
     -- git
-    use'airblade/vim-gitgutter'
+    -- use'airblade/vim-gitgutter'
     use'tpope/vim-fugitive'
 
     -- use {
@@ -311,6 +304,7 @@ return packer.startup(function()
         -- 'easymotion/vim-easymotion',
         'phaazon/hop.nvim',
         branch = 'v1', -- optional but strongly recommended
+        after = "nvim-base16.lua",
         config = function()
             -- require'plugins.configs.easy_motion'
             require'plugins.configs.hop'
