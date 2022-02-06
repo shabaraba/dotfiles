@@ -3,15 +3,16 @@ local g = vim.g
 
 local options = require("core.utils").load_config().options
 
+vim.cmd[[lang en_US.UTF-8]]
+
 opt.title = true
 opt.clipboard = options.clipboard
 opt.cmdheight = options.cmdheight
 opt.cul = true -- cursor line
 
 vim.opt.redrawtime=10000
-vim.opt.fenc='utf-8'
 vim.opt.encoding='utf-8'
-vim.opt.fileencodings='iso-2022-jp,euc-jp,sjis,utf-8,shift_jis,cp932,ucs-bom'
+vim.opt.fileencodings='utf-8,euc-jp,sjis,shift_jis,cp932,ucs-bom,iso-2022-jp'
 vim.opt.shell = 'zsh'
 
 vim.opt.fileformats="unix,dos,mac"
@@ -90,18 +91,26 @@ for _, plugin in pairs(disabled_built_ins) do
 end
 
 --背景透過
-vim.cmd([[highlight Normal ctermbg=NONE guibg=NONE]])
-vim.cmd([[highlight NonText ctermbg=NONE guibg=NONE]])
-vim.cmd([[highlight LineNr ctermbg=NONE guibg=NONE]])
-vim.cmd([[highlight Folded ctermbg=NONE guibg=NONE]])
-vim.cmd([[highlight EndOfBuffer ctermbg=NONE guibg=NONE]])
+-- vim.cmd([[highlight Normal ctermbg=NONE guibg=NONE]])
+-- vim.cmd([[highlight NonText ctermbg=NONE guibg=NONE]])
+-- vim.cmd([[highlight LineNr ctermbg=NONE guibg=NONE]])
+-- vim.cmd([[highlight Folded ctermbg=NONE guibg=NONE]])
+-- vim.cmd([[highlight EndOfBuffer ctermbg=NONE guibg=NONE]])
 
-vim.cmd([[augroup TransparentBG
-    autocmd!
-    autocmd Colorscheme * highlight Normal ctermbg=none
-    autocmd Colorscheme * highlight NonText ctermbg=none
-    autocmd Colorscheme * highlight LineNr ctermbg=none
-    autocmd Colorscheme * highlight Folded ctermbg=none
-    autocmd Colorscheme * highlight EndOfBuffer ctermbg=none 
-augroup END]])
+-- vim.cmd([[augroup TransparentBG
+--     autocmd!
+--     autocmd Colorscheme * highlight Normal ctermbg=none
+--     autocmd Colorscheme * highlight NonText ctermbg=none
+--     autocmd Colorscheme * highlight LineNr ctermbg=none
+--     autocmd Colorscheme * highlight Folded ctermbg=none
+--     autocmd Colorscheme * highlight EndOfBuffer ctermbg=none 
+-- augroup END]])
 
+vim.cmd([[
+    augroup filetypes
+        autocmd! 
+        autocmd Filetype javascript      setlocal expandtab softtabstop=2 shiftwidth=2 tabstop=2
+        autocmd Filetype typescript      setlocal expandtab softtabstop=2 shiftwidth=2 tabstop=2
+        autocmd Filetype typescriptreact setlocal expandtab softtabstop=2 shiftwidth=2 tabstop=2
+    augroup END
+]])

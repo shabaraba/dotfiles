@@ -1,3 +1,12 @@
+-- runtimepathを正す
+vim.cmd[[
+    if has("mac")
+    else
+        let $VIMRUNTIME="/usr/local/share/nvim/runtime"
+        set runtimepath+=/usr/local/share/nvim/runtime
+    endif
+]]
+
 local core_modules = {
    "core.options",
    "core.autocmds",
