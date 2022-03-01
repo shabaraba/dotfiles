@@ -221,3 +221,5 @@ alias dart='/mnt/c/flutter/bin/dart'
 # phpenv
 export PATH="$HOME/.phpenv/bin:$PATH"
 eval "$(phpenv init -)"
+export PATH="$HOME/.phpenv/bin:$PATH"
+eval "$(phpenv init -)"

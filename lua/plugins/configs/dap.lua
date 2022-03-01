@@ -8,6 +8,7 @@ M.setup = function()
         installation_path = os.getenv('HOME')..'/dotfiles/debugger/',
     })
     dap_install.config('php', {})
+    dap_install.config('chrome', {})
 
 end
 
