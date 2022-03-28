@@ -5,6 +5,7 @@ local M = {}
 M.config = function()
     vim.g.coc_global_extensions = {
         '@yaegassy/coc-volar',
+        '@yaegassy/coc-intelephense',
         'coc-css',
         'coc-docker',
         'coc-eslint',
@@ -13,7 +14,6 @@ M.config = function()
         'coc-json',
         'coc-lua',
         'coc-markdownlint',
-        'coc-phpls',
         'coc-prettier',
         'coc-sql',
         'coc-sumneko-lua',
