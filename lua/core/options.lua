@@ -26,6 +26,9 @@ vim.opt.wrap = false --行を折り返さない
 vim.opt.clipboard='unnamedplus'
 
 -- Indentline
+
+vim.cmd[[set list listchars=tab:\>\-]]
+
 opt.expandtab = options.expandtab
 opt.shiftwidth = options.shiftwidth
 opt.smartindent = options.smartindent
