@@ -154,56 +154,56 @@ return packer.startup(function()
       event = "InsertEnter",
    }
 
-   use {
-      "hrsh7th/nvim-cmp",
-      disable = not plugin_settings.status.cmp,
-      after = plugin_settings.options.cmp.lazy_load and "friendly-snippets",
-      config = override_req("nvim_cmp", "plugins.configs.cmp"),
-   }
+   -- use {
+   --    "hrsh7th/nvim-cmp",
+   --    disable = not plugin_settings.status.cmp,
+   --    after = plugin_settings.options.cmp.lazy_load and "friendly-snippets",
+   --    config = override_req("nvim_cmp", "plugins.configs.cmp"),
+   -- }
 
-   use {
-      "L3MON4D3/LuaSnip",
-      disable = not plugin_settings.status.cmp,
-      wants = "friendly-snippets",
-      after = plugin_settings.options.cmp.lazy_load and "nvim-cmp",
-      config = override_req("luasnip", "(plugins.configs.others).luasnip()"),
-   }
+   -- use {
+   --    "L3MON4D3/LuaSnip",
+   --    disable = not plugin_settings.status.cmp,
+   --    wants = "friendly-snippets",
+   --    after = plugin_settings.options.cmp.lazy_load and "nvim-cmp",
+   --    config = override_req("luasnip", "(plugins.configs.others).luasnip()"),
+   -- }
 
-   use {
-       'tzachar/cmp-tabnine',
-       run = './install.sh',
-       after = plugin_settings.options.cmp.lazy_load and "nvim-cmp",
-   }
+   -- use {
+   --     'tzachar/cmp-tabnine',
+   --     run = './install.sh',
+   --     after = plugin_settings.options.cmp.lazy_load and "nvim-cmp",
+   -- }
 
-   use {
-      "saadparwaiz1/cmp_luasnip",
-      disable = not plugin_settings.status.cmp,
-      after = plugin_settings.options.cmp.lazy_load and "LuaSnip",
-   }
+   -- use {
+   --    "saadparwaiz1/cmp_luasnip",
+   --    disable = not plugin_settings.status.cmp,
+   --    after = plugin_settings.options.cmp.lazy_load and "LuaSnip",
+   -- }
 
-   use {
-      "hrsh7th/cmp-nvim-lua",
-      disable = not plugin_settings.status.cmp,
-      after = plugin_settings.options.cmp.lazy_load and "cmp_luasnip",
-   }
+   -- use {
+   --    "hrsh7th/cmp-nvim-lua",
+   --    disable = not plugin_settings.status.cmp,
+   --    after = plugin_settings.options.cmp.lazy_load and "cmp_luasnip",
+   -- }
 
-   use {
-      "hrsh7th/cmp-nvim-lsp",
-      disable = not plugin_settings.status.cmp,
-      after = plugin_settings.options.cmp.lazy_load and "cmp-nvim-lua",
-   }
+   -- use {
+   --    "hrsh7th/cmp-nvim-lsp",
+   --    disable = not plugin_settings.status.cmp,
+   --    after = plugin_settings.options.cmp.lazy_load and "cmp-nvim-lua",
+   -- }
 
-   use {
-      "hrsh7th/cmp-buffer",
-      disable = not plugin_settings.status.cmp,
-      after = plugin_settings.options.cmp.lazy_load and "cmp-nvim-lsp",
-   }
+   -- use {
+   --    "hrsh7th/cmp-buffer",
+   --    disable = not plugin_settings.status.cmp,
+   --    after = plugin_settings.options.cmp.lazy_load and "cmp-nvim-lsp",
+   -- }
 
-   use {
-      "hrsh7th/cmp-path",
-      disable = not plugin_settings.status.cmp,
-      after = plugin_settings.options.cmp.lazy_load and "cmp-buffer",
-   }
+   -- use {
+   --    "hrsh7th/cmp-path",
+   --    disable = not plugin_settings.status.cmp,
+   --    after = plugin_settings.options.cmp.lazy_load and "cmp-buffer",
+   -- }
    -- misc plugins
    use {
       "windwp/nvim-autopairs",
