@@ -3,44 +3,104 @@ local lsp = require "feline.providers.lsp"
 local lsp_severity = vim.diagnostic.severity
 
 local icon_styles = {
-   default = {
-      left = "",
-      right = " ",
-      main_icon = "  ",
-      vi_mode_icon = " ",
-      position_icon = " ",
-   },
-   arrow = {
-      left = "",
-      right = "",
-      main_icon = "  ",
-      vi_mode_icon = " ",
-      position_icon = " ",
-   },
+    default = {
+        left = "",
+        right = " ",
+        main_icon = "  ",
+        vi_mode_icon = " ",
+        position_icon = " ",
 
-   block = {
-      left = " ",
-      right = " ",
-      main_icon = "   ",
-      vi_mode_icon = "  ",
-      position_icon = "  ",
-   },
+        linux = ' ',
+        macos = ' ',
+        windows = ' ',
 
-   round = {
-      left = "",
-      right = "",
-      main_icon = "  ",
-      vi_mode_icon = " ",
-      position_icon = " ",
-   },
+        errs = ' ',
+        warns = ' ',
+        infos = ' ',
+        hints = ' ',
 
-   slant = {
-      left = " ",
-      right = " ",
-      main_icon = "  ",
-      vi_mode_icon = " ",
-      position_icon = " ",
-   },
+        lsp = ' ',
+        git = ''
+    },
+    arrow = {
+        left = "  ",
+        right = " ",
+        main_icon = "  ",
+        vi_mode_icon = " ",
+        position_icon = " ",
+
+        linux = ' ',
+        macos = ' ',
+        windows = ' ',
+
+        errs = ' ',
+        warns = ' ',
+        infos = ' ',
+        hints = ' ',
+
+        lsp = ' ',
+        git = ''
+    },
+
+    block = {
+        left = " ",
+        right = " ",
+        main_icon = "   ",
+        vi_mode_icon = "  ",
+        position_icon = "  ",
+
+        linux = ' ',
+        macos = ' ',
+        windows = ' ',
+
+        errs = ' ',
+        warns = ' ',
+        infos = ' ',
+        hints = ' ',
+
+        lsp = ' ',
+        git = ''
+    },
+
+    round = {
+        left = "",
+        right = "",
+        main_icon = "  ",
+        vi_mode_icon = " ",
+        position_icon = " ",
+
+        linux = ' ',
+        macos = ' ',
+        windows = ' ',
+
+        errs = ' ',
+        warns = ' ',
+        infos = ' ',
+        hints = ' ',
+
+        lsp = ' ',
+        git = ''
+    },
+
+    slant = {
+        left = " ",
+        right = " ",
+        main_icon = "  ",
+        vi_mode_icon = " ",
+        position_icon = " ",
+
+        linux = ' ',
+        macos = ' ',
+        windows = ' ',
+
+        errs = ' ',
+        warns = ' ',
+        infos = ' ',
+        hints = ' ',
+
+        lsp = ' ',
+        git = ''
+    },
 }
 
 local config = require("core.utils").load_config().plugins.options.statusline
@@ -54,50 +114,15 @@ local shortline = config.shortline == false and true
 
 -- Initialize the components table
 local components = {
-   active = {},
-}
-
-local main_icon = {
-   provider = statusline_style.main_icon,
-
-   hl = {
-      fg = colors.statusline_bg,
-      bg = colors.nord_blue,
-   },
-
-   right_sep = { str = statusline_style.right, hl = {
-      fg = colors.nord_blue,
-      bg = colors.lightbg,
-   } },
-}
-
-local file_name = {
-   provider = function()
-      local filename = vim.fn.expand "%:t"
-      local extension = vim.fn.expand "%:e"
-      local icon = require("nvim-web-devicons").get_icon(filename, extension)
-      if icon == nil then
-         icon = " "
-         return icon
-      end
-      return " " .. icon .. " " .. filename .. " "
-   end,
-   enabled = shortline or function(winid)
-      return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 70
-   end,
-   hl = {
-      fg = colors.white,
-      bg = colors.lightbg,
-   },
-
-   right_sep = { str = statusline_style.right, hl = { fg = colors.lightbg, bg = colors.lightbg2 } },
+    active = {},
 }
 
 local dir_name = {
-   provider = function()
-      local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-      return "  " .. dir_name .. " "
-   end,
+    provider = { name = "file_info", opts = { type = "relative" } },
+   -- provider = function()
+   --    local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+   --    return "  " .. dir_name .. " "
+   -- end,
 
    enabled = shortline or function(winid)
       return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 80
@@ -122,7 +147,7 @@ local function_name = {
         if function_name == nil or success == false then
             function_name = ''
         end
-        return "  "..function_name.." "
+        return "  "..function_name
     end,
 
    enabled = shortline or function(winid)
@@ -133,93 +158,125 @@ local function_name = {
       fg = colors.grey_fg2,
       bg = colors.lightbg2,
    },
-   right_sep = {
-      str = statusline_style.right,
-      hi = {
-         fg = colors.lightbg2,
-         bg = colors.statusline_bg,
-      },
-   },
 }
 
+local function file_osinfo()
+    local os = vim.bo.fileformat:upper()
+    local icon
+    if os == 'UNIX' then
+        icon = statusline_style.linux
+    elseif os == 'MAC' then
+        icon = statusline_style.macos
+    else
+        icon = statusline_style.windows
+    end
+    return icon .. os
+end
+
+local file_os = {
+    provider = file_osinfo,
+    left_sep = ' ',
+    hl = {
+        fg = colors.blue,
+        style = 'bold'
+    }
+}
+
+local function lsp_diagnostics_info()
+    return {
+        errs = lsp.get_diagnostics_count('Error'),
+        warns = lsp.get_diagnostics_count('Warning'),
+        infos = lsp.get_diagnostics_count('Information'),
+        hints = lsp.get_diagnostics_count('Hint')
+    }
+end
+
 local diff = {
-   add = {
-      provider = "git_diff_added",
-      hl = {
-         fg = colors.grey_fg2,
-         bg = colors.statusline_bg,
-      },
-      icon = " ",
-   },
+    add = {
+        provider = "git_diff_added",
+        hl = {
+            fg = colors.green,
+            bg = colors.statusline_bg,
+        },
+        left_sep = ' ',
+        icon = " ",
+    },
 
-   change = {
-      provider = "git_diff_changed",
-      hl = {
-         fg = colors.grey_fg2,
-         bg = colors.statusline_bg,
-      },
-      icon = "   ",
-   },
+    change = {
+        provider = "git_diff_changed",
+        hl = {
+            fg = colors.yellow,
+            bg = colors.statusline_bg,
+        },
+        left_sep = ' ',
+        icon = "  ",
+    },
 
-   remove = {
-      provider = "git_diff_removed",
-      hl = {
-         fg = colors.grey_fg2,
-         bg = colors.statusline_bg,
-      },
-      icon = "  ",
-   },
+    remove = {
+        provider = "git_diff_removed",
+        hl = {
+            fg = colors.red,
+            bg = colors.statusline_bg,
+        },
+        left_sep = ' ',
+        icon = "  ",
+    },
 }
 
 local git_branch = {
-   provider = "git_branch",
-   enabled = shortline or function(winid)
-      return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 70
-   end,
-   hl = {
-      fg = colors.grey_fg2,
-      bg = colors.statusline_bg,
-   },
-   icon = "  ",
+    provider = "git_branch",
+    enabled = shortline or function(winid)
+       return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 70
+    end,
+    hl = {
+       fg = colors.grey_fg2,
+       bg = colors.statusline_bg,
+    },
+    left_sep = ' ',
+    icon = "  ",
 }
 
 local diagnostic = {
-   errors = {
-      provider = "diagnostic_errors",
-      enabled = function()
-         return lsp.diagnostics_exist(lsp_severity.ERROR)
-      end,
+    errors = {
+        provider = "diagnostic_errors",
+        enabled = function()
+            return lsp.diagnostics_exist(lsp_severity.ERROR)
+        end,
 
-      hl = { fg = colors.red },
-      icon = "  ",
-   },
+        hl = { fg = colors.red },
+        left_sep = ' ',
+        icon = "  ",
+    },
 
-   warning = {
-      provider = "diagnostic_warnings",
-      enabled = function()
-         return lsp.diagnostics_exist(lsp_severity.WARN)
-      end,
-      hl = { fg = colors.yellow },
-      icon = "  ",
-   },
+    warning = {
+        provider = "diagnostic_warnings",
+        enabled = function()
+            return lsp.diagnostics_exist(lsp_severity.WARN)
+        end,
+        hl = { fg = colors.yellow },
+        left_sep = ' ',
+        icon = "  ",
+    },
 
-   hint = {
-      provider = "diagnostic_hints",
-      enabled = function()
-         return lsp.diagnostics_exist(lsp_severity.HINT)
-      end,
-      hl = { fg = colors.grey_fg2 },
-      icon = "  ",
-   },
+    hint = {
+        provider = "diagnostic_hints",
+        enabled = function()
+            return lsp.diagnostics_exist(lsp_severity.HINT)
+        end,
+        hl = { fg = colors.grey_fg2 },
+        left_sep = ' ',
+        icon = "  ",
+    },
 
-   info = {
-      provider = "diagnostic_info",
-      enabled = function()
-         return lsp.diagnostics_exist(lsp_severity.INFO)
-      end,
-      hl = { fg = colors.green },
-      icon = "  ",
-   },
+    info = {
+        provider = "diagnostic_info",
+        enabled = function()
+            return lsp.diagnostics_exist(lsp_severity.INFO)
+        end,
+        hl = { fg = colors.green },
+        left_sep = ' ',
+        icon = "  ",
+    },
 }
 
 local lsp_progress = {
@@ -411,11 +468,7 @@ local right = {}
 add_table(left, mode_icon)
 add_table(left, empty_space2)
 add_table(left, dir_name)
-add_table(left, file_name)
 add_table(left, function_name)
-add_table(left, diff.add)
-add_table(left, diff.change)
-add_table(left, diff.remove)
 add_table(left, diagnostic.error)
 add_table(left, diagnostic.warning)
 add_table(left, diagnostic.hint)
@@ -426,11 +479,10 @@ add_table(middle, lsp_progress)
 -- right
 add_table(right, lsp_icon)
 add_table(right, git_branch)
-add_table(right, empty_space)
-add_table(right, empty_spaceColored)
-add_table(right, separator_right)
-add_table(right, separator_right2)
-add_table(right, position_icon)
+add_table(right, diff.add)
+add_table(right, diff.change)
+add_table(right, diff.remove)
+add_table(right, file_os)
 add_table(right, current_line)
 
 components.active[1] = left
