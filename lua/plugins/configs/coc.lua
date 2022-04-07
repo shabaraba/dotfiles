@@ -61,6 +61,24 @@ M.config = function()
     vim.api.nvim_set_keymap('n', '[fzf-p]<C-]><C-]>', '<cmd>CocCommand fzf-preview.CocReferences<CR>', {noremap = true, silent = true})
     vim.api.nvim_set_keymap('n', '[fzf-p]rf', '<cmd>CocCommand fzf-preview.DirectoryFiles<CR>', {noremap = true, silent = true})
 
+    -- vim.cmd[[
+    --     function! s:buffers_delete_from_paths(paths) abort
+    --       for path in a:paths
+    --         execute 'bdelete! ' . path
+    --       endfor
+    --     endfunction
+
+    --     let g:buffer_delete_processor = {
+    --     \ '':       function('fzf_preview#resource_processor#edit'),
+    --     \ 'ctrl-s': function('fzf_preview#resource_processor#split'),
+    --     \ 'ctrl-v': function('fzf_preview#resource_processor#vsplit'),
+    --     \ 'ctrl-t': function('fzf_preview#resource_processor#vsplit'),
+    --     \ 'ctrl-q': function('fzf_preview#resource_processor#export_quickfix'),
+    --     \ 'ctrl-x': function('s:buffers_delete_from_paths'),
+    --     \ }
+
+    --     nnoremap <silent> <Leader>b :<C-u>call fzf_preview#resource_processor#set_processor_once(g:buffer_delete_processor)<CR>:FzfPreviewBuffers<CR> 
+    -- ]]
 end
 
 return M
