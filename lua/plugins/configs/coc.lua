@@ -16,7 +16,7 @@ M.config = function()
         'coc-markdownlint',
         'coc-prettier',
         'coc-sql',
-        'coc-sumneko-lua',
+        -- 'coc-sumneko-lua',
         'coc-toml',
         'coc-tsserver',
         'coc-vimlsp',
