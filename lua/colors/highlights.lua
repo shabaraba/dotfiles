@@ -16,13 +16,13 @@ local line = colors.line
 local nord_blue = colors.nord_blue
 local one_bg = colors.one_bg
 local one_bg2 = colors.one_bg2
+local one_bg3 = colors.one_bg3
 local pmenu_bg = colors.pmenu_bg
 local purple = colors.purple
 local red = colors.red
 local white = colors.white
 local yellow = colors.yellow
 local orange = colors.orange
-local one_bg3 = colors.one_bg3
 
 -- functions for setting highlights
 local fg = require("core.utils").fg
@@ -31,9 +31,9 @@ local bg = require("core.utils").bg
 
 -- Comments
 if ui.italic_comments then
-   fg("Comment", grey_fg .. " gui=italic")
+   fg("Comment", nord_blue .. " gui=italic")
 else
-   fg("Comment", grey_fg)
+   fg("Comment", nord_blue)
 end
 
 -- Disable cusror line
@@ -71,7 +71,7 @@ if ui.transparency then
    bg("Normal", "NONE")
    bg("Folded", "NONE")
    fg("Folded", "NONE")
-   fg("Comment", grey)
+   -- fg("Comment", grey)
 end
 
 -- [[ Plugin Highlights
