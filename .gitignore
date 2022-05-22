@@ -7,3 +7,4 @@
 .vim/plugins/coc/*
 !.vim/plugins/coc/extensions
 
+/debugger/**/*
