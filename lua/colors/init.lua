@@ -25,8 +25,11 @@ end
 -- returns a table of colors for given or current theme
 M.get = function(theme)
    if not theme then
-      theme = vim.g.nvchad_theme
+      theme = require("core.utils").load_config().ui.theme
    end
+   -- if not theme then
+   --    theme = vim.g.nvchad_theme
+   -- end
 
    return require("hl_themes." .. theme)
 end
