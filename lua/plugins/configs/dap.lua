@@ -81,7 +81,7 @@ M.config = function()
             type = 'php',
             request = 'launch',
             name = 'Listen for Xdebug',
-            port = 9003,
+            port = 9000,
             stopOnEntry = false,
             pathMappings = { ["/var/www/html"] = "${workspaceFolder}"},
             xdebugSettings = {

@@ -27,7 +27,7 @@ vim.opt.clipboard='unnamedplus'
 
 -- Indentline
 
-vim.cmd[[set list listchars=tab:\>\-]]
+vim.cmd[[set list listchars=tab:\>\-,trail:_]]
 
 opt.expandtab = options.expandtab
 opt.shiftwidth = options.shiftwidth

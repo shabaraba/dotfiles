@@ -1,3 +1,5 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
 export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -223,3 +225,6 @@ export PATH="$HOME/.phpenv/bin:$PATH"
 eval "$(phpenv init -)"
 export PATH="$HOME/.phpenv/bin:$PATH"
 eval "$(phpenv init -)"
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
