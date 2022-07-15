@@ -114,6 +114,14 @@ return packer.startup(function()
      end,
   }
 
+    -- window resize
+    use {
+        "simeji/winresizer",
+        config = function()
+            vim.g.winresizer_start_key = '<C-T>'
+        end
+    }
+
 --   -- lsp stuff
 
 --    use {
@@ -298,13 +306,7 @@ return packer.startup(function()
    use'airblade/vim-gitgutter'
    use'tpope/vim-fugitive'
 
-   -- use {
-   --     'APZelos/blamer.nvim',
-   --     config = [[
-   --         vim.g.blamer_enabled = 1
-   --         vim.g.blamer_delay = 2000
-   --     ]]
-   -- }
+   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
 
    use{
        -- 'easymotion/vim-easymotion',
