@@ -4,3 +4,4 @@
 
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zprofile.post.zsh" ]] && . "$HOME/.fig/shell/zprofile.post.zsh"
+eval "$(/opt/homebrew/bin/brew shellenv)"
