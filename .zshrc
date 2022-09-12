@@ -37,7 +37,6 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias e="emacs"
 alias v='nvim'
-alias vi='nvim'
 alias vim='nvim'
 alias mss='mysql.server start'
 alias so='source'
@@ -67,6 +66,9 @@ alias gst='git stash'
 alias gsl='git stash list'
 alias gsu='git stash -u'
 alias gsp='git stash pop'
+
+# for private aliases and functions
+source ~/.zsh/alias.zsh
 
 # docker
 alias dc='docker-compose'

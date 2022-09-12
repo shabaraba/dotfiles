@@ -9,9 +9,23 @@ set scrolloff=5
 " Do incremental searching.
 set incsearch
 
+let mapleader=" "
+set easymotion
+set NERDTree
+set surround
+set commentary
+set argtextobj
+set highlightedyank
+set clipboard+=unnamedplus
+set ignorecase
+
 " Don't use Ex mode, use Q for formatting.
 map Q gq
+imap jj <Esc>
+nmap <C-j> gt
+nmap <C-k> gT
 
+nmap :term <M-3>
 
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
 "" Map \r to the Reformat Code action

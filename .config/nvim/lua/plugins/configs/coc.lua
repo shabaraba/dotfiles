@@ -25,9 +25,10 @@ M.config = function()
         'coc-pyright',
         'coc-tabnine',
         'coc-fzf-preview',
+        'coc-java'
     }
     -- vim.opt.statusline ^= "%{coc#status()}%{get(b:,'coc_current_function','')}"
-    vim.g.coc_config_home = '~/dotfiles/lua/plugins/configs'
+    vim.g.coc_config_home = '~/dotfiles/.config/nvim/lua/plugins/configs'
 
     -- vim.cmd('autocmd FileType json syntax match Comment +//.+$+')
     vim.api.nvim_set_keymap('n', '<space><space>', ':<C-u>CocList<CR>', {noremap = false, silent = true})
