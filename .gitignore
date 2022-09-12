@@ -8,3 +8,5 @@
 !.vim/plugins/coc/extensions
 
 /debugger/**/*
+
+.config/git/config.d/user.conf

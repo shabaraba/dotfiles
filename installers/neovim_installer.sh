@@ -10,7 +10,7 @@ elif [ "$1" = centos ]; then
     yum update -y
 else
     echo 'macos' 1>&2
-    install_cmd='brew install -y'
+    install_cmd='brew install '
 fi
 
 if !(type "nvim" > /dev/null 2>&1); then
