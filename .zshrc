@@ -4,58 +4,19 @@ export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-# zplug$B$NFI$_9~$_!&=i4|2=(B
-if [ -f ~/.zplug/init.zsh ]; then
-else
-	if [ -d ~/.zplug ]; then
-	else
-		mkdir ~/.zplug
-	fi
-	git clone https://github.com/zplug/zplug ~/.zplug
-fi
-
-export ZPLUG_LOADFILE=~/.zsh/zplug.zsh
-source ~/.zplug/init.zsh
-
-########################
-# zplug setting
-########################
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-# theme ( https://github.com/sindresorhus/pure#zplug)$B!!9%$_$N%9%-!<%^$r$$$l$F$/$@$5$l!#(B
-#zplug mafredri/zsh-async, from:github
-#zplug caiogondim/bullet-train.zsh, use:bullet-train.zsh-theme, from:github, as:theme
-#setopt prompt_subst # Make sure prompt is able to be generated properly.
-#zplug caiogondim/bullet-train.zsh, from:github, use:bullet-train.zsh-theme, as:theme  # defer until other plugins like oh-my-zsh is loaded
-#zplug "caiogondim/bullet-train.zsh", use:bullet-train.zsh-theme, as:theme, defer:3 # defer until other plugins like oh-my-zsh is loaded
-
-# $B9=J8$N%O%$%i%$%H(B(https://github.com/zsh-users/zsh-syntax-highlighting)
-zplug "zsh-users/zsh-syntax-highlighting"
-# history$B4X78(B
-#zplug "zsh-users/zsh-history-substring-search"
-# $B%?%$%WJd40(B
-zplug "zsh-users/zsh-autosuggestions"
-zplug "zsh-users/zsh-completions"
-#zplug "chrissicool/zsh-256color"
-
-# z$B$G%U%)%k%@0\F0(B
-zplug "rupa/z"
-. ~/.zplug/repos/rupa/z/z.sh
-
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-  printf "Install? [y/N]: "
-  if read -q; then
-    echo; zplug install
-  fi
-fi
-# Then, source plugins and add commands to $PATH
-zplug load
-
-
-########################
-# end zplug setting
-########################
 export PATH=/usr/bin/node:$PATH
+typeset -U path PATH
+path=(
+  /opt/homebrew/bin(N-/)
+  /opt/homebrew/sbin(N-/)
+  /usr/bin
+  /usr/sbin
+  /bin
+  /sbin
+  /usr/local/bin(N-/)
+  /usr/local/sbin(N-/)
+  /Library/Apple/usr/bin
+)
 
  #load settings
 source ~/.zsh/prompt.zsh
@@ -228,3 +189,32 @@ eval "$(phpenv init -)"
 
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
+
+# load private environment settings
+source ~/.zsh/env.zsh
+
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
+#
+# load zinit plugins
+source ~/.zsh/zinit/plugins.zsh
