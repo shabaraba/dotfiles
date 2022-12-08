@@ -1,3 +1,5 @@
+PROMPT='%~ %# '
+
 autoload -Uz VCS_INFO_get_data_git; VCS_INFO_get_data_git 2> /dev/null
 autoload -Uz colors; colors
 
