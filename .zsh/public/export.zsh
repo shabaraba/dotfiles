@@ -39,7 +39,7 @@ export PATH=$ANDROID_SDK_ROOT/emulator:$PATH
 
 [[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
 
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export JAVA_HOME=$(/usr/libexec/java_home -v 17)
 export PATH=$PATH:$JAVA_HOME/bin
 
 export ANDROID_HOME=$HOME/Android/Sdk
