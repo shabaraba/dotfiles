@@ -3,7 +3,7 @@ centos := centos-release
 redhat := redhat-release
 
 os_name := 'macos'
-INSTALL := brew install -y
+INSTALL := brew install 
 ifeq ($(shell ls /etc | grep ${ubuntu}),${ubuntu})
 	os_name := 'ubuntu'
 	INSTALL := apt install -y

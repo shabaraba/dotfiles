@@ -1,0 +1,26 @@
+[color]
+	ui = auto
+[include]
+    path = ~/.config/git/config.d/user.conf
+[http]
+	sslVerify = false
+[core]
+	editor = nvim
+    pager = delta
+[delta]
+    side-by-side = false
+    features = unobtrusive-line-numbers decorations
+    whitespace-error-style = 22 reverse
+
+[delta "unobtrusive-line-numbers"]
+    line-numbers = true
+    line-numbers-left-format = "{nm:>4}┊"
+    line-numbers-right-format = "{np:>4}│"
+    line-numbers-left-style = blue
+    line-numbers-right-style = blue
+
+[delta "decorations"]
+    commit-decoration-style =  box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
+    hunk-header-decoration-style = cyan box ul

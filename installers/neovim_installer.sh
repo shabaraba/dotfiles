@@ -10,7 +10,7 @@ elif [ "$1" = centos ]; then
     yum update -y
 else
     echo 'macos' 1>&2
-    install_cmd='brew install -y'
+    install_cmd='brew install '
 fi
 
 if !(type "nvim" > /dev/null 2>&1); then
@@ -20,7 +20,8 @@ if !(type "nvim" > /dev/null 2>&1); then
     fi
     $install_cmd pkg-config libtool-bin libtool automake cmake libncurses5-dev g++ gettext
     cd neovim
-    make CMAKE_BUILD_TYPE=RelWithDebInfo
+    # make CMAKE_BUILD_TYPE=RelWithDebInfo
+    make CMAKE_BUILD_TYPE=Release
     make install;
     cd ../ && rm -rf neovim
 else
