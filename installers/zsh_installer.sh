@@ -18,7 +18,6 @@ if !(type "zsh" > /dev/null 2>&1); then
 else
     echo 'zsh already installed, skip.'
 fi
-curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 
 exit 1
 

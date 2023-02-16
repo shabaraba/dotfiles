@@ -43,8 +43,8 @@ install: ## Create symlink to home directory
 	@echo '==> Install neovim'
 	@echo 'sh installers/neovim_installer.sh $(os_name)'
 	@sh installers/neovim_installer.sh $(os_name)
-	@echo '==> Install zplug'
-	@sh installers/zplug_installer.sh $(os_name)
+	@echo '==> Install zsh'
+	@sh installers/zsh_installer.sh $(os_name)
 
 	@echo '==> Start to deploy dotfiles to home directory.'
 	@$(call _linkDotFiles)
