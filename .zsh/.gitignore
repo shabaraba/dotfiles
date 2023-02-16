@@ -1,5 +1,5 @@
 env.zsh
 alias.zsh
-private/*.zsh
-!private/*.zsh.example
-!private/*.zsh.sample
+private/**/*
+!private/**/*.zsh.example
+!private/**/*.zsh.sample

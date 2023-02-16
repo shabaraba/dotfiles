@@ -20,12 +20,12 @@ M.config = function()
         'coc-toml',
         'coc-tsserver',
         'coc-vimlsp',
-        'coc-jedi',
+        -- 'coc-jedi',
         'coc-diagnostic',
         'coc-pyright',
         'coc-tabnine',
-        'coc-fzf-preview',
-        'coc-java'
+        'coc-fzf-preview'
+        -- 'coc-java'
     }
     -- vim.opt.statusline ^= "%{coc#status()}%{get(b:,'coc_current_function','')}"
     vim.g.coc_config_home = '~/dotfiles/.config/nvim/lua/plugins/configs'
