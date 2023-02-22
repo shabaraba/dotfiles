@@ -1,5 +1,3 @@
-env.zsh
-alias.zsh
 private/**/*
 !private/**/*.zsh.example
 !private/**/*.zsh.sample
