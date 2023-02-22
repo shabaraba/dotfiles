@@ -25,6 +25,8 @@ if BinaryFormat == 'Windows' then
 end
 
 return {
+    initial_rows = 30,
+    initial_cols = 150,
     window_decorations = decorations_;
     window_background_image_hsb = {
         -- Darken the background image by reducing it to 1/3rd
