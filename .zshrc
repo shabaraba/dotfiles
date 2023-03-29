@@ -28,3 +28,5 @@ zstyle ':completion:*:default' menu select=1
 
 ### Added by Zinit's installer
 [[ -f "$HOME/.zsh/zinit/zinit.zsh" ]] && source ~/.zsh/zinit/zinit.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

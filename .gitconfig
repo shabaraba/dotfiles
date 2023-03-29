@@ -7,5 +7,6 @@
 [core]
 	editor = nvim
 	pager = git-split-diffs --color | less -RFX
+	quotepath = false
 [push]
 	autoSetupRemote = true
