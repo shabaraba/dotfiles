@@ -48,7 +48,8 @@ return {
     exit_behavior = "Close",
 
     keys = {
-        {key = "w", mods = "ALT", action = wezterm.action{CloseCurrentPane={confirm=true}}}
+        {key = "w", mods = "ALT", action = wezterm.action{CloseCurrentPane={confirm=true}}},
+        {key = 'h', mods = 'CMD', action = wezterm.action.Hide},
     },
     default_prog = default_prog_,
 }
