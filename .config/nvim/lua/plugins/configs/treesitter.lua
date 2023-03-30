@@ -6,9 +6,9 @@ end
 
 ts_config.setup {
     ensure_installed = 'all',
+    auto_install = true,
     highlight = {
         enable = true,
-        use_languagetree = true,
     },
     indent = {
         enable = true,

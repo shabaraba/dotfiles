@@ -194,7 +194,7 @@ _G.packer_plugins = {
     url = "https://github.com/PHSix/nvim-hybrid"
   },
   ["nvim-transparent"] = {
-    config = { "\27LJ\2\nñ\1\0\0\4\0\a\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\0024\3\0\0=\3\6\2B\0\2\1K\0\1\0\fexclude\17extra_groups\1\a\0\0\23BufferLineTabClose\29BufferlineBufferSelected\19BufferLineFill\25BufferLineBackground\24BufferLineSeparator BufferLineIndicatorSelected\1\0\1\venable\2\nsetup\16transparent\frequire\0" },
+    config = { "\27LJ\2\nð\1\0\0\4\0\a\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0024\3\0\0=\3\6\2B\0\2\1K\0\1\0\19exclude_groups\17extra_groups\1\0\0\1\a\0\0\23BufferLineTabClose\29BufferlineBufferSelected\19BufferLineFill\25BufferLineBackground\24BufferLineSeparator BufferLineIndicatorSelected\nsetup\16transparent\frequire\0" },
     load_after = {},
     loaded = true,
     needs_bufread = false,
@@ -309,17 +309,10 @@ if not vim.g.packer_custom_loader_enabled then
   vim.g.packer_custom_loader_enabled = true
 end
 
--- Setup for: nvim-tree.lua
-time([[Setup for nvim-tree.lua]], true)
-try_loadstring("\27LJ\2\n>\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\rnvimtree\18core.mappings\frequire\0", "setup", "nvim-tree.lua")
-time([[Setup for nvim-tree.lua]], false)
--- Setup for: bufferline.nvim
-time([[Setup for bufferline.nvim]], true)
-try_loadstring("\27LJ\2\n@\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\15bufferline\18core.mappings\frequire\0", "setup", "bufferline.nvim")
-time([[Setup for bufferline.nvim]], false)
-time([[packadd for bufferline.nvim]], true)
-vim.cmd [[packadd bufferline.nvim]]
-time([[packadd for bufferline.nvim]], false)
+-- Setup for: Comment.nvim
+time([[Setup for Comment.nvim]], true)
+try_loadstring("\27LJ\2\n=\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\fcomment\18core.mappings\frequire\0", "setup", "Comment.nvim")
+time([[Setup for Comment.nvim]], false)
 -- Setup for: nvim-dap-ui
 time([[Setup for nvim-dap-ui]], true)
 try_loadstring("\27LJ\2\nA\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\24plugins.configs.dap\frequire\0", "setup", "nvim-dap-ui")
@@ -327,6 +320,13 @@ time([[Setup for nvim-dap-ui]], false)
 time([[packadd for nvim-dap-ui]], true)
 vim.cmd [[packadd nvim-dap-ui]]
 time([[packadd for nvim-dap-ui]], false)
+-- Setup for: bufferline.nvim
+time([[Setup for bufferline.nvim]], true)
+try_loadstring("\27LJ\2\n@\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\15bufferline\18core.mappings\frequire\0", "setup", "bufferline.nvim")
+time([[Setup for bufferline.nvim]], false)
+time([[packadd for bufferline.nvim]], true)
+vim.cmd [[packadd bufferline.nvim]]
+time([[packadd for bufferline.nvim]], false)
 -- Setup for: dashboard-nvim
 time([[Setup for dashboard-nvim]], true)
 try_loadstring("\27LJ\2\n?\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\14dashboard\18core.mappings\frequire\0", "setup", "dashboard-nvim")
@@ -334,35 +334,34 @@ time([[Setup for dashboard-nvim]], false)
 time([[packadd for dashboard-nvim]], true)
 vim.cmd [[packadd dashboard-nvim]]
 time([[packadd for dashboard-nvim]], false)
--- Setup for: Comment.nvim
-time([[Setup for Comment.nvim]], true)
-try_loadstring("\27LJ\2\n=\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\fcomment\18core.mappings\frequire\0", "setup", "Comment.nvim")
-time([[Setup for Comment.nvim]], false)
 -- Setup for: gitsigns.nvim
 time([[Setup for gitsigns.nvim]], true)
 try_loadstring("\27LJ\2\nU\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\1K\0\1\0\18gitsigns.nvim\21packer_lazy_load\15core.utils\frequire\0", "setup", "gitsigns.nvim")
 time([[Setup for gitsigns.nvim]], false)
--- Config for: vim-highlightedyank
-time([[Config for vim-highlightedyank]], true)
-           vim.g.highlightedyank_highlight_duration = 200
-       
-time([[Config for vim-highlightedyank]], false)
--- Config for: nvim-hybrid
-time([[Config for nvim-hybrid]], true)
-try_loadstring("\27LJ\2\n4\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\vhybrid\frequire\0", "config", "nvim-hybrid")
-time([[Config for nvim-hybrid]], false)
--- Config for: CamelCaseMotion
-time([[Config for CamelCaseMotion]], true)
-try_loadstring("\27LJ\2\nA\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0&plugins.configs.camel_case_motion\frequire\0", "config", "CamelCaseMotion")
-time([[Config for CamelCaseMotion]], false)
+-- Setup for: nvim-tree.lua
+time([[Setup for nvim-tree.lua]], true)
+try_loadstring("\27LJ\2\n>\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\rnvimtree\18core.mappings\frequire\0", "setup", "nvim-tree.lua")
+time([[Setup for nvim-tree.lua]], false)
 -- Config for: bufferline.nvim
 time([[Config for bufferline.nvim]], true)
 require('plugins.configs.bufferline')
 time([[Config for bufferline.nvim]], false)
--- Config for: nvim-dap-ui
-time([[Config for nvim-dap-ui]], true)
-try_loadstring("\27LJ\2\nB\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\24plugins.configs.dap\frequire\0", "config", "nvim-dap-ui")
-time([[Config for nvim-dap-ui]], false)
+-- Config for: CamelCaseMotion
+time([[Config for CamelCaseMotion]], true)
+try_loadstring("\27LJ\2\nA\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0&plugins.configs.camel_case_motion\frequire\0", "config", "CamelCaseMotion")
+time([[Config for CamelCaseMotion]], false)
+-- Config for: winresizer
+time([[Config for winresizer]], true)
+try_loadstring("\27LJ\2\n<\0\0\2\0\4\0\0056\0\0\0009\0\1\0'\1\3\0=\1\2\0K\0\1\0\n<C-T>\25winresizer_start_key\6g\bvim\0", "config", "winresizer")
+time([[Config for winresizer]], false)
+-- Config for: coc.nvim
+time([[Config for coc.nvim]], true)
+try_loadstring("\27LJ\2\nB\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\24plugins.configs.coc\frequire\0", "config", "coc.nvim")
+time([[Config for coc.nvim]], false)
+-- Config for: dashboard-nvim
+time([[Config for dashboard-nvim]], true)
+require('plugins.configs.dashboard')
+time([[Config for dashboard-nvim]], false)
 -- Config for: hop.nvim
 time([[Config for hop.nvim]], true)
 try_loadstring("\27LJ\2\n3\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\24plugins.configs.hop\frequire\0", "config", "hop.nvim")
@@ -371,24 +370,25 @@ time([[Config for hop.nvim]], false)
 time([[Config for preview-markdown.vim]], true)
 try_loadstring("\27LJ\2\n•\1\0\0\2\0\6\0\r6\0\0\0009\0\1\0)\1\1\0=\1\2\0006\0\0\0009\0\1\0)\1\1\0=\1\3\0006\0\0\0009\0\1\0'\1\5\0=\1\4\0K\0\1\0\tglow\28preview_markdown_parser\30preview_markdown_vertical!preview_markdown_auto_update\6g\bvim\0", "config", "preview-markdown.vim")
 time([[Config for preview-markdown.vim]], false)
--- Config for: dashboard-nvim
-time([[Config for dashboard-nvim]], true)
-require('plugins.configs.dashboard')
-time([[Config for dashboard-nvim]], false)
--- Config for: coc.nvim
-time([[Config for coc.nvim]], true)
-try_loadstring("\27LJ\2\nB\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\24plugins.configs.coc\frequire\0", "config", "coc.nvim")
-time([[Config for coc.nvim]], false)
--- Config for: winresizer
-time([[Config for winresizer]], true)
-try_loadstring("\27LJ\2\n<\0\0\2\0\4\0\0056\0\0\0009\0\1\0'\1\3\0=\1\2\0K\0\1\0\n<C-T>\25winresizer_start_key\6g\bvim\0", "config", "winresizer")
-time([[Config for winresizer]], false)
+-- Config for: nvim-hybrid
+time([[Config for nvim-hybrid]], true)
+try_loadstring("\27LJ\2\n4\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\vhybrid\frequire\0", "config", "nvim-hybrid")
+time([[Config for nvim-hybrid]], false)
+-- Config for: vim-highlightedyank
+time([[Config for vim-highlightedyank]], true)
+           vim.g.highlightedyank_highlight_duration = 200
+       
+time([[Config for vim-highlightedyank]], false)
+-- Config for: nvim-dap-ui
+time([[Config for nvim-dap-ui]], true)
+try_loadstring("\27LJ\2\nB\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\24plugins.configs.dap\frequire\0", "config", "nvim-dap-ui")
+time([[Config for nvim-dap-ui]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
 vim.cmd [[ packadd nvim-transparent ]]
 
 -- Config for: nvim-transparent
-try_loadstring("\27LJ\2\nñ\1\0\0\4\0\a\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\0024\3\0\0=\3\6\2B\0\2\1K\0\1\0\fexclude\17extra_groups\1\a\0\0\23BufferLineTabClose\29BufferlineBufferSelected\19BufferLineFill\25BufferLineBackground\24BufferLineSeparator BufferLineIndicatorSelected\1\0\1\venable\2\nsetup\16transparent\frequire\0", "config", "nvim-transparent")
+try_loadstring("\27LJ\2\nð\1\0\0\4\0\a\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0024\3\0\0=\3\6\2B\0\2\1K\0\1\0\19exclude_groups\17extra_groups\1\0\0\1\a\0\0\23BufferLineTabClose\29BufferlineBufferSelected\19BufferLineFill\25BufferLineBackground\24BufferLineSeparator BufferLineIndicatorSelected\nsetup\16transparent\frequire\0", "config", "nvim-transparent")
 
 vim.cmd [[ packadd nvim-web-devicons ]]
 vim.cmd [[ packadd feline.nvim ]]
@@ -400,17 +400,29 @@ time([[Sequenced loading]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
-pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file NvimTreeToggle lua require("packer.load")({'nvim-tree.lua'}, { cmd = "NvimTreeToggle", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
-pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file NvimTreeFocus lua require("packer.load")({'nvim-tree.lua'}, { cmd = "NvimTreeFocus", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
+pcall(vim.api.nvim_create_user_command, 'NvimTreeFocus', function(cmdargs)
+          require('packer.load')({'nvim-tree.lua'}, { cmd = 'NvimTreeFocus', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
+        end,
+        {nargs = '*', range = true, bang = true, complete = function()
+          require('packer.load')({'nvim-tree.lua'}, {}, _G.packer_plugins)
+          return vim.fn.getcompletion('NvimTreeFocus ', 'cmdline')
+      end})
+pcall(vim.api.nvim_create_user_command, 'NvimTreeToggle', function(cmdargs)
+          require('packer.load')({'nvim-tree.lua'}, { cmd = 'NvimTreeToggle', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
+        end,
+        {nargs = '*', range = true, bang = true, complete = function()
+          require('packer.load')({'nvim-tree.lua'}, {}, _G.packer_plugins)
+          return vim.fn.getcompletion('NvimTreeToggle ', 'cmdline')
+      end})
 time([[Defining lazy-load commands]], false)
 
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
+vim.cmd [[au BufRead * ++once lua require("packer.load")({'nvim-treesitter', 'nvim-colorizer.lua', 'indent-blankline.nvim'}, { event = "BufRead *" }, _G.packer_plugins)]]
 vim.cmd [[au VimEnter * ++once lua require("packer.load")({'packer.nvim'}, { event = "VimEnter *" }, _G.packer_plugins)]]
 vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'better-escape.nvim'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
-vim.cmd [[au BufRead * ++once lua require("packer.load")({'indent-blankline.nvim', 'nvim-colorizer.lua', 'nvim-treesitter'}, { event = "BufRead *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")
 
