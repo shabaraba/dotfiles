@@ -1,6 +1,7 @@
 export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+export LESSCHARSET=utf-8
 
 export PATH=/usr/bin/node:$PATH
 typeset -U path PATH
