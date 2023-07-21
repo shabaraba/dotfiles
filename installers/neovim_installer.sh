@@ -28,5 +28,5 @@ else
     echo 'neovim already installed, skip.'
 fi
 
-exit 1
+exit 0
 
