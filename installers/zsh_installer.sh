@@ -19,5 +19,5 @@ else
     echo 'zsh already installed, skip.'
 fi
 
-exit 1
+exit 0
 
