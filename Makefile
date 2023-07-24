@@ -48,14 +48,14 @@ install: ## Create symlink to home directory
 
 	@echo '==> Start to deploy dotfiles to home directory.'
 	@$(call _linkDotFiles)
-	@$(call _setUpCoc)
+##	@$(call _setUpCoc)
 
 deploy: ## Create symlink to home directory
 	@echo 'Copyright (c) 2013-2015 BABAROT All Rights Reserved.'
 	@echo '==> Start to deploy dotfiles to home directory.'
 	@echo ''
 	@$(call _linkDotFiles)
-	@$(call _setUpCoc)
+##	@$(call _setUpCoc)
 
 clean: ## Remove the dot files and this repo
 	@echo 'Remove dot files in your home directory...'
