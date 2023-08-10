@@ -10,6 +10,3 @@
 	quotepath = false
 [push]
 	autoSetupRemote = true
-[user]
-	email = work.shabaraba@gmail.com
-	name = shabaraba
