@@ -83,6 +83,7 @@ M.config = function()
 
     --     nnoremap <silent> <Leader>b :<C-u>call fzf_preview#resource_processor#set_processor_once(g:buffer_delete_processor)<CR>:FzfPreviewBuffers<CR> 
     -- ]]
+    vim.cmd[[hi CocMenuSel guifg=#cccccc guibg=#2a3d75]]
 end
 
 return M
