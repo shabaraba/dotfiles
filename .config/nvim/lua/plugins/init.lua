@@ -119,6 +119,7 @@ require("lazy").setup({
         end,
         dependnecies = {
             {'nvim-lua/plenary.nvim'},
+            {'fannheyward/telescope-coc.nvim'},
             -- {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
         }
     },

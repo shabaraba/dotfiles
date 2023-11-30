@@ -51,18 +51,27 @@ telescope.setup {
       -- Developer configurations: Not meant for general override
       buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
    },
-    extensions = {
+   extensions = {
         fzf = {
             fuzzy = true,                    -- false will only do exact matching
             override_generic_sorter = true,  -- override the generic sorter
             override_file_sorter = true,     -- override the file sorter
             case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
                                              -- the default case_mode is "smart_case"
-            }
-    }
+        },
+        coc = {
+            theme = 'ivy',
+            -- trueだと結果が1件でもTelescopeを経由する
+            prefer_locations = false,
+        }
+   },
+   -- vim.api.nvim_set_keymap('n', '<C-]>', ':Telescope coc implementations<CR>', {noremap = false, silent = true})
+   -- vim.api.nvim_set_keymap('n', '<C-]><C-]>', ':Telescope coc references<CR>', {noremap = false, silent = true})
+
 }
 
-local extensions = { "themes", "terms", "fzf" }
+
+local extensions = { "themes", "terms", "fzf", "coc" }
 
 pcall(function()
    for _, ext in ipairs(extensions) do
