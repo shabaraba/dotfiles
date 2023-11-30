@@ -15,7 +15,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    "Nvchad/extensions",
+    -- "Nvchad/extensions",
     "nvim-lua/plenary.nvim",
     {
         "xiyaowong/nvim-transparent",
@@ -72,6 +72,7 @@ require("lazy").setup({
     },
     {
         "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
         event = "BufRead",
         config = override_req("indent_blankline", "(plugins.configs.others).blankline()"),
     },
@@ -126,6 +127,14 @@ require("lazy").setup({
     {'tpope/vim-fugitive'},
     {'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim'},
 
+    -- language server plotocol
+   {
+        'neoclide/coc.nvim',
+        branch = "master",
+        -- build = "yarn install --frozen-lockfile",
+        build = ":call coc#util#install()",
+        config = require('plugins.configs.coc').config(),
+   }
 
 })
 --    use {
