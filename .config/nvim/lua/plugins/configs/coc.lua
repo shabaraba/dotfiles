@@ -12,7 +12,7 @@ M.config = function()
         'coc-git',
         'coc-html',
         'coc-json',
-        'coc-lua',
+        -- 'coc-lua',
         'coc-markdownlint',
         'coc-prettier',
         'coc-sql',
@@ -23,8 +23,8 @@ M.config = function()
         -- 'coc-jedi',
         'coc-diagnostic',
         'coc-pyright',
-        'coc-tabnine',
-        'coc-fzf-preview'
+        'coc-fzf-preview',
+        'coc-phpls',
         -- 'coc-java'
     }
     -- vim.opt.statusline ^= "%{coc#status()}%{get(b:,'coc_current_function','')}"
@@ -37,6 +37,9 @@ M.config = function()
     vim.api.nvim_set_keymap('n', '<C-]><C-]>', '<Plug>(coc-references)', {noremap = false, silent = true})
     vim.api.nvim_set_keymap('n', '<space>rn', ':<Plug>(coc-rename)', {noremap = false, silent = true})
     vim.api.nvim_set_keymap('n', '<A-S-f>', ':<Plug>(coc-format)', {noremap = false, silent = true})
+
+    -- pretter
+    vim.api.nvim_set_keymap('n', '<Leader><C-f>', ':<C-u>call CocAction("format")<CR>', {noremap = false, silent = true})
 
     vim.api.nvim_set_keymap('n', '<Leader>f', '[fzf-p]', {noremap = false, silent = false})
     vim.api.nvim_set_keymap('x', '<Leader>f', '[fzf-p]', {noremap = false, silent = false})
