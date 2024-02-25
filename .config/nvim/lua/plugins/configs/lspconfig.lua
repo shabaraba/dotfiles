@@ -1,67 +1,39 @@
-local M = {}
+local present, lspconfig = pcall(require, "lspconfig")
 
-M.setup = function()
-    require("core.utils").packer_lazy_load "nvim-lspconfig"
-    -- reload the current file so lsp actually starts for it
-    vim.defer_fn(function()
-        vim.cmd 'if &ft == "packer" | echo "" | else | silent! e %'
-    end, 0)
+if not present then
+   return
 end
 
-require("plugins.configs.others").lsp_handlers()
+lspconfig.setup = function()
+     require('mini.completion').setup({})
+     require("mason-lspconfig").setup_handlers({
+         function(server_name)
+             lspconfig[server_name].setup(opts)
+         end,
+         ["vtsls"] = function()
+             lspconfig["vtsls"].setup({})
+         end,
+     })
 
-local function on_attach(_, bufnr)
-   local function buf_set_option(...)
-        vim.api.nvim_buf_set_option(bufnr, ...)
-    end
+     vim.api.nvim_create_autocmd("LspAttach", {
+         callback = function(_)
+             vim.keymap.set('n', '<space>h',  '<cmd>lua vim.lsp.buf.hover()<CR>')
+             vim.keymap.set('n', 'gf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+             vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
+             vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
+             vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
+             vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+             vim.keymap.set('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+             vim.keymap.set('n', 'gn', '<cmd>lua vim.lsp.buf.rename()<CR>')
+             vim.keymap.set('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+             vim.keymap.set('n', 'ge', '<cmd>lua vim.diagnostic.open_float()<CR>')
+             vim.keymap.set('n', 'g]', '<cmd>lua vim.diagnostic.goto_next()<CR>')
+             vim.keymap.set('n', 'g[', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
+         end
+     })
 
-    -- Enable completion triggered by <c-x><c-o>
-    buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
-    require("core.mappings").lspconfig()
+     vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+         vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
+     )
 end
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown", "plaintext" }
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.preselectSupport = true
-capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
-capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
-capabilities.textDocument.completion.completionItem.deprecatedSupport = true
-capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
-capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = {
-        "documentation",
-        "detail",
-        "additionalTextEdits",
-    },
-}
-
--- requires a file containing user's lspconfigs
-local addlsp_confs = require("core.utils").load_config().plugins.options.lspconfig.setup_lspconf
-
-if #addlsp_confs ~= 0 then
-    require(addlsp_confs).setup_lsp(on_attach, capabilities)
-end
-
------------------
--- setting server
------------------
-local lsp_installer = require "nvim-lsp-installer"
-
--- Include the servers you want to have installed by default below
-local servers = {
-  "bashls",
-  "intelephense",
-}
-
-for _, name in pairs(servers) do
-  local server_is_found, server = lsp_installer.get_server(name)
-  if server_is_found and not server:is_installed() then
-    print("Installing " .. name)
-    server:install()
-  end
-end
-
-require('lspconfig').intelephense.setup({on_attach = on_attach})
+return M

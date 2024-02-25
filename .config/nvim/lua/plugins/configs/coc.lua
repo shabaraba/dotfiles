@@ -6,6 +6,7 @@ M.config = function()
     vim.g.coc_global_extensions = {
         '@yaegassy/coc-volar',
         '@yaegassy/coc-intelephense',
+        'coc-explorer',
         'coc-css',
         'coc-docker',
         'coc-eslint',
@@ -36,10 +37,8 @@ M.config = function()
     vim.api.nvim_set_keymap('n', '<C-]>', '<Plug>(coc-definition)', {noremap = false, silent = true})
     vim.api.nvim_set_keymap('n', '<C-]><C-]>', '<Plug>(coc-references)', {noremap = false, silent = true})
     vim.api.nvim_set_keymap('n', '<space>rn', ':<Plug>(coc-rename)', {noremap = false, silent = true})
-    vim.api.nvim_set_keymap('n', '<A-S-f>', ':<Plug>(coc-format)', {noremap = false, silent = true})
-
     -- pretter
-    vim.api.nvim_set_keymap('n', '<Leader><C-f>', ':<C-u>call CocAction("format")<CR>', {noremap = false, silent = true})
+    vim.api.nvim_create_user_command('Format', ':call CocActionAsync("format")', {})
 
     vim.api.nvim_set_keymap('n', '<Leader>f', '[fzf-p]', {noremap = false, silent = false})
     vim.api.nvim_set_keymap('x', '<Leader>f', '[fzf-p]', {noremap = false, silent = false})
