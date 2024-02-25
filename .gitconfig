@@ -13,3 +13,5 @@
 [user]
 	name = shaba
 	email = work.shabaraba@gmail.com
+[pull]
+	rebase = true

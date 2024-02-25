@@ -178,12 +178,24 @@ M.lspconfig = function()
 end
 
 M.nvimtree = function()
-   map("n", plugin_maps.nvimtree.toggle, ":NvimTreeToggle <CR>")
+   map("n", plugin_maps.nvimtree.toggle, ":NvimTreeFindFileToggle <CR>")
    map("n", plugin_maps.nvimtree.focus, ":NvimTreeFocus <CR>")
 end
 
 M.telescope = function()
-   local m = plugin_maps.telescope
+   local m = {
+      buffers = "<leader>fb",
+      find_files = "<leader>ff",
+      find_hiddenfiles = "<leader>fa",
+      git_commits = "<leader>cm",
+      git_status = "<leader>gt",
+      help_tags = "<leader>fh",
+      live_grep = "<leader>fw",
+      oldfiles = "<leader>fo",
+      themes = "<leader>th", -- NvChad theme picker
+   }
+
+   local builtin = require('telescope.builtin')
 
    map("n", m.buffers, ":Telescope buffers <CR>")
    map("n", m.find_files, ":Telescope find_files <CR>")
@@ -194,6 +206,43 @@ M.telescope = function()
    map("n", m.live_grep, ":Telescope live_grep <CR>")
    map("n", m.oldfiles, ":Telescope oldfiles <CR>")
    map("n", m.themes, ":Telescope themes <CR>")
+
+   map('n', '<C-]>', ":Telescope lsp_definitions<CR>")
+   map('n', '<C-]><C-]>', ":Telescope lsp_references<CR>")
+end
+
+M.lsp = function()
+    -- 2. build-in LSP function
+    -- keyboard shortcut
+    map('n', '<space>h',  '<cmd>lua vim.lsp.buf.hover()<CR>')
+    map('n', 'gf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+    -- map('n', '<C-]><C-]>', '<cmd>lua vim.lsp.buf.references()<CR>')
+    -- map('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
+    map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
+    map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+    map('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+    map('n', 'gn', '<cmd>lua vim.lsp.buf.rename()<CR>')
+    map('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+    map('n', 'ge', '<cmd>lua vim.diagnostic.open_float()<CR>')
+    map('n', 'g]', '<cmd>lua vim.diagnostic.goto_next()<CR>')
+    map('n', 'g[', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
+    -- LSP handlers
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+      vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
+    )
+    -- Reference highlight
+    vim.cmd [[
+    set updatetime=500
+    highlight LspReferenceText  cterm=underline ctermbg=8 gui=underline guibg=#104040
+    highlight LspReferenceRead  cterm=underline ctermbg=8 gui=underline guibg=#104040
+    highlight LspReferenceWrite cterm=underline ctermbg=8 gui=underline guibg=#104040
+
+    augroup lsp_document_highlight
+      autocmd!
+      autocmd CursorHold,CursorHoldI * lua vim.lsp.buf.document_highlight()
+      autocmd CursorMoved,CursorMovedI * lua vim.lsp.buf.clear_references()
+    augroup END
+    ]]
 end
 
 return M

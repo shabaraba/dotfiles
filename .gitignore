@@ -8,3 +8,7 @@
 !.vim/plugins/coc/extensions
 
 /debugger/**/*
+
+.config/**/*
+!.config/nvim
+!.config/wezterm
