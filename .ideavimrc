@@ -27,7 +27,7 @@ nmap <C-k> gT
 
 nmap :term <M-3>
 
-nmap <leader>s <Plug>(easymotion-sn)
+nmap s <Plug>(easymotion-sn)
 
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
 "" Map \r to the Reformat Code action
