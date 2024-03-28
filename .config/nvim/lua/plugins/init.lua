@@ -25,20 +25,20 @@ require("lazy").setup({
             end
         },
         init = function()
-         require("transparent").setup({
-           extra_groups = { -- table/string: additional groups that should be clear
-             -- In particular, when you set it to 'all', that means all avaliable groups
+            require("transparent").setup({
+               extra_groups = { -- table/string: additional groups that should be clear
+                 -- In particular, when you set it to 'all', that means all avaliable groups
 
-             -- example of akinsho/nvim-bufferline.lua
-             "BufferLineTabClose",
-             "BufferlineBufferSelected",
-             "BufferLineFill",
-             "BufferLineBackground",
-             "BufferLineSeparator",
-             "BufferLineIndicatorSelected",
-           },
-           exclude_groups = {}, -- table: groups you don't want to clear
-         })
+                 -- example of akinsho/nvim-bufferline.lua
+                 "BufferLineTabClose",
+                 "BufferlineBufferSelected",
+                 "BufferLineFill",
+                 "BufferLineBackground",
+                 "BufferLineSeparator",
+                 "BufferLineIndicatorSelected",
+               },
+               exclude_groups = {}, -- table: groups you don't want to clear
+            })
         end,
     },
     {
@@ -123,12 +123,16 @@ require("lazy").setup({
             -- {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
         }
     },
+
+   -- mql5
+   {'rupurt/vim-mql5'},
+
    -- git
     {'airblade/vim-gitgutter'},
     {'tpope/vim-fugitive'},
     {'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim'},
 
-    -- language server plotocol
+   -- language server plotocol
    -- {
    --      'neoclide/coc.nvim',
    --      branch = "master",
@@ -157,9 +161,6 @@ require("lazy").setup({
    --     end,
    -- },
 
-   -- mql5
-   {'rupurt/vim-mql5'},
-
     -- lsp stuff
    {
        "williamboman/mason.nvim", -- LSP Installer
@@ -167,35 +168,37 @@ require("lazy").setup({
            "williamboman/mason-lspconfig.nvim",
            {
                "neovim/nvim-lspconfig",
-               dependencies = { "hrsh7th/nvim-cmp" },
+               -- dependencies = { "hrsh7th/nvim-cmp" },
+               dependencies = { "echasnovski/mini.completion", version = false },
                init = function()
                    require("core.mappings").lsp()
                end,
                config = function()
+                   require('mini.completion').setup({})
                     -- 3. completion (hrsh7th/nvim-cmp)
-                    local cmp = require("cmp")
-                    cmp.setup({
-                      snippet = {
-                        expand = function(args)
-                          vim.fn["vsnip#anonymous"](args.body)
-                        end,
-                      },
-                      sources = {
-                        { name = "nvim_lsp" },
-                        -- { name = "buffer" },
-                        -- { name = "path" },
-                      },
-                      mapping = cmp.mapping.preset.insert({
-                        ["<C-p>"] = cmp.mapping.select_prev_item(),
-                        ["<C-n>"] = cmp.mapping.select_next_item(),
-                        ['<C-l>'] = cmp.mapping.complete(),
-                        ['<C-e>'] = cmp.mapping.abort(),
-                        ["<CR>"] = cmp.mapping.confirm { select = true },
-                      }),
-                      experimental = {
-                        ghost_text = true,
-                      },
-                    })
+                    -- local cmp = require("cmp")
+                    -- cmp.setup({
+                    --   snippet = {
+                    --     expand = function(args)
+                    --       vim.fn["vsnip#anonymous"](args.body)
+                    --     end,
+                    --   },
+                    --   sources = {
+                    --     { name = "nvim_lsp" },
+                    --     -- { name = "buffer" },
+                    --     -- { name = "path" },
+                    --   },
+                    --   mapping = cmp.mapping.preset.insert({
+                    --     ["<C-p>"] = cmp.mapping.select_prev_item(),
+                    --     ["<C-n>"] = cmp.mapping.select_next_item(),
+                    --     ['<C-l>'] = cmp.mapping.complete(),
+                    --     ['<C-e>'] = cmp.mapping.abort(),
+                    --     ["<CR>"] = cmp.mapping.confirm { select = true },
+                    --   }),
+                    --   experimental = {
+                    --     ghost_text = true,
+                    --   },
+                    -- })
                     -- config hover design
                     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
                         vim.lsp.handlers.hover,
@@ -256,85 +259,68 @@ require("lazy").setup({
       "nvim-treesitter/nvim-treesitter",
       event = "BufRead",
       config = override_req("nvim_treesitter", "plugins.configs.treesitter"),
-   }
+   },
+    {
+        'nvimdev/lspsaga.nvim',
+        config = function()
+            require('lspsaga').setup({})
+        end,
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter',-- optional
+            'nvim-tree/nvim-web-devicons',    -- optional
+        },
+    },
+    {
+        "kylechui/nvim-surround",
+        version = "*", -- Use for stability; omit to use `main` branch for the latest features
+        event = "VeryLazy",
+        config = function()
+        require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+        })
+        end
+    },
+   {
+       -- 'easymotion/vim-easymotion',
+       'phaazon/hop.nvim',
+       branch = 'v2', -- optional but strongly recommended
+       -- after = "nvim-base16.lua",
+       config = function()
+           -- require'plugins.configs.easy_motion'
+           require'plugins.configs.hop'
+       end
+   },
+   {
+    "kiyoon/treesitter-indent-object.nvim",
+    keys = {
+      {
+        "ai",
+        function() require'treesitter_indent_object.textobj'.select_indent_outer() end,
+        mode = {"x", "o"},
+        desc = "Select context-aware indent (outer)",
+      },
+      {
+        "aI",
+        function() require'treesitter_indent_object.textobj'.select_indent_outer(true) end,
+        mode = {"x", "o"},
+        desc = "Select context-aware indent (outer, line-wise)",
+      },
+      {
+        "ii",
+        function() require'treesitter_indent_object.textobj'.select_indent_inner() end,
+        mode = {"x", "o"},
+        desc = "Select context-aware indent (inner, partial range)",
+      },
+      {
+        "iI",
+        function() require'treesitter_indent_object.textobj'.select_indent_inner(true, 'V') end,
+        mode = {"x", "o"},
+        desc = "Select context-aware indent (inner, entire range) in line-wise visual mode",
+      },
+    },
+  },
+--
 })
---
---
--- --   use { 'williamboman/nvim-lsp-installer', }
---
--- --   use {
--- --      "ray-x/lsp_signature.nvim",
--- --      disable = not plugin_settings.status.lspsignature,
--- --      after = "nvim-lspconfig",
--- --      config = override_req("signature", "(plugins.configs.others).signature()"),
--- --   }
---
--- --   use {
--- --      "andymass/vim-matchup",
--- --      disable = not plugin_settings.status.vim_matchup,
--- --      opt = true,
--- --      setup = function()
--- --         require("core.utils").packer_lazy_load "vim-matchup"
--- --      end,
--- --   }
---
--- --   -- load luasnips + cmp related in insert mode only
---
--- --   use {
--- --      "rafamadriz/friendly-snippets",
--- --      disable = not plugin_settings.status.cmp,
--- --      event = "InsertEnter",
--- --   }
---
--- --   use {
--- --      "hrsh7th/nvim-cmp",
--- --      disable = not plugin_settings.status.cmp,
--- --      after = plugin_settings.options.cmp.lazy_load and "friendly-snippets",
--- --      config = override_req("nvim_cmp", "plugins.configs.cmp"),
--- --   }
---
--- --   -- use {
--- --   --    "L3MON4D3/LuaSnip",
--- --   --    disable = not plugin_settings.status.cmp,
--- --   --    wants = "friendly-snippets",
--- --   --    after = plugin_settings.options.cmp.lazy_load and "nvim-cmp",
--- --   --    config = override_req("luasnip", "(plugins.configs.others).luasnip()"),
--- --   -- }
---
--- --   -- use {
--- --   --    "saadparwaiz1/cmp_luasnip",
--- --   --    disable = not plugin_settings.status.cmp,
--- --   --    after = plugin_settings.options.cmp.lazy_load and "LuaSnip",
--- --   -- }
---
--- --   -- use {
--- --   --    "hrsh7th/cmp-nvim-lua",
--- --   --    disable = not plugin_settings.status.cmp,
--- --   --    after = plugin_settings.options.cmp.lazy_load and "cmp_luasnip",
--- --   -- }
---
--- --   -- use {
--- --   --    "hrsh7th/cmp-nvim-lsp",
--- --   --    disable = not plugin_settings.status.cmp,
--- --   --    after = plugin_settings.options.cmp.lazy_load and "cmp-nvim-lua",
--- --   -- }
---
--- --   -- use {
--- --   --    "hrsh7th/cmp-buffer",
--- --   --    disable = not plugin_settings.status.cmp,
--- --   --    after = plugin_settings.options.cmp.lazy_load and "cmp-nvim-lsp",
--- --   -- }
---
--- --   -- use {
--- --   --    "hrsh7th/cmp-path",
--- --   --    disable = not plugin_settings.status.cmp,
--- --   --    after = plugin_settings.options.cmp.lazy_load and "cmp-buffer",
--- --   -- }
---
--- --   -- load user defined plugins
--- --   -- require("core.customPlugins").run(use)
---
---   use 'tpope/vim-surround'
 --   use 'thinca/vim-quickrun'
 --   -- csv syntax highlight
 --   use 'mechatroner/rainbow_csv'
@@ -351,17 +337,6 @@ require("lazy").setup({
 --    use{
 --        'junegunn/fzf',
 --        run = './install --all',
---    }
---
---    use{
---        -- 'easymotion/vim-easymotion',
---        'phaazon/hop.nvim',
---        branch = 'v1', -- optional but strongly recommended
---        -- after = "nvim-base16.lua",
---        config = function()
---            -- require'plugins.configs.easy_motion'
---            require'plugins.configs.hop'
---        end
 --    }
 --
 --    use{
