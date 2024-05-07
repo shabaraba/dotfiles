@@ -36,5 +36,6 @@ return {
   init = function()
     require("mappings").dashboard()
   end,
+  event = "VimEnter",
 }
 

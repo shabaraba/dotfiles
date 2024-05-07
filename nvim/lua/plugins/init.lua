@@ -84,7 +84,7 @@ local pluginList = {
   "mason",
  "nvim-navic",
  "nvim-treesitter",
- "lspsaga",
+ -- "lspsaga",
  "nvim-surround",
  "treesitter-indent-object",
 }
