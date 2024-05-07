@@ -1,6 +1,6 @@
 {
     "disagnostics": {
-        "globals": ["vim"],
+        "globals": { "vim" },
         "hint.enable": true
     }
 }
