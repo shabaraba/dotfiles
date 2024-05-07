@@ -178,8 +178,16 @@ M.lspconfig = function()
 end
 
 M.nvimtree = function()
-   map("n", plugin_maps.nvimtree.toggle, ":NvimTreeFindFileToggle <CR>")
-   map("n", plugin_maps.nvimtree.focus, ":NvimTreeFocus <CR>")
+   -- map("n", plugin_maps.nvimtree.toggle, ":NvimTreeFindFileToggle <CR>")
+   -- map("n", plugin_maps.nvimtree.focus, ":NvimTreeFocus <CR>")
+end
+
+M.neotree = function()
+  map("n",  '<leader>b', ':Neotree toggle <CR>')
+  map("n",  '<leader>bg', ':Neotree git_status toggle <CR>')
+  map("n",  '<leader>t', ':Neotree buffers toggle <CR>')
+
+  vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
 end
 
 M.telescope = function()
