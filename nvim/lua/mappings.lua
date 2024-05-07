@@ -4,9 +4,6 @@ local utils = require "core.utils"
 local config = utils.load_config()
 local map = utils.map
 
-local maps = config.mappings
-local plugin_maps = maps.plugins
-
 local cmd = vim.cmd
 
 local M = {}
