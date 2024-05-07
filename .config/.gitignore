@@ -1,5 +1,0 @@
-/coc
-/git/**/*
-!/git/config.d/empty.conf
-/assam
-/github-copilot
