@@ -1,5 +1,6 @@
 local core_modules = {
-   "core.autocmds",
+   "options",
+   "mappings",
 }
 
 for _, module in ipairs(core_modules) do
@@ -9,4 +10,7 @@ for _, module in ipairs(core_modules) do
    end
 end
 
-
+require("core")
+require("plugins")
+-- non plugin mappings
+require("mappings").misc()

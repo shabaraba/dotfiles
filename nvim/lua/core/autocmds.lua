@@ -14,5 +14,12 @@ vim.cmd [[ autocmd BufEnter,BufRead,BufWinEnter,FileType,WinEnter * lua require(
 -- Open a file from its last left off position
 -- vim.cmd [[ au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]
 -- File extension specific tabbing
-vim.cmd [[ autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 ]]
-vim.cmd [[ autocmd Filetype lua setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2 ]]
+vim.cmd [[ 
+   augroup filetypes
+     autocmd Filetype python          setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 
+     autocmd Filetype lua             setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2 
+     autocmd Filetype javascript      setlocal expandtab softtabstop=2 shiftwidth=2 tabstop=2
+     autocmd Filetype typescript      setlocal expandtab softtabstop=2 shiftwidth=2 tabstop=2
+     autocmd Filetype typescriptreact setlocal expandtab softtabstop=2 shiftwidth=2 tabstop=2
+    augroup END
+]]
