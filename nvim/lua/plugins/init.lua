@@ -1,3 +1,4 @@
+local vim = vim
 local plugin_settings = require("core.utils").load_config().plugins
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 local override_req = require("core.utils").override_req
@@ -59,16 +60,7 @@ require("lazy").setup({
       },
       config = override_req("neotree", "plugins.configs.neotree"),
       cmd = { "Neotree" },
-      keys = require("core.mappings").neotree(),
-    },
-    {
-         "nvim-tree/nvim-tree.lua",
-         dependencies = { 'nvim-tree/nvim-web-devicons' },
-         init = function()
-            require("nvim-tree").setup()
-         end,
-         cmd = { "NvimTreeToggle", "NvimTreeFocus", "NvimTreeFindFileToggle" },
-         keys = require("core.mappings").nvimtree(),
+      keys = require("mappings").neotree(),
     },
     {
         "feline-nvim/feline.nvim",
@@ -81,7 +73,7 @@ require("lazy").setup({
     --     -- after = "nvim-web-devicons",
     --     config = override_req("bufferline", "plugins.configs.bufferline"),
     --     init = function()
-    --         require("core.mappings").bufferline()
+    --         require("mappings").bufferline()
     --     end,
     -- },
     {
@@ -121,7 +113,7 @@ require("lazy").setup({
         "glepnir/dashboard-nvim",
         config = override_req("dashboard", "plugins.configs.dashboard"),
         init = function()
-            require("core.mappings").dashboard()
+            require("mappings").dashboard()
         end,
     },
     {
@@ -129,7 +121,7 @@ require("lazy").setup({
         -- cmd = "Telescope",
         config = override_req("telescope", "plugins.configs.telescope"),
         init = function()
-            require("core.mappings").telescope()
+            require("mappings").telescope()
         end,
         dependnecies = {
             {'nvim-lua/plenary.nvim'},
@@ -185,7 +177,7 @@ require("lazy").setup({
                -- dependencies = { "hrsh7th/nvim-cmp" },
                dependencies = { "echasnovski/mini.completion", version = false },
                init = function()
-                   require("core.mappings").lsp()
+                   require("mappings").lsp()
                end,
                config = function()
                    require('mini.completion').setup({})

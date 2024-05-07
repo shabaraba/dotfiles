@@ -3,43 +3,6 @@
 
 local M = {}
 
-M.options = {
-   -- custom = {}
-   -- general nvim/vim options , check :h optionname to know more about an option
-
-   clipboard = "unnamedplus",
-   cmdheight = 1,
-   ruler = true,
-   hidden = true,
-   ignorecase = true,
-   smartcase = true,
-   mapleader = " ",
-   mouse = "",
-   number = true,
-   numberwidth = 4,
-   relativenumber = false,
-   expandtab = true,
-   shiftwidth = 4,
-   smartindent = true,
-   tabstop = 4,
-   timeoutlen = 300,
-   updatetime = 300,
-   undofile = true,
-   fillchars = { eob = " " },
-
-   -- NvChad options
-   nvChad = {
-      copy_cut = true, -- copy cut text ( x key ), visual and normal mode
-      copy_del = true, -- copy deleted text ( dd key ), visual and normal mode
-      insert_nav = true, -- navigation in insertmode
-      window_nav = true,
-
-      -- updater
-      update_url = "https://github.com/NvChad/NvChad",
-      update_branch = "main",
-   },
-}
-
 ---- UI -----
 
 M.ui = {
