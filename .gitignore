@@ -11,5 +11,5 @@
 /debugger/**/*
 
 .config/**/*
-!.config/nvim
+!.config/nvim/**/*
 !.config/wezterm

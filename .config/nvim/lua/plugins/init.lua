@@ -30,12 +30,12 @@ require("lazy").setup({
                  -- In particular, when you set it to 'all', that means all avaliable groups
 
                  -- example of akinsho/nvim-bufferline.lua
-                 "BufferLineTabClose",
-                 "BufferlineBufferSelected",
-                 "BufferLineFill",
-                 "BufferLineBackground",
-                 "BufferLineSeparator",
-                 "BufferLineIndicatorSelected",
+                 -- "BufferLineTabClose",
+                 -- "BufferlineBufferSelected",
+                 -- "BufferLineFill",
+                 -- "BufferLineBackground",
+                 -- "BufferLineSeparator",
+                 -- "BufferLineIndicatorSelected",
                },
                exclude_groups = {}, -- table: groups you don't want to clear
             })
@@ -47,6 +47,20 @@ require("lazy").setup({
       lazy = false,
     },
   -- file managing , picker etc
+
+    {
+      "nvim-neo-tree/neo-tree.nvim",
+      branch = "v3.x",
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+        "MunifTanjim/nui.nvim",
+        -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+      },
+      config = override_req("neotree", "plugins.configs.neotree"),
+      cmd = { "Neotree" },
+      keys = require("core.mappings").neotree(),
+    },
     {
          "nvim-tree/nvim-tree.lua",
          dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -62,14 +76,14 @@ require("lazy").setup({
         config = override_req("feline", "plugins.configs.statusline"),
     },
 
-    {
-        "akinsho/bufferline.nvim",
-        -- after = "nvim-web-devicons",
-        config = override_req("bufferline", "plugins.configs.bufferline"),
-        init = function()
-            require("core.mappings").bufferline()
-        end,
-    },
+    -- {
+    --     "akinsho/bufferline.nvim",
+    --     -- after = "nvim-web-devicons",
+    --     config = override_req("bufferline", "plugins.configs.bufferline"),
+    --     init = function()
+    --         require("core.mappings").bufferline()
+    --     end,
+    -- },
     {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
