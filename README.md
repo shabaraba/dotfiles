@@ -3,12 +3,6 @@
 
 dotfiles for me.
 
-# required
-
-if you use WSL2, you should install following:
-
-- genie (for systemd)
-
 # usage
 
 1. download this repository  
@@ -33,15 +27,7 @@ if you use WSL2, you should install following:
 Executing [the above command](#usage), you can install as following:
 
 - neovim
-- dein
-- zplug
-
-# dockerfile
-
-If you want to use this repository in docker,
-I present you to [a sample Dockerfile](https://github.com/shabaraba/dotfiles/blob/main/Dockerfile).
-
-You use my Dockefile or make a Dockefile Inheriting it.
+- zinit
 
 ## NOTICE
 
