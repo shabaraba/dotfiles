@@ -1,3 +1,5 @@
+local vim = vim
+
 return {
   "williamboman/mason.nvim", -- LSP Installer
   dependencies = {
