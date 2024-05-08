@@ -87,6 +87,8 @@ return {
     {'nvim-lua/plenary.nvim'},
     {'fannheyward/telescope-coc.nvim'},
     -- {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
-  }
+  },
+  lazy = true,
+  cmd = {"Telescope"}
 }
 
