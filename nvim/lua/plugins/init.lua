@@ -15,8 +15,12 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local modules = {
- 
+require("lazy").setup({
+  spec = {
+    {import = "plugins.configs"},
+  }
+})
+
 -- {
 --     "akinsho/bufferline.nvim",
 --     -- after = "nvim-web-devicons",
@@ -62,41 +66,6 @@ local modules = {
   --   end,
   -- },
   -- lsp stuff
-}
-
-local pluginList = {
-  "plenary",
-  "nvim-transparent",
-  "Comment",
-  "neo-tree",
-  "lualine",
-  "indent-blankline",
-  "nvim-colorizer",
-  "vim-highlightedyank",
-  "gitsigns",
-  "nvim-autopairs",
-  "dashboard-nvim",
-  "telescope",
-  "vim-mql5",
-  "vim-gitgutter",
-  "vim-fugitive",
-  "diffview",
-  "mason",
- "nvim-navic",
- "nvim-treesitter",
- -- "lspsaga",
- "nvim-surround",
- "treesitter-indent-object",
-}
-
-for _, plugin in ipairs(pluginList) do
-  table.insert(modules, require("plugins.configs."..plugin))
-end
-
-require("lazy").setup(modules)
-
-
-
 --   use 'thinca/vim-quickrun'
 --   -- csv syntax highlight
 --   use 'mechatroner/rainbow_csv'
