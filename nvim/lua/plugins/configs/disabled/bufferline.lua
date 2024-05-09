@@ -1,3 +1,4 @@
+-- return {}
 -- local colors = require("colors").get()
 
 local present, bufferline = pcall(require, "bufferline")
