@@ -1,6 +1,7 @@
 return {
   "lukas-reineke/indent-blankline.nvim",
   main = "ibl",
+  lazy = true,
   event = "BufRead",
   config = function()
       local vim = vim

@@ -3,6 +3,8 @@ return {
   dependencies = {
     "neovim/nvim-lspconfig"
   },
+  lazy =true,
+  event = "BufRead",
   init = function()
     local navic = require("nvim-navic")
     require("lspconfig").clangd.setup {
