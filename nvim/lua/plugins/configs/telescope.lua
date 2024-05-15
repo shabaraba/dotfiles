@@ -1,7 +1,10 @@
 
 return {
   "nvim-telescope/telescope.nvim",
+  lazy = true,
+  cmd = {"Telescope"},
   -- cmd = "Telescope",
+  keys = require("mappings").telescope,
   config = function()
     local present, telescope = pcall(require, "telescope")
     if not present then
@@ -80,13 +83,10 @@ return {
        end
     end)
   end,
-  init = function()
-    require("mappings").telescope()
-  end,
   dependnecies = {
     {'nvim-lua/plenary.nvim'},
     {'fannheyward/telescope-coc.nvim'},
     -- {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
-  }
+  },
 }
 

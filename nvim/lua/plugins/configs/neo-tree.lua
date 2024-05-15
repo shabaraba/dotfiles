@@ -7,6 +7,9 @@ return {
     "MunifTanjim/nui.nvim",
     -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
   },
+  lazy = true,
+  cmd = { "Neotree" },
+  keys = require("mappings").neotree,
   config = function()
     require("neo-tree").setup({
       close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
@@ -279,10 +282,5 @@ return {
       }
   })
   end,
-  cmd = { "Neotree" },
-  keys = require("mappings").neotree(),
 }
 
--- local conf = require("core.utils").load_config().plugins.options.nvimtree
---
--- local git_status = conf.enable_git

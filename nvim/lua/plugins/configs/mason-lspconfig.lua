@@ -2,6 +2,8 @@ local vim = vim
 
 return {
   "williamboman/mason-lspconfig.nvim",
+  lazy = true,
+  event = "BufRead",
   dependencies = {
     "williamboman/mason.nvim", -- LSP Installer
     "neovim/nvim-lspconfig",
@@ -29,6 +31,4 @@ return {
     })
     vim.cmd("LspStart") -- 初回起動時はBufEnterが発火しない
   end,
-  lazy = true,
-  event = "VeryLazy",
 }
