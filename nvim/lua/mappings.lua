@@ -1,10 +1,6 @@
 local vim = vim
 local utils = require "core.utils"
-
-local config = utils.load_config()
 local map = utils.map
-
-local cmd = vim.cmd
 
 local M = {}
 
@@ -56,75 +52,75 @@ end
 
 -- below are all plugin related mappings
 
-M.bufferline = function()
-  map("n", "<C-k>", ":BufferLineCycleNext <CR>")
-  map("n", "<C-j>", ":BufferLineCyclePrev <CR>")
-end
+M.dashboard = {
+  { "<leader>bm", ":DashboardJumpMarks <cr>" },
+  { "<leader>wl", ":SessionLoad <cr>" },
+  { "<leader>ws", ":SessionSave <cr>" },
+}
 
-M.comment = function()
-  map("n", "<leader>/", ":lua require('Comment.api').toggle_current_linewise()<CR>")
-  map("v", "<leader>/", ":lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<CR>")
-end
+M.neotree = {
+  { "<leader>b", ":Neotree toggle <cr>" },
+  { "<leader>bf", ":Neotree reveal  <cr>" },
+  { "<leader>t", ":Neotree buffers toggle <cr>" },
+  { "<leader>bg", ":Neotree git_status toggle <cr>" },
+}
 
-M.dashboard = function()
-  map("n", "<leader>bm", ":DashboardJumpMarks <CR>")
-  map("n", "<leader>wl", ":SessionLoad <CR>")
-  map("n", "<leader>ws", ":SessionSave <CR>")
-end
+M.telescope = {
+  { "<leader>fb", ":Telescope buffers <cr>" },
+  { "<leader>ff", ":Telescope find_files <cr>" },
+  { "<leader>fa", ":Telescope find_files follow=true no_ignore=true hidden=true <cr>" },
+  { "<leader>cm", ":Telescope git_commits <cr>" },
+  { "<leader>gt", ":Telescope git_status <cr>" },
+  { "<leader>fh", ":Telescope help_tags <cr>" },
+  { "<leader>fw", ":Telescope live_grep <cr>" },
+  { "<leader>fo", ":Telescope oldfiles <cr>" },
+  { "<leader>th", ":Telescope themes <cr>" },
 
-M.neotree = function()
-  map("n", "<leader>b", ":Neotree toggle <CR>")
-  map("n", "<leader>bg", ":Neotree git_status toggle <CR>")
-  map("n", "<leader>t", ":Neotree buffers toggle <CR>")
+  { "<C-]>", ":Telescope lsp_definitions<cr>" },
+  { "<C-]><C-]>", ":Telescope lsp_references<cr>" },
+}
 
-  vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
-end
+M.lsp = {
+  { 'gh', '<cmd>lua vim.lsp.buf.hover()<cr>' },
+  { 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>' },
+  { 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>' },
+  { 'gt', '<cmd>lua vim.lsp.buf.type_definition()<cr>' },
+  { 'gn', '<cmd>lua vim.lsp.buf.rename()<cr>' },
+  { 'ga', '<cmd>lua vim.lsp.buf.code_action()<cr>' },
+  { 'ge', '<cmd>lua vim.diagnostic.open_float()<cr>' },
+  { 'g]', '<cmd>lua vim.diagnostic.goto_next()<cr>' },
+  { 'g[', '<cmd>lua vim.diagnostic.goto_prev()<cr>' },
+}
 
-M.telescope = function()
-  map("n", "<leader>fb", ":Telescope buffers <CR>")
-  map("n", "<leader>ff", ":Telescope find_files <CR>")
-  map("n", "<leader>fa", ":Telescope find_files follow=true no_ignore=true hidden=true <CR>")
-  map("n", "<leader>cm", ":Telescope git_commits <CR>")
-  map("n", "<leader>gt", ":Telescope git_status <CR>")
-  map("n", "<leader>fh", ":Telescope help_tags <CR>")
-  map("n", "<leader>fw", ":Telescope live_grep <CR>")
-  map("n", "<leader>fo", ":Telescope oldfiles <CR>")
-  map("n", "<leader>th", ":Telescope themes <CR>")
+M.none_ls = {
+  { 'gf', '<cmd>lua vim.lsp.buf.format()<cr>' },
+}
 
-  map("n", "<C-]>", ":Telescope lsp_definitions<CR>")
-  map("n", "<C-]><C-]>", ":Telescope lsp_references<CR>")
-end
+M.neogen = {
+    {
+      "<leader>cc",
+      function()
+        require("neogen").generate({})
+      end,
+      desc = "Neogen Comment",
+    },
+}
 
-M.lsp = function()
-  -- 2. build-in LSP function
-  -- keyboard shortcut
-  map('n', '<space>h',  '<cmd>lua vim.lsp.buf.hover()<CR>')
-  map('n', 'gf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
-  map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-  map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-  map('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-  map('n', 'gn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-  map('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-  map('n', 'ge', '<cmd>lua vim.diagnostic.open_float()<CR>')
-  map('n', 'g]', '<cmd>lua vim.diagnostic.goto_next()<CR>')
-  map('n', 'g[', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
-  -- LSP handlers
-  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
-  )
-  -- Reference highlight
-  vim.cmd [[
-    set updatetime=500
-    highlight LspReferenceText  cterm=underline ctermbg=8 gui=underline guibg=#104040
-    highlight LspReferenceRead  cterm=underline ctermbg=8 gui=underline guibg=#104040
-    highlight LspReferenceWrite cterm=underline ctermbg=8 gui=underline guibg=#104040
+M.refactoring = {
+    {
+      "<leader>r",
+      function()
+        require("refactoring").select_refactor()
+      end,
+      mode = "v",
+      noremap = true,
+      silent = true,
+      expr = false,
+    },
+}
 
-    augroup lsp_document_highlight
-      autocmd!
-      autocmd CursorHold,CursorHoldI * lua vim.lsp.buf.document_highlight()
-      autocmd CursorMoved,CursorMovedI * lua vim.lsp.buf.clear_references()
-    augroup END
-  ]]
-end
+M.hop = {
+  {'s', '<cmd>HopChar2<cr>'}
+}
 
 return M
