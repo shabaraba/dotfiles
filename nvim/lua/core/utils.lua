@@ -1,4 +1,5 @@
 local M = {}
+local vim = vim
 
 local cmd = vim.cmd
 M.close_buffer = function(force)
@@ -116,42 +117,6 @@ M.close_buffer = function(force)
    end
 end
 
--- hide statusline
--- tables fetched from load_config function
-M.hide_statusline = function()
-   local hidden = require("core.utils").load_config().plugins.options.statusline.hidden
-   local shown = require("core.utils").load_config().plugins.options.statusline.shown
-   local api = vim.api
-   local buftype = api.nvim_buf_get_option(0, "ft")
-
-   -- shown table from config has the highest priority
-   if vim.tbl_contains(shown, buftype) then
-      api.nvim_set_option("laststatus", 2)
-      return
-   end
-
-   if vim.tbl_contains(hidden, buftype) then
-      api.nvim_set_option("laststatus", 0)
-      return
-   end
-
-   api.nvim_set_option("laststatus", 2)
-end
-
-M.load_config = function()
-   local conf = require "core.default_config"
-
-   local chadrcExists, change = pcall(require, "custom.chadrc")
-
-   -- if chadrc exists , then merge its table into the default config's
-
-   if chadrcExists then
-      conf = vim.tbl_deep_extend("force", conf, change)
-   end
-
-   return conf
-end
-
 M.map = function(mode, keys, command, opt)
    local options = { noremap = true, silent = true }
    if opt then
@@ -238,26 +203,5 @@ M.fg_bg = function(group, fgcol, bgcol)
 end
 
 -- Override default config of a plugin based on the path provided in the chadrc
-
--- FUNCTION: override_req, use `chadrc` plugin config override if present
--- name = name inside `default_config` / `chadrc`
--- default_req = run this if 'name' does not exist in `default_config` / `chadrc`
--- if override or default_req start with `(`, then strip that and assume override calls a function, not a whole file
-M.override_req = function(name, default_req)
-   local override = require("core.utils").load_config().plugins.default_plugin_config_replace[name]
-   local result = default_req
-
-   if override ~= nil then
-      result = override
-   end
-
-   if string.match(result, "^%(") then
-      result = result:sub(2)
-      result = result:gsub("%)%.", "').", 1)
-      return "require('" .. result
-   end
-
-   return "require('" .. result .. "')"
-end
 
 return M

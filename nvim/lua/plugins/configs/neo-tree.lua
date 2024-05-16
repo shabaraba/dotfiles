@@ -11,22 +11,27 @@ return {
   cmd = { "Neotree" },
   keys = require("mappings").neotree,
   config = function()
+    local vim = vim
     require("neo-tree").setup({
-      close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
+      sources = {"filesystem", "buffers", "git_status", "document_symbols"},
+      close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
       popup_border_style = "rounded",
       enable_git_status = true,
       enable_diagnostics = true,
-      enable_normal_mode_for_inputs = false, -- Enable normal mode for input dialogs.
+      enable_opened_markers = true,
       open_files_do_not_replace_types = { "terminal", "trouble", "qf" }, -- when opening files, do not use windows containing these filetypes or buftypes
       sort_case_insensitive = false, -- used when sorting files and directories in the tree
       sort_function = nil , -- use a custom function for sorting files and directories in the tree 
-      -- sort_function = function (a,b)
-      --       if a.type == b.type then
-      --           return a.path > b.path
-      --       else
-      --           return a.type > b.type
-      --       end
-      --   end , -- this sorts files and directories descendantly
+      event_handlers = {
+        {
+          event = "neo_tree_popup_input_ready",
+          ---@param args { bufnr: integer, winid: integer }
+          handler = function(args)
+            vim.cmd("stopinsert")
+            vim.keymap.set("i", "<esc>", vim.cmd.stopinsert, { noremap = true, buffer = args.bufnr })
+          end,
+        }
+      },
       default_component_configs = {
         container = {
           enable_character_fade = true
@@ -62,12 +67,13 @@ return {
           trailing_slash = false,
           use_git_status_colors = true,
           highlight = "NeoTreeFileName",
+          highlight_opened_files = true,
         },
         git_status = {
           symbols = {
             -- Change type
-            added     = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
-            modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
+            added     = "+", -- or "✚", but this is redundant info if you use git_status_colors on the name
+            modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
             deleted   = "✖",-- this can only be used in the git_status source
             renamed   = "󰁕",-- this can only be used in the git_status source
             -- Status type
@@ -104,7 +110,7 @@ return {
       -- see `:h neo-tree-custom-commands-global`
       commands = {},
       window = {
-        position = "left",
+        position = "float",
         width = 40,
         mapping_options = {
           noremap = true,
@@ -168,8 +174,8 @@ return {
       filesystem = {
         filtered_items = {
           visible = false, -- when true, they will just be displayed differently than normal items
-          hide_dotfiles = true,
-          hide_gitignored = true,
+          hide_dotfiles = false,
+          hide_gitignored = false,
           hide_hidden = true, -- only works on Windows for hidden files/directories
           hide_by_name = {
             --"node_modules"
@@ -190,7 +196,7 @@ return {
           },
         },
         follow_current_file = {
-          enabled = false, -- This will find and focus the file in the active buffer every time
+          enabled = true, -- This will find and focus the file in the active buffer every time
           --               -- the current file is changed while the tree is open.
           leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
         },
@@ -200,7 +206,7 @@ return {
                               -- "open_current",  -- netrw disabled, opening a directory opens within the
                                                 -- window like netrw would, regardless of window.position
                               -- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
-        use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes
+        use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
                                         -- instead of relying on nvim autocmd events.
         window = {
           mappings = {
@@ -245,6 +251,7 @@ return {
         group_empty_dirs = true, -- when true, empty folders will be grouped together
         show_unloaded = true,
         window = {
+          position = "sidebars",
           mappings = {
             ["bd"] = "buffer_delete",
             ["<bs>"] = "navigate_up",
