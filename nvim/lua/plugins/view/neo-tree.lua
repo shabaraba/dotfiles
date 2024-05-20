@@ -110,16 +110,16 @@ return {
       -- see `:h neo-tree-custom-commands-global`
       commands = {},
       window = {
-        position = "float",
+        position = "sidebars",
         width = 40,
         mapping_options = {
           noremap = true,
           nowait = true,
         },
         mappings = {
-          ["<space>"] = { 
-              "toggle_node", 
-              nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use 
+          ["<space>"] = {
+            "toggle_node",
+            nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use 
           },
           ["<2-LeftMouse>"] = "open",
           ["<cr>"] = "open",
@@ -209,6 +209,7 @@ return {
         use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
                                         -- instead of relying on nvim autocmd events.
         window = {
+          position = "float",
           mappings = {
             ["<bs>"] = "navigate_up",
             ["."] = "set_root",
@@ -251,7 +252,7 @@ return {
         group_empty_dirs = true, -- when true, empty folders will be grouped together
         show_unloaded = true,
         window = {
-          position = "sidebars",
+          position = "left",
           mappings = {
             ["bd"] = "buffer_delete",
             ["<bs>"] = "navigate_up",
