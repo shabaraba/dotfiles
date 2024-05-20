@@ -63,6 +63,7 @@ M.neotree = {
   { "<leader>bf", ":Neotree reveal  <cr>" },
   { "<leader>t", ":Neotree buffers toggle <cr>" },
   { "<leader>bg", ":Neotree git_status toggle <cr>" },
+  { "<leader>bs", ":Neotree document_symbols toggle <cr>" },
 }
 
 M.telescope = {
