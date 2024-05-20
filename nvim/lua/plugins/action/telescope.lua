@@ -65,14 +65,13 @@ return {
           override_file_sorter = true,     -- override the file sorter
           case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
         },
-        coc = {
-          theme = 'ivy',
-          -- trueだと結果が1件でもTelescopeを経由する
-          prefer_locations = false,
-        }
+        file_browser = {},
+        -- coc = {
+        --   theme = 'ivy',
+        --   -- trueだと結果が1件でもTelescopeを経由する
+        --   prefer_locations = false,
+        -- }
       },
-     -- vim.api.nvim_set_keymap('n', '<C-]>', ':Telescope coc implementations<CR>', {noremap = false, silent = true})
-     -- vim.api.nvim_set_keymap('n', '<C-]><C-]>', ':Telescope coc references<CR>', {noremap = false, silent = true})
     }
 
     local extensions = { "themes", "terms", "fzf", "coc" }
@@ -85,7 +84,7 @@ return {
   end,
   dependnecies = {
     {'nvim-lua/plenary.nvim'},
-    {'fannheyward/telescope-coc.nvim'},
+    -- {'fannheyward/telescope-coc.nvim'},
     -- {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
   },
 }
