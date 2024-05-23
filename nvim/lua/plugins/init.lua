@@ -21,7 +21,28 @@ require("lazy").setup({
     {import = "plugins.coding"},
     {import = "plugins.core.lsp"},
     {import = "plugins.core.treesitter"},
-  }
+  },
+  performance = {
+    cache = {
+      enabled = false,
+      -- disable_events = {},
+    },
+    -- rtp = {
+    --   -- disable some rtp plugins
+    --   disabled_plugins = {
+    --     "gzip",
+    --     -- "matchit",
+    --     -- "matchparen",
+    --     "netrwPlugin",
+    --     "rplugin",
+    --     "tarPlugin",
+    --     "tohtml",
+    --     "tutor",
+    --     "zipPlugin",
+    --   },
+    -- },
+  },
+  -- debug = false,
 })
 
 -- {

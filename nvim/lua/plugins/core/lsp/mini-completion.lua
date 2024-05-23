@@ -10,11 +10,11 @@ return {
       highlight LspReferenceRead  cterm=underline ctermbg=8 gui=underline guibg=#104040
       highlight LspReferenceWrite cterm=underline ctermbg=8 gui=underline guibg=#104040
 
-      augroup lsp_document_highlight
-        autocmd!
-        autocmd CursorHold,CursorHoldI * lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved,CursorMovedI * lua vim.lsp.buf.clear_references()
-      augroup END
+      " augroup lsp_document_highlight
+      "   autocmd! * <buffer>
+      "   autocmd CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
+      "   autocmd CursorMoved,CursorMovedI <buffer> lua vim.lsp.buf.clear_references()
+      " augroup END
     ]]
 
     vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -34,8 +34,7 @@ return {
     ]]
   end,
   config = true,
-  keys = require("mappings").lsp,
   lazy = true,
-  event = "InsertEnter",
+  event = "BufRead",
 }
 
