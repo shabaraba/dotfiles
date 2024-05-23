@@ -82,7 +82,7 @@ return {
        end
     end)
   end,
-  dependnecies = {
+  dependencies = {
     {'nvim-lua/plenary.nvim'},
     -- {'fannheyward/telescope-coc.nvim'},
     -- {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
