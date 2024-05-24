@@ -14,16 +14,15 @@ else
 fi
 
 if !(type "nvim" > /dev/null 2>&1); then
-    pip3 install neovim && pip3 install pynvim
+    # pip3 install neovim && pip3 install pynvim
     if [ ! -e ./neovim ]; then
         git clone https://github.com/neovim/neovim.git
+	cd neovim
+	make CMAKE_BUILD_TYPE=RelWithDebInfo
+	make install;
+	cd ../ && rm -rf neovim
     fi
-    $install_cmd pkg-config libtool-bin libtool automake cmake libncurses5-dev g++ gettext
-    cd neovim
-    # make CMAKE_BUILD_TYPE=RelWithDebInfo
-    make CMAKE_BUILD_TYPE=RelWithDebInfo
-    make install;
-    cd ../ && rm -rf neovim
+    # $install_cmd pkg-config libtool-bin libtool automake cmake libncurses5-dev g++ gettext
 else
     echo 'neovim already installed, skip.'
 fi
