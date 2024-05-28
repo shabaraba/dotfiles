@@ -5,13 +5,12 @@ return {
   },
   lazy =true,
   event = "BufRead",
-  init = function()
-    local navic = require("nvim-navic")
-    require("lspconfig").clangd.setup {
-      on_attach = function(client, bufnr)
-        navic.attach(client, bufnr)
-      end
-    }
-  end,
+  opts = {
+    lsp = {
+      auto_attach = true,
+    },
+    highlight = true,
+    lazy_update_context = false, -- set true if bad performance
+  }
 }
 
