@@ -19,8 +19,8 @@ require("lazy").setup({
     {import = "plugins.view"},
     {import = "plugins.action"},
     {import = "plugins.coding"},
-    -- {import = "plugins.core.lsp"},
-    -- {import = "plugins.core.treesitter"},
+    {import = "plugins.core.lsp"},
+    {import = "plugins.core.treesitter"},
   },
   performance = {
     cache = {

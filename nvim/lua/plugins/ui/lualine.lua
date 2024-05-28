@@ -29,18 +29,7 @@ return {
       sections = {
         lualine_a = {'mode'},
         lualine_b = {'branch', 'diff', 'diagnostics'},
-        lualine_c = {'filename',
-          {
-            function()
-              local navic = require('nvim-navic');
-              return navic.get_location()
-            end,
-            cond = function()
-              local navic = require('nvim-navic');
-              return navic.is_available()
-            end
-          },
-        },
+        lualine_c = {'filename', 'navic'},
         lualine_x = {'encoding', 'fileformat', 'filetype'},
         lualine_y = {'progress'},
         lualine_z = {'location'}
