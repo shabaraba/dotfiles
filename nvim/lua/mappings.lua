@@ -55,10 +55,10 @@ end
 M.dashboard = {}
 
 M.neotree = {
-  { "t", ":Neotree reveal toggle<cr>", desc = "Open FileSystem" },
-  { "tt", ":Neotree buffers toggle<cr>", desc = "Open Virtical Buffer" },
-  { "tg", ":Neotree git_status toggle<cr>", desc = "Open Git Status" },
-  { "td", ":Neotree document_symbols toggle<cr>", desc = "Open Document Symbols" },
+  { "<leader><leader>", ":Neotree reveal toggle<cr>", desc = "Open FileSystem" },
+  { "<leader>f", ":Neotree buffers toggle<cr>", desc = "Open Virtical Buffer" },
+  { "<leader>g", ":Neotree git_status toggle<cr>", desc = "Open Git Status" },
+  { "<leader>d", ":Neotree document_symbols toggle<cr>", desc = "Open Document Symbols" },
 }
 
 M.telescope = {

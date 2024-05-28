@@ -24,7 +24,7 @@ require("lazy").setup({
   },
   performance = {
     cache = {
-      enabled = false,
+      enabled = true,
       -- disable_events = {},
     },
     rtp = {
@@ -41,6 +41,9 @@ require("lazy").setup({
         "zipPlugin",
       },
     },
+  },
+  defaults = {
+    lazy = true,
   },
   debug = false,
 })
