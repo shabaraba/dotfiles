@@ -52,29 +52,25 @@ end
 
 -- below are all plugin related mappings
 
-M.dashboard = {
-  { "<leader>bm", ":DashboardJumpMarks <cr>" },
-  { "<leader>wl", ":SessionLoad <cr>" },
-  { "<leader>ws", ":SessionSave <cr>" },
-}
+M.dashboard = {}
 
 M.neotree = {
-  { "<leader>b", ":Neotree toggle <cr>" },
-  { "<leader>bf", ":Neotree reveal  <cr>" },
-  { "<leader>t", ":Neotree buffers toggle <cr>" },
-  { "<leader>bg", ":Neotree git_status toggle <cr>" },
+  { "<leader><leader>", ":Neotree reveal toggle<cr>", desc = "Open FileSystem" },
+  { "<leader>f", ":Neotree buffers toggle<cr>", desc = "Open Virtical Buffer" },
+  { "<leader>g", ":Neotree git_status toggle<cr>", desc = "Open Git Status" },
+  { "<leader>d", ":Neotree document_symbols toggle<cr>", desc = "Open Document Symbols" },
 }
 
 M.telescope = {
-  { "<leader>fb", ":Telescope buffers <cr>" },
-  { "<leader>ff", ":Telescope find_files <cr>" },
-  { "<leader>fa", ":Telescope find_files follow=true no_ignore=true hidden=true <cr>" },
-  { "<leader>cm", ":Telescope git_commits <cr>" },
-  { "<leader>gt", ":Telescope git_status <cr>" },
-  { "<leader>fh", ":Telescope help_tags <cr>" },
-  { "<leader>fw", ":Telescope live_grep <cr>" },
-  { "<leader>fo", ":Telescope oldfiles <cr>" },
-  { "<leader>th", ":Telescope themes <cr>" },
+  { ";b", ":Telescope buffers <cr>", desc = "Telescope Buffer" },
+  { ";f", ":Telescope find_files <cr>", desc = "Telescope find files "  },
+  { ";fa", ":Telescope find_files follow=true no_ignore=true hidden=true <cr>", desc = "Telescope find all files"  },
+  { ";gc", ":Telescope git_commits <cr>", desc = "Telescope Git Commits"  },
+  { ";gs", ":Telescope git_status <cr>", desc = "Telescope Git Status"  },
+  { ";h", ":Telescope help_tags <cr>", desc = "Telescope Tags"  },
+  { ";w", ":Telescope live_grep <cr>", desc = "Telescope Live Grep"  },
+  { ";o", ":Telescope oldfiles <cr>", desc = "Telescope Old Files"  },
+  { ";c", ":Telescope colorscheme <cr>", desc = "Telescope Color Scheme"  },
 
   { "<C-]>", ":Telescope lsp_definitions<cr>" },
   { "<C-]><C-]>", ":Telescope lsp_references<cr>" },
@@ -82,7 +78,8 @@ M.telescope = {
 
 M.lsp = {
   { 'gh', '<cmd>lua vim.lsp.buf.hover()<cr>' },
-  { 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>' },
+  { 'gr', '<cmd>lua vim.lsp.buf.references()<cr>' },
+  { 'gd', '<cmd>lua vim.lsp.buf.declaration()<cr>' },
   { 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>' },
   { 'gt', '<cmd>lua vim.lsp.buf.type_definition()<cr>' },
   { 'gn', '<cmd>lua vim.lsp.buf.rename()<cr>' },
@@ -107,16 +104,16 @@ M.neogen = {
 }
 
 M.refactoring = {
-    {
-      "<leader>r",
-      function()
-        require("refactoring").select_refactor()
-      end,
-      mode = "v",
-      noremap = true,
-      silent = true,
-      expr = false,
-    },
+  {
+    "<leader>r",
+    function()
+      require("refactoring").select_refactor()
+    end,
+    mode = "v",
+    noremap = true,
+    silent = true,
+    expr = false,
+  },
 }
 
 M.hop = {

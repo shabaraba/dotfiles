@@ -1,6 +1,9 @@
 return {
   'nvim-lualine/lualine.nvim',
-  dependencies = { 'nvim-tree/nvim-web-devicons' },
+  dependencies = { 
+    'nvim-tree/nvim-web-devicons',
+    'SmiteshP/nvim-navic',
+  },
   lazy = true,
   event = "VeryLazy",
   config = function()
@@ -26,7 +29,7 @@ return {
       sections = {
         lualine_a = {'mode'},
         lualine_b = {'branch', 'diff', 'diagnostics'},
-        lualine_c = {'filename'},
+        lualine_c = {'filename', 'navic'},
         lualine_x = {'encoding', 'fileformat', 'filetype'},
         lualine_y = {'progress'},
         lualine_z = {'location'}

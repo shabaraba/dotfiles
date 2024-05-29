@@ -1,0 +1,3 @@
+[submodule "submodules/neovim"]
+	path = submodules/neovim
+	url = https://github.com/neovim/neovim.git
