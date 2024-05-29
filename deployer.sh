@@ -8,6 +8,7 @@ ln -snfv $PWD/vim/.ideavimrc $HOME/.ideavimrc
 
 echo "  - 🚚 to ~/.config/"
 ln -snfv $PWD/nvim $HOME/.config
+ln -snfv $PWD/zabrze $HOME/.config
 ln -snfv $PWD/terminal/wezterm $HOME/.config
 
 echo "🎉 deploy finished."

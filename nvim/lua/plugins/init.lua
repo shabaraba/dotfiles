@@ -1,7 +1,5 @@
 local vim = vim
-local plugin_settings = require("core.utils").load_config().plugins
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-local override_req = require("core.utils").override_req
 
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -17,8 +15,37 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = {
-    {import = "plugins.configs"},
-  }
+    {import = "plugins.ui"},
+    {import = "plugins.view"},
+    {import = "plugins.action"},
+    {import = "plugins.coding"},
+    {import = "plugins.core.lsp"},
+    {import = "plugins.core.treesitter"},
+  },
+  performance = {
+    cache = {
+      enabled = true,
+      -- disable_events = {},
+    },
+    rtp = {
+      -- disable some rtp plugins
+      disabled_plugins = {
+        "gzip",
+        -- "matchit",
+        -- "matchparen",
+        "netrwPlugin",
+        "rplugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
+  },
+  defaults = {
+    lazy = true,
+  },
+  debug = false,
 })
 
 -- {
@@ -129,3 +156,5 @@ require("lazy").setup({
 --         end
 --     }
 -- end)
+-- # Neo-tree configuration has been updated. Please review the changes below.
+
