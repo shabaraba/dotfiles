@@ -43,6 +43,7 @@ return {
     on_highlights = function(highlights, colors)
         -- highlights.Function.fg = colors.blue300
         highlights.NeoTreeCursorLine = {bg = colors.base03}
+        highlights.MiniIndentscopeSymbol = {fg = colors.green300}
     end
   })
     vim.cmd[[colorscheme solarized-osaka]]

@@ -5,7 +5,7 @@ return {
     'SmiteshP/nvim-navic',
   },
   lazy = true,
-  event = "VeryLazy",
+  event = { "BufReadPre", "BufNewFile" },
   config = function()
     require('lualine').setup {
       options = {
