@@ -4,3 +4,4 @@ zinit light zsh-users/zsh-completions
 zinit light zdharma/history-search-multi-word
 zinit light agkozak/zsh-z
 zinit light olets/zsh-abbr
+zinit light romkatv/powerlevel10k
