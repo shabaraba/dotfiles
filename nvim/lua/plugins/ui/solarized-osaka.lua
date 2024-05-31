@@ -1,3 +1,4 @@
+local vim = vim
 return {
   "craftzdog/solarized-osaka.nvim",
   lazy = false,
@@ -44,6 +45,13 @@ return {
         -- highlights.Function.fg = colors.blue300
         highlights.NeoTreeCursorLine = {bg = colors.base03}
         highlights.MiniIndentscopeSymbol = {fg = colors.green300}
+        highlights.YankHighlight = { bg = "#553311" }
+        vim.api.nvim_create_autocmd("TextYankPost", {
+          pattern = "*",
+          callback = function()
+            vim.highlight.on_yank({ higroup = 'YankHighlight', timeout = 200 })
+          end,
+        })
     end
   })
     vim.cmd[[colorscheme solarized-osaka]]
