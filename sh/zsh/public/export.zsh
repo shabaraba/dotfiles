@@ -28,9 +28,6 @@ export PATH="$PATH:/usr/local/opt/mysql-client@5.7/bin"
     export PATH="$HOME/.nodenv/bin:$PATH" && \
     eval "$(nodenv init -)"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-
 export ANDROID_SDK_ROOT=$HOME/.android
 export PATH=$ANDROID_SDK_ROOT/cmdline-tools/tools:$PATH
 export PATH=$ANDROID_SDK_ROOT/cmdline-tools/tools/bin:$PATH
@@ -51,8 +48,8 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 # export PATH=$FLUTTER_ROOT/bin:$PATH
 
 # phpenv
-export PATH="$HOME/.phpenv/bin:$PATH"
-eval "$(phpenv init -)"
-export PATH="$HOME/.phpenv/bin:$PATH"
-eval "$(phpenv init -)"
-
+# export PATH="$HOME/.phpenv/bin:$PATH"
+# eval "$(phpenv init -)"
+# export PATH="$HOME/.phpenv/bin:$PATH"
+# eval "$(phpenv init -)"
+#
