@@ -19,6 +19,7 @@ require("lazy").setup({
     {import = "plugins.view"},
     {import = "plugins.action"},
     {import = "plugins.coding"},
+    {import = "plugins.copilot"},
     {import = "plugins.core.lsp"},
     {import = "plugins.core.treesitter"},
   },
