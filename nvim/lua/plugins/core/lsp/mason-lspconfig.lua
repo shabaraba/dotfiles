@@ -13,7 +13,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 return {
   "williamboman/mason-lspconfig.nvim",
   lazy = true,
-  event = "BufRead",
+  event = "BufReadPre",
+  ft = {'lua', 'typescript', 'javascript', 'php'}, -- 対象のファイルタイプを指定
   dependencies = {
     "williamboman/mason.nvim", -- LSP Installer
     "neovim/nvim-lspconfig",
@@ -24,14 +25,58 @@ return {
     automatic_installation = true,
     handlers = {
       function(server_name)
-        local on_attach = function(_, bufnr)
+        local on_attach = function(client, bufnr)
+          -- enable inlay hint
+          if client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint(bufnr, true)
+          end
+
           vim.api.nvim_buf_set_option(bufnr, "formatexpr",
           "v:lua.vim.lsp.formatexpr(#{timeout_ms:250})")
-          -- _G.lsp_onattach_func(i, bufnr)
         end
         local opts = {
           on_attach = on_attach,
+          inlay_hint = {
+            enabled = true,
+          },
         }
+        if server_name == "tsserver" then
+          opts.settings = {
+            typescript = {
+              inlayHints = {
+                includeInlayParameterNameHints = 'all',
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              }
+            },
+            javascript = {
+              inlayHints = {
+                includeInlayParameterNameHints = 'all',
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              }
+            },
+            golang = {
+              inlayHints = {
+                includeInlayParameterNameHints = 'all',
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              }
+            },
+          }
+        end
         require("lspconfig")[server_name].setup({opts})
       end,
     }

@@ -87,6 +87,7 @@ M.lsp = {
   { 'ge', '<cmd>lua vim.diagnostic.open_float()<cr>' },
   { 'g]', '<cmd>lua vim.diagnostic.goto_next()<cr>' },
   { 'g[', '<cmd>lua vim.diagnostic.goto_prev()<cr>' },
+  -- { 'gq', '<cmd>lua vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())<cr>' },
 }
 
 M.none_ls = {
