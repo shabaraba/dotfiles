@@ -27,3 +27,5 @@ abbr "gsp"="git stash pop"
 abbr "gst"="git stash"
 abbr "gsu"="git stash -u"
 abbr "gx"="git branch --all | peco | sed -e \"s/remotes\/origin\///g\" | xargs git checkout"
+
+abbr "poff"="http_proxy= https_proxy="
