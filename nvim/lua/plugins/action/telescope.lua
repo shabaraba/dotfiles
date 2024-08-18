@@ -74,7 +74,7 @@ return {
       },
     }
 
-    local extensions = { "themes", "terms", "fzf", "coc" }
+    local extensions = { "file_browser", "fzf", "frecency" }
 
     pcall(function()
        for _, ext in ipairs(extensions) do
@@ -84,8 +84,9 @@ return {
   end,
   dependencies = {
     {'nvim-lua/plenary.nvim'},
-    -- {'fannheyward/telescope-coc.nvim'},
-    -- {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
+    {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
+    {"nvim-telescope/telescope-file-browser.nvim"},
+    {"nvim-telescope/telescope-frecency.nvim"}
   },
 }
 
