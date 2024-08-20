@@ -74,7 +74,7 @@ return {
       },
     }
 
-    local extensions = { "file_browser", "fzf", "frecency" }
+    local extensions = { "file_browser", "fzf", "frecency", "yank_history" }
 
     pcall(function()
        for _, ext in ipairs(extensions) do
