@@ -21,7 +21,7 @@ return {
     "nvim-lua/plenary.nvim",
   },
   opts = {
-    ensure_installed = {"lua_ls", "tsserver"},
+    ensure_installed = {"lua_ls", "tsserver", "intelephense"},
     automatic_installation = true,
     handlers = {
       function(server_name)
