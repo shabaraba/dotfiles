@@ -48,11 +48,14 @@ config = {
         -- You can adjust the saturation also.
         saturation = 1.0,
     },
-    window_background_opacity = 0.8,
     font_dirs = {"fonts"},
     -- font = wezterm.font("Firge Console", {weight="Regular", stretch="Normal", italic=false}),
     font_size = 14,
     color_scheme = "Gruvbox Dark",
+    colors = {
+      background = '#1b1f21',
+    },
+    window_background_opacity = 0.8,
     harfbuzz_features = {"calt=1", "clig=1", "liga=1"},
     exit_behavior = "Close",
 
