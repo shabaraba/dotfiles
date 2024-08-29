@@ -2,25 +2,12 @@ local vim = vim
 local opt = vim.opt
 local g = vim.g
 
-local options = {
-   -- NvChad options
-   nvChad = {
-      copy_cut = true, -- copy cut text ( x key ), visual and normal mode
-      copy_del = true, -- copy deleted text ( dd key ), visual and normal mode
-      insert_nav = true, -- navigation in insertmode
-      window_nav = true,
-
-      -- updater
-      update_url = "https://github.com/NvChad/NvChad",
-      update_branch = "main",
-   },
-}
-
 vim.cmd[[lang en_US.UTF-8]]
 
 opt.title = true
 opt.clipboard = "unnamedplus"
-opt.cmdheight = 1
+opt.cmdheight = 0
+opt.laststatus = 0
 opt.cul = true -- cursor line
 
 opt.redrawtime=10000
