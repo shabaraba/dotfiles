@@ -175,4 +175,10 @@ M.trouble = {
   },
 }
 
+M.searchbox = {
+  { "/", ":SearchBoxMatchAll <cr>", mode = "n", desc = "Search" },
+  { ":s", ":SearchBoxReplace <cr>", mode = "n", desc = "Replace for files"  },
+  { ":s", ":SearchBoxReplace visual_mode=true <cr>", mode = "v", desc = "Replace for range" },
+}
+
 return M
