@@ -47,6 +47,11 @@ require("lazy").setup({
     lazy = true,
   },
   debug = false,
+  opts = {
+    rocks = {
+      enabled = false
+    }
+  },
 })
 
 -- {

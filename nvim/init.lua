@@ -5,6 +5,5 @@ vim.cmd[[
         set runtimepath+=/usr/local/share/nvim/runtime
     endif
 ]]
-
 require("root")
 
