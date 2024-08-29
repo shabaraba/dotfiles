@@ -52,8 +52,6 @@ end
 
 -- below are all plugin related mappings
 
-M.dashboard = {}
-
 M.neotree = {
   { "<leader><leader>", ":Neotree reveal toggle<cr>", desc = "Open FileSystem" },
   { "<leader>f", ":Neotree buffers toggle<cr>", desc = "Open Virtical Buffer" },
