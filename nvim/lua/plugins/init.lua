@@ -22,7 +22,7 @@ require("lazy").setup({
     {import = "plugins.copilot"},
     {import = "plugins.core.lsp"},
     {import = "plugins.core.treesitter"},
-    {import = "plugins.misc"},
+    {import = "plugins.dependencies"},
   },
   performance = {
     cache = {

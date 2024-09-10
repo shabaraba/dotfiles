@@ -1,6 +1,5 @@
 return {
   "Hajime-Suzuki/vuffers.nvim",
-  dependencies = { "nvim-tree/nvim-web-devicons" },
   lazy =true,
   event = "BufRead",
   config = function()
@@ -52,3 +51,5 @@ return {
     })
   end,
 }
+
+  -- dependencies = { "nvim-tree/nvim-web-devicons" },

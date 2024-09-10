@@ -82,11 +82,11 @@ return {
        end
     end)
   end,
-  dependencies = {
-    {'nvim-lua/plenary.nvim'},
-    {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
-    {"nvim-telescope/telescope-file-browser.nvim"},
-    {"nvim-telescope/telescope-frecency.nvim"}
-  },
 }
+
+  -- dependencies = {
+  --   {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
+  --   {"nvim-telescope/telescope-file-browser.nvim"},
+  --   {"nvim-telescope/telescope-frecency.nvim"}
+  -- },
 

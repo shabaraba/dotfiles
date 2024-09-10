@@ -1,11 +1,5 @@
 return {
   "xiyaowong/nvim-transparent",
-  dependencies = {
-    'PHSix/nvim-hybrid',
-    init = function()
-      require('hybrid').setup()
-    end
-  },
   config = true,
   event = "VimEnter",
   opts = {
@@ -24,3 +18,10 @@ return {
   }
 }
 
+
+  -- dependencies = {
+  --   'PHSix/nvim-hybrid',
+  --   init = function()
+  --     require('hybrid').setup()
+  --   end
+  -- },
