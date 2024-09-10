@@ -47,26 +47,19 @@ return {
         ["vim.lsp.util.stylize_markdown"] = true,
         ["cmp.entry.get_documentation"] = true,
       },
+      signature = {
+        enabled = false,
+      },
     },
-    -- routes = {
-    --   {
-    --     filter = {
-    --       event = "msg_show",
-    --       any = {
-    --         { find = "%d+L, %d+B" },
-    --         { find = "; after #%d+" },
-    --         { find = "; before #%d+" },
-    --       },
-    --     },
-    --     view = "mini",
-    --   },
-    -- },
     presets = {
       bottom_search = false,
       command_palette = true,
       long_message_to_split = true,
     },
   },
+  -- config = function()
+  --   vim.lsp.signature.enabled = false
+  -- end
 }
 
   -- dependencies = {

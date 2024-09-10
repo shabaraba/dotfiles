@@ -16,7 +16,7 @@ return {
   event = "BufReadPre",
   ft = {'lua', 'typescript', 'javascript', 'php'}, -- 対象のファイルタイプを指定
   opts = {
-    ensure_installed = {"tsserver", "intelephense"},
+    ensure_installed = {"ts_ls", "intelephense"},
     automatic_installation = true,
     handlers = {
       function(server_name)
@@ -35,7 +35,7 @@ return {
             enabled = true,
           },
         }
-        if server_name == "tsserver" then
+        if server_name == "ts_ls" then
           opts.settings = {
             typescript = {
               inlayHints = {

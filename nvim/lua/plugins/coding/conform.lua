@@ -1,8 +1,17 @@
 return {
   "stevearc/conform.nvim",
+  event = "BufWritePre",
   opts = {
     formatters_by_ft = {
+      lua = { "stylua" },
+      javascript = { "prettierd", "prettier", "eslint", stop_after_first = false },
+      typescript = { "prettierd", "prettier", "eslint", stop_after_first = false },
       php = { "php_cs_fixer" },
+    },
+    format_on_save = {
+      -- These options will be passed to conform.format()
+      timeout_ms = 500,
+      lsp_format = "fallback",
     },
     formatters = {
       php_cs_fixer = {
