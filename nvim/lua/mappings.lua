@@ -179,4 +179,8 @@ M.searchbox = {
   { ":s", ":SearchBoxReplace visual_mode=true <cr>", mode = "v", desc = "Replace for range" },
 }
 
+M.copilot_chat = {
+  { "<leader>cc", "<cmd>CopilotChat<cr>", desc = "Open Copilot Chat" },
+}
+
 return M
