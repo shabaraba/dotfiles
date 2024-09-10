@@ -3,6 +3,7 @@ return {
     "CopilotC-Nvim/CopilotChat.nvim",
     branch = "canary",
     build = "make tiktoken", -- Only on MacOS or Linux
+    cmd = {"CopilotChat"},
     opts = {
       debug = true, -- Enable debugging
       -- See Configuration section for rest
