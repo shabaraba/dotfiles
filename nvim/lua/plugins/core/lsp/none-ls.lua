@@ -1,6 +1,6 @@
 return {
-  -- "nvimtools/none-ls.nvim",
-  -- lazy = true,
+  "nvimtools/none-ls.nvim",
+  lazy = true,
   -- event = "BufRead",
   -- key = require("mappings").none_ls,
   -- dependencies = {"nvim-lua/plenary.nvim", "vim-test/vim-test"},

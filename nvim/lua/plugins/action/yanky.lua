@@ -1,8 +1,5 @@
 return {
   "gbprod/yanky.nvim",
-  dependencies = {
-    { "kkharji/sqlite.lua" }
-  },
   opts = {
    highlight = {
       on_put = true,
@@ -12,3 +9,7 @@ return {
   },
   keys = require("mappings").yanky,
 }
+
+  -- dependencies = {
+  --   { "kkharji/sqlite.lua" }
+  -- },

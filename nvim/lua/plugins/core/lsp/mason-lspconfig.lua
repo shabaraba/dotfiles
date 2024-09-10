@@ -15,13 +15,8 @@ return {
   lazy = true,
   event = "BufReadPre",
   ft = {'lua', 'typescript', 'javascript', 'php'}, -- 対象のファイルタイプを指定
-  dependencies = {
-    "williamboman/mason.nvim", -- LSP Installer
-    "neovim/nvim-lspconfig",
-    "nvim-lua/plenary.nvim",
-  },
   opts = {
-    ensure_installed = {"lua_ls", "tsserver", "intelephense"},
+    ensure_installed = {"tsserver", "intelephense"},
     automatic_installation = true,
     handlers = {
       function(server_name)
@@ -83,3 +78,9 @@ return {
   },
   keys = require("mappings").lsp,
 }
+
+  -- dependencies = {
+  --   "neovim/nvim-lspconfig",
+  --   "nvim-lua/plenary.nvim",
+  --   "ray-x/lsp_signature.nvim",
+  -- },
