@@ -2,7 +2,7 @@ local vim = vim
 local opt = vim.opt
 local g = vim.g
 
-vim.cmd[[lang en_US.UTF-8]]
+vim.cmd [[lang en_US.UTF-8]]
 
 opt.title = true
 opt.clipboard = "unnamedplus"
@@ -10,12 +10,12 @@ opt.cmdheight = 0
 opt.laststatus = 0
 opt.cul = true -- cursor line
 
-opt.redrawtime=10000
-opt.encoding='utf-8'
-opt.fileencodings='utf-8,euc-jp,sjis,shift_jis,cp932,ucs-bom,iso-2022-jp'
+opt.redrawtime = 10000
+opt.encoding = 'utf-8'
+opt.fileencodings = 'utf-8,euc-jp,sjis,shift_jis,cp932,ucs-bom,iso-2022-jp'
 opt.shell = 'zsh'
 
-opt.fileformats="unix,dos,mac"
+opt.fileformats = "unix,dos,mac"
 opt.backup = false
 opt.swapfile = false
 opt.autoread = true
@@ -23,11 +23,13 @@ opt.hidden = true
 opt.showcmd = true
 opt.wrap = false --行を折り返さない
 
-opt.clipboard='unnamedplus'
+opt.clipboard = 'unnamedplus'
 
 -- Indentline
 
-vim.cmd[[set list listchars=tab:\>\-,trail:_]]
+-- opt.list = true
+-- opt.listchars:append "space:⋅"
+opt.listchars:append "tab:>-,trail:_"
 
 opt.expandtab = true
 opt.shiftwidth = 4
@@ -65,4 +67,3 @@ opt.updatetime = 300
 opt.whichwrap:append "<>[]hl"
 
 g.mapleader = " "
-
