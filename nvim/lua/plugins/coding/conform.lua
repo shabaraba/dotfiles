@@ -7,6 +7,7 @@ return {
       javascript = { "prettierd", "prettier", "eslint", stop_after_first = false },
       typescript = { "prettierd", "prettier", "eslint", stop_after_first = false },
       php = { "php_cs_fixer" },
+      markdown = { "prettier", "markdownlint" },
     },
     format_on_save = {
       -- These options will be passed to conform.format()
