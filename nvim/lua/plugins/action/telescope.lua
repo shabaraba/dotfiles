@@ -1,14 +1,12 @@
-
 return {
   "nvim-telescope/telescope.nvim",
   lazy = true,
-  cmd = {"Telescope"},
-  -- cmd = "Telescope",
+  cmd = "Telescope",
   keys = require("mappings").telescope,
   config = function()
     local present, telescope = pcall(require, "telescope")
     if not present then
-       return
+      return
     end
 
     telescope.setup {
@@ -60,10 +58,10 @@ return {
       },
       extensions = {
         fzf = {
-          fuzzy = true,                    -- false will only do exact matching
-          override_generic_sorter = true,  -- override the generic sorter
-          override_file_sorter = true,     -- override the file sorter
-          case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+          fuzzy = true,                   -- false will only do exact matching
+          override_generic_sorter = true, -- override the generic sorter
+          override_file_sorter = true,    -- override the file sorter
+          case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
         },
         file_browser = {},
         -- coc = {
@@ -77,16 +75,15 @@ return {
     local extensions = { "file_browser", "fzf", "frecency", "yank_history" }
 
     pcall(function()
-       for _, ext in ipairs(extensions) do
-          telescope.load_extension(ext)
-       end
+      for _, ext in ipairs(extensions) do
+        telescope.load_extension(ext)
+      end
     end)
   end,
 }
 
-  -- dependencies = {
-  --   {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
-  --   {"nvim-telescope/telescope-file-browser.nvim"},
-  --   {"nvim-telescope/telescope-frecency.nvim"}
-  -- },
-
+-- dependencies = {
+--   {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
+--   {"nvim-telescope/telescope-file-browser.nvim"},
+--   {"nvim-telescope/telescope-frecency.nvim"}
+-- },
