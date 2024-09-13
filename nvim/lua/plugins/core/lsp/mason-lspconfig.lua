@@ -5,7 +5,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local set = vim.keymap.set
     local keymaps = require("mappings").lsp
     for _, v in pairs(keymaps) do
-      set("n", v[1], v[2], {buffer = true})
+      set("n", v[1], v[2], { buffer = true })
     end
   end
 })
@@ -14,9 +14,9 @@ return {
   "williamboman/mason-lspconfig.nvim",
   lazy = true,
   event = "BufReadPre",
-  ft = {'lua', 'typescript', 'javascript', 'php'}, -- 対象のファイルタイプを指定
+  ft = { 'lua', 'typescript', 'javascript', 'php' }, -- 対象のファイルタイプを指定
   opts = {
-    ensure_installed = {"ts_ls", "intelephense"},
+    ensure_installed = { "ts_ls", "intelephense" },
     automatic_installation = true,
     handlers = {
       function(server_name)
@@ -27,7 +27,7 @@ return {
           end
 
           vim.api.nvim_buf_set_option(bufnr, "formatexpr",
-          "v:lua.vim.lsp.formatexpr(#{timeout_ms:250})")
+            "v:lua.vim.lsp.formatexpr(#{timeout_ms:250})")
         end
         local opts = {
           on_attach = on_attach,
@@ -72,15 +72,15 @@ return {
             },
           }
         end
-        require("lspconfig")[server_name].setup({opts})
+        require("lspconfig")[server_name].setup({ opts })
       end,
     }
   },
   keys = require("mappings").lsp,
 }
 
-  -- dependencies = {
-  --   "neovim/nvim-lspconfig",
-  --   "nvim-lua/plenary.nvim",
-  --   "ray-x/lsp_signature.nvim",
-  -- },
+-- dependencies = {
+--   "neovim/nvim-lspconfig",
+--   "nvim-lua/plenary.nvim",
+--   "ray-x/lsp_signature.nvim",
+-- },
