@@ -1,7 +1,8 @@
 return {
   "Hajime-Suzuki/vuffers.nvim",
-  lazy =true,
+  lazy = true,
   event = "BufRead",
+  keys = require("mappings").vuffers,
   config = function()
     require("vuffers").setup({
       debug = {
@@ -36,14 +37,14 @@ return {
         },
       },
       sort = {
-        type = "none", -- "none" | "filename"
+        type = "none",     -- "none" | "filename"
         direction = "asc", -- "asc" | "desc"
       },
       view = {
         modified_icon = "󰛿", -- when a buffer is modified, this icon will be shown
         pinned_icon = "󰐾",
         window = {
-          auto_resize= false,
+          auto_resize = false,
           width = 35,
           focus_on_open = false,
         },
@@ -52,4 +53,4 @@ return {
   end,
 }
 
-  -- dependencies = { "nvim-tree/nvim-web-devicons" },
+-- dependencies = { "nvim-tree/nvim-web-devicons" },
