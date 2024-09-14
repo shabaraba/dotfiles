@@ -39,8 +39,8 @@ M.misc = function()
   map('i', '<C-a>', '<Home>', { noremap = true })
   map('i', '<C-e>', '<End>', { noremap = true })
 
-  map('n', '<C-j>', ':bp<CR>', { noremap = false })
-  map('n', '<C-k>', ':bn<CR>', { noremap = false })
+  -- map('n', '<C-j>', ':bp<CR>', { noremap = false })
+  -- map('n', '<C-k>', ':bn<CR>', { noremap = false })
 
   map('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true })
 
@@ -53,10 +53,10 @@ end
 -- below are all plugin related mappings
 
 M.neotree = {
-  { "<leader><leader>", ":Neotree reveal toggle<cr>",           desc = "Open FileSystem" },
-  { "<leader>f",        ":Neotree buffers toggle<cr>",          desc = "Open Virtical Buffer" },
-  { "<leader>g",        ":Neotree git_status toggle<cr>",       desc = "Open Git Status" },
-  { "<leader>d",        ":Neotree document_symbols toggle<cr>", desc = "Open Document Symbols" },
+  -- { "<leader><leader>", ":Neotree reveal toggle<cr>",           desc = "Open FileSystem" },
+  -- { "<leader>f", ":Neotree buffers toggle<cr>",          desc = "Open Virtical Buffer" },
+  { "<leader>g", ":Neotree git_status toggle<cr>",       desc = "Open Git Status" },
+  { "<leader>d", ":Neotree document_symbols toggle<cr>", desc = "Open Document Symbols" },
 }
 
 M.telescope = {
@@ -124,6 +124,18 @@ M.refactoring = {
 
 M.hop = {
   { 's', '<cmd>HopChar2<cr>' }
+}
+
+M.oil = {
+  { "<leader><leader>", "<cmd>Oil  --float<cr>", desc = "Open parent directory" },
+}
+
+M.vuffers = {
+  { "<leader>f", ":lua require(\"vuffers\").toggle()<cr>",                                      desc = "Open Virtical Buffer" },
+  { "<C-j>",     ":lua require(\"vuffers\").go_to_buffer_by_count({direction = \"next\"})<cr>", desc = "Move up the buffer by one" },
+  { "<C-k>",     ":lua require(\"vuffers\").go_to_buffer_by_count({direction = \"prev\"})<cr>", desc = "Move down the buffer by one" },
+
+
 }
 
 M.yanky = {
