@@ -8,9 +8,14 @@ return {
     if not present then
       return
     end
+    local actions = require("telescope.actions")
 
     telescope.setup {
       defaults = {
+        mappings = {
+          i = { ["<esc>"] = actions.close },
+          n = { ["q"] = actions.close },
+        },
         vimgrep_arguments = {
           "rg",
           "--color=never",
