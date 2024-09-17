@@ -15,7 +15,6 @@
 
 return {
   'nvimdev/lspsaga.nvim',
-  -- cmd = { "LspSaga" },
   event = { "LspAttach" },
   keys = require("mappings").lspsaga,
   opts = {

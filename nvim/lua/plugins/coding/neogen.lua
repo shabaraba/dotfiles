@@ -2,5 +2,5 @@
 return {
   "danymat/neogen",
   keys = require("mappings").neogen,
-  opts = { snippet_engine = "luasnip" },
+  opts = {},
 }

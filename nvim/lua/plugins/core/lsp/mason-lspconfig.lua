@@ -20,6 +20,10 @@ return {
     automatic_installation = true,
     handlers = {
       function(server_name)
+        local lspconfig = require("lspconfig")
+        local cmp_nvim_lsp = require("cmp_nvim_lsp")
+        local capabilities = cmp_nvim_lsp.default_capabilities()
+
         local on_attach = function(client, bufnr)
           -- enable inlay hint
           if client.server_capabilities.inlayHintProvider then
@@ -29,12 +33,15 @@ return {
           vim.api.nvim_buf_set_option(bufnr, "formatexpr",
             "v:lua.vim.lsp.formatexpr(#{timeout_ms:250})")
         end
+
         local opts = {
           on_attach = on_attach,
           inlay_hint = {
             enabled = true,
           },
+          capabilities = capabilities,
         }
+
         if server_name == "ts_ls" then
           opts.settings = {
             typescript = {
@@ -72,7 +79,7 @@ return {
             },
           }
         end
-        require("lspconfig")[server_name].setup({ opts })
+        lspconfig[server_name].setup({ opts })
       end,
     }
   },

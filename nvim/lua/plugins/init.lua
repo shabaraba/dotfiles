@@ -15,14 +15,14 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = {
-    {import = "plugins.ui"},
-    {import = "plugins.view"},
-    {import = "plugins.action"},
-    {import = "plugins.coding"},
-    {import = "plugins.copilot"},
-    {import = "plugins.core.lsp"},
-    {import = "plugins.core.treesitter"},
-    {import = "plugins.dependencies"},
+    { import = "plugins.ui" },
+    { import = "plugins.view" },
+    { import = "plugins.action" },
+    { import = "plugins.coding" },
+    { import = "plugins.copilot" },
+    { import = "plugins.core.lsp" },
+    { import = "plugins.core.treesitter" },
+    { import = "plugins.dependencies" },
   },
   performance = {
     cache = {
@@ -71,35 +71,35 @@ require("lazy").setup({
 --         vim.g.winresizer_start_key = '<C-T>'
 --     end
 -- },
-  -- language server plotocol
-  -- {
-  --   'neoclide/coc.nvim',
-  --   branch = "master",
-  --   -- build = "yarn install --frozen-lockfile",
-  --   build = ":call coc#util#install()",
-  --   config = require('plugins.configs.coc').config(),
-  -- },
-  -- {
-  --   'ldelossa/litee.nvim',
-  --   init = function()
-  --     require('litee.lib').setup({
-  --       tree = {
-  --         icon_set = "codicons"
-  --       },
-  --       panel = {
-  --         orientation = "left",
-  --         panel_size  = 30
-  --       }
-  --     })
-  --   end,
-  -- },
-  -- {
-  --   'ldelossa/litee-calltree.nvim',
-  --   init = function()
-  --   require('litee.calltree').setup({})
-  --   end,
-  -- },
-  -- lsp stuff
+-- language server plotocol
+-- {
+--   'neoclide/coc.nvim',
+--   branch = "master",
+--   -- build = "yarn install --frozen-lockfile",
+--   build = ":call coc#util#install()",
+--   config = require('plugins.configs.coc').config(),
+-- },
+-- {
+--   'ldelossa/litee.nvim',
+--   init = function()
+--     require('litee.lib').setup({
+--       tree = {
+--         icon_set = "codicons"
+--       },
+--       panel = {
+--         orientation = "left",
+--         panel_size  = 30
+--       }
+--     })
+--   end,
+-- },
+-- {
+--   'ldelossa/litee-calltree.nvim',
+--   init = function()
+--   require('litee.calltree').setup({})
+--   end,
+-- },
+-- lsp stuff
 --   use 'thinca/vim-quickrun'
 --   -- csv syntax highlight
 --   use 'mechatroner/rainbow_csv'
@@ -164,4 +164,3 @@ require("lazy").setup({
 --     }
 -- end)
 -- # Neo-tree configuration has been updated. Please review the changes below.
-
