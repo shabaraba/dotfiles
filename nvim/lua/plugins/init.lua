@@ -22,6 +22,7 @@ require("lazy").setup({
     { import = "plugins.copilot" },
     { import = "plugins.core.lsp" },
     { import = "plugins.core.treesitter" },
+    { import = "plugins.colorscheme" },
     { import = "plugins.dependencies" },
   },
   performance = {
@@ -54,6 +55,9 @@ require("lazy").setup({
     }
   },
 })
+
+
+-- Bind to a command or keybinding
 
 -- {
 --     "akinsho/bufferline.nvim",

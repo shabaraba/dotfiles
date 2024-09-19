@@ -1,7 +1,7 @@
 return {
   "nvim-telescope/telescope.nvim",
   lazy = true,
-  cmd = "Telescope",
+  cmd = { "Telescope", "MyCommand" },
   keys = require("mappings").telescope,
   config = function()
     local present, telescope = pcall(require, "telescope")
@@ -11,6 +11,11 @@ return {
     local actions = require("telescope.actions")
 
     telescope.setup {
+      pickers = {
+        colorscheme = {
+          enable_preview = true
+        }
+      },
       defaults = {
         mappings = {
           i = { ["<esc>"] = actions.close },
@@ -84,6 +89,8 @@ return {
         telescope.load_extension(ext)
       end
     end)
+    vim.api.nvim_set_hl(0, "TelescopeNormal", { bg = "none" })
+    vim.api.nvim_set_hl(0, "TelescopeBorder", { bg = "none" })
   end,
 }
 
