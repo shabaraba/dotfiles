@@ -50,6 +50,7 @@ return {
         },
       },
     })
+    vim.api.nvim_set_hl(0, "VuffersWindowBackground", { bg = "NONE" })
   end,
 }
 

@@ -4,9 +4,9 @@ return {
   event = "VeryLazy",
   opts = {
     cmdline = {
-      enabled = true, -- enables the Noice cmdline UI
+      enabled = true,         -- enables the Noice cmdline UI
       view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
-      opts = {}, -- global options for the cmdline. See section on views
+      opts = {},              -- global options for the cmdline. See section on views
       format = {
         -- conceal: (default=true) This will hide the text in the cmdline that matches the pattern.
         -- view: (default is cmdline view)
@@ -24,15 +24,15 @@ return {
       },
     },
     messages = {
-      enabled = true,
-      view = "mini", -- default view for messages
-      view_error = "mini", -- view for errors
-      view_warn = "mini", -- view for warnings
-      view_history = "messages", -- view for :messages
+      enabled = false,
+      view = "mini",               -- default view for messages
+      view_error = "mini",         -- view for errors
+      view_warn = "mini",          -- view for warnings
+      view_history = "messages",   -- view for :messages
       view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
     },
     popupmenu = {
-      enabled = true, -- enables the Noice popupmenu UI
+      enabled = true,  -- enables the Noice popupmenu UI
       backend = "nui", -- backend to use to show regular cmdline completions
       -- Icons for completion item kinds (see defaults at noice.config.icons.kinds)
       kind_icons = {}, -- set to `false` to disable icons
@@ -56,17 +56,27 @@ return {
       command_palette = true,
       long_message_to_split = true,
     },
+    -- routes = {
+    --   {
+    --     filter = {
+    --       event = "msg_show",
+    --       mode = "rm",           -- このモードのメッセージをフィルタリング
+    --     },
+    --     opts = { skip = false }, -- noice.nvimでのui.selectを無効化
+    --   },
+    -- },
+    debug = false,
   },
   -- config = function()
   --   vim.lsp.signature.enabled = false
   -- end
 }
 
-  -- dependencies = {
-  --   -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-  --   "MunifTanjim/nui.nvim",
-  --   -- OPTIONAL:
-  --   --   `nvim-notify` is only needed, if you want to use the notification view.
-  --   --   If not available, we use `mini` as the fallback
-  --   "rcarriga/nvim-notify",
-  -- }
+-- dependencies = {
+--   -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+--   "MunifTanjim/nui.nvim",
+--   -- OPTIONAL:
+--   --   `nvim-notify` is only needed, if you want to use the notification view.
+--   --   If not available, we use `mini` as the fallback
+--   "rcarriga/nvim-notify",
+-- }

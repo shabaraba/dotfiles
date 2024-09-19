@@ -1,6 +1,5 @@
 return {
   "xiyaowong/nvim-transparent",
-  config = true,
   event = "VimEnter",
   opts = {
     extra_groups = { -- table/string: additional groups that should be clear
@@ -16,7 +15,18 @@ return {
       -- "BufferLineIndicatorSelected",
     },
     exclude_groups = {}, -- table: groups you don't want to clear
-  }
+  },
+  config = function()
+    vim.cmd [[
+      hi Normal guibg=NONE ctermbg=NONE
+      hi NormalNC guibg=NONE ctermbg=NONE
+      hi NormalFloat guibg=NONE ctermbg=NONE
+    ]]
+    vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NormalNC", { bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+  end,
+
 }
 
 

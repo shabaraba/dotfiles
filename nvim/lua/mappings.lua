@@ -21,7 +21,7 @@ local Prefix = {
   finder = ";",
 }
 
-local Function = {
+local FUNCTION = {
   DIAGNOSTIC = {
     GO_TO_NEXT = "GO TO NEXT DIAGNOSTIC",
     GO_TO_PREV = "GO TO PREV DIAGNOSTIC",
@@ -80,116 +80,136 @@ local Function = {
   }
 }
 
+local Commands = {
+  { "Chat", function() vim.api.nvim_command("CopilotChat") end, FUNCTION.AI.OPEN_CHAT },
+  { "Fmt",  function() vim.lsp.buf.format() end,                FUNCTION.CODING.FORMAT },
+}
+
+for _, commands in ipairs(Commands) do
+  command(commands[1], commands[2], { desc = commands[3] })
+end
+
 local Mapping = {
-  { Prefix.jump .. ']',        '<cmd>lua vim.diagnostic.goto_next()<cr>',                                     desc = Function.DIAGNOSTIC.GO_TO_NEXT,              silent = true },
-  { Prefix.jump .. '[',        '<cmd>lua vim.diagnostic.goto_prev()<cr>',                                     desc = Function.DIAGNOSTIC.GO_TO_PREV,              silent = true },
-  { Prefix.jump .. "h",        ":Lspsaga finder<cr>",                                                         desc = Function.LSP.GG_TO_DEFINITION_OR_REFERENCES, silent = true },
-  { Prefix.jump .. 's',        '<cmd>HopChar2<cr>',                                                           desc = Function.FINDER.JUMP_MOTION,                 silent = true },
+  { Prefix.jump .. ']',        '<cmd>lua vim.diagnostic.goto_next()<cr>',                                    desc = FUNCTION.DIAGNOSTIC.GO_TO_NEXT,              silent = true },
+  { Prefix.jump .. '[',        '<cmd>lua vim.diagnostic.goto_prev()<cr>',                                    desc = FUNCTION.DIAGNOSTIC.GO_TO_PREV,              silent = true },
+  { Prefix.jump .. "h",        ":Lspsaga finder<cr>",                                                        desc = FUNCTION.LSP.GG_TO_DEFINITION_OR_REFERENCES, silent = true },
+  { Prefix.jump .. 's',        '<cmd>HopChar2<cr>',                                                          desc = FUNCTION.FINDER.JUMP_MOTION,                 silent = true },
 
-  { Prefix.finder .. "f",      ":Telescope find_files <cr>",                                                  desc = Function.FINDER.FIND_FILES,                  silent = true },
-  { Prefix.finder .. "a",      ":Telescope find_files follow=true no_ignore=true hidden=true <cr>",           desc = Function.FINDER.FIND_ALL_FILES,              silent = true },
-  { Prefix.finder .. "gc",     ":Telescope git_commits <cr>",                                                 desc = Function.GIT.SHOW_COMMITS,                   silent = true },
-  { Prefix.finder .. "gs",     ":Telescope git_status <cr>",                                                  desc = Function.GIT.SHOW_STATUS,                    silent = true },
-  { Prefix.finder .. "h",      ":Telescope help_tags <cr>",                                                   desc = Function.FINDER.FIND_HELP,                   silent = true },
-  { Prefix.finder .. "w",      ":Telescope live_grep <cr>",                                                   desc = Function.FINDER.GREP,                        silent = true },
-  { Prefix.finder .. "c",      ":Telescope commands <cr>",                                                    desc = Function.FINDER.COMMANDS,                    silent = true },
-  { Prefix.finder .. "k",      ":Telescope keymaps <cr>",                                                     desc = Function.FINDER.KEYMAPS,                     silent = true },
+  { Prefix.finder .. "f",      ":Telescope find_files <cr>",                                                 desc = FUNCTION.FINDER.FIND_FILES,                  silent = true },
+  { Prefix.finder .. "a",      ":Telescope find_files follow=true no_ignore=true hidden=true <cr>",          desc = FUNCTION.FINDER.FIND_ALL_FILES,              silent = true },
+  { Prefix.finder .. "gc",     ":Telescope git_commits <cr>",                                                desc = FUNCTION.GIT.SHOW_COMMITS,                   silent = true },
+  { Prefix.finder .. "gs",     ":Telescope git_status <cr>",                                                 desc = FUNCTION.GIT.SHOW_STATUS,                    silent = true },
+  { Prefix.finder .. "h",      ":Telescope help_tags <cr>",                                                  desc = FUNCTION.FINDER.FIND_HELP,                   silent = true },
+  { Prefix.finder .. "w",      ":Telescope live_grep <cr>",                                                  desc = FUNCTION.FINDER.GREP,                        silent = true },
+  { Prefix.finder .. "c",      ":Telescope commands <cr>",                                                   desc = FUNCTION.FINDER.COMMANDS,                    silent = true },
+  { Prefix.finder .. "k",      ":Telescope keymaps <cr>",                                                    desc = FUNCTION.FINDER.KEYMAPS,                     silent = true },
 
-  { Prefix.show .. 'h',        '<cmd>lua vim.lsp.buf.hover()<cr>',                                            desc = Function.LSP.HOVER,                          silent = true },
-  { Prefix.show .. "t",        ":Lspsaga peek_type_definition<cr>",                                           desc = Function.LSP.SHOW_TYPE_DEFINITION,           silent = true },
-  { Prefix.show .. 'e',        '<cmd>lua vim.diagnostic.open_float()<cr>',                                    desc = Function.DIAGNOSTIC.SHOW,                    silent = true },
-  { Prefix.show .. "xx",       "<cmd>Trouble diagnostics toggle<cr>",                                         desc = Function.DIAGNOSTIC.SHOW_ALL,                silent = true },
-  { Prefix.show .. "xX",       "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",                            desc = Function.DIAGNOSTIC.SHOW_BUFFER,             silent = true },
-  { Prefix.show .. "i",        ":Lspsaga incoming_calls<cr>",                                                 desc = Function.LSP.CALL_HIERARCHY,                 silent = true },
-  { Prefix.show .. "o",        ":Lspsaga outline<cr>",                                                        desc = Function.LSP.OUTLINE,                        silent = true },
-  { Prefix.show .. "<leader>", "<cmd>Oil  --float<cr>",                                                       desc = Function.FILER.OPEN,                         silent = true },
-  { Prefix.show .. "f",        ":lua require(\"vuffers\").toggle()<cr>",                                      desc = Function.BUFFER.SHOW_LIST,                   silent = true },
-  { "<C-j>",                   ":lua require(\"vuffers\").go_to_buffer_by_count({direction = \"next\"})<cr>", desc = Function.BUFFER.GO_TO_NEXT,                  silent = true },
-  { "<C-k>",                   ":lua require(\"vuffers\").go_to_buffer_by_count({direction = \"prev\"})<cr>", desc = Function.BUFFER.GO_TO_PREV,                  silent = true },
+  { Prefix.show .. 'h',        '<cmd>lua vim.lsp.buf.hover()<cr>',                                           desc = FUNCTION.LSP.HOVER,                          silent = true },
+  { Prefix.show .. "t",        ":Lspsaga peek_type_definition<cr>",                                          desc = FUNCTION.LSP.SHOW_TYPE_DEFINITION,           silent = true },
+  { Prefix.show .. 'e',        '<cmd>lua vim.diagnostic.open_float()<cr>',                                   desc = FUNCTION.DIAGNOSTIC.SHOW,                    silent = true },
+  { Prefix.show .. "xx",       "<cmd>Trouble diagnostics toggle<cr>",                                        desc = FUNCTION.DIAGNOSTIC.SHOW_ALL,                silent = true },
+  { Prefix.show .. "xX",       "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",                           desc = FUNCTION.DIAGNOSTIC.SHOW_BUFFER,             silent = true },
+  { Prefix.show .. "i",        ":Lspsaga incoming_calls<cr>",                                                desc = FUNCTION.LSP.CALL_HIERARCHY,                 silent = true },
+  { Prefix.show .. "o",        ":Lspsaga outline<cr>",                                                       desc = FUNCTION.LSP.OUTLINE,                        silent = true },
+  { Prefix.show .. "<leader>", "<cmd>Oil  --float<cr>",                                                      desc = FUNCTION.FILER.OPEN,                         silent = true },
+  -- { Prefix.show .. "f",        ":lua require(\"vuffers\").toggle()<cr>",                                      desc = FUNCTION.BUFFER.SHOW_LIST,                   silent = true },
+  -- { "<C-j>",                   ":lua require(\"vuffers\").go_to_buffer_by_count({direction = \"next\"})<cr>", desc = FUNCTION.BUFFER.GO_TO_NEXT,                  silent = true },
+  -- { "<C-k>",                   ":lua require(\"vuffers\").go_to_buffer_by_count({direction = \"prev\"})<cr>", desc = FUNCTION.BUFFER.GO_TO_PREV,                  silent = true },
+  { Prefix.show .. "f",        ':lua require"coluffers".open_sidebar()<CR>',                                 desc = FUNCTION.BUFFER.SHOW_LIST,                   noremap = true,                     silent = true },
+  { "<C-j>",                   ':lua require"coluffers".switch_to_next_buffer()<CR>',                        desc = FUNCTION.BUFFER.GO_TO_NEXT,                  noremap = true,                     silent = true },
+  { "<C-k>",                   ':lua require"coluffers".switch_to_prev_buffer()<CR>',                        desc = FUNCTION.BUFFER.GO_TO_PREV,                  noremap = true,                     silent = true },
 
-  { Prefix.action .. 'n',      '<cmd>lua vim.lsp.buf.rename()<cr>',                                           desc = Function.LSP.RENAME_VALIABLE_NAME,           silent = true },
-  { Prefix.action .. "c",      ":Lspsaga code_action<cr>",                                                    desc = Function.LSP.CODE_ACTION,                    silent = true },
-  { Prefix.action .. "cd",     function() require("neogen").generate({}) end,                                 desc = Function.CODING.GENERATE_DOC_COMMENT,        silent = true },
-  { Prefix.action .. "cc",     "<cmd>CopilotChat<cr>",                                                        desc = Function.AI.OPEN_CHAT,                       silent = true },
-  { Prefix.action .. 'f',      '<cmd>lua vim.lsp.buf.format()<cr>',                                           desc = Function.CODING.FORMAT,                      silent = true },
-  { Prefix.action .. "r",      function() require("refactoring").select_refactor() end,                       desc = Function.CODING.REFACTOR,                    silent = true,                      mode = "v", noremap = true, expr = false },
-  { Prefix.action .. "p",      function() require("telescope").extensions.yank_history.yank_history({}) end,  desc = Function.OVERRIDE.OPEN_YANK_HISTORY,         silent = true },
-  { "y",                       "<Plug>(YankyYank)",                                                           desc = Function.OVERRIDE.YANK,                      mode = { "n", "x", silent = true }, },
-  { "p",                       "<Plug>(YankyPutAfter)",                                                       desc = Function.OVERRIDE.PASTE_AFTER,               silent = true },
-  { "P",                       "<Plug>(YankyPutBefor)",                                                       desc = Function.OVERRIDE.PASTE_AFTER,               silent = true },
-  { "]p",                      "<Plug>(YankyPutIndentAfterLinewise)",                                         desc = Function.OVERRIDE.PASTE_INDENT_AFTER,        silent = true },
-  { "[p",                      "<Plug>(YankyPutIndentBeforeLinewise)",                                        desc = Function.OVERRIDE.PASTE_INDENT_BEFORE,       silent = true },
-  { "<c-p>",                   "<Plug>(YankyPreviousEntry)",                                                  desc = Function.OVERRIDE.PASTE_PREV_YANK,           silent = true },
-  { "<c-n>",                   "<Plug>(YankyNextEntry)",                                                      desc = Function.OVERRIDE.PASTE_NEXT_YANK,           silent = true },
+
+  { Prefix.action .. 'n',      '<cmd>lua vim.lsp.buf.rename()<cr>',                                          desc = FUNCTION.LSP.RENAME_VALIABLE_NAME,           silent = true },
+  { Prefix.action .. "c",      ":Lspsaga code_action<cr>",                                                   desc = FUNCTION.LSP.CODE_ACTION,                    silent = true },
+  { Prefix.action .. "cd",     function() require("neogen").generate({}) end,                                desc = FUNCTION.CODING.GENERATE_DOC_COMMENT,        silent = true },
+  { Prefix.action .. "r",      function() require("refactoring").select_refactor() end,                      desc = FUNCTION.CODING.REFACTOR,                    silent = true,                      mode = "v",   noremap = true, expr = false },
+  { Prefix.action .. "p",      function() require("telescope").extensions.yank_history.yank_history({}) end, desc = FUNCTION.OVERRIDE.OPEN_YANK_HISTORY,         silent = true },
+  { "y",                       "<Plug>(YankyYank)",                                                          desc = FUNCTION.OVERRIDE.YANK,                      mode = { "n", "x", silent = true }, },
+  { "p",                       "<Plug>(YankyPutAfter)",                                                      desc = FUNCTION.OVERRIDE.PASTE_AFTER,               mode = { "n", "x", silent = true }, },
+  { "P",                       "<Plug>(YankyPutBefore)",                                                     desc = FUNCTION.OVERRIDE.PASTE_BEFORE,              mode = { "n", "x", silent = true }, },
+  { "]p",                      "<Plug>(YankyPutIndentAfterLinewise)",                                        desc = FUNCTION.OVERRIDE.PASTE_INDENT_AFTER,        silent = true },
+  { "[p",                      "<Plug>(YankyPutIndentBeforeLinewise)",                                       desc = FUNCTION.OVERRIDE.PASTE_INDENT_BEFORE,       silent = true },
+  { "<c-p>",                   "<Plug>(YankyPreviousEntry)",                                                 desc = FUNCTION.OVERRIDE.PASTE_PREV_YANK,           silent = true },
+  { "<c-n>",                   "<Plug>(YankyNextEntry)",                                                     desc = FUNCTION.OVERRIDE.PASTE_NEXT_YANK,           silent = true },
 }
 
 local FunctionKeyMapping = extract_values(Mapping, "desc")
 
 M.telescope = {
-  FunctionKeyMapping[Function.FINDER.GREP],
-  FunctionKeyMapping[Function.FINDER.FIND_HELP],
-  FunctionKeyMapping[Function.FINDER.FIND_FILES],
-  FunctionKeyMapping[Function.FINDER.FIND_ALL_FILES],
-  FunctionKeyMapping[Function.FINDER.FIND_COLOR_SHCEME],
+  FunctionKeyMapping[FUNCTION.FINDER.GREP],
+  FunctionKeyMapping[FUNCTION.FINDER.KEYMAPS],
+  FunctionKeyMapping[FUNCTION.FINDER.COMMANDS],
+  FunctionKeyMapping[FUNCTION.FINDER.FIND_HELP],
+  FunctionKeyMapping[FUNCTION.FINDER.FIND_FILES],
+  FunctionKeyMapping[FUNCTION.FINDER.FIND_ALL_FILES],
 }
 
 -- below are all plugin related mappings
 
 M.lsp = {
-  FunctionKeyMapping[Function.LSP.HOVER],
-  FunctionKeyMapping[Function.LSP.RENAME_VALIABLE_NAME],
+  FunctionKeyMapping[FUNCTION.LSP.HOVER],
+  FunctionKeyMapping[FUNCTION.LSP.RENAME_VALIABLE_NAME],
 }
 
 M.lspsaga = {
-  FunctionKeyMapping[Function.LSP.GG_TO_DEFINITION_OR_REFERENCES],
-  FunctionKeyMapping[Function.LSP.SHOW_TYPE_DEFINITION],
-  FunctionKeyMapping[Function.LSP.CALL_HIERARCHY],
-  FunctionKeyMapping[Function.LSP.CODE_ACTION],
-  FunctionKeyMapping[Function.LSP.OUTLINE],
+  FunctionKeyMapping[FUNCTION.LSP.GG_TO_DEFINITION_OR_REFERENCES],
+  FunctionKeyMapping[FUNCTION.LSP.SHOW_TYPE_DEFINITION],
+  FunctionKeyMapping[FUNCTION.LSP.CALL_HIERARCHY],
+  FunctionKeyMapping[FUNCTION.LSP.CODE_ACTION],
+  FunctionKeyMapping[FUNCTION.LSP.OUTLINE],
 }
 
-M.none_ls = {
-  FunctionKeyMapping[Function.CODING.FORMAT],
-}
+M.none_ls = {}
 
 M.neogen = {
-  FunctionKeyMapping[Function.CODING.GENERATE_DOC_COMMENT],
+  FunctionKeyMapping[FUNCTION.CODING.GENERATE_DOC_COMMENT],
 }
 
 M.refactoring = {
-  FunctionKeyMapping[Function.CODING.REFACTOR],
+  FunctionKeyMapping[FUNCTION.CODING.REFACTOR],
 }
 
 M.oil = {
-  FunctionKeyMapping[Function.FILER.OPEN],
+  FunctionKeyMapping[FUNCTION.FILER.OPEN],
 }
 
 M.vuffers = {
-  FunctionKeyMapping[Function.BUFFER.SHOW_LIST],
-  FunctionKeyMapping[Function.BUFFER.GO_TO_NEXT],
-  FunctionKeyMapping[Function.BUFFER.GO_TO_PREV],
+  -- FunctionKeyMapping[FUNCTION.BUFFER.SHOW_LIST],
+  -- FunctionKeyMapping[FUNCTION.BUFFER.GO_TO_NEXT],
+  -- FunctionKeyMapping[FUNCTION.BUFFER.GO_TO_PREV],
 }
 
 M.yanky = {
-  FunctionKeyMapping[Function.OVERRIDE.YANK],
-  FunctionKeyMapping[Function.OVERRIDE.PASTE_AFTER],
-  FunctionKeyMapping[Function.OVERRIDE.PASTE_BEFORE],
-  FunctionKeyMapping[Function.OVERRIDE.PASTE_NEXT_YANK],
-  FunctionKeyMapping[Function.OVERRIDE.PASTE_PREV_YANK],
-  FunctionKeyMapping[Function.OVERRIDE.OPEN_YANK_HISTORY],
+  FunctionKeyMapping[FUNCTION.OVERRIDE.YANK],
+  FunctionKeyMapping[FUNCTION.OVERRIDE.PASTE_AFTER],
+  FunctionKeyMapping[FUNCTION.OVERRIDE.PASTE_BEFORE],
+  FunctionKeyMapping[FUNCTION.OVERRIDE.PASTE_INDENT_AFTER],
+  FunctionKeyMapping[FUNCTION.OVERRIDE.PASTE_INDENT_BEFORE],
+  FunctionKeyMapping[FUNCTION.OVERRIDE.PASTE_NEXT_YANK],
+  FunctionKeyMapping[FUNCTION.OVERRIDE.PASTE_PREV_YANK],
+  FunctionKeyMapping[FUNCTION.OVERRIDE.OPEN_YANK_HISTORY],
 }
 
 M.trouble = {
-  FunctionKeyMapping[Function.DIAGNOSTIC.SHOW_ALL],
-  FunctionKeyMapping[Function.DIAGNOSTIC.SHOW_BUFFER],
+  FunctionKeyMapping[FUNCTION.DIAGNOSTIC.SHOW_ALL],
+  FunctionKeyMapping[FUNCTION.DIAGNOSTIC.SHOW_BUFFER],
 }
 
 M.copilot_chat = {
-  FunctionKeyMapping[Function.AI.OPEN_CHAT],
+  FunctionKeyMapping[FUNCTION.AI.OPEN_CHAT],
 }
 
 M.hop = {
-  FunctionKeyMapping[Function.FINDER.JUMP_MOTION],
+  FunctionKeyMapping[FUNCTION.FINDER.JUMP_MOTION],
+}
+
+M.coluffers = {
+
+  FunctionKeyMapping[FUNCTION.BUFFER.SHOW_LIST],
+  FunctionKeyMapping[FUNCTION.BUFFER.GO_TO_NEXT],
+  FunctionKeyMapping[FUNCTION.BUFFER.GO_TO_PREV],
+
 }
 
 -- M.searchbox = {
@@ -251,8 +271,6 @@ M.misc = function()
   -- get out of terminal mode
   map("t", { "jj" }, "<C-\\><C-n>")
   -- terminal mappings end --
-
-  command('MyCommand', function() print("Hello, World!") end, {})
 end
 
 return M
