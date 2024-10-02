@@ -13,18 +13,24 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local spec = {
+  { import = "plugins.ui" },
+  { import = "plugins.view" },
+  { import = "plugins.action" },
+  { import = "plugins.coding" },
+  { import = "plugins.copilot" },
+  { import = "plugins.core.lsp" },
+  { import = "plugins.core.treesitter" },
+  { import = "plugins.colorscheme" },
+  { import = "plugins.dependencies" },
+}
+
+if vim.g.no_plugin == 1 then
+  spec = {}
+end
+
 require("lazy").setup({
-  spec = {
-    { import = "plugins.ui" },
-    { import = "plugins.view" },
-    { import = "plugins.action" },
-    { import = "plugins.coding" },
-    { import = "plugins.copilot" },
-    { import = "plugins.core.lsp" },
-    { import = "plugins.core.treesitter" },
-    { import = "plugins.colorscheme" },
-    { import = "plugins.dependencies" },
-  },
+  spec = spec,
   performance = {
     cache = {
       enabled = true,

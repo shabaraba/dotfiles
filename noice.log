@@ -1,0 +1,4 @@
+{ "cmdline_show", "sl:1", "tick:9", "mode:c", { { 0, "" } } }
+{ "cmdline_show", "sl:1", "tick:11", "mode:c", { { 0, "q" } } }
+{ "cmdline_show", "sl:1", "tick:13", "mode:c", { { 0, "qa" } } }
+{ "cmdline_hide", "sl:1", "tick:15", false, 1 }

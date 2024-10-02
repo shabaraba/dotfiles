@@ -1,4 +1,4 @@
-vim.cmd[[
+vim.cmd [[
     if has("mac")
     else
         let $VIMRUNTIME="/usr/local/share/nvim/runtime"
@@ -6,4 +6,3 @@ vim.cmd[[
     endif
 ]]
 require("root")
-
