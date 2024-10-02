@@ -115,9 +115,9 @@ local Mapping = {
   -- { Prefix.show .. "f",        ":lua require(\"vuffers\").toggle()<cr>",                                      desc = FUNCTION.BUFFER.SHOW_LIST,                   silent = true },
   -- { "<C-j>",                   ":lua require(\"vuffers\").go_to_buffer_by_count({direction = \"next\"})<cr>", desc = FUNCTION.BUFFER.GO_TO_NEXT,                  silent = true },
   -- { "<C-k>",                   ":lua require(\"vuffers\").go_to_buffer_by_count({direction = \"prev\"})<cr>", desc = FUNCTION.BUFFER.GO_TO_PREV,                  silent = true },
-  { Prefix.show .. "f",        ':lua require"coluffers".open_sidebar()<CR>',                                 desc = FUNCTION.BUFFER.SHOW_LIST,                   noremap = true,                     silent = true },
-  { "<C-j>",                   ':lua require"coluffers".switch_to_next_buffer()<CR>',                        desc = FUNCTION.BUFFER.GO_TO_NEXT,                  noremap = true,                     silent = true },
-  { "<C-k>",                   ':lua require"coluffers".switch_to_prev_buffer()<CR>',                        desc = FUNCTION.BUFFER.GO_TO_PREV,                  noremap = true,                     silent = true },
+  { Prefix.show .. "f",        '<cmd>PileToggle<CR>',                                                        desc = FUNCTION.BUFFER.SHOW_LIST,                   noremap = true,                     silent = true },
+  { "<C-j>",                   '<cmd>PileGoToNextBuffer<CR>',                                                desc = FUNCTION.BUFFER.GO_TO_NEXT,                  noremap = true,                     silent = true },
+  { "<C-k>",                   '<cmd>PileGoToPrevBuffer<CR>',                                                desc = FUNCTION.BUFFER.GO_TO_PREV,                  noremap = true,                     silent = true },
 
 
   { Prefix.action .. 'n',      '<cmd>lua vim.lsp.buf.rename()<cr>',                                          desc = FUNCTION.LSP.RENAME_VALIABLE_NAME,           silent = true },
@@ -150,6 +150,8 @@ M.telescope = {
 M.lsp = {
   FunctionKeyMapping[FUNCTION.LSP.HOVER],
   FunctionKeyMapping[FUNCTION.LSP.RENAME_VALIABLE_NAME],
+  FunctionKeyMapping[FUNCTION.DIAGNOSTIC.GO_TO_NEXT],
+  FunctionKeyMapping[FUNCTION.DIAGNOSTIC.GO_TO_PREV],
 }
 
 M.lspsaga = {
@@ -204,7 +206,7 @@ M.hop = {
   FunctionKeyMapping[FUNCTION.FINDER.JUMP_MOTION],
 }
 
-M.coluffers = {
+M.pile = {
 
   FunctionKeyMapping[FUNCTION.BUFFER.SHOW_LIST],
   FunctionKeyMapping[FUNCTION.BUFFER.GO_TO_NEXT],

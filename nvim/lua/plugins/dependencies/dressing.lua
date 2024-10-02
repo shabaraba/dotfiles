@@ -6,7 +6,13 @@ return {
       enabled = true,
 
       -- Priority list of preferred vim.select implementations
-      backend = { "telescope", "builtin", "fzf_lua", "fzf", "nui" },
+      backend = {
+        -- "telescope",
+        "builtin",
+        "fzf_lua",
+        "fzf",
+        "nui"
+      },
 
       -- Trim trailing `:` from prompt
       trim_prompt = true,
@@ -14,7 +20,7 @@ return {
       -- Options for telescope selector
       -- These are passed into the telescope picker directly. Can be used like:
       -- telescope = require('telescope.themes').get_ivy({...})
-      telescope = require('telescope.themes').get_ivy({ ... }),
+      -- telescope = require('telescope.themes').get_ivy({ ... }),
 
       -- Options for fzf selector
       fzf = {
