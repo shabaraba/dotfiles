@@ -62,6 +62,11 @@ local FUNCTION = {
   },
   CODING = {
     GENERATE_DOC_COMMENT = "GENERATE_DOC_COMMENT",
+    TOGGLE_COMMENT = "TOGGLE COMMENT",
+    SURROUND = "Add a surrounding pair around a motion (normal mode)",
+    SURROUND_VISUAL = "Add a surrounding pair around a visual selection",
+    SURROUND_CHANGE = "Change a surrounding pair",
+    SURROUND_DELETE = "Delete a surrounding pair",
     FORMAT = "FORMAT",
     REFACTOR = "REFACTOR",
   },
@@ -81,12 +86,23 @@ local FUNCTION = {
 }
 
 local Commands = {
-  { "Chat", function() vim.api.nvim_command("CopilotChat") end, FUNCTION.AI.OPEN_CHAT },
-  { "Fmt",  function() vim.lsp.buf.format() end,                FUNCTION.CODING.FORMAT },
+  { "Chat", function() vim.api.nvim_command("CopilotChat") end, { desc = FUNCTION.AI.OPEN_CHAT } },
+  -- { "Fmt",  function() vim.lsp.buf.format() end,                {desc = FUNCTION.CODING.FORMAT} },
+  { "Format", function(args)
+    local range = nil
+    if args.count ~= -1 then
+      local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
+      range = {
+        start = { args.line1, 0 },
+        ["end"] = { args.line2, end_line:len() },
+      }
+    end
+    require("conform").format({ async = true, lsp_format = "fallback", range = range })
+  end, { range = true, desc = FUNCTION.CODING.FORMAT } }
 }
 
 for _, commands in ipairs(Commands) do
-  command(commands[1], commands[2], { desc = commands[3] })
+  command(commands[1], commands[2], commands[3])
 end
 
 local Mapping = {
@@ -120,8 +136,13 @@ local Mapping = {
   { "<C-k>",                   '<cmd>PileGoToPrevBuffer<CR>',                                                desc = FUNCTION.BUFFER.GO_TO_PREV,                  noremap = true,                     silent = true },
 
 
+  { Prefix.action .. 's',      '<Plug>(nvim-surround-normal)',                                               desc = FUNCTION.CODING.SURROUND,                    silent = true },
+  { Prefix.action .. 's',      '<Plug>(nvim-surround-visual)',                                               desc = FUNCTION.CODING.SURROUND_VISUAL,             mode = "v",                         silent = true },
+  { Prefix.action .. 'cs',     '<Plug>(nvim-surround-change)',                                               desc = FUNCTION.CODING.SURROUND_CHANGE,             silent = true },
+  { Prefix.action .. 'ds',     '<Plug>(nvim-surround-delete)',                                               desc = FUNCTION.CODING.SURROUND_DELETE,             silent = true },
   { Prefix.action .. 'n',      '<cmd>lua vim.lsp.buf.rename()<cr>',                                          desc = FUNCTION.LSP.RENAME_VALIABLE_NAME,           silent = true },
   { Prefix.action .. "c",      ":Lspsaga code_action<cr>",                                                   desc = FUNCTION.LSP.CODE_ACTION,                    silent = true },
+  { Prefix.action .. "cc",     "<Plug>(comment_toggle_linewise_current)",                                    desc = FUNCTION.CODING.TOGGLE_COMMENT,              mode = { "n", "x", silent = true } },
   { Prefix.action .. "cd",     function() require("neogen").generate({}) end,                                desc = FUNCTION.CODING.GENERATE_DOC_COMMENT,        silent = true },
   { Prefix.action .. "r",      function() require("refactoring").select_refactor() end,                      desc = FUNCTION.CODING.REFACTOR,                    silent = true,                      mode = "v",   noremap = true, expr = false },
   { Prefix.action .. "p",      function() require("telescope").extensions.yank_history.yank_history({}) end, desc = FUNCTION.OVERRIDE.OPEN_YANK_HISTORY,         silent = true },
@@ -168,6 +189,10 @@ M.neogen = {
   FunctionKeyMapping[FUNCTION.CODING.GENERATE_DOC_COMMENT],
 }
 
+M.comment = {
+  FunctionKeyMapping[FUNCTION.CODING.TOGGLE_COMMENT],
+}
+
 M.refactoring = {
   FunctionKeyMapping[FUNCTION.CODING.REFACTOR],
 }
@@ -176,10 +201,11 @@ M.oil = {
   FunctionKeyMapping[FUNCTION.FILER.OPEN],
 }
 
-M.vuffers = {
-  -- FunctionKeyMapping[FUNCTION.BUFFER.SHOW_LIST],
-  -- FunctionKeyMapping[FUNCTION.BUFFER.GO_TO_NEXT],
-  -- FunctionKeyMapping[FUNCTION.BUFFER.GO_TO_PREV],
+M.surround = {
+  FunctionKeyMapping[FUNCTION.CODING.SURROUND],
+  FunctionKeyMapping[FUNCTION.CODING.SURROUND_VISUAL],
+  FunctionKeyMapping[FUNCTION.CODING.SURROUND_CHANGE],
+  FunctionKeyMapping[FUNCTION.CODING.SURROUND_DELETE],
 }
 
 M.yanky = {

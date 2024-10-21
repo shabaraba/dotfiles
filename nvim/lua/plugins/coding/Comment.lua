@@ -1,6 +1,5 @@
 return {
   "numToStr/Comment.nvim",
-  lazy = true,
-  event = "BufRead",
+  keys = require("mappings").comment,
   opts = {},
 }
