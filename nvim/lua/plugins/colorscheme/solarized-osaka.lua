@@ -1,8 +1,8 @@
 local vim = vim
 return {
   "craftzdog/solarized-osaka.nvim",
-  lazy = false,
-  priority = 1000,
+  event = "VimEnter",
+  -- priority = 1000,
   opts = {
     -- your configuration comes here
     -- or leave it empty to use the default settings

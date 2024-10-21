@@ -1,6 +1,7 @@
 return {
   "stevearc/conform.nvim",
   event = "BufWritePre",
+  keys = require("mappings").conform,
   opts = {
     formatters_by_ft = {
       lua = { "stylua" },
@@ -9,11 +10,11 @@ return {
       php = { "php_cs_fixer" },
       markdown = { "prettier", "markdownlint" },
     },
-    format_on_save = {
-      -- These options will be passed to conform.format()
-      timeout_ms = 500,
-      lsp_format = "fallback",
-    },
+    -- format_on_save = {
+    --   -- These options will be passed to conform.format()
+    --   timeout_ms = 500,
+    --   lsp_format = "fallback",
+    -- },
     formatters = {
       php_cs_fixer = {
         command = "php-cs-fixer",

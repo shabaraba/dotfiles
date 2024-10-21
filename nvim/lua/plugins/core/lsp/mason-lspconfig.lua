@@ -13,11 +13,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 return {
   "williamboman/mason-lspconfig.nvim",
   lazy = true,
-  event = "BufReadPre",
-  ft = { 'lua', 'typescript', 'javascript', 'php' }, -- 対象のファイルタイプを指定
+  ft = { 'lua', 'typescript', 'javascript', 'php', 'markdown', 'vue', "typescriptreact", "javascriptreact" }, -- 対象のファイルタイプを指定
   opts = {
-    ensure_installed = { "ts_ls", "intelephense" },
-    automatic_installation = true,
+    ensure_installed = { "lua_ls", "ts_ls", "intelephense", "markdown_oxide", "volar" },
+    automatic_installation = false,
     handlers = {
       function(server_name)
         local lspconfig = require("lspconfig")
@@ -41,44 +40,40 @@ return {
           },
           capabilities = capabilities,
         }
-
+        if server_name == "lua_ls" then opts.filetypes = { "lua" } end
         if server_name == "ts_ls" then
-          opts.settings = {
+          opts.filetypes = { "typescript", "javascirpt", "typescriptreact",
+            "javascriptreact" }
+        end
+        if server_name == "intelephense" then opts.filetypes = { "php" } end
+        if server_name == "markdown_oxide" then opts.filetypes = { "markdown" } end
+        if server_name == "volar" then
+          local util = require('lspconfig.util')
+
+          -- Function to get the current nodenv TypeScript path
+          local function get_nodenv_tsdk()
+            local handle = io.popen('nodenv root') -- Get the nodenv root path
+            local nodenv_root = handle:read("*a"):gsub("\n", "")
+            handle:close()
+
+            -- Get the current active Node version
+            handle = io.popen('nodenv version-name')
+            local node_version = handle:read("*a"):gsub("\n", "")
+            handle:close()
+
+            -- Construct the tsdk path
+            return nodenv_root .. '/versions/' .. node_version .. '/lib/node_modules/typescript/lib'
+          end
+
+          opts.filetypes = { "vue" }
+          opts.init_options = {
             typescript = {
-              inlayHints = {
-                includeInlayParameterNameHints = 'all',
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = true,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
-              }
-            },
-            javascript = {
-              inlayHints = {
-                includeInlayParameterNameHints = 'all',
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = true,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
-              }
-            },
-            golang = {
-              inlayHints = {
-                includeInlayParameterNameHints = 'all',
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = true,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
-              }
-            },
+              -- You can point this to the local or global TypeScript server
+              tsdk = get_nodenv_tsdk(),
+            }
           }
         end
+
         lspconfig[server_name].setup({ opts })
       end,
     }
