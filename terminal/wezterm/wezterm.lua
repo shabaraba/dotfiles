@@ -75,7 +75,7 @@ config = {
     font_dirs = {"fonts"},
     -- font = wezterm.font("Firge Console", {weight="Regular", stretch="Normal", italic=false}),
     font_size = 14,
-    color_scheme = "Gruvbox Dark",
+    color_scheme = 'iceberg-dark',
     colors = {
       background = '#1b1f21',
     },
