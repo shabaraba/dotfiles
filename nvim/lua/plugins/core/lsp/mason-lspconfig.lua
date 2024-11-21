@@ -13,9 +13,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 return {
   "williamboman/mason-lspconfig.nvim",
   lazy = true,
-  ft = { 'lua', 'typescript', 'javascript', 'php', 'markdown', 'vue', "typescriptreact", "javascriptreact" }, -- 対象のファイルタイプを指定
+  ft = { 'lua', 'typescript', 'javascript', 'php', 'markdown', 'vue', "typescriptreact", "javascriptreact", "java" }, -- 対象のファイルタイプを指定
   opts = {
-    ensure_installed = { "lua_ls", "ts_ls", "intelephense", "markdown_oxide", "volar" },
+    ensure_installed = { "lua_ls", "ts_ls", "intelephense", "markdown_oxide", "volar", "jdtls" },
     automatic_installation = false,
     handlers = {
       function(server_name)
@@ -42,11 +42,11 @@ return {
         }
         if server_name == "lua_ls" then opts.filetypes = { "lua" } end
         if server_name == "ts_ls" then
-          opts.filetypes = { "typescript", "javascirpt", "typescriptreact",
-            "javascriptreact" }
+          opts.filetypes = { "typescript", "javascirpt", "typescriptreact", "javascriptreact" }
         end
         if server_name == "intelephense" then opts.filetypes = { "php" } end
         if server_name == "markdown_oxide" then opts.filetypes = { "markdown" } end
+        if server_name == "java" then opts.filetypes = { "java" } end
         if server_name == "volar" then
           local util = require('lspconfig.util')
 
