@@ -1,23 +1,15 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  event = "BufRead",
+  event = "VimEnter",
+  build = ":TSUpdate",
   config = function()
-    local present, ts_config = pcall(require, "nvim-treesitter.configs")
+    local configs = require("nvim-treesitter.configs")
 
-    if not present then
-        return
-    end
-
-    ts_config.setup {
-        ensure_installed = 'all',
-        auto_install = true,
-        highlight = {
-            enable = true,
-        },
-        indent = {
-            enable = true,
-        },
-    }
+    configs.setup({
+      ensure_installed = {"lua", "vim", "php", "typescript", "java", "javascript", "html" },
+      sync_install = true,
+      highlight = { enable = true },
+      indent = { enable = true },
+    })
   end
 }
-
