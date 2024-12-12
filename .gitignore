@@ -13,3 +13,5 @@
 .config/**/*
 !.config/nvim/**/*
 !.config/wezterm
+
+**/.DS_Store
