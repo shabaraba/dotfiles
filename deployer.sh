@@ -4,6 +4,7 @@ ln -snfv $PWD/sh/zsh $HOME/.zsh
 ln -snfv $PWD/sh/zsh/public/p10k.zsh $HOME/.p10k.zsh
 
 ln -snfv $PWD/sh/.zshrc $HOME/.zshrc
+ln -snfv $PWD/sh/.zshenv $HOME/.zshenv
 ln -snfv $PWD/sh/.zprofile $HOME/.zprofile
 
 ln -snfv $PWD/vim/.ideavimrc $HOME/.ideavimrc
