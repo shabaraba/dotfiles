@@ -15,6 +15,8 @@ fi
 
 if !(type "zsh" > /dev/null 2>&1); then
     $install_cmd zsh
+    $install_cmd sheldon
+    sheldon init --shell zsh
 else
     echo 'zsh already installed, skip.'
 fi

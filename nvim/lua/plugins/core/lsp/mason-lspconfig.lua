@@ -1,5 +1,12 @@
 local vim = vim
 
+vim.cmd [[
+  augroup zshAsBash
+    autocmd!
+    autocmd BufWinEnter *.zsh set filetype=sh
+  augroup END
+]]
+
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ctx)
     local set = vim.keymap.set
@@ -13,7 +20,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 return {
   "williamboman/mason-lspconfig.nvim",
   lazy = true,
-  ft = { 'lua', 'typescript', 'javascript', 'php', 'markdown', 'vue', "typescriptreact", "javascriptreact", "java" }, -- 対象のファイルタイプを指定
+  ft = { 'lua', 'typescript', 'javascript', 'php', 'markdown', 'vue', "typescriptreact", "javascriptreact", "java", "bash" }, -- 対象のファイルタイプを指定
   opts = {
     ensure_installed = {
       "lua_ls",
@@ -53,9 +60,9 @@ return {
           opts.filetypes = { "markdown" }
         elseif server_name == "jdtls" then
           opts.filetypes = { "java" }
+        elseif server_name == "bash" then
+          opts.filetypes = { "sh", "zsh", "bash" }
         elseif server_name == "volar" then
-          local util = require('lspconfig.util')
-
           -- Function to get the current nodenv TypeScript path
           local function get_nodenv_tsdk()
             local handle = io.popen('nodenv root') -- Get the nodenv root path

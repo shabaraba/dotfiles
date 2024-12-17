@@ -13,5 +13,6 @@ echo "  - 🚚 to ~/.config/"
 ln -snfv $PWD/nvim $HOME/.config
 ln -snfv $PWD/zabrze $HOME/.config
 ln -snfv $PWD/terminal/wezterm $HOME/.config
+ln -snfv $PWD/sh/zsh/sheldon $HOME/.config
 
 echo "🎉 deploy finished."
