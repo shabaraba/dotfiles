@@ -79,7 +79,7 @@ config = {
     colors = {
       background = '#1b1f21',
     },
-    window_background_opacity = 0.8,
+    window_background_opacity = 0.6,
     macos_window_background_blur = 30,
     harfbuzz_features = {"calt=1", "clig=1", "liga=1"},
     exit_behavior = "Close",
