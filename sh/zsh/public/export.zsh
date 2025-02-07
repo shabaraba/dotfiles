@@ -3,7 +3,6 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LESSCHARSET=utf-8
 
-export PATH=/usr/bin/node:$PATH
 typeset -U path PATH
 path=(
   /opt/homebrew/bin(N-/)
@@ -14,14 +13,19 @@ path=(
   /sbin
   /usr/local/bin(N-/)
   /usr/local/sbin(N-/)
+  /usr/local/opt(N-/)
   /Library/Apple/usr/bin
 )
 
-export PATH="/usr/local/opt/ncurses/bin:$PATH"
+if [ "$(uname)" = 'Linux' ]; then
+    export PATH='/home/linuxbrew/.linuxbrew/bin':$PATH
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+export PATH="/usr/local/bin/node:$PATH"
 export PATH="/usr/local/opt/ncurses/bin:$PATH"
 
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-export PATH="$PATH:/usr/local/opt/mysql-client@5.7/bin"
+export PATH="/usr/local/opt/mysql-client@5.7/bin:$PATH"
 
 # nodenv
 [[ -d ~/.nodenv  ]] && \
@@ -73,11 +77,11 @@ export PATH=$ANDROID_SDK_ROOT/emulator:$PATH
 [[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
 
 export JAVA_HOME=$(/usr/libexec/java_home -v 17)
-export PATH=$PATH:$JAVA_HOME/bin
+export PATH=$JAVA_HOME/bin:$PATH
 
 export ANDROID_HOME=$HOME/Android/Sdk
-export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
+export PATH=$ANDROID_HOME/platform-tools:$PATH
 
 # export FLUTTER_ROOT=$HOME/Flutter/Sdk
 # export PATH=$FLUTTER_ROOT/bin:$PATH
