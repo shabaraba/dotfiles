@@ -1,3 +1,5 @@
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+echo $(eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)")
 fpath=(~/.zcompdump $fpath)
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -40,4 +42,3 @@ eval "$(sheldon source)"
 if (which zprof > /dev/null 2>&1) ;then
   zprof
 fi
-
