@@ -17,10 +17,13 @@ github = "zsh-users/zsh-syntax-highlighting"
 
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
+use = ["{{ name }}.zsh"]
 
-[plugins.zsh-autocomplete]
-# github = "zsh-users/zsh-completions"
-github = "marlonrichert/zsh-autocomplete"
+[plugins.zsh-completions]
+github = "zsh-users/zsh-completions"
+
+# [plugins.zsh-autocomplete]
+# github = "marlonrichert/zsh-autocomplete"
 
 [plugins.history-search-multi-word]
 github = "zdharma/history-search-multi-word"

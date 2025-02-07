@@ -1,6 +1,4 @@
 fpath=(~/.zcompdump $fpath)
-# compinit -i
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -33,8 +31,8 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 ### Added by Zinit's installer
 # [[ -f "$HOME/.zsh/zinit/zinit.zsh" ]] && source ~/.zsh/zinit/zinit.zsh
 
-eval "$(sheldon source)"
 [[ -f "$HOME/.zsh/sheldon/init.zsh" ]] && source ~/.zsh/sheldon/init.zsh
+eval "$(sheldon source)"
 
 
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

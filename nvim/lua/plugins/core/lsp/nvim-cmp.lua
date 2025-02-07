@@ -3,7 +3,7 @@ return {
   event = "InsertEnter",
   config = function()
     local cmp = require("cmp")
-    -- local lspkind = require("lspkind")
+    local lspkind = require("lspkind")
 
     cmp.setup({
       completion = {
@@ -27,14 +27,16 @@ return {
         { name = "buffer",   group_index = 2 }, -- text within current buffer
         { name = "path",     group_index = 2 }, -- file system paths
       }),
-
       -- configure lspkind for vs-code like pictograms in completion menu
-      -- formatting = {
-      --   format = lspkind.cmp_format({
-      --     maxwidth = 50,
-      --     ellipsis_char = "...",
-      --   }),
-      -- },
+      formatting = {
+        format = lspkind.cmp_format({
+          mode = "symbol",
+          maxwidth = 50,
+          ellipsis_char = "...",
+          symbol_map = { Copilot = "" }
+        }),
+      },
     })
+    vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
   end,
 }

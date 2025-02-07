@@ -29,7 +29,8 @@ return {
       "markdown_oxide",
       "volar",
       "jdtls",
-      "eslint"
+      "eslint",
+      "bashls"
     },
     automatic_installation = false,
     handlers = {
@@ -60,7 +61,7 @@ return {
           opts.filetypes = { "markdown" }
         elseif server_name == "jdtls" then
           opts.filetypes = { "java" }
-        elseif server_name == "bash" then
+        elseif server_name == "bashls" then
           opts.filetypes = { "sh", "zsh", "bash" }
         elseif server_name == "volar" then
           -- Function to get the current nodenv TypeScript path

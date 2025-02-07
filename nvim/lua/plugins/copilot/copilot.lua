@@ -7,7 +7,7 @@ return {
   event = "InsertEnter",
   opts = {
     panel = {
-      enabled = true,
+      enabled = false,
       auto_refresh = false,
       keymap = {
         jump_prev = "[[",
@@ -22,7 +22,7 @@ return {
       },
     },
     suggestion = {
-      enabled = true,
+      enabled = false,
       auto_trigger = true,
       hide_during_completion = true,
       debounce = 75,
@@ -50,6 +50,6 @@ return {
     server_opts_overrides = {},
   },
   -- config = function()
-  --   vim.g.copilot_filetypes = { markdown = true, gitcommit = true, yaml = true }
+  --   -- vim.g.copilot_filetypes = { markdown = true, gitcommit = true, yaml = true }
   -- end,
 }
