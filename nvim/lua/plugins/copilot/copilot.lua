@@ -7,8 +7,8 @@ return {
   event = "InsertEnter",
   opts = {
     panel = {
-      enabled = false,
-      auto_refresh = false,
+      enabled = true,
+      auto_refresh = true,
       keymap = {
         jump_prev = "[[",
         jump_next = "]]",
@@ -23,14 +23,14 @@ return {
     },
     suggestion = {
       enabled = false,
-      auto_trigger = true,
+      auto_trigger = false,
       hide_during_completion = true,
       debounce = 75,
       keymap = {
         accept = "<Tab>",
         accept_word = false,
         accept_line = false,
-        next = "<M-]>",
+        next = "<C-i>",
         prev = "<M-[>",
         dismiss = "<C-]>",
       },
