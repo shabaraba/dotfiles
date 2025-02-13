@@ -17,17 +17,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end
 })
 
-vim.filetype.add({ extension = { mq5 = 'cpp' } })
+vim.filetype.add({ extension = { mq5 = 'cpp', mqh = 'cpp' } })
 
 return {
   "williamboman/mason-lspconfig.nvim",
   lazy = true,
-  ft = { 
-    'lua', 
-    'typescript', 
-    'javascript', 
-    'php', 
-    'markdown', 
+  ft = {
+    'lua',
+    'typescript',
+    'javascript',
+    'php',
+    'markdown',
     'vue',
     "typescriptreact",
     "javascriptreact",
@@ -35,7 +35,8 @@ return {
     "bash",
     "c",
     "cpp",
-    "mq5"
+    "mq5",
+    "mqh",
   }, -- 対象のファイルタイプを指定
   opts = {
     ensure_installed = {
@@ -80,7 +81,7 @@ return {
         elseif server_name == "bashls" then
           opts.filetypes = { "sh", "zsh", "bash" }
         elseif server_name == "clangd" then
-          opts.filetypes = { "c", "cpp", "mq5" }
+          opts.filetypes = { "c", "cpp", "mq5", "mqh" }
         elseif server_name == "volar" then
           -- Function to get the current nodenv TypeScript path
           local function get_nodenv_tsdk()
