@@ -41,6 +41,10 @@ local FUNCTION = {
   FILER = {
     OPEN = "OPEN FILER",
   },
+  TERMINAL = {
+    TOGGLE_FLOAT = "TOGGLE TERMINAL FLOAT",
+    TOGGLE_VERTICAL = "TOGGLE TERMINAL VERTICAL",
+  },
   FINDER = {
     FIND_FILES = "TELESCOPE FIND FILES",
     FIND_ALL_FILES = "TELESCOPE FIND ALL FILES",
@@ -86,7 +90,7 @@ local FUNCTION = {
 }
 
 local Commands = {
-  { "Chat", function() vim.api.nvim_command("CopilotChat") end, { desc = FUNCTION.AI.OPEN_CHAT } },
+  { "Chat",  function() vim.api.nvim_command("CopilotChat") end,                                        { desc = FUNCTION.AI.OPEN_CHAT } },
   -- { "Fmt",  function() vim.lsp.buf.format() end,                {desc = FUNCTION.CODING.FORMAT} },
   { "Format", function(args)
     local range = nil
@@ -98,7 +102,9 @@ local Commands = {
       }
     end
     require("conform").format({ async = true, lsp_format = "fallback", range = range })
-  end, { range = true, desc = FUNCTION.CODING.FORMAT } }
+  end, { range = true, desc = FUNCTION.CODING.FORMAT } },
+  { "Term",  function() vim.api.nvim_command("ToggleTerm size=40 direction=float name=desktop") end,    { desc = FUNCTION.TERMINAL.TOGGLE_FLOAT } },
+  { "VTerm", function() vim.api.nvim_command("ToggleTerm size=40 direction=vertical name=desktop") end, { desc = FUNCTION.TERMINAL.TOGGLE_FLOAT } },
 }
 
 for _, commands in ipairs(Commands) do
