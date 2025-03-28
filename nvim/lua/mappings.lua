@@ -103,8 +103,8 @@ local Commands = {
     end
     require("conform").format({ async = true, lsp_format = "fallback", range = range })
   end, { range = true, desc = FUNCTION.CODING.FORMAT } },
-  { "Term",  function() vim.api.nvim_command("ToggleTerm size=40 direction=float name=desktop") end,    { desc = FUNCTION.TERMINAL.TOGGLE_FLOAT } },
-  { "VTerm", function() vim.api.nvim_command("ToggleTerm size=40 direction=vertical name=desktop") end, { desc = FUNCTION.TERMINAL.TOGGLE_FLOAT } },
+  { "T",  function() vim.api.nvim_command("ToggleTerm direction=float name=desktop") end,    { desc = FUNCTION.TERMINAL.TOGGLE_FLOAT } },
+  { "VT", function() vim.api.nvim_command("ToggleTerm direction=vertical name=desktop") end, { desc = FUNCTION.TERMINAL.TOGGLE_FLOAT } },
 }
 
 for _, commands in ipairs(Commands) do

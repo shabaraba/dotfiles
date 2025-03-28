@@ -37,6 +37,7 @@ return {
     "cpp",
     "mq5",
     "mqh",
+    "go"
   }, -- 対象のファイルタイプを指定
   opts = {
     ensure_installed = {
@@ -47,7 +48,8 @@ return {
       "volar",
       "jdtls",
       "eslint",
-      "bashls"
+      "bashls",
+      "gopls",
     },
     automatic_installation = false,
     handlers = {
@@ -82,6 +84,8 @@ return {
           opts.filetypes = { "sh", "zsh", "bash" }
         elseif server_name == "clangd" then
           opts.filetypes = { "c", "cpp", "mq5", "mqh" }
+        elseif server_name == "gopls" then
+          opts.filetypes = { "go" }
         elseif server_name == "volar" then
           -- Function to get the current nodenv TypeScript path
           local function get_nodenv_tsdk()
