@@ -4,16 +4,11 @@ fi
 
 eval "$(sheldon source)"
 
+# 補完の初期化を最適化
 # zsh-users/zsh-completions
 autoload -Uz compinit
-compinit -i
-
-# zstyle ':autocomplete:*' default-context history-incremental-search-backward
-# zstyle ':autocomplete:*' default-context history-incremental-search-backward
-# '': Start each new command line with normal autocompletion.
-# history-incremental-search-backward: Start in live history search mode.
-
-# zstyle ':autocomplete:*' min-input 1  # int
-# Wait until this many characters have been typed, before showing completions.
-
-# bindkey '\0' list-expand
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi

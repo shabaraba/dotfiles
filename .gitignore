@@ -1,4 +1,5 @@
 .gitconfig
+backup/
 /sample_programs
 /.vim/.netrwhist
 
