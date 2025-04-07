@@ -1,38 +1,39 @@
 # `sheldon` configuration file
 # ----------------------------
-#
-# You can modify this file directly or you can use one of the following
-# `sheldon` commands which are provided to assist in editing the config file:
-#
-# - `sheldon add` to add a new plugin to the config file
-# - `sheldon edit` to open up the config file in the default editor
-# - `sheldon remove` to remove a plugin from the config file
-#
-# See the documentation for more https://github.com/rossmacarthur/sheldon#readme
 
 shell = "zsh"
-
-[plugins.zsh-syntax-highlighting]
-github = "zsh-users/zsh-syntax-highlighting"
-
-[plugins.zsh-autosuggestions]
-github = "zsh-users/zsh-autosuggestions"
-use = ["{{ name }}.zsh"]
-
-[plugins.zsh-completions]
-github = "zsh-users/zsh-completions"
-
-# [plugins.zsh-autocomplete]
-# github = "marlonrichert/zsh-autocomplete"
-
-[plugins.history-search-multi-word]
-github = "zdharma/history-search-multi-word"
-
-[plugins.zsh-z]
-github = "agkozak/zsh-z"
 
 [plugins.zsh-abbr]
 github = "olets/zsh-abbr"
 
+# 遅延ロードに必要なプラグイン（最初に読み込む）
+[plugins.zsh-defer]
+github = "romkatv/zsh-defer"
+
+[templates]
+defer = "{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}"
+
 [plugins.powerlevel10k]
 github = "romkatv/powerlevel10k"
+
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
+apply = ["defer"]
+
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+use = ["{{ name }}.zsh"]
+apply = ["defer"]
+
+[plugins.zsh-completions]
+github = "zsh-users/zsh-completions"
+apply = ["defer"]
+
+[plugins.history-search-multi-word]
+github = "zdharma/history-search-multi-word"
+apply = ["defer"]
+
+[plugins.zsh-z]
+github = "agkozak/zsh-z"
+apply = ["defer"]
+
