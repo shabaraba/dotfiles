@@ -33,7 +33,9 @@ apply = ["defer"]
 github = "zdharma/history-search-multi-word"
 apply = ["defer"]
 
-[plugins.zsh-z]
-github = "agkozak/zsh-z"
+[plugins.zoxide]
+github = "ajeetdsouza/zoxide"
 apply = ["defer"]
 
+[plugins.zoxide-init]
+inline = 'eval "$(zoxide init zsh)"'
