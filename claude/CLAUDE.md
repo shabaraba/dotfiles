@@ -1,62 +1,38 @@
-## 環境
+# CLAUDE.md
 
-- githubのownerはshabarabaなので、github mcpを利用する際はshabarabaで操作してください。
-- git操作する際は、`git config --local --list`で取得できるuser名とemailを使用してください。
-- taskはgithub issueで管理しています。
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## コマンド
+## Repository Overview
+This is a dotfiles repository containing configurations for Neovim, Zsh, terminal emulators, and other development tools.
 
-以下を先頭で入力をした場合、対応する文言に読み替えてください。
+## Build/Deployment Commands
+- `make install` - Install Neovim, Zsh, and deploy dotfiles
+- `make deploy` - Deploy dotfiles to home directory 
+- `sh deployer.sh` - Manual deployment script
 
-- :input
-  - 実装はしないでください。
-  - 後続の内容について読み込んで理解してください。
-- :research
-  - 実装はしないでください。
-  - 調査系タスク。webを含むあらゆる情報源をチェックして、ユーザーの望む調査を行い結果を纏めて報告してください。
-  - web検索にはplaywrightを使ってください。
-- :invest
-  - 実装はしないでください。
-  - 後続の内容について既存コードを調査して調査結果を纏め、計画を立ててください。
-  - テストコードだけは実装、改変してもよいです。
-- :impl
-  - 以下の内容を忠実に実装してください。
-  - 実装する際は、ブランチを切ってそこで作業をしてください。ただしブランチについて指示がある場合はその指示に従ってください。
-  - ユニットテストやE2Eテストが必要な場合は合わせて実装してください。そのさい、仕様に忠実に実装してください。
-  - 仕様について不明点があれば都度聞いて下さい。
-  - 実装が完了したと判断したら、ビルドまたはテストを実行して下さい。
-  - ビルドまたはテストが成功したら、コミットして実装内容をまとめて報告し、後続の指示を待ってください。
-  - ビルドまたはテストが失敗したら、勝手にコードを修正せずに、コミットして実装内容をまとめて報告し、なぜ失敗したか調査し、報告してください。
-- :refactor
-  - 既存の機能仕様を決して壊さず、コード構成がより最適になるよう再設計して報告してください。
-  - 設計段階ではコードを改変しないでください。
-  - 設計レビューでOKが出たら、既存コードの構成を維持する必要はないので、設計に従って実装してください。
-  - 不要になったファイルは削除してください。
-  - 既存の機能仕様は決して壊さないでください。
+## Project Structure
+- `nvim/` - Neovim configuration (Lua-based)
+- `sh/` - Shell configurations (zsh, abbreviations, aliases)
+- `terminal/` - Terminal emulator configs (wezterm)
+- `installers/` - Installation scripts for various tools
 
-## タスクの進め方
+## Code Style Guidelines
+- **Languages**: Lua (Neovim), Shell script (zsh/bash)
+- **Lua style**: Use lowercase_with_underscores for variables/functions, CamelCase for modules
+- **Shell style**: Use sh/bash compatible syntax where possible
+- **File organization**: Keep configurations modular and organized by function
+- **Comments**: Use -- for Lua, # for shell scripts
+- **Indentation**: 2 spaces for Lua, 4 spaces for shell scripts
+- **Error handling**: Check return codes and file existence before operations
+- **Imports**: Use `require()` for Lua modules, `source` for shell scripts
 
-実装に入る前に、念入りに調査を実施してください。
-調査後は、まずユーザーに調査結果を報告し、実装方針を伝えてください。
-ユーザーがOKを出してから実装着手してください。
+## Testing/Validation
+- No automated tests exist; test manually after changes
+- Validate shell scripts with `shellcheck` when possible
+- Test Neovim configs with `:checkhealth` command after changes
 
-タスクが完了するごとにコミットしてください。
-コミットする際はSemantic Commit Messagesで、コミットメッセージだけは英語。
-PRを作成する際はタイトルはSemantic Commit Messagesのスタイルで書いてください。
-使用するものは以下の通りで、適切なものを選択してください。
-
-- feat
-- chore
-- test
-- fix
-- refactor
-
-## デバッグ方針
-
-コマンドで出力を確認する際は、 tee ai/output.log をパイプして、ai/output.logを参照するようにしてください。
-参照したらlogファイルは削除してください。
-調査やデバッグでデバッグを仕込む際は、ログレベルなどを導入して、後からオプションなどで非表示にできる仕組みを導入してください。
-
-## 実装方針
-
-claudeが一度に扱える文字数内にいちファイルが収まる粒度でファイルを分割してください。
+## Git Guidelines
+- Use Semantic Commit Messages (feat, fix, chore, test, refactor)
+- Commit messages in English only
+- Create branches for features (never commit to main directly)
+- Owner: shabaraba

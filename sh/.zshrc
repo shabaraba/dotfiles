@@ -10,7 +10,6 @@ fi
 if [[ -d "/home/linuxbrew/.linuxbrew" ]]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
-
 # fpath設定
 fpath=(~/.zcompdump $fpath)
 
@@ -53,6 +52,14 @@ source "$HOME/.zsh/sheldon/init.zsh"
 [[ -f "$HOME/.zsh/contexts/git.zsh" ]] && source ~/.zsh/contexts/git.zsh
 [[ -f "$HOME/.zsh/contexts/docker.zsh" ]] && source ~/.zsh/contexts/docker.zsh
 
-if (which zprof > /dev/null 2>&1) ;then
-  zprof
-fi
+# if (which zprof > /dev/null 2>&1) ;then
+#   zprof
+# fi
+
+# pnpm
+export PNPM_HOME="/Users/t002451/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

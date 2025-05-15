@@ -16,3 +16,5 @@ backup/
 !.config/wezterm
 
 **/.DS_Store
+
+**/.claude/settings.local.json
