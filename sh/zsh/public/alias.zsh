@@ -11,7 +11,6 @@ case ${OSTYPE} in
 esac
 
 alias c='clear'
-alias ls='ls -GF --color'
 alias his='history'
 alias ...='cd ../..'
 alias ....='cd ../../..'

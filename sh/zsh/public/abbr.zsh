@@ -9,4 +9,4 @@ ABBR_DEBUG=0
 bindkey "^E" abbr-expand-and-insert
 # ABBR_DEFAULT_BINDINGS=0
 # bindkey " " abbr-expand
-# abbr load
+abbr load
