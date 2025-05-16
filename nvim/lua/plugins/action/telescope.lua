@@ -9,10 +9,6 @@ return {
       }
     },
     defaults = {
-      -- mappings = {
-      --   i = { ["<esc>"] = require("telescope.actions").close },
-      --   n = { ["q"] = require("telescope.actions").close },
-      -- },
       vimgrep_arguments = {
         "rg",
         "--color=never",
@@ -73,18 +69,34 @@ return {
       -- }
     },
   },
-  config = function()
+  config = function(_, opts)
     local present, telescope = pcall(require, "telescope")
     if not present then
       return
     end
+    
+    -- Telescopeのactions
+    local actions = require("telescope.actions")
+    
+    -- デフォルトのマッピングとマージ
+    opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
+      mappings = {
+        i = {
+          ["<C-r>"] = actions.paste_register,  -- レジスタからペースト
+          ["<C-v>"] = actions.paste_register,  -- システムクリップボードからペースト
+        },
+      },
+    })
+    
+    telescope.setup(opts)
+    
     local extensions = { "file_browser", "fzf", "frecency", "yank_history" }
-
     pcall(function()
       for _, ext in ipairs(extensions) do
         telescope.load_extension(ext)
       end
     end)
+    
     vim.api.nvim_set_hl(0, "TelescopeNormal", { bg = "none" })
     vim.api.nvim_set_hl(0, "TelescopeBorder", { bg = "none" })
   end,

@@ -17,6 +17,9 @@ return {
   'nvimdev/lspsaga.nvim',
   event = { "LspAttach" },
   keys = require("mappings").lspsaga,
+  dependencies = {
+    "SmiteshP/nvim-navic",
+  },
   opts = {
     finder = {
       max_height = 0.6,

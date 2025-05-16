@@ -1,0 +1,65 @@
+return {
+  "j-hui/fidget.nvim",
+  event = "VeryLazy",
+  dependencies = {
+    "rcarriga/nvim-notify",
+  },
+  opts = {
+    -- LSPプログレス表示
+    progress = {
+      display = {
+        done_icon = "✔",  -- 完了アイコン
+        done_ttl = 3,  -- 完了後3秒で消える
+        progress_icon = { pattern = "dots", period = 1 },  -- アニメーションする点
+      },
+    },
+    -- 通知表示
+    notification = {
+      poll_rate = 10,  -- 10ミリ秒ごとに更新
+      filter = vim.log.levels.DEBUG,  -- すべてのレベルを表示（DEBUG, INFO, WARN, ERROR）
+      override_vim_notify = false,  -- vim.notifyは上書きしない
+      history_size = 200,  -- 履歴サイズを増やす
+      window = {
+        normal_hl = "Comment",  -- 通知の色
+        winblend = 100,  -- 完全透過
+        align = "bottom",  -- 画面下部に表示
+      },
+    },
+  },
+  config = function(_, opts)
+    require("fidget").setup(opts)
+    
+    -- fidget.nvimの通知をnvim-notifyにもミラーリング
+    local fidget = require("fidget")
+    local original_notify = fidget.notify
+    
+    fidget.notify = function(msg, level, opts)
+      -- fidgetに通知を送る
+      original_notify(msg, level, opts)
+      
+      -- nvim-notifyにも送る（履歴用）
+      if vim.notify ~= vim.notify_once then
+        vim.notify(msg, level, opts)
+      end
+    end
+    
+    -- LSP診断エラーをfidgetに流す
+    vim.api.nvim_create_autocmd("DiagnosticChanged", {
+      callback = function(args)
+        local diagnostics = vim.diagnostic.get(args.buf, { 
+          severity = { min = vim.diagnostic.severity.WARN }
+        })
+        for _, diagnostic in ipairs(diagnostics) do
+          local level = diagnostic.severity == vim.diagnostic.severity.ERROR 
+            and vim.log.levels.ERROR 
+            or vim.log.levels.WARN
+          
+          vim.notify(diagnostic.message, level, {
+            title = diagnostic.source or "LSP",
+            timeout = 5000,
+          })
+        end
+      end,
+    })
+  end,
+}

@@ -1,12 +1,17 @@
 return {
   "folke/noice.nvim",
-  version = "4.4.7", -- 最新だとちらつくなど不具合が多いのでバージョン指定
+  -- version = "4.4.7", -- バージョン指定を削除して最新版を使用
   event = "VeryLazy",
+  enabled = true, -- noice.nvimを有効化
   opts = {
     cmdline = {
       enabled = true,         -- enables the Noice cmdline UI
       view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
-      opts = {},              -- global options for the cmdline. See section on views
+      opts = {
+        border = {
+          style = "rounded",
+        },
+      },              -- global options for the cmdline. See section on views
       format = {
         -- conceal: (default=true) This will hide the text in the cmdline that matches the pattern.
         -- view: (default is cmdline view)
@@ -65,18 +70,34 @@ return {
     --     opts = { skip = false }, -- noice.nvimでのui.selectを無効化
     --   },
     -- },
+    -- ビューの設定を追加
+    views = {
+      cmdline_popup = {
+        position = {
+          row = "40%",
+          col = "50%",
+        },
+        size = {
+          width = 60,
+          height = "auto",
+        },
+        border = {
+          style = "rounded",
+          padding = { 0, 1 },
+        },
+        win_options = {
+          winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+        },
+      },
+    },
     debug = false,
   },
-  -- config = function()
-  --   vim.lsp.signature.enabled = false
-  -- end
+  dependencies = {
+    -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+    "MunifTanjim/nui.nvim",
+    -- OPTIONAL:
+    --   `nvim-notify` is only needed, if you want to use the notification view.
+    --   If not available, we use `mini` as the fallback
+    "rcarriga/nvim-notify",
+  }
 }
-
--- dependencies = {
---   -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
---   "MunifTanjim/nui.nvim",
---   -- OPTIONAL:
---   --   `nvim-notify` is only needed, if you want to use the notification view.
---   --   If not available, we use `mini` as the fallback
---   "rcarriga/nvim-notify",
--- }
