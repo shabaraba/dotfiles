@@ -10,7 +10,7 @@ M.on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+  -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts) -- noice.nvimでauto_openを有効にしたため削除
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
   vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts)
   
@@ -24,9 +24,9 @@ M.on_attach = function(client, bufnr)
   -- コードアクション
   vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
   vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-  vim.keymap.set('n', '<leader>f', function()
-    vim.lsp.buf.format { async = true }
-  end, opts)
+  -- vim.keymap.set('n', '<leader>f', function()
+  --   vim.lsp.buf.format { async = true }
+  -- end, opts) -- Formatコマンドを使用するため削除
   
   -- 特定のクライアント設定
   if client.name == "tsserver" then

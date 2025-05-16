@@ -90,7 +90,7 @@ local FUNCTION = {
 }
 
 local Commands = {
-  { "Chat",  function() vim.api.nvim_command("CopilotChat") end,                                        { desc = FUNCTION.AI.OPEN_CHAT } },
+  { "Chat", function() vim.api.nvim_command("CopilotChat") end,                                { desc = FUNCTION.AI.OPEN_CHAT } },
   -- { "Fmt",  function() vim.lsp.buf.format() end,                {desc = FUNCTION.CODING.FORMAT} },
   { "Format", function(args)
     local range = nil
@@ -103,8 +103,8 @@ local Commands = {
     end
     require("conform").format({ async = true, lsp_format = "fallback", range = range })
   end, { range = true, desc = FUNCTION.CODING.FORMAT } },
-  { "T",  function() vim.api.nvim_command("ToggleTerm direction=float name=desktop") end,    { desc = FUNCTION.TERMINAL.TOGGLE_FLOAT } },
-  { "VT", function() vim.api.nvim_command("ToggleTerm direction=vertical name=desktop") end, { desc = FUNCTION.TERMINAL.TOGGLE_FLOAT } },
+  { "T",    function() vim.api.nvim_command("ToggleTerm direction=float name=desktop") end,    { desc = FUNCTION.TERMINAL.TOGGLE_FLOAT } },
+  { "VT",   function() vim.api.nvim_command("ToggleTerm direction=vertical name=desktop") end, { desc = FUNCTION.TERMINAL.TOGGLE_FLOAT } },
 }
 
 for _, commands in ipairs(Commands) do
@@ -239,11 +239,9 @@ M.hop = {
 }
 
 M.pile = {
-
   FunctionKeyMapping[FUNCTION.BUFFER.SHOW_LIST],
   FunctionKeyMapping[FUNCTION.BUFFER.GO_TO_NEXT],
   FunctionKeyMapping[FUNCTION.BUFFER.GO_TO_PREV],
-
 }
 
 -- M.searchbox = {

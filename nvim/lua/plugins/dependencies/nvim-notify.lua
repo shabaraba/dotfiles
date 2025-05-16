@@ -29,9 +29,9 @@ return {
     require("telescope").load_extension("notify")
     
     -- キーマッピング
-    vim.keymap.set("n", "<leader>fn", function()
-      require("telescope").extensions.notify.notify()
-    end, { desc = "Show notification history" })
+    -- vim.keymap.set("n", "<leader>fn", function()
+    --   require("telescope").extensions.notify.notify()
+    -- end, { desc = "Show notification history" })
     
     -- 通知履歴をクリアするコマンド
     vim.api.nvim_create_user_command("NotifyClear", function()
