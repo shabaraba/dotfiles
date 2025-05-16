@@ -1,0 +1,184 @@
+--- Startup times for process: Primary (or UI client) ---
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.000  000.000: --- NVIM STARTING ---
+000.139  000.138: event init
+000.301  000.162: early init
+006.778  006.478: locale set
+006.810  000.031: init first window
+010.570  003.760: inits 1
+010.595  000.025: window checked
+010.599  000.005: parsing arguments
+010.927  000.024  000.024: require('vim.shared')
+010.975  000.019  000.019: require('vim.inspect')
+010.999  000.018  000.018: require('vim._options')
+011.000  000.071  000.034: require('vim._editor')
+011.001  000.130  000.035: require('vim._init_packages')
+011.003  000.273: init lua interpreter
+013.493  002.490: expanding arguments
+013.508  000.015: inits 2
+013.680  000.172: init highlight
+013.695  000.015: clear screen
+013.768  000.008  000.008: require('vim.keymap')
+015.102  001.404  001.396: require('vim._defaults')
+015.104  000.004: init default mappings & autocommands
+020.814  000.053  000.053: sourcing /opt/homebrew/Cellar/neovim/HEAD-3fdc430/share/nvim/runtime/ftplugin.vim
+023.318  000.040  000.040: sourcing /opt/homebrew/Cellar/neovim/HEAD-3fdc430/share/nvim/runtime/indent.vim
+033.923  004.549  004.549: require('options')
+042.169  003.635  003.635: require('core.utils')
+042.210  008.283  004.648: require('mappings')
+050.535  003.333  003.333: require('core.autocmds')
+050.538  007.012  003.679: require('core')
+061.129  006.360  006.360: require('lazy')
+061.171  000.014  000.014: require('ffi')
+061.212  000.025  000.025: require('vim.fs')
+066.937  005.720  005.720: require('vim.uri')
+066.954  005.780  000.036: require('vim.loader')
+071.254  004.267  004.267: require('lazy.stats')
+075.073  003.771  003.771: require('lazy.core.util')
+078.050  002.974  002.974: require('lazy.core.config')
+083.858  002.942  002.942: require('lazy.core.handler')
+094.881  003.525  003.525: require('lazy.pkg')
+094.886  007.735  004.211: require('lazy.core.meta')
+094.890  011.029  003.293: require('lazy.core.plugin')
+094.895  016.843  002.872: require('lazy.core.loader')
+109.734  002.916  002.916: require('lazy.async')
+115.926  002.882  002.882: require('lazy.manage.process')
+118.965  003.036  003.036: require('lazy.terminal')
+118.976  009.237  003.319: require('lazy.manage.task')
+118.979  015.831  003.677: require('lazy.manage.runner')
+118.981  019.784  003.953: require('lazy.manage')
+118.984  023.269  003.485: require('lazy.view.commands')
+123.107  004.074  004.074: require('lazy.core.fragments')
+237.846  000.731  000.731: require('vim.filetype')
+316.090  003.815  003.815: require('lazy.core.handler.keys')
+322.961  002.872  002.872: require('lazy.core.handler.event')
+322.965  006.870  003.999: require('lazy.core.handler.ft')
+325.044  002.074  002.074: require('lazy.core.handler.cmd')
+339.600  004.098  004.098: sourcing /opt/homebrew/Cellar/neovim/HEAD-3fdc430/share/nvim/runtime/colors/vim.lua
+339.856  007.322  003.223: sourcing /opt/homebrew/Cellar/neovim/HEAD-3fdc430/share/nvim/runtime/colors/habamax.vim
+346.849  001.937  001.937: require('lazy.util')
+346.859  003.808  001.871: require('lazy.view.diff')
+352.155  001.813  001.813: require('lazy.view.config')
+352.161  005.300  003.487: require('lazy.view.float')
+357.227  002.186  002.186: require('lazy.manage.semver')
+357.235  005.073  002.887: require('lazy.manage.git')
+362.944  002.883  002.883: require('lazy.view.sections')
+366.161  003.213  003.213: require('lazy.view.text')
+366.168  008.932  002.836: require('lazy.view.render')
+366.172  026.230  003.118: require('lazy.view')
+366.200  000.005  000.005: require('vim.F')
+375.184  002.062  002.062: require('lazy.community')
+382.190  004.213  004.213: require('vim.health')
+382.196  007.008  002.795: require('lazy.health')
+382.201  013.130  004.061: require('lazy.pkg.rockspec')
+382.204  015.978  002.848: require('lazy.manage.task.plugin')
+389.134  003.480  003.480: require('lazy.manage.lock')
+389.142  006.853  003.372: require('lazy.manage.task.git')
+1969.407  003.970  003.970: require('lazy.pkg.lazy')
+1971.270  001.857  001.857: require('lazy.pkg.packspec')
+1974.242  002.811  002.811: require('lazy.community.specs')
+1983.695  003.086  003.086: require('lazy.community._generated')
+2036.098  003.323  003.323: require('lazy.state')
+2036.105  005.220  001.897: require('lazy.manage.checker')
+2575.078  003.764  003.764: require('lazy.help')
+2869.434  003.610  003.610: sourcing /opt/homebrew/Cellar/neovim/HEAD-3fdc430/share/nvim/runtime/filetype.lua
+2886.124  003.309  003.309: require('vim.lsp.log')
+2888.701  002.572  002.572: require('vim.lsp.protocol')
+2891.400  002.695  002.695: require('vim.lsp.util')
+2896.863  002.990  002.990: require('vim.lsp.sync')
+2896.868  005.463  002.473: require('vim.lsp._changetracking')
+2901.847  002.965  002.965: require('vim.lsp._transport')
+2901.873  005.002  002.037: require('vim.lsp.rpc')
+2901.947  023.792  004.750: require('vim.lsp')
+2906.460  004.512  004.512: require('lspconfig.util')
+2910.141  003.670  003.670: require('vim.version')
+2911.001  036.243  004.270: sourcing /Users/t002451/.local/share/nvim/lazy/nvim-lspconfig/plugin/lspconfig.lua
+2936.235  004.048  004.048: require('mason-core.path')
+2944.614  002.560  002.560: require('mason-core.functional.data')
+2947.635  003.016  003.016: require('mason-core.functional.function')
+2951.290  003.646  003.646: require('mason-core.functional.list')
+2953.465  002.165  002.165: require('mason-core.functional.relation')
+2955.133  001.665  001.665: require('mason-core.functional.logic')
+2958.029  002.893  002.893: require('mason-core.functional.number')
+2961.273  003.237  003.237: require('mason-core.functional.string')
+2963.184  001.906  001.906: require('mason-core.functional.table')
+2967.593  004.405  004.405: require('mason-core.functional.type')
+2967.603  027.576  002.082: require('mason-core.functional')
+2967.684  031.444  003.868: require('mason-core.platform')
+2969.877  002.192  002.192: require('mason.settings')
+2969.882  041.689  004.006: require('mason-core.installer.InstallLocation')
+2978.966  002.737  002.737: require('mason-core.log')
+2978.969  005.837  003.100: require('mason-core.EventEmitter')
+2981.730  002.759  002.759: require('mason-registry.sources')
+2981.738  011.854  003.258: require('mason-registry')
+2981.740  057.486  003.943: require('mason')
+2983.917  001.993  001.993: require('mason.api.command')
+2983.929  065.729  006.250: require('mason-core.functional')
+2987.065  003.135  003.135: require('mason-lspconfig.settings')
+2987.070  074.976  006.112: require('mason-lspconfig')
+2989.071  001.990  001.990: require('mason-core.async')
+2995.293  003.995  003.995: require('mason-core.async.control')
+2997.292  001.994  001.994: require('mason-core.result')
+3001.065  001.838  001.838: require('mason-core.async.uv')
+3001.072  003.778  001.940: require('mason-core.fs')
+3001.191  012.118  002.351: require('mason-registry.installer')
+3011.814  002.892  002.892: require('mason-core.optional')
+3018.835  001.872  001.872: require('mason-core.process')
+3020.684  001.846  001.846: require('mason-core.spawn')
+3020.688  007.380  003.663: require('mason-core.installer.managers.powershell')
+3023.870  003.180  003.180: require('mason.version')
+3023.875  012.058  001.498: require('mason-core.fetch')
+3027.876  003.982  003.982: require('mason-core.providers')
+3036.674  002.218  002.218: require('mason-core.purl')
+3036.684  003.979  001.761: require('mason-core.package.AbstractPackage')
+3045.166  001.989  001.989: require('mason-core.installer.compiler.expr')
+3045.202  004.546  002.557: require('mason-core.installer.compiler.link')
+3059.956  004.554  004.554: require('mason-core.installer.context.InstallContextCwd')
+3061.981  002.021  002.021: require('mason-core.installer.context.InstallContextFs')
+3063.877  001.894  001.894: require('mason-core.installer.context.InstallContextSpawn')
+3066.922  003.041  003.041: require('mason-core.receipt')
+3066.939  013.761  002.250: require('mason-core.installer.context')
+3066.941  017.502  003.741: require('mason-core.installer')
+3066.957  019.720  002.219: require('mason-core.installer.managers.std')
+3066.959  021.756  002.035: require('mason-core.installer.compiler.schemas')
+3069.070  002.002  002.002: require('mason-core.installer.compiler.util')
+3069.085  030.455  002.152: require('mason-core.installer.compiler')
+3071.964  002.877  002.877: require('mason-core.installer.linker')
+3071.969  035.283  001.951: require('mason-core.installer.InstallRunner')
+3073.738  001.768  001.768: require('mason-core.installer.UninstallRunner')
+3073.745  043.227  002.197: require('mason-core.package')
+3073.747  045.869  002.642: require('mason-registry.sources.util')
+3073.756  067.034  002.232: require('mason-registry.sources.github')
+3086.995  001.592  001.592: require('mason-lspconfig.mappings')
+3086.999  003.485  001.893: require('mason-lspconfig.features.automatic_enable')
+3127.892  005.263  005.263: require('mason-lspconfig.lsp.volar')
+3140.365  002.032  002.032: require('mason-lspconfig.notify')
+3140.425  005.414  003.382: require('mason-lspconfig.api.command')
+3146.468  002.180  002.180: sourcing /opt/homebrew/Cellar/neovim/HEAD-3fdc430/share/nvim/runtime/plugin/editorconfig.lua
+3150.458  001.936  001.936: sourcing /opt/homebrew/Cellar/neovim/HEAD-3fdc430/share/nvim/runtime/plugin/man.lua
+3155.980  000.152  000.152: sourcing /opt/homebrew/Cellar/neovim/HEAD-3fdc430/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+3156.016  004.007  003.855: sourcing /opt/homebrew/Cellar/neovim/HEAD-3fdc430/share/nvim/runtime/plugin/matchit.vim
+3159.180  000.108  000.108: sourcing /opt/homebrew/Cellar/neovim/HEAD-3fdc430/share/nvim/runtime/plugin/matchparen.vim
+3162.669  001.669  001.669: sourcing /opt/homebrew/Cellar/neovim/HEAD-3fdc430/share/nvim/runtime/plugin/osc52.lua
+3165.089  000.065  000.065: sourcing /opt/homebrew/Cellar/neovim/HEAD-3fdc430/share/nvim/runtime/plugin/shada.vim
+3168.669  000.043  000.043: sourcing /opt/homebrew/Cellar/neovim/HEAD-3fdc430/share/nvim/runtime/plugin/spellfile.vim
+3168.848  3118.307  2740.227: require('plugins')
+3169.063  3141.624  003.473: require('root')
+3169.065  3141.726  000.102: sourcing /Users/t002451/.config/nvim/init.lua
+3169.089  012.165: sourcing vimrc file(s)
+3169.580  000.052  000.052: sourcing /opt/homebrew/Cellar/neovim/HEAD-3fdc430/share/nvim/runtime/filetype.lua
+3176.802  000.068  000.068: sourcing /opt/homebrew/Cellar/neovim/HEAD-3fdc430/share/nvim/runtime/syntax/synload.vim
+3176.865  002.861  002.793: sourcing /opt/homebrew/Cellar/neovim/HEAD-3fdc430/share/nvim/runtime/syntax/syntax.vim
+3176.878  004.877: inits 3
+3183.084  006.205: reading ShaDa
+3185.925  002.527  002.527: require('vim.filetype.detect')
+3186.059  000.448: reading stdin
+3186.076  000.017: opening buffers
+3186.077  000.001: BufEnter autocommands
+3186.079  000.002: editing files in windows
+3186.108  000.029: --- NVIM STARTED ---
+
