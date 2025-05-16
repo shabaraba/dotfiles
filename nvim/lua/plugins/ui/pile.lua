@@ -5,7 +5,7 @@ return {
     keys = require("mappings").pile,
     opts = {
       debug = {
-        enabled = false,   -- デバッグを無効化
+        enabled = true,    -- デバッグを有効化
         level = "sql",
         file_logging = true,
         sqlite = {
