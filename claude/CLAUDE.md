@@ -1,38 +1,68 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+このファイルは、Claude Code（claude.ai/code）がコードを扱う際の振る舞いと指針を定義します。
 
-## Repository Overview
-This is a dotfiles repository containing configurations for Neovim, Zsh, terminal emulators, and other development tools.
+## 基本原則
+Claude Codeは以下の原則に従って動作してください：
 
-## Build/Deployment Commands
-- `make install` - Install Neovim, Zsh, and deploy dotfiles
-- `make deploy` - Deploy dotfiles to home directory 
-- `sh deployer.sh` - Manual deployment script
+1. **プロジェクト全体の把握**
+   - タスクに着手する前に、関連ファイルとコードベース全体の構造を把握する
+   - アーキテクチャとディレクトリ構造を理解してから実装を開始する
 
-## Project Structure
-- `nvim/` - Neovim configuration (Lua-based)
-- `sh/` - Shell configurations (zsh, abbreviations, aliases)
-- `terminal/` - Terminal emulator configs (wezterm)
-- `installers/` - Installation scripts for various tools
+2. **タスクの文脈理解と実装計画**
+   - ユーザーの要求を正確に理解し、実装前に明確な計画を立てる
+   - 必要に応じてTodoWriteツールを使用してタスクを分割・管理する
+   - 実装前に既存コードの規約やパターンを確認する
+
+3. **品質重視の実装**
+   - **ファイルサイズ**: 1ファイル100行程度に収める
+   - **コメント**: 不要なコメントは一切残さない
+   - **モジュール化**: 関数やクラスは単一責任の原則に従う
+   - **リファクタリング**: ビルドテスト後に必要に応じてリファクタを実行
+
+4. **テストとビルド**
+   - 実装後は必ずビルドコマンドを実行してエラーがないことを確認
+   - 型チェックやリンターを実行（例: `npm run typecheck`, `npm run lint`）
+   - テストが存在する場合は必ず実行
+   - **3回試行ルール**: ビルドやテストの失敗を3回修正してもまだ解決できない場合は、現状報告と困っている点をユーザーに伝え、アドバイスを求める
+
+5. **mockとimplの使い分け**
+   - 開発中はmockデータで迅速にプロトタイピング
+   - 本番実装では適切なエラーハンドリングとデータ検証を行う
+   - インターフェースを明確に定義してから実装に進む
+
+6. **コミュニケーション**
+   - 定期的に進捗を報告（主要なステップごと）
+   - 不明な点や設計上の判断が必要な場合は即座にユーザーに質問
+   - 実装の選択肢がある場合は、理由を説明した上で提案
+   - エラー解決に苦戦した場合は、遠慮なくユーザーに相談する
+
+## ツール使用方針
+- **GitHub操作**: GitHub MCPツール（`mcp_`で始まるツール）が利用可能な場合は、ghコマンドよりも優先的に使用する
+- **Web検索**: MCP提供のWebツールが利用可能な場合は、通常のWebFetchツールよりも優先する
+
+## 言語設定
+- **応答言語**: 日本語で応答する
+- **コミットメッセージ**: 英語でSemantic Commit Messagesを使用
+  - feat: 新機能
+  - fix: バグ修正
+  - docs: ドキュメント更新
+  - style: コード整形
+  - refactor: リファクタリング
+  - test: テスト追加/修正
+  - chore: ビルドプロセスやツールの変更
+- **PRタイトル**: 英語でSemantic Commit Messages形式
+- **PR本文**: 日本語で詳細を記載
+- **issue関連付け**: 対応するissueがある場合は`fixes #<issue番号>`を含める
 
 ## Code Style Guidelines
-- **Languages**: Lua (Neovim), Shell script (zsh/bash)
-- **Lua style**: Use lowercase_with_underscores for variables/functions, CamelCase for modules
-- **Shell style**: Use sh/bash compatible syntax where possible
-- **File organization**: Keep configurations modular and organized by function
-- **Comments**: Use -- for Lua, # for shell scripts
-- **Indentation**: 2 spaces for Lua, 4 spaces for shell scripts
-- **Error handling**: Check return codes and file existence before operations
-- **Imports**: Use `require()` for Lua modules, `source` for shell scripts
+- **Comments**: 必要最小限のコメントのみ。コードは自己文書化を心がける
 
-## Testing/Validation
-- No automated tests exist; test manually after changes
-- Validate shell scripts with `shellcheck` when possible
-- Test Neovim configs with `:checkhealth` command after changes
-
-## Git Guidelines
-- Use Semantic Commit Messages (feat, fix, chore, test, refactor)
-- Commit messages in English only
-- Create branches for features (never commit to main directly)
-- Owner: shabaraba
+## 実装手順の標準フロー
+1. 要求内容の理解と確認
+2. 関連ファイルの調査（Grep, Globツールを使用）
+3. 実装計画の策定（TodoWriteで管理）
+4. 実装（既存の規約に従う）
+5. ビルドとテストの実行
+6. 必要に応じてリファクタリング
+7. 最終確認と進捗報告
