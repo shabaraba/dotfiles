@@ -15,4 +15,8 @@ ln -snfv $PWD/zabrze $HOME/.config
 ln -snfv $PWD/terminal/wezterm $HOME/.config
 ln -snfv $PWD/sh/zsh/sheldon $HOME/.config
 
+ln -snfv $PWD/claude/CLAUDE.md $HOME/.claude/CLAUDE.md
+ln -snfv $PWD/claude/settings.json $HOME/.claude/settings.json
+ln -snfv $PWD/claude/commands $HOME/.claude/commands
+
 echo "🎉 deploy finished."
