@@ -37,7 +37,6 @@ return {
       "ts_ls",
       "intelephense",
       "markdown_oxide",
-      "volar",
       "jdtls",
       -- "eslint",  -- null-ls で代替するため無効化
       "bashls",
