@@ -5,6 +5,7 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     "williamboman/mason.nvim",
+    "nvimtools/none-ls-extras.nvim",
   },
   config = function()
     local null_ls = require("null-ls")
@@ -14,8 +15,8 @@ return {
 
     null_ls.setup({
       sources = {
-        -- ESLint (デフォルトのESLint LSPの代替)
-        diagnostics.eslint_d.with({
+        -- ESLint (none-ls-extrasから取得)
+        require("none-ls.diagnostics.eslint_d").with({
           diagnostics_format = '[eslint] #{m}\n(#{c})',
           condition = function(utils)
             return utils.root_has_file({ 
@@ -30,7 +31,7 @@ return {
         }),
         
         -- コードアクション
-        code_actions.eslint_d,
+        require("none-ls.code_actions.eslint_d"),
         
         -- Prettier
         formatting.prettier.with({
@@ -62,16 +63,6 @@ return {
         update_in_insert = false,
       },
       
-      -- フォーマット設定
-      on_attach = function(client, bufnr)
-        -- ESLint LSPが無効になっているか確認
-        local active_clients = vim.lsp.get_active_clients({ bufnr = bufnr })
-        for _, c in ipairs(active_clients) do
-          if c.name == "eslint" then
-            c.stop()
-          end
-        end
-      end,
     })
   end,
 }

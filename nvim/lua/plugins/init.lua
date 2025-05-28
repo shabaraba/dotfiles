@@ -60,7 +60,8 @@ require("lazy").setup({
   debug = false,
   opts = {
     rocks = {
-      enabled = false
+      enabled = false,
+      hererocks = false
     }
   },
 })

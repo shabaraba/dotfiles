@@ -20,7 +20,7 @@ M.get_used_servers = function()
     sh = "bashls",
     zsh = "bashls",
     bash = "bashls",
-    vue = "volar",
+    vue = "vue_ls",
     markdown = "markdown_oxide",
     c = "clangd",
     cpp = "clangd",
@@ -34,10 +34,6 @@ M.get_used_servers = function()
     table.insert(used_servers, server)
   end
   
-  -- ESLintはnull-lsで代替するため除外
-  -- if ft == "javascript" or ft == "javascriptreact" or ft == "typescript" or ft == "typescriptreact" then
-  --   table.insert(used_servers, "eslint")
-  -- end
   
   return used_servers
 end
@@ -46,10 +42,6 @@ end
 M.server_configs = {}
 
 M.setup_server = function(server_name)
-  -- ESLintはnull-lsで代替するためスキップ
-  if server_name == "eslint" then
-    return
-  end
   
   -- すでに設定済みの場合はスキップ
   if M.server_configs[server_name] then
@@ -76,7 +68,7 @@ M.setup_server = function(server_name)
   end
   
   -- サーバー固有の設定
-  if server_name == "volar" then
+  if server_name == "vue_ls" then
     local function get_nodenv_tsdk()
       local handle = io.popen('nodenv root')
       local nodenv_root = handle:read("*a"):gsub("\n", "")
@@ -93,24 +85,6 @@ M.setup_server = function(server_name)
       typescript = {
         tsdk = get_nodenv_tsdk(),
       }
-    }
-  elseif server_name == "eslint" then
-    -- ESLintの特別な設定
-    opts.on_attach = function(client, bufnr)
-      -- フォーマット機能を無効化
-      client.server_capabilities.documentFormattingProvider = false
-      client.server_capabilities.documentRangeFormattingProvider = false
-      
-      -- 通常のon_attachも実行
-      if on_attach then
-        on_attach(client, bufnr)
-      end
-    end
-    
-    opts.settings = {
-      eslint = {
-        workingDirectory = { mode = "location" },
-      },
     }
   end
   

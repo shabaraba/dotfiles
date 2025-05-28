@@ -16,44 +16,29 @@ M.patch_lspsaga = function()
   })
 end
 
--- vim.tbl_flatten の互換層を提供
-if not vim.iter then
+-- vim.tbl_flatten の互換層を提供 (Neovim 0.10+では vim.iter を使用)
+if vim.tbl_flatten and not vim.iter then
   -- 古いNeovimバージョンへの対応
   _G.vim.iter = function(t)
     local mt = {}
     function mt:flatten()
-      return self
+      return vim.tbl_flatten(t)
     end
     function mt:totable()
       return vim.tbl_flatten(t)
     end
     return setmetatable({}, mt)
   end
-end
-
--- Alpha.nvim の vim.validate 警告を修正
-M.patch_alpha = function()
-  -- 新しい validate API の互換層
-  local original_validate = vim.validate
-  vim.validate = function(param)
-    if type(param) == "table" and param[1] ~= nil then
-      -- 新しい API
-      return original_validate(param)
-    else
-      -- 古い API を新しい API に変換
-      local spec = {}
-      for name, value in pairs(param) do
-        spec[name] = value
-      end
-      return original_validate(spec)
-    end
+elseif not vim.tbl_flatten and vim.iter then
+  -- 新しいNeovimバージョンでvim.tbl_flattenが削除されている場合
+  _G.vim.tbl_flatten = function(t)
+    return vim.iter(t):flatten():totable()
   end
 end
 
 M.setup = function()
   -- パッチを自動適用
   M.patch_lspsaga()
-  M.patch_alpha()
 end
 
 return M
