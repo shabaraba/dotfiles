@@ -14,6 +14,16 @@ return {
     local code_actions = null_ls.builtins.code_actions
 
     null_ls.setup({
+      -- ログレベルを警告以上のみに制限
+      log_level = "error", -- さらに厳しく制限
+      debug = false,
+      -- 通知を完全に無効化
+      notify_format = "", -- 空文字で通知をブロック
+      update_in_insert = false,
+      should_attach = function(bufnr)
+        -- 不要な通知を出さないように制御
+        return vim.bo[bufnr].filetype ~= ""
+      end,
       sources = {
         -- ESLint (none-ls-extrasから取得)
         require("none-ls.diagnostics.eslint_d").with({
@@ -28,10 +38,25 @@ return {
               "package.json" 
             })
           end,
+          -- 通知を抑制
+          on_attach = function(client, bufnr)
+            -- 静かに動作させる
+          end,
         }),
         
-        -- コードアクション
-        require("none-ls.code_actions.eslint_d"),
+        -- コードアクション（通知抑制付き）
+        require("none-ls.code_actions.eslint_d").with({
+          condition = function(utils)
+            return utils.root_has_file({ 
+              ".eslintrc", 
+              ".eslintrc.js", 
+              ".eslintrc.json",
+              ".eslintrc.yaml",
+              ".eslintrc.yml",
+              "package.json" 
+            })
+          end,
+        }),
         
         -- Prettier
         formatting.prettier.with({

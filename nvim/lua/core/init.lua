@@ -1,3 +1,8 @@
+-- LSPログレベルを警告以上に制限（none-lsのログ抑制）
+vim.lsp.set_log_level("WARN")
+
+-- NOTE: vim.notify設定はnvim-notify.luaで一元管理
+
 local core_modules = {
    "core.fix-deprecated",
    "core.autocmds",
