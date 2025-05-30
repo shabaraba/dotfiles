@@ -5,12 +5,12 @@ return {
     keys = require("mappings").pile,
     opts = {
       debug = {
-        enabled = true,    -- デバッグを有効化
-        level = "sql",
+        enabled = false,   -- デバッグを無効化
+        level = "error",   -- エラーレベルのみ
         file_logging = true,
         sqlite = {
-          trace_init = true,
-          trace_query = true,
+          trace_init = false,
+          trace_query = false,
         }
       },
       session = {

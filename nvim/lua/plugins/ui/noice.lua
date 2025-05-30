@@ -67,15 +67,72 @@ return {
       command_palette = true,
       long_message_to_split = true,
     },
-    -- routes = {
-    --   {
-    --     filter = {
-    --       event = "msg_show",
-    --       mode = "rm",           -- このモードのメッセージをフィルタリング
-    --     },
-    --     opts = { skip = false }, -- noice.nvimでのui.selectを無効化
-    --   },
-    -- },
+    routes = {
+      -- null-ls/none-ls関連のログをフィルタリング
+      {
+        filter = {
+          event = "notify",
+          find = "null%-ls",
+        },
+        opts = { skip = true },
+      },
+      {
+        filter = {
+          event = "notify", 
+          find = "none%-ls",
+        },
+        opts = { skip = true },
+      },
+      -- LSP関連の冗長なメッセージをフィルタリング
+      {
+        filter = {
+          event = "notify",
+          find = "eslint_d",
+        },
+        opts = { skip = true },
+      },
+      -- pile.nvim関連のログをフィルタリング
+      {
+        filter = {
+          event = "notify",
+          find = "pile",
+        },
+        opts = { skip = true },
+      },
+      -- SQL関連のログをフィルタリング
+      {
+        filter = {
+          event = "notify",
+          find = "SQL",
+        },
+        opts = { skip = true },
+      },
+      -- code_action関連のメッセージをフィルタリング
+      {
+        filter = {
+          event = "notify",
+          find = "code_action",
+        },
+        opts = { skip = true },
+      },
+      -- ✔ マークの付いたメッセージをフィルタリング
+      {
+        filter = {
+          event = "notify",
+          find = "✔",
+        },
+        opts = { skip = true },
+      },
+      -- 一般的なVimメッセージもフィルタリング
+      {
+        filter = {
+          event = "msg_show",
+          kind = "",
+          find = "written",
+        },
+        opts = { skip = true },
+      },
+    },
     -- ビューの設定を追加
     views = {
       cmdline_popup = {

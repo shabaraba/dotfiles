@@ -1,6 +1,5 @@
 {
   "env": {
     "VIA_CLAUDE_CODE": "1"
-  },
-  "model": "sonnet"
+  }
 }
