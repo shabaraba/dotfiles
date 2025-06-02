@@ -16,10 +16,12 @@ function M.get_config()
     },
     window_background_image_hsb = {
       brightness = 0.3,
+      -- brightness = 1.0,
       hue = 1.0,
       saturation = 1.0,
     },
     window_background_opacity = 0.8,
+    -- window_background_opacity = 1,
     macos_window_background_blur = 30,
     exit_behavior = "Close",
     use_fancy_tab_bar = true,  -- よりモダンなタブバーを使用
