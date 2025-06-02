@@ -43,3 +43,7 @@ abbr "gsu"="git stash -u"
 
 abbr "poff"="http_proxy= https_proxy="
 abbr "gnome logout"="env DISPLAY=:0 gnome-session-quit --logout"
+
+# Claude Code shortcuts
+abbr "cl"="claude --dangerously-skip-permissions -c"
+abbr "clr"="claude --dangerously-skip-permissions -r"

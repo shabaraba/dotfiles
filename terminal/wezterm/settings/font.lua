@@ -20,7 +20,7 @@ function M.get_config()
             family = "HackGenNerd Console",
             -- 斜体を合成させない
             style = "Normal",
-            synthesis = "None",
+            italic = false,
           },
           "Noto Sans CJK JP",
         },
