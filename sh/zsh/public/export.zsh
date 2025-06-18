@@ -76,8 +76,11 @@ export PATH=$ANDROID_SDK_ROOT/emulator:$PATH
 
 [[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
 
-export JAVA_HOME=$(/usr/libexec/java_home -v 17)
-export PATH=$JAVA_HOME/bin:$PATH
+# Java - macOS only
+if [ "$(uname)" = "Darwin" ] && command -v /usr/libexec/java_home >/dev/null 2>&1; then
+    export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+    export PATH=$JAVA_HOME/bin:$PATH
+fi
 
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
@@ -92,11 +95,18 @@ export PATH=$ANDROID_HOME/platform-tools:$PATH
 # export PATH="$HOME/.phpenv/bin:$PATH"
 # eval "$(phpenv init -)"
 
-# rust
-export PATH="$HOME/.cargo/bin:$PATH"
+# rust - only if cargo exists
+if [ -d "$HOME/.cargo/bin" ]; then
+    export PATH="$HOME/.cargo/bin:$PATH"
+fi
 
 # ruby
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
-eval "$(rbenv init -)"
+if [ "$(uname)" = "Darwin" ]; then
+    export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+fi
+# rbenv - only if installed
+if command -v rbenv >/dev/null 2>&1; then
+    eval "$(rbenv init -)"
+fi
 
 

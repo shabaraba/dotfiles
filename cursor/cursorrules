@@ -1,0 +1,138 @@
+# Cursor Rules for common project
+
+## Renovate PR Auto-Fix Command
+When the user types "renovate-fix" or mentions "Renovate PR修正", automatically apply the following comprehensive fixing process:
+
+### Mission
+Analyze the specified Renovate PR issues and automatically execute all necessary fixes to make it merge-ready.
+
+### Execution Flow
+1. **Initial Analysis (Parallel Execution)**
+   - Get PR details via GitHub API
+   - Check all CI/CD failure logs
+   - Verify current dependencies in package.json
+   - Investigate breaking changes in target library
+   - Check project's minimum Node.js version
+
+2. **Comprehensive Code Scanning**
+   - Search for ALL usage of the target library across the codebase
+   - Use both semantic search and grep for thorough coverage
+   - Identify import patterns, API usage, and configuration files
+   - Check test files and example code
+
+3. **Compatibility Check**
+   - Verify backward compatibility (project requirements vs library requirements)
+   - Identify type definition changes
+   - List API changes
+   - Check import/export pattern changes
+
+4. **Auto-Fix Execution**
+   - Create new branch
+   - Address ALL breaking changes simultaneously:
+     - Fix import statements in ALL files
+     - Update API calls across the codebase
+     - Adjust type definitions
+     - Update config files
+   - Auto-fix lint/prettier issues
+   - Resolve TypeScript compilation errors
+
+5. **Iterative Quality Assurance**
+   - Run `pnpm build` and fix any compilation errors
+   - Run `pnpm test` and address test failures
+   - Run `pnpm lint` and fix warnings
+   - Repeat until all checks pass
+   - Run `pnpm test:e2e` if possible
+
+6. **CI Environment Verification**
+   - Push changes and monitor CI results
+   - If CI fails but local passes, investigate environment differences
+   - Make additional fixes for CI-specific issues
+
+7. **PR Creation/Update**
+   - Commit fixes with proper messages
+   - Organize commit history
+   - Create PR (or update existing)
+   - Include detailed fix description in PR body
+
+### Critical Constraints
+- Complete ALL fixes in one session
+- Maximize parallel execution for efficiency
+- Maintain type safety (avoid `as any` unless absolutely necessary)
+- Ensure proper error handling
+- Maintain code quality (lint, test pass)
+- Handle both local and CI environment differences
+
+### Decision Criteria
+- ✅ **Immediately fixable**: Small API changes, import updates
+- 🔧 **Auto-fix executable**: Breaking changes but mechanically addressable
+- ❌ **Cannot fix**: Backward compatibility breaks, large architectural changes
+
+### Enhanced Search Strategy
+```bash
+# Search for library usage comprehensively
+grep -r "library-name" src/ --include="*.ts" --include="*.js"
+grep -r "from ['\"]library-name" src/ --include="*.ts"
+grep -r "import.*library-name" src/ --include="*.ts"
+```
+
+### Common Fix Patterns
+```typescript
+// Import/export changes
+// Before: import lib from "library/old/path";
+// After: import { newFunction as lib } from "library/new/path";
+
+// API breaking changes
+// Before: lib.oldMethod(options);
+// After: lib.newMethod({ ...options, newRequiredParam: true });
+```
+
+### Output Format
+```
+✅ Renovate PR #{number} Auto-fix Complete
+## Changes
+- {library} {old} → {new}
+- Modified files: {list}
+- Main changes: {summary}
+## Verified
+- [x] TypeScript compilation success
+- [x] All tests pass
+- [x] Lint check pass
+- [x] Build success
+- [x] CI verification
+## Created PR
+- URL: {PR URL}
+- Branch: {branch}
+```
+
+## General Development Rules
+- Always respond in Japanese unless specifically requested otherwise
+- Use parallel tool calls whenever possible for efficiency
+- Prioritize type safety and code quality
+- Follow existing code patterns and conventions
+- **ALWAYS create a new branch before making any code modifications**
+  - Use descriptive branch names (e.g., `fix/renovate-xxx`)
+  - Never modify code directly on main or existing branches without creating a new branch first
+  - Branch creation should be the first step when any code changes are required
+
+## PR Creation Rules
+- **Use the existing Renovate branch as the base branch** when creating PRs for Renovate fixes
+- **Always use the project's PR template if there is** (.github/PULL_REQUEST_TEMPLATE.md)
+- Fill out all required sections in the template (Why, What, How to test, Checklist)
+- **If no modifications are needed for a Renovate PR**:
+  - Report that the PR is already compatible and no changes are required
+  - Do NOT create additional PRs or attempt to merge
+  - Simply provide status confirmation
+
+
+## コマンド実行ルール
+- 長時間実行されるコマンド（build, test, install等）は常にバックグラウンドで実行
+- インタラクティブなコマンドは非インタラクティブフラグを使用
+- パイプ処理が必要なコマンドには `| cat` を自動付与
+
+### 自動バックグラウンド対象コマンド(一例)
+- `pnpm run build`
+- `pnpm run test`
+- `pnpm install` / `pnpm install`
+- `git add .`
+- `git commit`
+- 1分以上実行される可能性のあるコマンド
