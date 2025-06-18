@@ -38,4 +38,4 @@ github = "ajeetdsouza/zoxide"
 apply = ["defer"]
 
 [plugins.zoxide-init]
-inline = 'eval "$(zoxide init zsh)"'
+inline = 'command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init zsh)" || true'
