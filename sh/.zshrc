@@ -57,7 +57,7 @@ source "$HOME/.zsh/sheldon/init.zsh"
 # fi
 
 # pnpm
-export PNPM_HOME="/Users/t002451/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
