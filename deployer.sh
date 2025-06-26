@@ -15,9 +15,11 @@ ln -snfv $PWD/zabrze $HOME/.config
 ln -snfv $PWD/terminal/wezterm $HOME/.config
 ln -snfv $PWD/sh/zsh/sheldon $HOME/.config
 
+echo "  - 🚚 for AI✨️"
 ln -snfv $PWD/claude/CLAUDE.md $HOME/.claude/CLAUDE.md
 ln -snfv $PWD/claude/settings.json $HOME/.claude/settings.json
 ln -snfv $PWD/claude/commands $HOME/.claude/commands
 ln -snfv $PWD/cursor/cursorrules $HOME/.cursorrules
+ln -snfv $PWD/gemini/settings.json $HOME/.gemini/settings.json
 
 echo "🎉 deploy finished."

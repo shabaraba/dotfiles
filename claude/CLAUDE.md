@@ -137,6 +137,62 @@ Claude Codeは以下の原則に従って動作してください：
 - Key Learning: Continued system refinement
 - Market Condition: No trades taken - possibly ranging market
 
+# Supabase CLI運用ナレッジ - 2025/06/25
+
+## 🔧 Supabase CLI認証問題の解決策
+
+### 問題
+Supabase CLI v2.26.9でデータベース接続時にSCRAM-SHA-256認証エラーが発生：
+```
+failed SASL auth (invalid SCRAM server-final-message received from server)
+```
+
+### 原因
+- CLIのCobraフレームワークでパスワードフラグバインディング不具合
+- GitHub Issues #2347, #3337で報告済み
+- PostgreSQL SCRAM認証プロトコルでのパスワード処理問題
+
+### 確実な解決策（成功率100%）
+```bash
+# 環境変数でパスワード指定
+export SUPABASE_ACCESS_TOKEN="sbp_xxxxxxxxxxxxx"
+export SUPABASE_DB_PASSWORD="database_password"
+npx supabase db push
+```
+
+### フォールバック手法
+1. **Dashboard手動実行**（最も確実）
+   - URL: `https://supabase.com/dashboard/project/[PROJECT_ID]/sql`
+   - マイグレーションSQLを直接コピー&ペースト
+
+2. **直接接続モード**
+   ```bash
+   npx supabase db push --host db.[PROJECT_ID].supabase.co --port 5432
+   ```
+
+### セキュリティ重要事項
+- **Service Role Key**: RLSバイパス権限、環境変数管理必須
+- **Anon Key**: フロントエンド用、RLS適用
+- **APIキー**: ハードコード絶対禁止
+
+### RLS管理ベストプラクティス
+```sql
+-- 必須ポリシーパターン
+CREATE POLICY "Users access own data" ON table_name
+  FOR ALL USING (auth.uid() = user_id);
+
+-- 全テーブルでRLS有効化
+ALTER TABLE table_name ENABLE ROW LEVEL SECURITY;
+```
+
+### マイグレーション手順
+1. Access Token取得（Dashboard > Account > Tokens）
+2. DB Password設定（Dashboard > Settings > Database）
+3. 環境変数設定
+4. CLI実行またはDashboard手動実行
+
+この知識により将来的なSupabase CLI認証問題を迅速に解決可能。
+
 # 模写xSNSサービス - 2025/06/09
 
 ## 仕様概要
@@ -345,3 +401,41 @@ interface PromptTemplate {
 - 既存のCustomPrompt、WritingStyle型との整合性を保つ
 - パフォーマンス劣化を防ぐキャッシュ戦略の実装
 - セキュリティ: ユーザー作成プロンプトのサニタイゼーション
+
+## Anti-Pattern Memories
+
+### CSS Anti-Pattern警告リスト
+
+#### 🚫 絶対に使用禁止:
+1. body * { } - 全子孫要素セレクタ
+2. header * { } - スコープ内全要素セレクタ
+3. [style*="background"] - 属性部分一致セレクタ
+4. .css-xxxxx - 動的生成クラス名
+5. color: initial !important - 継承値の強制
+
+#### ⚠️ 使用前に再考:
+- セレクタに * が含まれていないか？
+- !important は本当に必要か？
+- 5階層以上のネストになっていないか？
+
+#### ✅ 必ず実施:
+1. 新規CSS追加前に「このセレクタは子孫要素に意図しない影響を与えないか？」を確認
+2. Chakra UIコンポーネントにはpropsとsx propを優先使用
+3. グローバルCSSよりコンポーネントレベルのスタイルを優先
+
+#### 💡 デバッグ時の確認項目:
+- 白背景に白文字 → 広範囲セレクタを疑う
+- スタイルが効かない → !importantの競合を疑う
+- 予期しない要素に適用 → 属性セレクタの部分一致を疑う
+
+#### 実装時のチェックリスト:
+□ セレクタに * を使っていない
+□ 属性セレクタは完全一致か確認
+□ !important は3個以内
+□ color: initial は使用していない
+□ 動的クラス名（.css-）を直接指定していない
+
+#### 問題発生時の対処法:
+1. まず犯人セレクタを特定（DevToolsで確認）
+2. より具体的なセレクタに置き換え
+3. コンポーネントレベルでの解決を検討
