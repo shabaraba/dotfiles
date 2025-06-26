@@ -18,6 +18,7 @@ backup/
 **/.DS_Store
 
 **/.claude/settings.local.json
+gemini/settings.json
 
 # Private files with sensitive information
 sh/zsh/private/env.zsh
