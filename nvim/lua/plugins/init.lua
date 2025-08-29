@@ -15,13 +15,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local spec = {
-  -- ESLintのオーバーライドを最初にロード（一時的に無効化）
-  -- require("plugins.core.eslint-override"),
   { import = "plugins.ui" },
   { import = "plugins.view" },
   { import = "plugins.action" },
   { import = "plugins.coding" },
-  { import = "plugins.copilot" },
+  { import = "plugins.ai" },
   { import = "plugins.core.lsp" },
   { import = "plugins.core.treesitter" },
   { import = "plugins.colorscheme" },

@@ -27,53 +27,6 @@ export PATH="/usr/local/opt/ncurses/bin:$PATH"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/mysql-client@5.7/bin:$PATH"
 
-# nodenv
-[[ -d ~/.nodenv  ]] && \
-    export PATH="$HOME/.nodenv/bin:$PATH" && \
-    eval "$(nodenv init -)"
-
-# # nvm
-# function load-nvm () {
-#   export NVM_DIR="$HOME/.nvm"
-#   [[ -s $(brew --prefix nvm)/nvm.sh ]] && source $(brew --prefix nvm)/nvm.sh
-# [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && . "$(brew --prefix)/opt/nvm/nvm.sh"
-# [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && . "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"
-# }
-# autoload -U add-zsh-hook
-# load-nvmrc() {
-#
-#   if [[ -f .nvmrc && -r .nvmrc ]]; then
-#     if ! type nvm >/dev/null; then
-#       load-nvm
-#     fi
-#     nvm use
-#   fi
-#   # local node_version="$(nvm version)"
-#   # local nvmrc_path="$(nvm_find_nvmrc)"
-#   #
-#   # if [ -n "$nvmrc_path" ]; then
-#   #   local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-#   #
-#   #   if [ "$nvmrc_node_version" = "N/A" ]; then
-#   #     nvm install
-#   #   elif [ "$nvmrc_node_version" != "$node_version" ]; then
-#   #     nvm use
-#   #   fi
-#   # elif [ "$node_version" != "$(nvm version default)" ]; then
-#   #   echo "Reverting to nvm default version"
-#   #   nvm use default
-#   # fi
-# }
-# add-zsh-hook chpwd load-nvmrc
-# load-nvmrc
-
-export ANDROID_SDK_ROOT=$HOME/.android
-export PATH=$ANDROID_SDK_ROOT/cmdline-tools/tools:$PATH
-export PATH=$ANDROID_SDK_ROOT/cmdline-tools/tools/bin:$PATH
-export PATH=$ANDROID_SDK_ROOT/cmdline-tools/tools/lib:$PATH
-export PATH=$ANDROID_SDK_ROOT/platform-tools:$PATH
-export PATH=$ANDROID_SDK_ROOT/emulator:$PATH
-
 [[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
 
 # Java - macOS only
@@ -82,12 +35,11 @@ if [ "$(uname)" = "Darwin" ] && command -v /usr/libexec/java_home >/dev/null 2>&
     export PATH=$JAVA_HOME/bin:$PATH
 fi
 
-export ANDROID_HOME=$HOME/Android/Sdk
-export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
-export PATH=$ANDROID_HOME/platform-tools:$PATH
+# Android設定は ~/.zshrc で行う
 
 # export FLUTTER_ROOT=$HOME/Flutter/Sdk
 # export PATH=$FLUTTER_ROOT/bin:$PATH
+export PATH=$HOME/development/flutter/bin:$PATH
 
 # phpenv
 # export PATH="$HOME/.phpenv/bin:$PATH"
@@ -109,4 +61,9 @@ if command -v rbenv >/dev/null 2>&1; then
     eval "$(rbenv init -)"
 fi
 
+export PATH="$PATH:/Users/t002451/go/bin"
 
+# docker compose for better performance
+export COMPOSE_BAKE=true
+
+export PATH="~/.local/bin:$PATH"

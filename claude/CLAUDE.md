@@ -71,6 +71,16 @@ Claude Codeは以下の原則に従って動作してください：
 ## Code Style Guidelines
 - **Comments**: 必要最小限のコメントのみ。コードは自己文書化を心がける
 
+## 命名規則
+- **リファクタリング時の命名**: 一時的・段階的な改善を示すプレフィックス/サフィックスは絶対に使用しない
+  - ❌ 悪い例（プレフィックス）: `NewGameLogic`, `OldUserService`, `TempDatabase`, `UltimateParser`, `SuperController`, `OptimizedRenderer`
+  - ❌ 悪い例（サフィックス）: `GameLogicV2`, `UserServiceFinal`, `DatabaseOptimized`, `ParserUltimate`
+  - ✅ 良い例: リファクタリング完了後の最終的な名前を直接使用
+  - リファクタリング時は、旧ファイルを削除してから新ファイルを正式名称で作成する
+  - バージョン管理はGitで行い、ファイル名でバージョンを表現しない
+- **意味のある名前**: ファイル名、クラス名、関数名は、その役割を明確に表すものにする
+- **一貫性**: プロジェクト内で同じ概念には同じ命名パターンを使用する
+
 ## 実装手順の標準フロー
 1. 要求内容の理解と確認
 2. 関連ファイルの調査（Grep, Globツールを使用）
@@ -79,6 +89,138 @@ Claude Codeは以下の原則に従って動作してください：
 5. ビルドとテストの実行
 6. 必要に応じてリファクタリング
 7. 最終確認と進捗報告
+
+## 新規実装・機能追加時の設計基準 - 2025/01/28
+
+### ファイル分割の基本方針
+- **1ファイル100行程度**: 最大でも200行を超えないこと
+- **単一責任の原則**: 1つのクラス/モジュールは1つの責任のみを持つ
+- **高凝集性**: 関連する機能は同じモジュールに、無関係な機能は別モジュールに
+
+### 必須の設計パターン
+
+#### 1. Manager系クラスの分割
+大規模なManagerクラスは以下のパターンで分割：
+```typescript
+// ❌ 悪い例：全機能を1つのManagerに
+class GameManager {
+  // 状態管理、ロジック処理、通信、UIすべて混在
+}
+
+// ✅ 良い例：責務ごとに分割
+class GameManager {
+  private stateManager: GameStateManager;
+  private logicProcessor: GameLogicProcessor;
+  private networkHandler: NetworkHandler;
+}
+```
+
+#### 2. Factory系の実装
+オブジェクト生成は個別のCreatorに委譲：
+```typescript
+// ❌ 悪い例：Factoryに全ロジック
+class MeshFactory {
+  createTypeA() { /* 50行のロジック */ }
+  createTypeB() { /* 80行のロジック */ }
+}
+
+// ✅ 良い例：個別Creatorに委譲
+class MeshFactory {
+  static create(type: string) {
+    switch(type) {
+      case 'A': return TypeACreator.create();
+      case 'B': return TypeBCreator.create();
+    }
+  }
+}
+```
+
+#### 3. UI系の分割
+UIコンポーネントは機能単位で分割：
+```typescript
+// ✅ 良い例
+- UIElementManager（DOM要素管理）
+- EventManager（イベント処理）
+- StateUIManager（状態表示）
+- ActionUIManager（操作系UI）
+```
+
+#### 4. Effect/Animation系の分割
+視覚効果は生成と制御を分離：
+```typescript
+// ✅ 良い例
+- ModelCreator（3Dモデル生成）
+- AnimationController（アニメーション制御）
+- EffectComposer（エフェクト合成）
+```
+
+### 実装前チェックリスト
+- [ ] 新規ファイルは100行程度に収まる設計か？
+- [ ] 各クラスは単一の責任を持っているか？
+- [ ] 依存関係は適切に管理されているか？
+- [ ] 将来の拡張性を考慮した設計か？
+
+### 具体的な実装例
+
+#### ネットワーク機能の実装
+```typescript
+// 接続管理、メッセージ処理、状態同期を分離
+NetworkManager
+├── ConnectionManager（接続確立・切断）
+├── MessageHandler（メッセージ送受信）
+├── StateSync（状態同期）
+└── PingManager（接続維持）
+```
+
+#### ゲームロジックの実装
+```typescript
+// ゲームの各側面を独立したモジュールに
+GameLogic
+├── BoardManager（盤面管理）
+├── MoveValidator（手の検証）
+├── TurnManager（ターン制御）
+└── ScoreCalculator（スコア計算）
+```
+
+### アンチパターン
+- 200行を超えるファイル
+- 5つ以上の責務を持つクラス
+- 深い継承階層（3階層以上）
+- God Object（すべてを知っているオブジェクト）
+
+## 大規模ファイルのリファクタリング - 2025/01/28
+
+### 方針
+大規模なファイル（200行以上）を分割する際は、以下の方針に従う：
+
+1. **モジュール分割の基準**
+   - 単一責任の原則（Single Responsibility Principle）を厳守
+   - 各モジュールは特定の機能や関心事に焦点を当てる
+   - 凝集度を高く、結合度を低く保つ
+
+2. **分割パターン**
+   - **Manager/Service分離**: ビジネスロジックを専門マネージャーに分離
+   - **Factory パターン**: オブジェクト生成ロジックの抽出
+   - **Strategy パターン**: アルゴリズムや振る舞いの分離
+   - **Component分離**: UI要素を論理的な単位で分割
+
+3. **実装手順**
+   - 既存ファイルの責務を明確に分析
+   - 関連する機能をグループ化
+   - インターフェースを定義して依存関係を明確化
+   - 段階的に機能を抽出（一度に全て移動しない）
+   - 各ステップでビルドとテストを実行
+
+4. **命名規則**
+   - モジュール名は役割を明確に表す（例: ConnectionManager, MoveValidator）
+   - 階層構造を反映したディレクトリ構成
+   - 関連モジュールは同じディレクトリにグループ化
+
+5. **品質確保**
+   - 分割後も元の機能が完全に保持されることを確認
+   - 循環依存を避ける
+   - 必要に応じて共通インターフェースを定義
+   - ドキュメント化（特に新しいモジュール間の関係）
 
 # AI Trader System - 2025/01/06
 
@@ -439,3 +581,92 @@ interface PromptTemplate {
 1. まず犯人セレクタを特定（DevToolsで確認）
 2. より具体的なセレクタに置き換え
 3. コンポーネントレベルでの解決を検討
+
+# Supabase 開発・本番環境認証設定ナレッジ - 2025/07/03
+
+## 🔧 問題: 開発・本番環境でSupabase OAuth設定が競合する
+
+### 背景
+Supabase認証では、Single Projectの場合：
+- **Site URL**: JWTのstateパラメータに埋め込まれ、認証後のリダイレクト先を決定
+- **Redirect URLs**: OAuth認証完了後の許可されたコールバックURL
+
+本番・開発で**Site URL**が異なるため、片方の環境でしか正常に動作しない問題が発生。
+
+### 🚨 症状
+- JWTのstateパラメータ: `"site_url":"https://production.com"`
+- 開発時にも本番環境にリダイレクトされる
+- localhost設定変更すると本番環境が動作しなくなる
+
+## ✅ 解決方法1: Supabase CLI + ローカルインスタンス（推奨）
+
+### 設定手順
+
+1. **supabase/config.toml にGoogle OAuth設定追加:**
+```toml
+[auth.external.google]
+enabled = true
+client_id = "env(SUPABASE_AUTH_GOOGLE_CLIENT_ID)"
+secret = "env(SUPABASE_AUTH_GOOGLE_SECRET_KEY)"
+redirect_uri = "http://localhost:54321/auth/v1/callback"
+skip_nonce_check = true
+```
+
+2. **環境変数設定 (.env.local):**
+```env
+# ローカル開発用
+SUPABASE_AUTH_GOOGLE_CLIENT_ID=your_google_client_id
+SUPABASE_AUTH_GOOGLE_SECRET_KEY=your_google_secret
+
+# 開発時はローカルSupabaseを使用
+NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_local_anon_key
+```
+
+3. **Google Cloud Console設定:**
+- 認証済みJavaScript生成元: `http://localhost:54321`
+- 認証済みリダイレクトURI: `http://localhost:54321/auth/v1/callback`
+
+4. **運用コマンド:**
+```bash
+# ローカルSupabase起動
+supabase start
+
+# アプリ開発
+npm run dev
+
+# 設定変更後は再起動
+supabase stop && supabase start
+```
+
+### メリット
+- ✅ 本番環境設定を一切変更せずに開発可能
+- ✅ 完全に独立した環境でテスト
+- ✅ データベースマイグレーションも安全にテスト
+- ✅ 業界標準のベストプラクティス
+
+## ✅ 解決方法2: Additional Redirect URLs活用
+
+1. **Supabase Dashboard設定:**
+   - Site URL: 本番環境のまま
+   - Additional Redirect URLs: `http://localhost:3000/**`
+
+2. **動的リダイレクト処理:**
+```typescript
+// auth/callback/route.ts
+const isLocalhost = requestUrl.hostname === 'localhost'
+const redirectUrl = isLocalhost
+  ? `http://localhost:13004/app?locale=${locale}`
+  : `${requestUrl.origin}/app?locale=${locale}`
+```
+
+### デメリット
+- ⚠️ Site URLは本番環境固定のため、一部制限あり
+- ⚠️ JWT stateパラメータは本番環境URL
+
+## 🎯 推奨アプローチ
+
+**開発**: Supabase CLI + ローカルインスタンス (`localhost:54321`)
+**本番**: リモートSupabaseプロジェクト
+
+これにより完全に独立した環境で開発でき、認証設定の競合問題を根本的に解決可能。

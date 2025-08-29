@@ -19,6 +19,7 @@ local Prefix = {
   jump = "g",
   action = ",",
   finder = ";",
+  ai = "\\",
 }
 
 local FUNCTION = {
@@ -76,6 +77,16 @@ local FUNCTION = {
   },
   AI = {
     OPEN_CHAT = "OPEN COPILOT CHAT",
+    TOGGLE_CLAUDE = "TOGGLE CLAUDE",
+    FOCUS_CLAUDE = "FOCUS CLAUDE",
+    RESUME_CLAUDE = "RESUME CLAUDE",
+    CONTINUE_CLAUDE = "CONTINUE CLAUDE",
+    SELECT_MODEL = "SELECT CLAUDE MODEL",
+    ADD_CURRENT_BUFFER = "ADD CURRENT BUFFER TO CLAUDE",
+    ADD_FILES_CLAUDE = "ADD FILES TO CLAUDE",
+    SEND_TO_CLAUDE = "SEND TO CLAUDE",
+    ACCEPT_DIFF = "ACCEPT DIFF FROM CLAUDE",
+    DENY_DIFF = "DENY DIFF FROM CLAUDE",
   },
   OVERRIDE = {
     YANK = "YANK",
@@ -141,7 +152,6 @@ local Mapping = {
   { "<C-j>",                   '<cmd>PileGoToNextBuffer<CR>',                                                desc = FUNCTION.BUFFER.GO_TO_NEXT,                  noremap = true,                     silent = true },
   { "<C-k>",                   '<cmd>PileGoToPrevBuffer<CR>',                                                desc = FUNCTION.BUFFER.GO_TO_PREV,                  noremap = true,                     silent = true },
 
-
   { Prefix.action .. 's',      '<Plug>(nvim-surround-normal)',                                               desc = FUNCTION.CODING.SURROUND,                    silent = true },
   { Prefix.action .. 's',      '<Plug>(nvim-surround-visual)',                                               desc = FUNCTION.CODING.SURROUND_VISUAL,             mode = "v",                         silent = true },
   { Prefix.action .. 'cs',     '<Plug>(nvim-surround-change)',                                               desc = FUNCTION.CODING.SURROUND_CHANGE,             silent = true },
@@ -150,7 +160,7 @@ local Mapping = {
   { Prefix.action .. "c",      ":Lspsaga code_action<cr>",                                                   desc = FUNCTION.LSP.CODE_ACTION,                    silent = true },
   { Prefix.action .. "cc",     "<Plug>(comment_toggle_linewise_current)",                                    desc = FUNCTION.CODING.TOGGLE_COMMENT,              mode = { "n", "x", silent = true } },
   { Prefix.action .. "cd",     function() require("neogen").generate({}) end,                                desc = FUNCTION.CODING.GENERATE_DOC_COMMENT,        silent = true },
-  { Prefix.action .. "r",      function() require("refactoring").select_refactor() end,                      desc = FUNCTION.CODING.REFACTOR,                    silent = true,                      mode = "v",   noremap = true, expr = false },
+  { Prefix.action .. "r",      function() require("refactoring").select_refactor() end,                      desc = FUNCTION.CODING.REFACTOR,                    silent = true,                      mode = "v",                                          noremap = true, expr = false },
   { Prefix.action .. "p",      function() require("telescope").extensions.yank_history.yank_history({}) end, desc = FUNCTION.OVERRIDE.OPEN_YANK_HISTORY,         silent = true },
   { "y",                       "<Plug>(YankyYank)",                                                          desc = FUNCTION.OVERRIDE.YANK,                      mode = { "n", "x", silent = true }, },
   { "p",                       "<Plug>(YankyPutAfter)",                                                      desc = FUNCTION.OVERRIDE.PASTE_AFTER,               mode = { "n", "x", silent = true }, },
@@ -159,6 +169,16 @@ local Mapping = {
   { "[p",                      "<Plug>(YankyPutIndentBeforeLinewise)",                                       desc = FUNCTION.OVERRIDE.PASTE_INDENT_BEFORE,       silent = true },
   { "<c-p>",                   "<Plug>(YankyPreviousEntry)",                                                 desc = FUNCTION.OVERRIDE.PASTE_PREV_YANK,           silent = true },
   { "<c-n>",                   "<Plug>(YankyNextEntry)",                                                     desc = FUNCTION.OVERRIDE.PASTE_NEXT_YANK,           silent = true },
+
+  { Prefix.ai .. 'f',          '<cmd>ClaudeCodeFocus<cr>',                                                   desc = FUNCTION.AI.FOCUS_CLAUDE,                    silent = true },
+  { Prefix.ai .. 'r',          '<cmd>ClaudeCode --resume<cr>',                                               desc = FUNCTION.AI.RESUME_CLAUDE,                   silent = true },
+  { Prefix.ai .. 'c',          '<cmd>ClaudeCode --continue<cr>',                                             desc = FUNCTION.AI.CONTINUE_CLAUDE,                 silent = true },
+  { Prefix.ai .. 'm',          '<cmd>ClaudeCodeSelectModel<cr>',                                             desc = FUNCTION.AI.SELECT_MODEL,                    silent = true },
+  { Prefix.ai .. 'b',          '<cmd>ClaudeCodeAdd %<cr>',                                                   desc = FUNCTION.AI.ADD_CURRENT_BUFFER,              silent = true },
+  { Prefix.ai .. 's',          '<cmd>ClaudeCodeSend<cr>',                                                    desc = FUNCTION.AI.SEND_TO_CLAUDE,                  silent = true,                      mode = 'v' },
+  { Prefix.ai .. 't',          '<cmd>ClaudeCodeTreeAdd<cr>',                                                 desc = FUNCTION.AI.ADD_FILES_CLAUDE,                silent = true,                      ft = { 'NvimTree', 'neo-tree', 'oil', 'minifiles' }, },
+  { Prefix.ai .. 'a',          '<cmd>ClaudeCodeDiffAccept<cr>',                                              desc = FUNCTION.AI.ACCEPT_DIFF,                     silent = true },
+  { Prefix.ai .. 'd',          '<cmd>ClaudeCodeDiffDeny<cr>',                                                desc = FUNCTION.AI.DENY_DIFF,                       silent = true },
 }
 
 local FunctionKeyMapping = extract_values(Mapping, "desc")
@@ -187,6 +207,18 @@ M.lspsaga = {
   FunctionKeyMapping[FUNCTION.LSP.CALL_HIERARCHY],
   FunctionKeyMapping[FUNCTION.LSP.CODE_ACTION],
   FunctionKeyMapping[FUNCTION.LSP.OUTLINE],
+}
+
+M.claudecode = {
+  FunctionKeyMapping[FUNCTION.AI.FOCUS_CLAUDE],
+  FunctionKeyMapping[FUNCTION.AI.RESUME_CLAUDE],
+  FunctionKeyMapping[FUNCTION.AI.CONTINUE_CLAUDE],
+  FunctionKeyMapping[FUNCTION.AI.SELECT_MODEL],
+  FunctionKeyMapping[FUNCTION.AI.ADD_CURRENT_BUFFER],
+  FunctionKeyMapping[FUNCTION.AI.ADD_FILES_CLAUDE],
+  FunctionKeyMapping[FUNCTION.AI.SEND_TO_CLAUDE],
+  FunctionKeyMapping[FUNCTION.AI.ACCEPT_DIFF],
+  FunctionKeyMapping[FUNCTION.AI.DENY_DIFF],
 }
 
 M.none_ls = {}

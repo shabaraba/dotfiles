@@ -8,10 +8,10 @@ M.get_used_servers = function()
   
   local ft_to_server = {
     lua = "lua_ls",
-    typescript = "ts_ls",
-    typescriptreact = "ts_ls",
-    javascript = "ts_ls",
-    javascriptreact = "ts_ls",
+    typescript = "vtsls",  -- vtslsのみ
+    typescriptreact = "vtsls",
+    javascript = "vtsls",
+    javascriptreact = "vtsls",
     python = "pyright",
     rust = "rust_analyzer",
     go = "gopls",
@@ -29,9 +29,15 @@ M.get_used_servers = function()
   }
   
   -- 現在のファイルタイプに対応するサーバーのみを返す
-  local server = ft_to_server[ft]
-  if server then
-    table.insert(used_servers, server)
+  local servers = ft_to_server[ft]
+  if servers then
+    if type(servers) == "table" then
+      for _, server in ipairs(servers) do
+        table.insert(used_servers, server)
+      end
+    else
+      table.insert(used_servers, servers)
+    end
   end
   
   

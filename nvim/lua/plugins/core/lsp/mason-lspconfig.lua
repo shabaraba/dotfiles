@@ -10,31 +10,15 @@ vim.cmd [[
 
 vim.filetype.add({ extension = { mq5 = 'cpp', mqh = 'cpp' } })
 
+-- Mason-lspconfigを本来の役割（インストール管理）のみに戻す
 return {
   "williamboman/mason-lspconfig.nvim",
   lazy = true,
-  event = { "BufReadPre", "BufNewFile" },
-  ft = {
-    'lua',
-    'typescript',
-    'javascript',
-    'php',
-    'markdown',
-    'vue',
-    "typescriptreact",
-    "javascriptreact",
-    "java",
-    "bash",
-    "c",
-    "cpp",
-    "mq5",
-    "mqh",
-    "go"
-  }, -- 対象のファイルタイプを指定
   opts = {
     ensure_installed = {
       "lua_ls",
-      "ts_ls",
+      "vtsls",  -- ts_lsの代替（より安定）
+      -- "biome",  -- 一時的に無効化（nvim-lspconfigのバグ）
       "intelephense",
       "markdown_oxide",
       "jdtls",
@@ -43,24 +27,13 @@ return {
       "gopls",
       "pyright",
       "rust_analyzer",
+      -- "copilot-mcp"  -- 通常のCopilot suggestionを使用
     },
     automatic_installation = false,
-    handlers = {
-      function(server_name)
-        -- すべてのサーバーを統一的に処理
-        local lsp_opt = require("core.lsp.optimization")
-        lsp_opt.setup_server(server_name)
-      end,
-    }
+    -- handlers は使わない（nvim-lspconfig.luaで手動設定）
   },
   config = function(_, opts)
-    -- ハンドラーとキーマッピングの統一設定
-    require("core.lsp.handlers").setup()
-    
+    -- インストール管理のみ実行
     require("mason-lspconfig").setup(opts)
-    
-    -- LSP最適化の初期化
-    require("core.lsp.optimization").setup()
   end,
-  keys = require("mappings").lsp,
 }

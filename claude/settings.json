@@ -1,6 +1,20 @@
 {
-  "env": {
-    "VIA_CLAUDE_CODE": "1"
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {},
+  "model": "opus",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": []
+      }
+    ]
   },
-  "model": "sonnet"
+  "statusLine": {
+    "type": "command",
+    "command": "bun x ccusage statusline"
+  },
+  "feedbackSurveyState": {
+    "lastShownTime": 1754030740717
+  }
 }
