@@ -7,10 +7,14 @@ return {
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
     "onsails/lspkind.nvim",
+    "zbirenbaum/copilot-cmp",
   },
   config = function()
     local cmp = require("cmp")
     local lspkind = require("lspkind")
+    
+    -- Setup copilot-cmp
+    require("copilot_cmp").setup()
 
     cmp.setup({
       completion = {
@@ -21,6 +25,8 @@ return {
       mapping = cmp.mapping.preset.insert({
         ["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
         ["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
+        ["<C-p>"] = cmp.mapping.select_prev_item(), -- previous suggestion (vim default)
+        ["<C-n>"] = cmp.mapping.select_next_item(), -- next suggestion (vim default)
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions

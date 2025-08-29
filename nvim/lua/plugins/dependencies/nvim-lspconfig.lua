@@ -1,61 +1,58 @@
--- nvim-lspconfig用のパッチプラグイン
+-- nvim-lspconfig 手動設定（バグ回避用）
 return {
   "neovim/nvim-lspconfig",
   lazy = true,
   event = { "BufReadPre", "BufNewFile" },
-  priority = 50,  -- ESLintオーバーライドより後にロード
-  init = function()
-    -- ESLintの設定を修正するフック
-    vim.api.nvim_create_autocmd("User", {
-      pattern = "LspSetup",
-      callback = function()
-        local lspconfig = require("lspconfig")
-        local configs = require("lspconfig.configs")
-        local util = require("lspconfig.util")
-        
-        -- ESLint設定のroot_dir関数をオーバーライド
-        if configs.eslint then
-          local original_root_dir = configs.eslint.document_config.default_config.root_dir
-          
-          configs.eslint.document_config.default_config.root_dir = function(fname, bufnr)
-            -- fnameの型チェック
-            if type(fname) == "number" then
-              local ok, name = pcall(vim.api.nvim_buf_get_name, fname)
-              fname = ok and name or vim.api.nvim_buf_get_name(0)
-            end
-            
-            if not fname or fname == "" then
-              fname = vim.api.nvim_buf_get_name(0)
-            end
-            
-            if not fname or fname == "" then
-              return vim.fn.getcwd()
-            end
-            
-            -- オリジナルのroot_dir関数を呼び出す
-            if original_root_dir then
-              local ok, result = pcall(original_root_dir, fname)
-              if ok then
-                return result
-              end
-            end
-            
-            -- フォールバック
-            local pattern = util.root_pattern(
-              ".eslintrc",
-              ".eslintrc.js",
-              ".eslintrc.cjs",
-              ".eslintrc.yaml",
-              ".eslintrc.yml",
-              ".eslintrc.json",
-              "package.json"
-            )
-            
-            return pattern(fname) or util.find_git_ancestor(fname) or vim.fn.getcwd()
-          end
-        end
-      end,
-      once = true,
+  ft = {
+    'lua',
+    'typescript',
+    'javascript',
+    'php',
+    'markdown',
+    'vue',
+    "typescriptreact",
+    "javascriptreact",
+    "java",
+    "bash",
+    "c",
+    "cpp",
+    "mq5",
+    "mqh",
+    "go"
+  },
+  config = function()
+    -- ハンドラーとキーマッピングの統一設定
+    require("core.lsp.handlers").setup()
+    
+    -- Manual LSP setup（バグ回避）
+    local lspconfig = require("lspconfig")
+    local handlers = require("core.lsp.handlers")
+    local capabilities = handlers.capabilities()
+    local on_attach = handlers.on_attach
+    
+    -- 手動LSPセットアップ（nvim-lspconfigのバグ回避）
+    lspconfig.vtsls.setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+      root_dir = require('lspconfig.util').root_pattern('package.json', 'tsconfig.json', 'jsconfig.json', '.git'),
     })
+    
+    lspconfig.lua_ls.setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+    })
+    
+    lspconfig.pyright.setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+    })
+    
+    lspconfig.gopls.setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+    })
+    
+    -- Copilot MCPは使わず、通常のsuggestion機能を使用
   end,
+  keys = require("mappings").lsp,
 }
