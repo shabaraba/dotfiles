@@ -3,6 +3,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# プロファイリング用（一時的）
+# zmodload zsh/zprof
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -10,8 +13,8 @@ fi
 if [[ -d "/home/linuxbrew/.linuxbrew" ]]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
-# fpath設定
-fpath=(~/.zcompdump $fpath)
+# fpath設定（補完関数のパスを追加）
+# fpath=(~/.zsh/completions $fpath)  # 必要に応じてカスタム補完ディレクトリを追加
 
 # ヒストリー設定
 HISTFILE=~/.zsh_history
@@ -28,18 +31,19 @@ colors
 [[ -f "$HOME/.zsh/private/env.zsh" ]] && source ~/.zsh/private/env.zsh
 [[ -f "$HOME/.zsh/public/setopt.zsh" ]] && source ~/.zsh/public/setopt.zsh
 
+# プラグインの読み込み（補完初期化前）
+source "$HOME/.zsh/sheldon/init.zsh"
+
 # 補完の初期化を最適化
 autoload -Uz compinit
-if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+# zcompdumpが24時間以上古い場合は再生成
+if [[ ! -f ~/.zcompdump ]] || [[ ~/.zshrc -nt ~/.zcompdump ]]; then
   compinit
 else
   compinit -C
 fi
 
 zstyle ':completion:*' menu select
-
-# プラグインの読み込み
-source "$HOME/.zsh/sheldon/init.zsh"
 
 # abbreviationsの重複を避けるためにここではロードしない
 # [[ -f "$HOME/.zsh/contexts/abbreviations.zsh" ]] && source ~/.zsh/contexts/abbreviations.zsh
@@ -67,9 +71,16 @@ esac
 export PATH="$PATH:$HOME/development/flutter/bin"
 
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# nvmを無効化（miseに一本化）
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export ANDROID_HOME=/Users/t002451/Android/Sdk
 unset ANDROID_SDK_ROOT
+
+# mise
+eval "$(mise activate zsh)"
+
+# zoxide initialization
+eval "$(/opt/homebrew/bin/zoxide init zsh)"

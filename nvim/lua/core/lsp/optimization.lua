@@ -16,7 +16,7 @@ M.get_used_servers = function()
     rust = "rust_analyzer",
     go = "gopls",
     php = "intelephense",
-    java = "jdtls",
+    -- java = "jdtls",  -- nvim-jdtlsプラグインで処理
     sh = "bashls",
     zsh = "bashls",
     bash = "bashls",
@@ -74,7 +74,33 @@ M.setup_server = function(server_name)
   end
   
   -- サーバー固有の設定
-  if server_name == "vue_ls" then
+  if server_name == "vtsls" then
+    -- vtslsの実行コマンドとroot_dirを設定
+    local mason_path = vim.fn.stdpath("data") .. "/mason"
+    -- miseの最新版nodeを動的に探す
+    local function get_mise_node_path()
+      -- まず22.19.0を探す
+      local node_22_19 = vim.fn.expand("~/.local/share/mise/installs/node/22.19.0/bin/node")
+      if vim.fn.filereadable(node_22_19) == 1 then
+        return node_22_19
+      end
+      -- latestシンボリックリンクを使う
+      local node_latest = vim.fn.expand("~/.local/share/mise/installs/node/latest/bin/node")
+      if vim.fn.filereadable(node_latest) == 1 then
+        return node_latest
+      end
+      -- フォールバック
+      return "node"
+    end
+    local node_path = get_mise_node_path()
+    local vtsls_path = mason_path .. "/packages/vtsls/node_modules/@vtsls/language-server/bin/vtsls.js"
+    opts.cmd = { node_path, vtsls_path, "--stdio" }
+    opts.root_dir = require('lspconfig.util').root_pattern('package.json', 'tsconfig.json', 'jsconfig.json', '.git')
+  elseif server_name == "jdtls" then
+    -- jdtlsは nvim-jdtls プラグインで処理するためスキップ
+    M.server_configs[server_name] = true
+    return
+  elseif server_name == "vue_ls" then
     local function get_nodenv_tsdk()
       local handle = io.popen('nodenv root')
       local nodenv_root = handle:read("*a"):gsub("\n", "")

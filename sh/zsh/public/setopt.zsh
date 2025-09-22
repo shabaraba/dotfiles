@@ -4,6 +4,7 @@ setopt no_beep
 setopt nolistbeep
 setopt auto_pushd
  
+# setopt monitor  # 問題があるためコメントアウト
 setopt share_history
 setopt hist_ignore_dups
 setopt hist_ignore_all_dups

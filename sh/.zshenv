@@ -1,3 +1,4 @@
 # zmodload zsh/zprof && zprof
 
-. "$HOME/.cargo/env"
+# cargoが未インストールのためコメントアウト
+# . "$HOME/.cargo/env"

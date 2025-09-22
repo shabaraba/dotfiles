@@ -2,7 +2,7 @@
 --
 return {
   "williamboman/mason.nvim",
-  lazy = true,
+  lazy = false,  -- Masonベースも即座に読み込む
   cmd = { -- load this plugin when executing these commands.
     "Mason",
     "MasonInstall",

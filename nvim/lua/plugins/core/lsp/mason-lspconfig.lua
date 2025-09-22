@@ -13,7 +13,7 @@ vim.filetype.add({ extension = { mq5 = 'cpp', mqh = 'cpp' } })
 -- Mason-lspconfigを本来の役割（インストール管理）のみに戻す
 return {
   "williamboman/mason-lspconfig.nvim",
-  lazy = true,
+  lazy = false,  -- Masonも即座に読み込む
   opts = {
     ensure_installed = {
       "lua_ls",
@@ -21,7 +21,7 @@ return {
       -- "biome",  -- 一時的に無効化（nvim-lspconfigのバグ）
       "intelephense",
       "markdown_oxide",
-      "jdtls",
+      -- "jdtls",  -- nvim-jdtlsプラグインで管理
       -- "eslint",  -- null-ls で代替するため無効化
       "bashls",
       "gopls",
@@ -29,7 +29,7 @@ return {
       "rust_analyzer",
       -- "copilot-mcp"  -- 通常のCopilot suggestionを使用
     },
-    automatic_installation = false,
+    automatic_installation = true,
     -- handlers は使わない（nvim-lspconfig.luaで手動設定）
   },
   config = function(_, opts)

@@ -27,15 +27,13 @@ apply = ["defer"]
 
 [plugins.zsh-completions]
 github = "zsh-users/zsh-completions"
-apply = ["defer"]
+# apply = ["defer"]  # 補完初期化前に読み込む必要があるためdeferを無効化
 
 [plugins.history-search-multi-word]
 github = "zdharma/history-search-multi-word"
 apply = ["defer"]
 
-[plugins.zoxide]
-github = "ajeetdsouza/zoxide"
-apply = ["defer"]
-
+# zoxideはHomebrewでインストール済み、初期化のみ行う（遅延読み込み無効）
 [plugins.zoxide-init]
 inline = 'command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init zsh)" || true'
+# apply = ["defer"]  # 遅延読み込みを無効化

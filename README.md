@@ -9,15 +9,14 @@ Personal dotfiles configuration for development environment setup.
     ```sh
     git clone https://github.com/shabaraba/dotfiles.git
     cd dotfiles 
-    make install
     ```
 
-1. install (you nead to exec only once.)
+2. install dotfiles and homebrew packages (you need to exec only once.)
     ```sh
     make install
     ```
 
-1. deploy (you should exec for each changing dotfiles)
+3. deploy (you should exec for each changing dotfiles)
     ```sh
     make deploy
     ```
@@ -61,4 +60,29 @@ because we set path-mapping as belows in the configuration file.
 3. **Never commit private files** - they are already in `.gitignore`
 
 4. **Review all configurations** before using in your environment
+
+# Brewfile Management
+
+This repository includes a `Brewfile` (located in `installers/`) to manage Homebrew packages:
+
+## Commands
+```sh
+# Install all packages from Brewfile
+brew bundle install --file=installers/Brewfile
+
+# Check if all packages are installed
+brew bundle check --file=installers/Brewfile
+
+# Update Brewfile with currently installed packages
+brew bundle dump --force --describe --file=installers/Brewfile
+
+# Remove packages not in Brewfile (be careful!)
+brew bundle cleanup --force --file=installers/Brewfile
+```
+
+## Package Categories
+- **System Tools**: bash, gnu-sed, wget
+- **Development Tools**: mise, openjdk, gh, jq, ripgrep  
+- **Shell & CLI Enhancement**: sheldon, zoxide, neovim
+- **GUI Applications**: claude-code, jetbrains-toolbox, wezterm
 
