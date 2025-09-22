@@ -1,0 +1,53 @@
+# =============================================================================
+# Brewfile - Homebrew Bundle Configuration for dotfiles
+# =============================================================================
+# Usage:
+#   brew bundle install         # Install all packages
+#   brew bundle check           # Check if packages are installed
+#   brew bundle cleanup         # Uninstall packages not in Brewfile
+
+# =============================================================================
+# System Tools
+# =============================================================================
+# Bourne-Again SHell, a UNIX command interpreter
+brew "bash"
+# GNU implementation of the famous stream editor (for git hooks)
+brew "gnu-sed"
+# Internet file retriever
+brew "wget"
+
+# =============================================================================
+# Development Tools
+# =============================================================================
+# Polyglot runtime manager (replaces nvm, rbenv, pyenv etc.)
+brew "mise"
+# Development kit for the Java programming language
+brew "openjdk"
+# GitHub command-line tool
+brew "gh"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+
+# =============================================================================
+# Shell & CLI Enhancement
+# =============================================================================
+# Fast, configurable, shell plugin manager
+brew "sheldon"
+# Shell extension to navigate your filesystem faster
+brew "zoxide"
+# Simplistic interactive filtering tool
+brew "peco"
+# Clone of ls with colorful output, file type icons, and more
+brew "lsd"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim", args: ["HEAD"]
+
+# =============================================================================
+# GUI Applications
+# =============================================================================
+# Terminal-based AI coding assistant
+cask "claude-code"
+# GPU-accelerated cross-platform terminal emulator and multiplexer
+cask "wezterm@nightly"

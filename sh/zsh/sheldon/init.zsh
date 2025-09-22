@@ -4,11 +4,5 @@ fi
 
 eval "$(sheldon source)"
 
-# 補完の初期化を最適化
+# 補完の初期化は.zshrcで一元管理（重複回避）
 # zsh-users/zsh-completions
-autoload -Uz compinit
-if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
-  compinit
-else
-  compinit -C
-fi
