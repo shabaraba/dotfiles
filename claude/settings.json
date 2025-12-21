@@ -1,7 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "env": {},
-  "model": "sonnet",
   "hooks": {
     "PostToolUse": [
       {
@@ -12,8 +11,28 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "bun x ccusage statusline"
+    "command": "pnpx ccusage statusline"
   },
+  "enabledPlugins": {
+    "frontend-design@claude-code-plugins": true,
+    "feature-dev@claude-code-plugins": true,
+    "code-review@claude-code-plugins": true,
+    "git-workflow@claude-code-templates": true,
+    "supabase-toolkit@claude-code-templates": true,
+    "testing-suite@claude-code-templates": true,
+    "security-pro@claude-code-templates": true,
+    "devops-automation@claude-code-templates": true,
+    "documentation-generator@claude-code-templates": true,
+    "performance-optimizer@claude-code-templates": true,
+    "project-management-suite@claude-code-templates": true,
+    "hookify@claude-code-plugins": true,
+    "learning-output-style@claude-code-plugins": true,
+    "plugin-dev@claude-code-plugins": true,
+    "pr-review-toolkit@claude-code-plugins": true,
+    "security-guidance@claude-code-plugins": true,
+    "ralph-wiggum@claude-code-plugins": true
+  },
+  "alwaysThinkingEnabled": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754030740717
   }
