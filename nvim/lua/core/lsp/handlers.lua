@@ -23,7 +23,7 @@ M.on_attach = function(client, bufnr)
   
   -- コードアクション
   vim.keymap.set({ 'n', 'v' }, '<leader>ca', function()
-    local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+    local clients = vim.lsp.get_clients({ bufnr = bufnr })
     if #clients > 0 then
       vim.lsp.buf.code_action()
     else
@@ -68,19 +68,16 @@ end
 -- Capabilities設定
 M.capabilities = function()
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
-  
+
   -- スニペットサポート
   capabilities.textDocument.completion.completionItem.snippetSupport = true
-  
-  -- セマンティックトークン
-  capabilities.textDocument.semanticHighlighting = true
-  
+
   -- フォールディング
   capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
     lineFoldingOnly = true
   }
-  
+
   return capabilities
 end
 
@@ -107,7 +104,7 @@ M.setup_exit_handlers = function()
     pattern = "*",
     callback = function()
       -- アクティブなLSPクライアントを取得して停止
-      local clients = vim.lsp.get_active_clients()
+      local clients = vim.lsp.get_clients()
       for _, client in pairs(clients) do
         if client and client.is_stopped ~= nil and not client.is_stopped() then
           vim.lsp.stop_client(client.id, true) -- force stop
@@ -122,7 +119,7 @@ M.setup_exit_handlers = function()
     pattern = "*",
     callback = function(ev)
       -- そのバッファに関連するLSPクライアントをチェック
-      local clients = vim.lsp.get_active_clients({ bufnr = ev.buf })
+      local clients = vim.lsp.get_clients({ bufnr = ev.buf })
       for _, client in pairs(clients) do
         local attached_buffers = vim.lsp.get_buffers_by_client_id(client.id)
         -- 他にアタッチされているバッファがない場合は停止を検討
