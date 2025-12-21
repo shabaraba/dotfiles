@@ -77,16 +77,15 @@ local FUNCTION = {
   },
   AI = {
     OPEN_CHAT = "OPEN COPILOT CHAT",
-    TOGGLE_CLAUDE = "TOGGLE CLAUDE",
-    FOCUS_CLAUDE = "FOCUS CLAUDE",
-    RESUME_CLAUDE = "RESUME CLAUDE",
-    CONTINUE_CLAUDE = "CONTINUE CLAUDE",
-    SELECT_MODEL = "SELECT CLAUDE MODEL",
-    ADD_CURRENT_BUFFER = "ADD CURRENT BUFFER TO CLAUDE",
-    ADD_FILES_CLAUDE = "ADD FILES TO CLAUDE",
-    SEND_TO_CLAUDE = "SEND TO CLAUDE",
-    ACCEPT_DIFF = "ACCEPT DIFF FROM CLAUDE",
-    DENY_DIFF = "DENY DIFF FROM CLAUDE",
+    TOGGLE_CHAT = "TOGGLE AI CHAT",
+    ACTIONS = "AI ACTIONS",
+    INLINE = "INLINE AI ASSIST",
+    CMD = "AI CMD",
+    -- vibing
+    VIBING_CHAT = "VIBING CHAT",
+    VIBING_FIX = "VIBING FIX",
+    VIBING_EXPLAIN = "VIBING EXPLAIN",
+    VIBING_REFACTOR = "VIBING REFACTOR",
   },
   OVERRIDE = {
     YANK = "YANK",
@@ -170,15 +169,16 @@ local Mapping = {
   { "<c-p>",                   "<Plug>(YankyPreviousEntry)",                                                 desc = FUNCTION.OVERRIDE.PASTE_PREV_YANK,           silent = true },
   { "<c-n>",                   "<Plug>(YankyNextEntry)",                                                     desc = FUNCTION.OVERRIDE.PASTE_NEXT_YANK,           silent = true },
 
-  { Prefix.ai .. 'f',          '<cmd>ClaudeCodeFocus<cr>',                                                   desc = FUNCTION.AI.FOCUS_CLAUDE,                    silent = true },
-  { Prefix.ai .. 'r',          '<cmd>ClaudeCode --resume<cr>',                                               desc = FUNCTION.AI.RESUME_CLAUDE,                   silent = true },
-  { Prefix.ai .. 'c',          '<cmd>ClaudeCode --continue<cr>',                                             desc = FUNCTION.AI.CONTINUE_CLAUDE,                 silent = true },
-  { Prefix.ai .. 'm',          '<cmd>ClaudeCodeSelectModel<cr>',                                             desc = FUNCTION.AI.SELECT_MODEL,                    silent = true },
-  { Prefix.ai .. 'b',          '<cmd>ClaudeCodeAdd %<cr>',                                                   desc = FUNCTION.AI.ADD_CURRENT_BUFFER,              silent = true },
-  { Prefix.ai .. 's',          '<cmd>ClaudeCodeSend<cr>',                                                    desc = FUNCTION.AI.SEND_TO_CLAUDE,                  silent = true,                      mode = 'v' },
-  { Prefix.ai .. 't',          '<cmd>ClaudeCodeTreeAdd<cr>',                                                 desc = FUNCTION.AI.ADD_FILES_CLAUDE,                silent = true,                      ft = { 'NvimTree', 'neo-tree', 'oil', 'minifiles' }, },
-  { Prefix.ai .. 'a',          '<cmd>ClaudeCodeDiffAccept<cr>',                                              desc = FUNCTION.AI.ACCEPT_DIFF,                     silent = true },
-  { Prefix.ai .. 'd',          '<cmd>ClaudeCodeDiffDeny<cr>',                                                desc = FUNCTION.AI.DENY_DIFF,                       silent = true },
+  { Prefix.ai .. 'c',          '<cmd>CodeCompanionChat Toggle<cr>',                                         desc = FUNCTION.AI.TOGGLE_CHAT,                     silent = true },
+  { Prefix.ai .. 'a',          '<cmd>CodeCompanionActions<cr>',                                              desc = FUNCTION.AI.ACTIONS,                         silent = true },
+  { Prefix.ai .. 'a',          '<cmd>CodeCompanionActions<cr>',                                              desc = FUNCTION.AI.ACTIONS,                         silent = true,                      mode = 'v' },
+  { Prefix.ai .. 'i',          '<cmd>CodeCompanion<cr>',                                                     desc = FUNCTION.AI.INLINE,                          silent = true,                      mode = 'v' },
+  { Prefix.ai .. 'm',          '<cmd>CodeCompanionCmd<cr>',                                                  desc = FUNCTION.AI.CMD,                             silent = true },
+  -- vibing
+  { Prefix.ai .. 'C',          '<cmd>VibingChat<cr>',                                                        desc = FUNCTION.AI.VIBING_CHAT,                     silent = true },
+  { Prefix.ai .. 'f',          '<cmd>VibingInline fix<cr>',                                                  desc = FUNCTION.AI.VIBING_FIX,                      silent = true,                      mode = 'v' },
+  { Prefix.ai .. 'e',          '<cmd>VibingInline explain<cr>',                                              desc = FUNCTION.AI.VIBING_EXPLAIN,                  silent = true,                      mode = 'v' },
+  { Prefix.ai .. 'r',          '<cmd>VibingInline refactor<cr>',                                             desc = FUNCTION.AI.VIBING_REFACTOR,                 silent = true,                      mode = 'v' },
 }
 
 local FunctionKeyMapping = extract_values(Mapping, "desc")
@@ -209,16 +209,11 @@ M.lspsaga = {
   FunctionKeyMapping[FUNCTION.LSP.OUTLINE],
 }
 
-M.claudecode = {
-  FunctionKeyMapping[FUNCTION.AI.FOCUS_CLAUDE],
-  FunctionKeyMapping[FUNCTION.AI.RESUME_CLAUDE],
-  FunctionKeyMapping[FUNCTION.AI.CONTINUE_CLAUDE],
-  FunctionKeyMapping[FUNCTION.AI.SELECT_MODEL],
-  FunctionKeyMapping[FUNCTION.AI.ADD_CURRENT_BUFFER],
-  FunctionKeyMapping[FUNCTION.AI.ADD_FILES_CLAUDE],
-  FunctionKeyMapping[FUNCTION.AI.SEND_TO_CLAUDE],
-  FunctionKeyMapping[FUNCTION.AI.ACCEPT_DIFF],
-  FunctionKeyMapping[FUNCTION.AI.DENY_DIFF],
+M.codecompanion = {
+  FunctionKeyMapping[FUNCTION.AI.TOGGLE_CHAT],
+  FunctionKeyMapping[FUNCTION.AI.ACTIONS],
+  FunctionKeyMapping[FUNCTION.AI.INLINE],
+  FunctionKeyMapping[FUNCTION.AI.CMD],
 }
 
 M.none_ls = {}
@@ -274,6 +269,13 @@ M.pile = {
   FunctionKeyMapping[FUNCTION.BUFFER.SHOW_LIST],
   FunctionKeyMapping[FUNCTION.BUFFER.GO_TO_NEXT],
   FunctionKeyMapping[FUNCTION.BUFFER.GO_TO_PREV],
+}
+
+M.vibing = {
+  FunctionKeyMapping[FUNCTION.AI.VIBING_CHAT],
+  FunctionKeyMapping[FUNCTION.AI.VIBING_FIX],
+  FunctionKeyMapping[FUNCTION.AI.VIBING_EXPLAIN],
+  FunctionKeyMapping[FUNCTION.AI.VIBING_REFACTOR],
 }
 
 -- M.searchbox = {
