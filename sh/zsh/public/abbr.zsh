@@ -1,8 +1,9 @@
 # zsh-abbrの設定（存在する場合のみ）
 if command -v abbr >/dev/null 2>&1; then
-    dir=$(cd $(dirname $0); pwd)
-    abbrpath="../contexts/abbreviations.zsh"
-    export ABBR_USER_ABBREVIATIONS_FILE=$dir/$abbrpath
+    abbr_file="$HOME/.zsh/contexts/abbreviations.zsh"
+    [[ -d "$HOME/.zsh/contexts" ]] || mkdir -p "$HOME/.zsh/contexts"
+    [[ -f "$abbr_file" ]] || touch "$abbr_file"
+    export ABBR_USER_ABBREVIATIONS_FILE="$abbr_file"
 
     ABBR_SET_EXPANSION_CURSOR=1
     ABBR_SET_LINE_CURSOR=1

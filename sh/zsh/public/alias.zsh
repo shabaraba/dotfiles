@@ -15,6 +15,7 @@ alias his='history'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias v='nvim'
+alias vl='nvim --listen /tmp/nvim'
 
 # android device bridgh
 # wsl2ではusb接続されたデバイスを認識できず、実機デバッグしにくいので、
