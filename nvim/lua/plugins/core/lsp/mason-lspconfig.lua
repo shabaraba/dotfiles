@@ -22,10 +22,11 @@ return {
       "intelephense",
       "markdown_oxide",
       -- "jdtls",  -- nvim-jdtlsプラグインで管理
-      -- "eslint",  -- null-ls で代替するため無効化
+      "eslint",  -- ESLint LSPサーバー
       "bashls",
       "gopls",
       "pyright",
+      "ruff",  -- Python linter (pyright と併用)
       "rust_analyzer",
       -- "copilot-mcp"  -- 通常のCopilot suggestionを使用
     },

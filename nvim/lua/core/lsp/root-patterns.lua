@@ -54,14 +54,7 @@ M.patterns = {
     ".git",
   },
   
-  -- Vue
-  volar = {
-    "package.json",
-    "vue.config.js",
-    "nuxt.config.js",
-    "nuxt.config.ts",
-    ".git",
-  },
+  -- Vue (vue_ls は新しいAPIで自動設定される)
   
   -- Default pattern
   default = {
