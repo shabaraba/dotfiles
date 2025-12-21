@@ -1,0 +1,16 @@
+[user]
+	name = YOUR_NAME
+	email = YOUR_EMAIL
+
+[init]
+	defaultBranch = main
+
+[core]
+	editor = nvim
+	autocrlf = input
+
+[pull]
+	rebase = true
+
+[push]
+	default = simple
