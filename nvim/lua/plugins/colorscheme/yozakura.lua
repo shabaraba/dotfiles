@@ -21,8 +21,8 @@
 -- }
 
 return {
-  dir = vim.fn.stdpath("config") .. "/lua/plugins/_developing/yozakura.nvim",
-  name = "yozakura.nvim",
+  -- dir = vim.fn.stdpath("config") .. "/lua/plugins/_developing/yozakura.nvim",
+  "shabaraba/yozakura.nvim",
   lazy = false,
   config = function()
     require("yozakura").setup({
