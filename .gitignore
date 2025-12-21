@@ -20,6 +20,8 @@ backup/
 **/.claude/settings.local.json
 gemini/settings.json
 
+.vibing/
+
 # Private files with sensitive information
 sh/zsh/private/env.zsh
 sh/zsh/private/alias.zsh
