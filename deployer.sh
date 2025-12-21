@@ -14,6 +14,7 @@ mkdir -p $HOME/.config
 ln -snfv $PWD/nvim $HOME/.config/nvim
 # ln -snfv $PWD/zabrze $HOME/.config/zabrze  # コメントアウト：ディレクトリが存在しない
 ln -snfv $PWD/terminal/wezterm $HOME/.config/wezterm
+ln -snfv $PWD/terminal/ghostty $HOME/.config/ghostty
 ln -snfv $PWD/sh/zsh/sheldon $HOME/.config/sheldon
 
 echo "  - 🚚 for AI✨️"
