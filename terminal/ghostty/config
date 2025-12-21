@@ -1,4 +1,6 @@
-theme = TokyoNight
+theme = Iceberg Dark
+# theme = Gruvbox Light
+
 maximize = true
 font-family = PlemolJP35 Console NF
 background-opacity = 0.8
@@ -11,3 +13,9 @@ keybind = ctrl+h=goto_split:left
 keybind = ctrl+l=goto_split:right
 window-inherit-working-directory = true
 shell-integration = detect
+
+# 形状 block / bar / underline / block_hollow
+cursor-style = block_hollow
+
+# 色
+cursor-color = #00d1b2
