@@ -73,3 +73,7 @@ opt.updatetime = 300
 opt.whichwrap:append "<>[]hl"
 
 g.mapleader = " "
+
+-- 日本語キーボード対応: ¥ を \ として扱う
+vim.keymap.set({ "n", "v", "o" }, "¥", "\\", { remap = true })
+vim.keymap.set("c", "¥", "\\", { remap = false })

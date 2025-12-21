@@ -32,6 +32,11 @@ end
 
 require("lazy").setup({
   spec = spec,
+  dev = {
+    path = "~/workspaces/nvim-plugins",
+    patterns = { "shabaraba" },  -- このユーザーのプラグインはローカル優先
+    fallback = true,  -- ローカルになければGitHubから取得
+  },
   performance = {
     cache = {
       enabled = true,
