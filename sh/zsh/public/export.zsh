@@ -1,6 +1,6 @@
-export LANGUAGE=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
+export LANGUAGE=ja_JP.UTF-8
+export LC_ALL=ja_JP.UTF-8
+export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
 
 typeset -U path PATH
@@ -77,3 +77,5 @@ export PATH="~/.local/bin:$PATH"
 if command -v mise >/dev/null 2>&1; then
     eval "$(mise activate zsh)"
 fi
+
+export XDG_CONFIG_HOME="$HOME/.config"

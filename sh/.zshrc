@@ -76,7 +76,12 @@ export PATH="$PATH:$HOME/development/flutter/bin"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export ANDROID_HOME=/Users/t002451/Android/Sdk
+# Android development environment
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 unset ANDROID_SDK_ROOT
 
 # mise
@@ -84,3 +89,14 @@ eval "$(mise activate zsh)"
 
 # zoxide initialization
 eval "$(/opt/homebrew/bin/zoxide init zsh)"
+export PATH="$HOME/.local/bin:$PATH"
+
+# Added by Antigravity
+export PATH="/Users/shaba/.antigravity/antigravity/bin:$PATH"
+
+# bun completions
+[ -s "/Users/shaba/.bun/_bun" ] && source "/Users/shaba/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
