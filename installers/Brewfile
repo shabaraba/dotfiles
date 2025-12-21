@@ -7,6 +7,11 @@
 #   brew bundle cleanup         # Uninstall packages not in Brewfile
 
 # =============================================================================
+# Taps - Additional Homebrew Repositories
+# =============================================================================
+tap "shabaraba/tap"
+
+# =============================================================================
 # System Tools
 # =============================================================================
 # Bourne-Again SHell, a UNIX command interpreter
@@ -44,6 +49,8 @@ brew "lsd"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim", args: ["HEAD"]
 
+brew "shaba-cli"
+
 # =============================================================================
 # GUI Applications
 # =============================================================================
@@ -51,3 +58,4 @@ brew "neovim", args: ["HEAD"]
 cask "claude-code"
 # GPU-accelerated cross-platform terminal emulator and multiplexer
 cask "wezterm@nightly"
+cask "ghostty"
