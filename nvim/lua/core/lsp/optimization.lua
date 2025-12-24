@@ -48,12 +48,14 @@ end
 M.server_configs = {}
 
 M.setup_server = function(server_name)
-  
+
   -- すでに設定済みの場合はスキップ
   if M.server_configs[server_name] then
     return
   end
-  
+
+  -- lspconfigを使用(nvim-0.11の警告は既知の問題)
+  -- TODO(#20): nvim-lspconfig v3.0.0リリース後に vim.lsp.config へ移行
   local lspconfig = require("lspconfig")
   
   -- 統一ハンドラーを使用

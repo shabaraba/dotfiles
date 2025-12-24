@@ -77,15 +77,10 @@ local FUNCTION = {
   },
   AI = {
     OPEN_CHAT = "OPEN COPILOT CHAT",
-    TOGGLE_CHAT = "TOGGLE AI CHAT",
-    ACTIONS = "AI ACTIONS",
-    INLINE = "INLINE AI ASSIST",
-    CMD = "AI CMD",
     -- vibing
     VIBING_CHAT = "VIBING CHAT",
-    VIBING_FIX = "VIBING FIX",
-    VIBING_EXPLAIN = "VIBING EXPLAIN",
-    VIBING_REFACTOR = "VIBING REFACTOR",
+    VIBING_CONTEXT = "VIBING CONTEXT",
+    VIBING_INLINE = "VIBING INLINE",
   },
   OVERRIDE = {
     YANK = "YANK",
@@ -169,16 +164,10 @@ local Mapping = {
   { "<c-p>",                   "<Plug>(YankyPreviousEntry)",                                                 desc = FUNCTION.OVERRIDE.PASTE_PREV_YANK,           silent = true },
   { "<c-n>",                   "<Plug>(YankyNextEntry)",                                                     desc = FUNCTION.OVERRIDE.PASTE_NEXT_YANK,           silent = true },
 
-  { Prefix.ai .. 'c',          '<cmd>CodeCompanionChat Toggle<cr>',                                         desc = FUNCTION.AI.TOGGLE_CHAT,                     silent = true },
-  { Prefix.ai .. 'a',          '<cmd>CodeCompanionActions<cr>',                                              desc = FUNCTION.AI.ACTIONS,                         silent = true },
-  { Prefix.ai .. 'a',          '<cmd>CodeCompanionActions<cr>',                                              desc = FUNCTION.AI.ACTIONS,                         silent = true,                      mode = 'v' },
-  { Prefix.ai .. 'i',          '<cmd>CodeCompanion<cr>',                                                     desc = FUNCTION.AI.INLINE,                          silent = true,                      mode = 'v' },
-  { Prefix.ai .. 'm',          '<cmd>CodeCompanionCmd<cr>',                                                  desc = FUNCTION.AI.CMD,                             silent = true },
   -- vibing
-  { Prefix.ai .. 'C',          '<cmd>VibingChat<cr>',                                                        desc = FUNCTION.AI.VIBING_CHAT,                     silent = true },
-  { Prefix.ai .. 'f',          '<cmd>VibingInline fix<cr>',                                                  desc = FUNCTION.AI.VIBING_FIX,                      silent = true,                      mode = 'v' },
-  { Prefix.ai .. 'e',          '<cmd>VibingInline explain<cr>',                                              desc = FUNCTION.AI.VIBING_EXPLAIN,                  silent = true,                      mode = 'v' },
-  { Prefix.ai .. 'r',          '<cmd>VibingInline refactor<cr>',                                             desc = FUNCTION.AI.VIBING_REFACTOR,                 silent = true,                      mode = 'v' },
+  { Prefix.ai .. 'c',          '<cmd>VibingChat<cr>',                                                        desc = FUNCTION.AI.VIBING_CHAT,                     silent = true },
+  { Prefix.ai .. 's',          '<cmd>VibingContext<cr>',                                                     desc = FUNCTION.AI.VIBING_CONTEXT,                  silent = true },
+  { Prefix.ai .. 'i',          '<cmd>VibingInline<cr>',                                                      desc = FUNCTION.AI.VIBING_INLINE,                   silent = true,                      mode = 'v' },
 }
 
 local FunctionKeyMapping = extract_values(Mapping, "desc")
@@ -207,13 +196,6 @@ M.lspsaga = {
   FunctionKeyMapping[FUNCTION.LSP.CALL_HIERARCHY],
   FunctionKeyMapping[FUNCTION.LSP.CODE_ACTION],
   FunctionKeyMapping[FUNCTION.LSP.OUTLINE],
-}
-
-M.codecompanion = {
-  FunctionKeyMapping[FUNCTION.AI.TOGGLE_CHAT],
-  FunctionKeyMapping[FUNCTION.AI.ACTIONS],
-  FunctionKeyMapping[FUNCTION.AI.INLINE],
-  FunctionKeyMapping[FUNCTION.AI.CMD],
 }
 
 M.none_ls = {}
@@ -273,9 +255,8 @@ M.pile = {
 
 M.vibing = {
   FunctionKeyMapping[FUNCTION.AI.VIBING_CHAT],
-  FunctionKeyMapping[FUNCTION.AI.VIBING_FIX],
-  FunctionKeyMapping[FUNCTION.AI.VIBING_EXPLAIN],
-  FunctionKeyMapping[FUNCTION.AI.VIBING_REFACTOR],
+  FunctionKeyMapping[FUNCTION.AI.VIBING_CONTEXT],
+  FunctionKeyMapping[FUNCTION.AI.VIBING_INLINE],
 }
 
 -- M.searchbox = {

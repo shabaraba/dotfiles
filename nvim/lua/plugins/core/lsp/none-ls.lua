@@ -17,7 +17,7 @@ return {
 
     null_ls.setup({
       -- ログを完全に無効化
-      log_level = vim.log.levels.OFF,
+      log_level = "off",
       debug = false,
       -- 通知を完全に無効化
       notify_format = "",
