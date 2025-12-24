@@ -3,12 +3,8 @@ return {
   dev = true,
   build = "./build.sh",
   ft = "vibing",
-  cmd = { "VibingChat", "VibingInline", "VibingToggleChat" },
-  keys = {
-    -- Add your vibing keymaps here, for example:
-    -- { "<leader>vc", "<cmd>VibingChat<cr>", desc = "Vibing Chat" },
-    -- { "<leader>vi", "<cmd>VibingInline<cr>", desc = "Vibing Inline" },
-  },
+  cmd = { "VibingChat", "VibingInline", "VibingContext", "VibingToggleChat" },
+  keys = require("mappings").vibing,
   config = function()
     require("vibing").setup({
       mcp = {
@@ -19,8 +15,7 @@ return {
       },
       chat = {
         window = {
-          position = "right",
-          width = 0.4,
+          position = "current",
           border = "rounded",
         },
         auto_context = true,
