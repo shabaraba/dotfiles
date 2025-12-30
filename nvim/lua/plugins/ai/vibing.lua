@@ -15,7 +15,7 @@ return {
       },
       chat = {
         window = {
-          position = "current",
+          position = "right",
           border = "rounded",
         },
         auto_context = true,
@@ -27,8 +27,12 @@ return {
       },
       permissions = {
         mode = "acceptEdits",
-        allow = { "Read", "Edit", "Write", "Glob", "Grep", "Bash" },
+        allow = { "Read", "Edit", "Write", "Glob", "Grep", "WebSearch", "WebFetch", "Bash" },
+        ask = { "Bash(rm:*)" },
         deny = {},
+      },
+      ui = {
+        wrap = "on", -- デフォルトで折り返し有効
       },
       preview = {
         enabled = true
