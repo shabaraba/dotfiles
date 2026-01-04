@@ -23,6 +23,7 @@ ln -snfv $PWD/claude/CLAUDE.md $HOME/.claude/CLAUDE.md
 ln -snfv $PWD/claude/settings.json $HOME/.claude/settings.json
 ln -snfv $PWD/claude/commands $HOME/.claude/commands
 ln -snfv $PWD/claude/agents $HOME/.claude/agents
+ln -snfv $PWD/claude/rules $HOME/.claude/rules
 ln -snfv $PWD/cursor/cursorrules $HOME/.cursorrules
 # geminiディレクトリが存在しない場合はスキップ
 if [ -d "$PWD/gemini" ]; then
