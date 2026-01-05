@@ -9,7 +9,7 @@ backup/
 .vim/plugins/coc/*
 !.vim/plugins/coc/extensions
 
-/debugger/**/*
+debugger/
 
 .config/**/*
 !.config/nvim/**/*
