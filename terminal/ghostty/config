@@ -19,3 +19,4 @@ cursor-style = block_hollow
 
 # 色
 cursor-color = #00d1b2
+keybind = shift+enter=text:\x1b\r

@@ -35,6 +35,8 @@ brew "jq"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 
+brew "rust"
+
 # =============================================================================
 # Shell & CLI Enhancement
 # =============================================================================

@@ -25,6 +25,7 @@ gemini/settings.json
 # Private files with sensitive information
 sh/zsh/private/env.zsh
 sh/zsh/private/alias.zsh
+claude/settings.json
 
 # Logs that might contain sensitive info
 *.log
