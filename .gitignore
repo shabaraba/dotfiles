@@ -28,6 +28,9 @@ sh/zsh/private/alias.zsh
 claude/settings.json
 .serena/
 
+# Dependencies
+node_modules/
+
 # Logs that might contain sensitive info
 *.log
 pile_*.log
