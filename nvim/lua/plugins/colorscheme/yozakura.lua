@@ -8,7 +8,7 @@ return {
       transparent = true,
       italic_comments = false,
       dim_inactive = false,
-      palette = "night_blue",
+      palette = "teil_night",
       styles = {
         comments = { italic = true },
         keywords = { italic = false },
