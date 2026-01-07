@@ -256,7 +256,8 @@ M.pile = {
 }
 
 M.vibing = {
-  FunctionKeyMapping[FUNCTION.AI.VIBING_CHAT],
+  FunctionKeyMapping[FUNCTION.AI.VIBING_CHAT_RIGHT],
+  FunctionKeyMapping[FUNCTION.AI.VIBING_CHAT_CURRENT],
   FunctionKeyMapping[FUNCTION.AI.VIBING_CONTEXT],
   FunctionKeyMapping[FUNCTION.AI.VIBING_INLINE],
 }

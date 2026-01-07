@@ -38,10 +38,10 @@ return {
         gradient = {
           enabled = true,             -- Enable gradient animation during AI response
           colors = {
-            "#cc3300",                -- Start color
-            "#2f2f2f",                -- End color
+            "#ff3300",                -- Start color
+            "#5a5aff",                -- End color
           },
-          interval = 100,             -- Animation update interval in milliseconds
+          interval = 50,              -- Animation update interval in milliseconds
         },
       },
       preview = {
