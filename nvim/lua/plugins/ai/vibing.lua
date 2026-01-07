@@ -1,6 +1,7 @@
 return {
   "shabaraba/vibing.nvim",
   dev = true,
+  dir = "~/workspaces/nvim-plugins/vibing.nvim", -- worktreeのパスを指定
   build = "./build.sh",
   ft = "vibing",
   cmd = { "VibingChat", "VibingInline", "VibingContext", "VibingToggleChat" },
@@ -32,7 +33,16 @@ return {
         deny = {},
       },
       ui = {
-        wrap = "on", -- デフォルトで折り返し有効
+        wrap = "on",                  -- デフォルトで折り返し有効
+        tool_result_display = "none", -- "none", compact", "full"
+        gradient = {
+          enabled = true,             -- Enable gradient animation during AI response
+          colors = {
+            "#cc3300",                -- Start color
+            "#2f2f2f",                -- End color
+          },
+          interval = 100,             -- Animation update interval in milliseconds
+        },
       },
       preview = {
         enabled = true

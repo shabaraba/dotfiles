@@ -78,7 +78,8 @@ local FUNCTION = {
   AI = {
     OPEN_CHAT = "OPEN COPILOT CHAT",
     -- vibing
-    VIBING_CHAT = "VIBING CHAT",
+    VIBING_CHAT_CURRENT = "OPEN VIBING CHAT ON THE CURRENT BUFFER",
+    VIBING_CHAT_RIGHT = "OPEN VIBING CHAT ON THE NEW RIGHT WINDOW",
     VIBING_CONTEXT = "VIBING CONTEXT",
     VIBING_INLINE = "VIBING INLINE",
   },
@@ -154,7 +155,7 @@ local Mapping = {
   { Prefix.action .. "c",      ":Lspsaga code_action<cr>",                                                   desc = FUNCTION.LSP.CODE_ACTION,                    silent = true },
   { Prefix.action .. "cc",     "<Plug>(comment_toggle_linewise_current)",                                    desc = FUNCTION.CODING.TOGGLE_COMMENT,              mode = { "n", "x", silent = true } },
   { Prefix.action .. "cd",     function() require("neogen").generate({}) end,                                desc = FUNCTION.CODING.GENERATE_DOC_COMMENT,        silent = true },
-  { Prefix.action .. "r",      function() require("refactoring").select_refactor() end,                      desc = FUNCTION.CODING.REFACTOR,                    silent = true,                      mode = "v",                                          noremap = true, expr = false },
+  { Prefix.action .. "r",      function() require("refactoring").select_refactor() end,                      desc = FUNCTION.CODING.REFACTOR,                    silent = true,                      mode = "v",   noremap = true, expr = false },
   { Prefix.action .. "p",      function() require("telescope").extensions.yank_history.yank_history({}) end, desc = FUNCTION.OVERRIDE.OPEN_YANK_HISTORY,         silent = true },
   { "y",                       "<Plug>(YankyYank)",                                                          desc = FUNCTION.OVERRIDE.YANK,                      mode = { "n", "x", silent = true }, },
   { "p",                       "<Plug>(YankyPutAfter)",                                                      desc = FUNCTION.OVERRIDE.PASTE_AFTER,               mode = { "n", "x", silent = true }, },
@@ -165,7 +166,8 @@ local Mapping = {
   { "<c-n>",                   "<Plug>(YankyNextEntry)",                                                     desc = FUNCTION.OVERRIDE.PASTE_NEXT_YANK,           silent = true },
 
   -- vibing
-  { Prefix.ai .. 'c',          '<cmd>VibingChat<cr>',                                                        desc = FUNCTION.AI.VIBING_CHAT,                     silent = true },
+  { Prefix.ai .. 'cr',         '<cmd>VibingChat right<cr>',                                                  desc = FUNCTION.AI.VIBING_CHAT_RIGHT,               silent = true },
+  { Prefix.ai .. 'cc',         '<cmd>VibingChat current<cr>',                                                desc = FUNCTION.AI.VIBING_CHAT_CURRENT,             silent = true },
   { Prefix.ai .. 's',          '<cmd>VibingContext<cr>',                                                     desc = FUNCTION.AI.VIBING_CONTEXT,                  silent = true },
   { Prefix.ai .. 'i',          '<cmd>VibingInline<cr>',                                                      desc = FUNCTION.AI.VIBING_INLINE,                   silent = true,                      mode = 'v' },
 }
