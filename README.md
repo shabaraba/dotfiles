@@ -3,23 +3,53 @@
 
 Personal dotfiles configuration for development environment setup.
 
-# usage
+## Quick Start
 
-1. download this repository  
-    ```sh
-    git clone https://github.com/shabaraba/dotfiles.git
-    cd dotfiles 
-    ```
+### Initial Setup (First Time Only)
 
-2. install dotfiles and homebrew packages (you need to exec only once.)
-    ```sh
-    make install
-    ```
+1. Clone this repository:
+   ```sh
+   git clone https://github.com/shabaraba/dotfiles.git
+   cd dotfiles
+   ```
 
-3. deploy (you should exec for each changing dotfiles)
-    ```sh
-    make deploy
-    ```
+2. Run the installation script:
+   ```sh
+   sh install.sh
+   ```
+
+   This will:
+   - Install Homebrew (if not installed)
+   - Install mise (language version manager)
+   - Install packages from Brewfile
+   - Install Neovim and Zsh configurations
+   - Deploy dotfiles to your home directory
+
+3. Restart your shell:
+   ```sh
+   exec $SHELL -l
+   ```
+
+### Daily Usage (After Installation)
+
+Once installed, you can use mise tasks from anywhere:
+
+```sh
+# Redeploy dotfiles (after making changes)
+mise run deploy
+
+# Update dotfiles from git and redeploy
+mise run dotfiles:update
+
+# Check dotfiles git status
+mise run dotfiles:status
+
+# Update Homebrew packages
+mise run brew:update
+
+# List all available tasks
+mise tasks
+```
 
 # install
 
@@ -61,28 +91,35 @@ because we set path-mapping as belows in the configuration file.
 
 4. **Review all configurations** before using in your environment
 
+## Available mise Tasks
+
+### Dotfiles Management
+- `mise run deploy` - Deploy dotfiles symlinks
+- `mise run dotfiles:update` - Update from git and redeploy
+- `mise run dotfiles:status` - Show git status
+
+### System Maintenance
+- `mise run brew:update` - Update Homebrew and all packages
+- `mise run brew:dump` - Update Brewfile with installed packages
+- `mise run brew:check` - Check if all Brewfile packages are installed
+- `mise run cache:clean` - Clean system caches
+
+### Utilities
+- `mise run myip` - Show public IP address
+- `mise run ports` - List all listening ports
+- `mise run dns:flush` - Flush DNS cache (macOS)
+- `mise run git:cleanup` - Delete merged git branches
+- `mise run sysinfo` - Show system information
+
+Run `mise tasks` to see all available tasks with descriptions.
+
 # Brewfile Management
 
-This repository includes a `Brewfile` (located in `installers/`) to manage Homebrew packages:
-
-## Commands
-```sh
-# Install all packages from Brewfile
-brew bundle install --file=installers/Brewfile
-
-# Check if all packages are installed
-brew bundle check --file=installers/Brewfile
-
-# Update Brewfile with currently installed packages
-brew bundle dump --force --describe --file=installers/Brewfile
-
-# Remove packages not in Brewfile (be careful!)
-brew bundle cleanup --force --file=installers/Brewfile
-```
+This repository includes a `Brewfile` (located in `installers/`) to manage Homebrew packages.
 
 ## Package Categories
 - **System Tools**: bash, gnu-sed, wget
-- **Development Tools**: mise, openjdk, gh, jq, ripgrep  
+- **Development Tools**: mise, openjdk, gh, jq, ripgrep
 - **Shell & CLI Enhancement**: sheldon, zoxide, neovim
 - **GUI Applications**: claude-code, jetbrains-toolbox, wezterm
 

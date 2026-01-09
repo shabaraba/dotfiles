@@ -14,6 +14,15 @@ return {
         auto_setup = true,
         auto_configure_claude_json = true
       },
+      ollama = {
+        enabled = true,
+        model = "qwen2.5-coder:1.5b",
+        url = "http://localhost:11434",
+        timeout = 30000,
+        stream = true,
+        use_for_title = true,
+        use_for_doc = true,
+      },
       chat = {
         window = {
           position = "right",

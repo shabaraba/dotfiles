@@ -1,18 +1,22 @@
-# mise project configuration for dotfiles repository
-# This file defines tool versions for development work on dotfiles itself
+# mise global configuration
+# Managed by dotfiles repository
+#
+# This file is deployed to ~/.config/mise/config.toml
+# Tasks defined here are available from any directory
 
-[tools]
-node = "22"      # LTS (Jod) - supported until April 2027
-python = "3.13"  # Latest stable - supported until 2029
-go = "latest"
+[settings]
+# Enable idiomatic version files for common tools
+# This allows mise to read .node-version, .python-version, etc. in other projects
+idiomatic_version_file_enable_tools = ["node", "python", "ruby", "go", "java"]
 
 # =============================================================================
-# Dotfiles Management Tasks
+# Global Tasks (available from anywhere)
 # =============================================================================
 
 [tasks.deploy]
 description = "Deploy dotfiles symlinks to home directory"
 run = "sh deployer.sh"
+dir = "~/dotfiles"
 
 [tasks."dotfiles:update"]
 description = "Update dotfiles from git and redeploy"
@@ -20,14 +24,12 @@ run = """
 git pull origin main
 sh deployer.sh
 """
+dir = "~/dotfiles"
 
 [tasks."dotfiles:status"]
 description = "Show git status of dotfiles"
 run = "git status"
-
-# =============================================================================
-# System Maintenance Tasks
-# =============================================================================
+dir = "~/dotfiles"
 
 [tasks."brew:update"]
 description = "Update Homebrew and all packages"
@@ -40,10 +42,12 @@ brew cleanup
 [tasks."brew:dump"]
 description = "Update Brewfile with currently installed packages"
 run = "brew bundle dump --force --describe --file=installers/Brewfile"
+dir = "~/dotfiles"
 
 [tasks."brew:check"]
 description = "Check if all Brewfile packages are installed"
 run = "brew bundle check --file=installers/Brewfile"
+dir = "~/dotfiles"
 
 [tasks."cache:clean"]
 description = "Clean system caches"
@@ -56,10 +60,6 @@ echo "Cleaning Python cache..."
 find . -type d -name '__pycache__' -exec rm -rf {} + 2>/dev/null || true
 echo "Done!"
 """
-
-# =============================================================================
-# Utility Tasks
-# =============================================================================
 
 [tasks.myip]
 description = "Show my public IP address"
