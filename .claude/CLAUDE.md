@@ -6,8 +6,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is a dotfiles repository containing configurations for Neovim, Zsh, terminal emulators, and other development tools.
 
 ## Build/Deployment Commands
+
+### Using mise tasks (recommended)
+- `mise run install` - Full installation (brew, neovim, zsh, deploy)
+- `mise run deploy` - Deploy dotfiles to home directory
+- `mise run list` - List managed dotfiles
+- `mise run install:brew` - Install Homebrew packages
+- `mise run install:neovim` - Install/update Neovim
+- `mise run install:zsh` - Install zsh and sheldon
+- `mise tasks` - Show all available tasks
+
+### Using Makefile (legacy)
 - `make install` - Install Neovim, Zsh, and deploy dotfiles
-- `make deploy` - Deploy dotfiles to home directory 
+- `make deploy` - Deploy dotfiles to home directory
 - `sh deployer.sh` - Manual deployment script
 
 ## Project Structure

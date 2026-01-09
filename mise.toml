@@ -1,2 +1,59 @@
 [tools]
 go = "latest"
+
+[tasks.list]
+description = "Show dot files in this repo"
+run = """
+  for file in .??* bin; do
+    if [ -e "$file" ] && [ "$file" != ".DS_Store" ] && [ "$file" != ".git" ] && [ "$file" != ".gitmodules" ] && [ "$file" != ".travis.yml" ]; then
+      ls -dF "$file"
+    fi
+  done
+"""
+
+[tasks.deploy]
+description = "Deploy dotfiles to home directory (create symlinks)"
+run = "sh deployer.sh"
+
+[tasks."install:neovim"]
+description = "Install or update Neovim"
+run = """
+  os_name="macos"
+  if [ -f /etc/lsb-release ]; then
+    os_name="ubuntu"
+  elif [ -f /etc/centos-release ]; then
+    os_name="centos"
+  elif [ -f /etc/redhat-release ]; then
+    os_name="redhat"
+  fi
+  sh installers/neovim_installer.sh "$os_name"
+"""
+
+[tasks."install:zsh"]
+description = "Install zsh and sheldon"
+run = """
+  os_name="macos"
+  if [ -f /etc/lsb-release ]; then
+    os_name="ubuntu"
+  elif [ -f /etc/centos-release ]; then
+    os_name="centos"
+  elif [ -f /etc/redhat-release ]; then
+    os_name="redhat"
+  fi
+  sh installers/zsh_installer.sh "$os_name"
+"""
+
+[tasks."install:brew"]
+description = "Install Homebrew packages from Brewfile"
+run = """
+  if command -v brew >/dev/null 2>&1; then
+    brew bundle install --file=installers/Brewfile
+  else
+    echo "Homebrew not found. Please install Homebrew first."
+    exit 1
+  fi
+"""
+
+[tasks.install]
+description = "Full installation (brew packages, neovim, zsh, and deploy)"
+depends = ["install:brew", "install:neovim", "install:zsh", "deploy"]

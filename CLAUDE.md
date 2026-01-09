@@ -8,6 +8,27 @@ Personal dotfiles repository for macOS/Linux development environment configurati
 
 ## Common Commands
 
+### Using mise tasks (recommended)
+```bash
+# Full installation (brew packages, neovim, zsh, and deploy)
+mise run install
+
+# Deploy dotfiles to home directory (creates symlinks)
+mise run deploy
+
+# List managed dotfiles
+mise run list
+
+# Individual installers
+mise run install:brew      # Install Homebrew packages
+mise run install:neovim    # Install/update Neovim
+mise run install:zsh       # Install zsh and sheldon
+
+# Show all available tasks
+mise tasks
+```
+
+### Using Makefile (legacy)
 ```bash
 # Initial setup (first time only)
 make install
@@ -35,7 +56,8 @@ brew bundle check --file=installers/Brewfile
 
 ```
 dotfiles/
-├── Makefile              # Installation and deployment automation
+├── Makefile              # Installation and deployment automation (legacy)
+├── mise.toml             # mise tasks and tool versions (recommended)
 ├── deployer.sh           # Symlink creation script
 ├── installers/           # Installation scripts
 │   ├── Brewfile          # Homebrew package definitions
@@ -94,7 +116,15 @@ Private settings (API keys, tokens) are stored in `sh/zsh/private/` and excluded
 1. Add config files to appropriate directory
 2. Update `deployer.sh` to create symlinks
 3. If Homebrew package, add to `installers/Brewfile`
-4. Run `make deploy` to apply changes
+4. Run `mise run deploy` (or `make deploy`) to apply changes
+
+### Adding New mise Tasks
+
+To add new tasks to `mise.toml`:
+1. Add a new `[tasks.taskname]` section
+2. Set `description` and `run` commands
+3. Use `depends` to chain tasks together
+4. Run `mise tasks` to verify the new task appears
 
 ## Notes
 
