@@ -40,16 +40,16 @@ list: ## Show dot files in this repo
 install: ## Create symlink to home directory
 	@echo $(os_name)
 ifeq ($(os_name),'macos')
-	@echo '==> Install Homebrew packages'
+	@echo '==> Install Homebrew packages (including neovim nightly)'
 	@if command -v brew >/dev/null 2>&1; then \
 		brew bundle install --file=installers/Brewfile; \
 	else \
 		echo "Homebrew not found. Please install Homebrew first."; \
 	fi
-endif
-	@echo '==> Install neovim'
-	@echo 'sh installers/neovim_installer.sh $(os_name)'
+else
+	@echo '==> Install neovim for non-macOS'
 	@sh installers/neovim_installer.sh $(os_name)
+endif
 	@echo '==> Install zsh'
 	@sh installers/zsh_installer.sh $(os_name)
 	@echo '==> Start to deploy dotfiles to home directory.'
