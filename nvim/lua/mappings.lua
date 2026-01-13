@@ -303,6 +303,8 @@ M.misc = function()
   map('n', 'k', 'gk', { noremap = true })
 
   map('i', 'jj', '<Esc>', { noremap = true })
+  map('i', 'jk', '<Esc>', { noremap = true })
+  map('i', 'kj', '<Esc>', { noremap = true })
   map('n', '9', '$', { noremap = true })
   map('n', '}', '%', { noremap = true })
   map('n', '{', '%', { noremap = true })
