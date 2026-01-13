@@ -20,7 +20,7 @@ return {
       "vtsls",  -- ts_lsの代替（より安定）
       -- "biome",  -- 一時的に無効化（nvim-lspconfigのバグ）
       "intelephense",
-      "markdown_oxide",
+      -- "markdown_oxide",  -- 一時的に無効化（Neovim 0.12で vim.lsp._watchfiles が未実装）
       -- "jdtls",  -- nvim-jdtlsプラグインで管理
       "eslint",  -- ESLint LSPサーバー
       "bashls",
