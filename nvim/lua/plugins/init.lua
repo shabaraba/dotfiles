@@ -24,6 +24,7 @@ local spec = {
   { import = "plugins.core.treesitter" },
   { import = "plugins.colorscheme" },
   { import = "plugins.dependencies" },
+  { import = "plugins.local" },
 }
 
 if vim.g.no_plugin == 1 then
@@ -33,9 +34,9 @@ end
 require("lazy").setup({
   spec = spec,
   dev = {
-    path = "~/workspaces/nvim-plugins",
-    patterns = { "shabaraba" },  -- このユーザーのプラグインはローカル優先
-    fallback = true,  -- ローカルになければGitHubから取得
+    path = "~/workspace/nvim-plugins",
+    patterns = { "shabaraba" },
+    fallback = true,
   },
   performance = {
     cache = {

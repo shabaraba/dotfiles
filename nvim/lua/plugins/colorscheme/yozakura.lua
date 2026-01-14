@@ -1,5 +1,4 @@
 return {
-  -- dir = vim.fn.stdpath("config") .. "/lua/plugins/_developing/yozakura.nvim",
   "shabaraba/yozakura.nvim",
   lazy = false,
   dev = true,
@@ -8,7 +7,7 @@ return {
       transparent = true,
       italic_comments = false,
       dim_inactive = false,
-      palette = "teil_night",
+      palette = "teal_night",
       styles = {
         comments = { italic = true },
         keywords = { italic = false },

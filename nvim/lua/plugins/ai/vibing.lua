@@ -26,15 +26,15 @@ return {
         save_location_type = "project",
       },
       ui = {
-        wrap = "on",                  -- デフォルトで折り返し有効
-        tool_result_display = "none", -- "none", compact", "full"
+        wrap = "on",
+        tool_result_display = "none",
         gradient = {
-          enabled = true,             -- Enable gradient animation during AI response
+          enabled = true,
           colors = {
-            "#ff3300",                -- Start color
-            "#5a5aff",                -- End color
+            "#ff3300",
+            "#5a5aff",
           },
-          interval = 50,              -- Animation update interval in milliseconds
+          interval = 50,
         },
       },
       mcp = {
