@@ -1,12 +1,13 @@
 return {
   {
     "shabaraba/pile.nvim",
-    lazy = false,  -- 起動時にロード
+    lazy = false, -- 起動時にロード
+    dev = true,
     keys = require("mappings").pile,
     opts = {
       debug = {
-        enabled = false,   -- デバッグを無効化
-        level = "error",   -- エラーレベルのみ
+        enabled = false, -- デバッグを無効化
+        level = "error", -- エラーレベルのみ
         file_logging = true,
         sqlite = {
           trace_init = false,
@@ -14,15 +15,12 @@ return {
         }
       },
       session = {
-        enabled = true,
-        auto_save = true,
-        auto_load = true,
-        save_interval = 300,
-        db_path = nil,
-        save_on_exit = true,
-        clear_buffers_on_load = false
-      }
+        auto_save = true,      -- 終了時に自動保存
+        auto_restore = true,   -- 起動時に自動復元（これがポイント！）
+        preserve_order = true, -- 並び順を保持
+      },
     },
     -- config関数は削除し、プラグインのデフォルト設定に任せる
   },
 }
+
