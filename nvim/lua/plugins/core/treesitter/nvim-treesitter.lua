@@ -5,18 +5,17 @@ return {
   main = 'nvim-treesitter.configs',
   opts = {
     -- 必要最小限のパーサーのみインストール
-    ensure_installed = { 
-      "lua", 
-      "vim", 
+    ensure_installed = {
+      "lua",
+      "vim",
       "vimdoc",
       "query",
-      -- 実際に使用する言語のみ追加
       "javascript",
-      "typescript", 
-      "tsx", 
+      "typescript",
+      "tsx",
       "json",
       "yaml",
-      "markdown", 
+      "markdown",
       "markdown_inline",
     },
 
@@ -42,13 +41,21 @@ return {
       -- 追加のvim正規表現ハイライトを無効化（パフォーマンス向上）
       additional_vim_regex_highlighting = false,
     },
-    
-    indent = { 
+    -- incremental_selection = {
+    --   enable = true,
+    --   keymaps = {
+    --     init_selection = "v",        -- Enterキーで選択開始
+    --     node_incremental = "v",      -- Enterキーでさらに広げる
+    --     scope_incremental = "<Tab>", -- スコープ（関数など）単位で広げる
+    --     node_decremental = "V",      -- Backspaceで範囲を戻す
+    --   },
+    -- },
+    indent = {
       enable = true,
       -- パフォーマンスのため、特定の言語でのみ有効化
       disable = { "yaml", "python" }
     },
-    
+
     -- 不要なモジュールを無効化
     playground = { enable = false },
     textobjects = { enable = false },
