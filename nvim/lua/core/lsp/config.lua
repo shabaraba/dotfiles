@@ -133,13 +133,13 @@ M.define_server_configs = function()
     capabilities = capabilities,
   }
 
-  -- markdown_oxide (一時的に無効化: Neovim 0.12で vim.lsp._watchfiles が未実装)
-  -- vim.lsp.config.markdown_oxide = {
-  --   cmd = { mason_path .. "/bin/markdown-oxide" },
-  --   filetypes = { "markdown" },
-  --   root_markers = { ".git", ".markdownlint.json" },
-  --   capabilities = capabilities,
-  -- }
+  -- marksman (Markdown LSP)
+  vim.lsp.config.marksman = {
+    cmd = { mason_path .. "/bin/marksman", "server" },
+    filetypes = { "markdown", "markdown.mdx" },
+    root_markers = { ".marksman.toml", ".git" },
+    capabilities = capabilities,
+  }
 
   -- eslint
   vim.lsp.config.eslint = {
@@ -162,7 +162,7 @@ M.enable_servers = function()
     "intelephense",
     "bashls",
     "clangd",
-    -- "markdown_oxide",  -- 一時的に無効化
+    "marksman",
     "eslint",
   }
 

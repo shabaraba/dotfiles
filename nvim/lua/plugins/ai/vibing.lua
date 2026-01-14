@@ -1,7 +1,6 @@
 return {
   "shabaraba/vibing.nvim",
   dev = true,
-  dir = "~/workspaces/nvim-plugins/vibing.nvim", -- worktreeのパスを指定
   build = "./build.sh",
   ft = "vibing",
   cmd = { "VibingChat", "VibingInline", "VibingContext", "VibingToggleChat" },

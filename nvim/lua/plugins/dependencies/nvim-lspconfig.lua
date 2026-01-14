@@ -8,7 +8,7 @@ return {
 
     -- Neovim 0.11+ の新しいLSP設定APIを使用
     -- 参考: https://github.com/neovim/nvim-lspconfig/issues/3494
-    require("core.lsp.config-v2").setup()
+    require("core.lsp.config").setup()
 
     -- Vue Hybrid Mode: vtsls に Vue サポートを追加
     local mason_path = vim.fn.stdpath("data") .. "/mason"

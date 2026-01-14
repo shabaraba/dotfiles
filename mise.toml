@@ -5,6 +5,7 @@
 node = "22"      # LTS (Jod) - supported until April 2027
 python = "3.13"  # Latest stable - supported until 2029
 go = "latest"
+pnpm = "latest"  # Package manager - minimum 10.27.0
 
 # =============================================================================
 # Dotfiles Management Tasks
