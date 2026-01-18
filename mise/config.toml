@@ -149,7 +149,7 @@ validate_release_type() {
     local type="$1"
     local valid_types=("simple" "node" "python" "go" "rust" "ruby" "java" "php" "terraform" "helm")
 
-    for valid in "\${valid_types[@]}"; do
+    for valid in "\\${valid_types[@]}"; do
         if [ "$type" = "$valid" ]; then
             return 0
         fi
@@ -158,7 +158,7 @@ validate_release_type() {
     red "Error: Invalid release type: $type"
     echo ""
     echo "Valid release types:"
-    for valid in "\${valid_types[@]}"; do
+    for valid in "\\${valid_types[@]}"; do
         echo "  - $valid"
     done
     echo ""
@@ -204,7 +204,7 @@ validate_release_type "$RELEASE_TYPE"
 get_repo_info() {
     REMOTE_URL=$(git remote get-url origin 2>/dev/null || { red "Error: Not in a git repository or no origin remote found"; exit 1; })
 
-    if [[ $REMOTE_URL =~ github\\.com[:/]([^/]+)/([^/]+?)(\.git)?$ ]]; then
+    if [[ $REMOTE_URL =~ github\\\\.com[:/]([^/]+)/([^/]+?)(\\\\.git)?$ ]]; then
         REPO_OWNER="${BASH_REMATCH[1]}"
         REPO_NAME="${BASH_REMATCH[2]}"
     else
@@ -234,7 +234,7 @@ jobs:
     steps:
       - uses: googleapis/release-please-action@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ "{{" }} secrets.GITHUB_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
 EOF
@@ -245,7 +245,7 @@ EOF
 create_config() {
     cat > release-please-config.json <<EOF
 {
-  "\$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "\\$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
   "packages": {
     ".": {
       "release-type": "$RELEASE_TYPE",
@@ -395,7 +395,7 @@ jobs:
     steps:
       - uses: googleapis/release-please-action@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ "{{" }} secrets.GITHUB_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
 EOF
@@ -436,7 +436,7 @@ validate_release_type() {
     local type="$1"
     local valid_types=("simple" "node" "python" "go" "rust" "ruby" "java" "php" "terraform" "helm")
 
-    for valid in "\${valid_types[@]}"; do
+    for valid in "\\${valid_types[@]}"; do
         if [ "$type" = "$valid" ]; then
             return 0
         fi
@@ -478,7 +478,7 @@ validate_release_type "$RELEASE_TYPE"
 
 cat > release-please-config.json <<EOF
 {
-  "\$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "\\$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
   "packages": {
     ".": {
       "release-type": "$RELEASE_TYPE",
@@ -544,7 +544,7 @@ set -e
 # Get repository information
 REMOTE_URL=$(git remote get-url origin 2>/dev/null || { echo "Error: Not in a git repository"; exit 1; })
 
-if [[ $REMOTE_URL =~ github\\.com[:/]([^/]+)/([^/]+?)(\.git)?$ ]]; then
+if [[ $REMOTE_URL =~ github\\\\.com[:/]([^/]+)/([^/]+?)(\\\\.git)?$ ]]; then
     REPO_OWNER="${BASH_REMATCH[1]}"
     REPO_NAME="${BASH_REMATCH[2]}"
 else
