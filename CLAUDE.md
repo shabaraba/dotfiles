@@ -31,6 +31,35 @@ brew bundle dump --force --describe --file=installers/Brewfile
 brew bundle check --file=installers/Brewfile
 ```
 
+### GitHub Repository Setup (mise tasks)
+Available globally after deploying dotfiles (`make deploy`):
+
+```bash
+# Full repository initialization (all-in-one)
+mise run gh:repo-init
+
+# With custom initial version
+VERSION=1.0.0 mise run gh:repo-init
+
+# Skip branch protection setup
+SKIP_BRANCH_PROTECTION=true mise run gh:repo-init
+
+# Individual setup tasks (modular approach)
+mise run gh:repo-init:workflow  # Create release-please workflow only
+mise run gh:repo-init:config    # Create config files only
+mise run gh:repo-init:hook      # Setup pre-commit hook only
+mise run gh:repo-init:protect   # Setup GitHub protection settings only
+```
+
+**What `gh:repo-init` does:**
+1. Creates `.github/workflows/release-please.yml` for automated releases
+2. Creates `release-please-config.json` with semantic versioning setup
+3. Creates `.release-please-manifest.json` with initial version
+4. Installs pre-commit hook to prevent direct commits to main
+5. Enables auto-delete of merged branches on GitHub
+6. Grants GitHub Actions permission to create PRs
+7. Sets up branch protection (PR-required, enforced for admins)
+
 ## Repository Structure
 
 ```
@@ -59,6 +88,8 @@ dotfiles/
 │   ├── settings.json     # Claude settings
 │   ├── agents/           # Custom agent definitions
 │   └── commands/         # Custom slash commands
+├── mise/                 # mise task manager configuration
+│   └── config.toml       # Global tasks (→ ~/.config/mise/config.toml)
 ├── terminal/wezterm/     # WezTerm terminal config
 └── cursor/cursorrules    # Cursor IDE rules (→ ~/.cursorrules)
 ```
@@ -70,6 +101,7 @@ The `deployer.sh` script creates symlinks from this repo to home directory:
 - Shell configs → `~/.zshrc`, `~/.zshenv`, `~/.zsh/`
 - Neovim → `~/.config/nvim`
 - Claude Code → `~/.claude/`
+- mise → `~/.config/mise/config.toml`
 - WezTerm → `~/.config/wezterm`
 
 ### Shell Configuration
