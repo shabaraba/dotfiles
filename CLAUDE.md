@@ -41,8 +41,16 @@ mise run gh:repo-init
 # With custom initial version
 VERSION=1.0.0 mise run gh:repo-init
 
+# With custom release type (default: simple)
+RELEASE_TYPE=node mise run gh:repo-init
+RELEASE_TYPE=python mise run gh:repo-init
+RELEASE_TYPE=go mise run gh:repo-init
+
 # Skip branch protection setup
 SKIP_BRANCH_PROTECTION=true mise run gh:repo-init
+
+# Combine multiple options
+VERSION=1.0.0 RELEASE_TYPE=rust mise run gh:repo-init
 
 # Individual setup tasks (modular approach)
 mise run gh:repo-init:workflow  # Create release-please workflow only
@@ -50,6 +58,19 @@ mise run gh:repo-init:config    # Create config files only
 mise run gh:repo-init:hook      # Setup pre-commit hook only
 mise run gh:repo-init:protect   # Setup GitHub protection settings only
 ```
+
+**Environment variables:**
+- `VERSION`: Initial version (default: `0.1.0`)
+- `RELEASE_TYPE`: Project type for release-please (default: `simple`)
+  - `simple` - Generic projects (default, language-agnostic)
+  - `node` - Node.js/JavaScript/TypeScript projects
+  - `python` - Python projects
+  - `go` - Go projects
+  - `rust` - Rust projects
+  - `ruby` - Ruby projects
+  - `java` - Java projects
+  - `php` - PHP projects
+- `SKIP_BRANCH_PROTECTION`: Skip branch protection setup (default: `false`)
 
 **What `gh:repo-init` does:**
 1. Creates `.github/workflows/release-please.yml` for automated releases

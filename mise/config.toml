@@ -107,6 +107,7 @@ set -e
 
 # Default options
 VERSION="${VERSION:-0.1.0}"
+RELEASE_TYPE="${RELEASE_TYPE:-simple}"
 SKIP_BRANCH_PROTECTION="${SKIP_BRANCH_PROTECTION:-false}"
 
 # Color output functions
@@ -158,12 +159,12 @@ EOF
 
 # Create release-please config file
 create_config() {
-    cat > release-please-config.json <<'EOF'
+    cat > release-please-config.json <<EOF
 {
-  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "\$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
   "packages": {
     ".": {
-      "release-type": "node",
+      "release-type": "$RELEASE_TYPE",
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
       "include-component-in-tag": false,
@@ -179,7 +180,7 @@ create_config() {
   }
 }
 EOF
-    green "✓ Created release-please-config.json"
+    green "✓ Created release-please-config.json (release-type: $RELEASE_TYPE)"
 }
 
 # Create release-please manifest file
@@ -316,13 +317,14 @@ echo "✓ Created .github/workflows/release-please.yml"
 description = "Create release-please config files only"
 run = """#!/usr/bin/env bash
 VERSION="${VERSION:-0.1.0}"
+RELEASE_TYPE="${RELEASE_TYPE:-simple}"
 
-cat > release-please-config.json <<'EOF'
+cat > release-please-config.json <<EOF
 {
-  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "\$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
   "packages": {
     ".": {
-      "release-type": "node",
+      "release-type": "$RELEASE_TYPE",
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
       "include-component-in-tag": false,
@@ -345,7 +347,7 @@ cat > .release-please-manifest.json <<EOF
 }
 EOF
 
-echo "✓ Created release-please-config.json"
+echo "✓ Created release-please-config.json (release-type: $RELEASE_TYPE)"
 echo "✓ Created .release-please-manifest.json (v$VERSION)"
 """
 
