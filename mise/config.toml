@@ -105,16 +105,100 @@ description = "Initialize repository with release-please and branch protection"
 run = """#!/usr/bin/env bash
 set -e
 
-# Default options
-VERSION="${VERSION:-0.1.0}"
-RELEASE_TYPE="${RELEASE_TYPE:-simple}"
-SKIP_BRANCH_PROTECTION="${SKIP_BRANCH_PROTECTION:-false}"
-
 # Color output functions
 green() { echo -e "\\033[32m$1\\033[0m"; }
 blue() { echo -e "\\033[34m$1\\033[0m"; }
 yellow() { echo -e "\\033[33m$1\\033[0m"; }
 red() { echo -e "\\033[31m$1\\033[0m"; }
+
+# Show help message
+show_help() {
+    cat <<'HELP'
+Usage: mise run gh:repo-init [OPTIONS]
+
+Initialize GitHub repository with release-please and branch protection.
+
+Options:
+  -v, --version <version>        Initial version (default: 0.1.0)
+  -t, --release-type <type>      Release type (default: simple)
+  --skip-branch-protection       Skip branch protection setup
+  -h, --help                     Show this help message
+
+Valid release types:
+  simple     - Generic projects (language-agnostic)
+  node       - Node.js/JavaScript/TypeScript
+  python     - Python
+  go         - Go
+  rust       - Rust
+  ruby       - Ruby
+  java       - Java
+  php        - PHP
+  terraform  - Terraform
+  helm       - Helm charts
+
+Examples:
+  mise run gh:repo-init
+  mise run gh:repo-init --version 1.0.0 --release-type node
+  mise run gh:repo-init -v 2.0.0 -t python --skip-branch-protection
+HELP
+    exit 0
+}
+
+# Validate release type
+validate_release_type() {
+    local type="$1"
+    local valid_types=("simple" "node" "python" "go" "rust" "ruby" "java" "php" "terraform" "helm")
+
+    for valid in "\${valid_types[@]}"; do
+        if [ "$type" = "$valid" ]; then
+            return 0
+        fi
+    done
+
+    red "Error: Invalid release type: $type"
+    echo ""
+    echo "Valid release types:"
+    for valid in "\${valid_types[@]}"; do
+        echo "  - $valid"
+    done
+    echo ""
+    echo "Use --help for more information"
+    exit 1
+}
+
+# Default options
+VERSION="${VERSION:-0.1.0}"
+RELEASE_TYPE="${RELEASE_TYPE:-simple}"
+SKIP_BRANCH_PROTECTION="${SKIP_BRANCH_PROTECTION:-false}"
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -h|--help)
+            show_help
+            ;;
+        -v|--version)
+            VERSION="$2"
+            shift 2
+            ;;
+        -t|--release-type)
+            RELEASE_TYPE="$2"
+            shift 2
+            ;;
+        --skip-branch-protection)
+            SKIP_BRANCH_PROTECTION="true"
+            shift
+            ;;
+        *)
+            red "Error: Unknown option: $1"
+            echo "Use --help for usage information"
+            exit 1
+            ;;
+    esac
+done
+
+# Validate release type
+validate_release_type "$RELEASE_TYPE"
 
 # Get repository information from git remote
 get_repo_info() {
@@ -277,6 +361,11 @@ if [ "$SKIP_BRANCH_PROTECTION" != "true" ]; then
 fi
 
 green "\\n✓ Repository setup complete!\\n"
+blue "Configuration:"
+echo "  Version: $VERSION"
+echo "  Release type: $RELEASE_TYPE"
+echo "  Branch protection: $([ "$SKIP_BRANCH_PROTECTION" = "true" ] && echo "disabled" || echo "enabled")"
+echo ""
 yellow "Next steps:"
 echo "  1. Commit and push the created files"
 echo "  2. Merge to main branch via PR"
@@ -316,8 +405,76 @@ echo "✓ Created .github/workflows/release-please.yml"
 [tasks."gh:repo-init:config"]
 description = "Create release-please config files only"
 run = """#!/usr/bin/env bash
+set -e
+
+# Color output functions
+green() { echo -e "\\033[32m$1\\033[0m"; }
+red() { echo -e "\\033[31m$1\\033[0m"; }
+
+# Show help message
+show_help() {
+    cat <<'HELP'
+Usage: mise run gh:repo-init:config [OPTIONS]
+
+Create release-please configuration files only.
+
+Options:
+  -v, --version <version>        Initial version (default: 0.1.0)
+  -t, --release-type <type>      Release type (default: simple)
+  -h, --help                     Show this help message
+
+Valid release types:
+  simple, node, python, go, rust, ruby, java, php, terraform, helm
+
+Use 'mise run gh:repo-init --help' for detailed information.
+HELP
+    exit 0
+}
+
+# Validate release type
+validate_release_type() {
+    local type="$1"
+    local valid_types=("simple" "node" "python" "go" "rust" "ruby" "java" "php" "terraform" "helm")
+
+    for valid in "\${valid_types[@]}"; do
+        if [ "$type" = "$valid" ]; then
+            return 0
+        fi
+    done
+
+    red "Error: Invalid release type: $type"
+    echo "Valid types: simple, node, python, go, rust, ruby, java, php, terraform, helm"
+    exit 1
+}
+
+# Default options
 VERSION="${VERSION:-0.1.0}"
 RELEASE_TYPE="${RELEASE_TYPE:-simple}"
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -h|--help)
+            show_help
+            ;;
+        -v|--version)
+            VERSION="$2"
+            shift 2
+            ;;
+        -t|--release-type)
+            RELEASE_TYPE="$2"
+            shift 2
+            ;;
+        *)
+            red "Error: Unknown option: $1"
+            echo "Use --help for usage information"
+            exit 1
+            ;;
+    esac
+done
+
+# Validate release type
+validate_release_type "$RELEASE_TYPE"
 
 cat > release-please-config.json <<EOF
 {

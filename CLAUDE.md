@@ -35,42 +35,52 @@ brew bundle check --file=installers/Brewfile
 Available globally after deploying dotfiles (`make deploy`):
 
 ```bash
-# Full repository initialization (all-in-one)
+# Show help message
+mise run gh:repo-init --help
+
+# Full repository initialization (all-in-one, default settings)
 mise run gh:repo-init
 
-# With custom initial version
+# Using CLI arguments (recommended)
+mise run gh:repo-init --version 1.0.0 --release-type node
+mise run gh:repo-init -v 2.0.0 -t python
+mise run gh:repo-init -v 1.0.0 -t go --skip-branch-protection
+
+# Using environment variables (also supported)
 VERSION=1.0.0 mise run gh:repo-init
-
-# With custom release type (default: simple)
 RELEASE_TYPE=node mise run gh:repo-init
-RELEASE_TYPE=python mise run gh:repo-init
-RELEASE_TYPE=go mise run gh:repo-init
-
-# Skip branch protection setup
-SKIP_BRANCH_PROTECTION=true mise run gh:repo-init
-
-# Combine multiple options
 VERSION=1.0.0 RELEASE_TYPE=rust mise run gh:repo-init
 
 # Individual setup tasks (modular approach)
 mise run gh:repo-init:workflow  # Create release-please workflow only
-mise run gh:repo-init:config    # Create config files only
+mise run gh:repo-init:config --help  # Show help for config task
+mise run gh:repo-init:config -v 1.0.0 -t node  # Create config files only
 mise run gh:repo-init:hook      # Setup pre-commit hook only
 mise run gh:repo-init:protect   # Setup GitHub protection settings only
 ```
 
-**Environment variables:**
-- `VERSION`: Initial version (default: `0.1.0`)
-- `RELEASE_TYPE`: Project type for release-please (default: `simple`)
-  - `simple` - Generic projects (default, language-agnostic)
-  - `node` - Node.js/JavaScript/TypeScript projects
-  - `python` - Python projects
-  - `go` - Go projects
-  - `rust` - Rust projects
-  - `ruby` - Ruby projects
-  - `java` - Java projects
-  - `php` - PHP projects
-- `SKIP_BRANCH_PROTECTION`: Skip branch protection setup (default: `false`)
+**CLI Options:**
+- `-v, --version <version>` - Initial version (default: `0.1.0`)
+- `-t, --release-type <type>` - Project type for release-please (default: `simple`)
+- `--skip-branch-protection` - Skip branch protection setup
+- `-h, --help` - Show help message
+
+**Valid release types:**
+- `simple` - Generic projects (language-agnostic)
+- `node` - Node.js/JavaScript/TypeScript
+- `python` - Python
+- `go` - Go
+- `rust` - Rust
+- `ruby` - Ruby
+- `java` - Java
+- `php` - PHP
+- `terraform` - Terraform
+- `helm` - Helm charts
+
+**Environment variables** (alternative to CLI options):
+- `VERSION` - Same as `--version`
+- `RELEASE_TYPE` - Same as `--release-type`
+- `SKIP_BRANCH_PROTECTION` - Set to `true` to skip branch protection
 
 **What `gh:repo-init` does:**
 1. Creates `.github/workflows/release-please.yml` for automated releases
