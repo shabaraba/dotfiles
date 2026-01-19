@@ -2,6 +2,7 @@ theme = Iceberg Dark
 # theme = Gruvbox Light
 
 maximize = true
+window-save-state = always
 font-family = PlemolJP35 Console NF
 background-opacity = 0.8
 macos-titlebar-style = tabs
@@ -12,7 +13,8 @@ font-thicken = true
 keybind = ctrl+h=goto_split:left
 keybind = ctrl+l=goto_split:right
 window-inherit-working-directory = true
-shell-integration = detect
+# shell-integration-features = ssh-terminfo,ssh-env
+term = xterm-256color
 
 # 形状 block / bar / underline / block_hollow
 cursor-style = block_hollow
