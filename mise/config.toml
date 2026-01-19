@@ -95,3 +95,27 @@ echo "Python: $(python --version 2>/dev/null || echo 'not installed')"
 echo "mise: $(mise --version)"
 echo "Homebrew: $(brew --version | head -n 1)"
 """
+
+# =============================================================================
+# GitHub Repository Setup Tasks
+# =============================================================================
+
+[tasks."gh:repo-init"]
+description = "Initialize repository with release-please and branch protection"
+run = "bash \"$HOME/dotfiles/mise/scripts/gh-repo-init.sh\" \"$@\""
+
+[tasks."gh:repo-init:workflow"]
+description = "Create release-please workflow file only"
+run = "bash \"$HOME/dotfiles/mise/scripts/gh-repo-init-workflow.sh\""
+
+[tasks."gh:repo-init:config"]
+description = "Create release-please config files only"
+run = "bash \"$HOME/dotfiles/mise/scripts/gh-repo-init-config.sh\" \"$@\""
+
+[tasks."gh:repo-init:hook"]
+description = "Setup pre-commit hook to prevent commits to main"
+run = "bash \"$HOME/dotfiles/mise/scripts/gh-repo-init-hook.sh\""
+
+[tasks."gh:repo-init:protect"]
+description = "Setup GitHub repository protection settings"
+run = "bash \"$HOME/dotfiles/mise/scripts/gh-repo-init-protect.sh\""
