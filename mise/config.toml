@@ -149,7 +149,7 @@ validate_release_type() {
     local type="$1"
     local valid_types=("simple" "node" "python" "go" "rust" "ruby" "java" "php" "terraform" "helm")
 
-    for valid in "\\${valid_types[@]}"; do
+    for valid in "${valid_types[@]}"; do
         if [ "$type" = "$valid" ]; then
             return 0
         fi
@@ -158,7 +158,7 @@ validate_release_type() {
     red "Error: Invalid release type: $type"
     echo ""
     echo "Valid release types:"
-    for valid in "\\${valid_types[@]}"; do
+    for valid in "${valid_types[@]}"; do
         echo "  - $valid"
     done
     echo ""
@@ -178,10 +178,20 @@ while [[ $# -gt 0 ]]; do
             show_help
             ;;
         -v|--version)
+            if [[ -z "$2" || "$2" == -* ]]; then
+                red "Error: --version requires a value"
+                echo "Use --help for usage information"
+                exit 1
+            fi
             VERSION="$2"
             shift 2
             ;;
         -t|--release-type)
+            if [[ -z "$2" || "$2" == -* ]]; then
+                red "Error: --release-type requires a value"
+                echo "Use --help for usage information"
+                exit 1
+            fi
             RELEASE_TYPE="$2"
             shift 2
             ;;
@@ -204,9 +214,11 @@ validate_release_type "$RELEASE_TYPE"
 get_repo_info() {
     REMOTE_URL=$(git remote get-url origin 2>/dev/null || { red "Error: Not in a git repository or no origin remote found"; exit 1; })
 
-    if [[ $REMOTE_URL =~ github\\\\.com[:/]([^/]+)/([^/]+?)(\\\\.git)?$ ]]; then
+    if [[ $REMOTE_URL =~ github\\.com[:/]([^/]+)/(.+)$ ]]; then
         REPO_OWNER="${BASH_REMATCH[1]}"
         REPO_NAME="${BASH_REMATCH[2]}"
+        # Remove .git suffix if present
+        REPO_NAME="${REPO_NAME%.git}"
     else
         red "Error: Could not parse GitHub repository from git remote"
         exit 1
@@ -436,7 +448,7 @@ validate_release_type() {
     local type="$1"
     local valid_types=("simple" "node" "python" "go" "rust" "ruby" "java" "php" "terraform" "helm")
 
-    for valid in "\\${valid_types[@]}"; do
+    for valid in "${valid_types[@]}"; do
         if [ "$type" = "$valid" ]; then
             return 0
         fi
@@ -458,10 +470,20 @@ while [[ $# -gt 0 ]]; do
             show_help
             ;;
         -v|--version)
+            if [[ -z "$2" || "$2" == -* ]]; then
+                red "Error: --version requires a value"
+                echo "Use --help for usage information"
+                exit 1
+            fi
             VERSION="$2"
             shift 2
             ;;
         -t|--release-type)
+            if [[ -z "$2" || "$2" == -* ]]; then
+                red "Error: --release-type requires a value"
+                echo "Use --help for usage information"
+                exit 1
+            fi
             RELEASE_TYPE="$2"
             shift 2
             ;;
@@ -544,9 +566,11 @@ set -e
 # Get repository information
 REMOTE_URL=$(git remote get-url origin 2>/dev/null || { echo "Error: Not in a git repository"; exit 1; })
 
-if [[ $REMOTE_URL =~ github\\\\.com[:/]([^/]+)/([^/]+?)(\\\\.git)?$ ]]; then
+if [[ $REMOTE_URL =~ github\\.com[:/]([^/]+)/(.+)$ ]]; then
     REPO_OWNER="${BASH_REMATCH[1]}"
     REPO_NAME="${BASH_REMATCH[2]}"
+    # Remove .git suffix if present
+    REPO_NAME="${REPO_NAME%.git}"
 else
     echo "Error: Could not parse GitHub repository from git remote"
     exit 1
