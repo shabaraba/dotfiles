@@ -4,12 +4,17 @@ set -e
 # Setup pre-commit hook to prevent commits to main
 # This script is part of gh:repo-init task suite
 
-if [ ! -d .git/hooks ]; then
-    echo "Error: .git directory not found. Make sure you are in a git repository."
+# Resolve the git hooks directory
+HOOKS_DIR=$(git rev-parse --git-path hooks 2>/dev/null)
+if [ $? -ne 0 ] || [ -z "$HOOKS_DIR" ]; then
+    echo "Error: Not in a git repository or unable to resolve hooks directory."
     exit 1
 fi
 
-cat > .git/hooks/pre-commit <<'EOF'
+# Create hooks directory if it doesn't exist
+mkdir -p "$HOOKS_DIR"
+
+cat > "$HOOKS_DIR/pre-commit" <<'EOF'
 #!/bin/sh
 # Prevent commits directly to main branch
 
@@ -25,5 +30,5 @@ if [ "$BRANCH" = "main" ]; then
 fi
 EOF
 
-chmod +x .git/hooks/pre-commit
+chmod +x "$HOOKS_DIR/pre-commit"
 echo "✓ Pre-commit hook installed (prevents commits to main)"
