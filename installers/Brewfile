@@ -60,4 +60,6 @@ brew "shaba-cli"
 cask "claude-code"
 # GPU-accelerated cross-platform terminal emulator and multiplexer
 cask "wezterm@nightly"
+# Fast, feature-rich, cross-platform terminal emulator (macOS only)
+# Note: On Linux/Ubuntu, use ubuntu_installer.sh which installs via .deb package
 cask "ghostty"

@@ -66,7 +66,7 @@ export PATH="$PATH:/Users/t002451/go/bin"
 # docker compose for better performance
 export COMPOSE_BAKE=true
 
-export PATH="~/.local/bin:$PATH"
+export PATH="$HOME/.local/nvim/bin:$HOME/.local/bin:$PATH"
 
 # nvmを無効化（miseに一本化）
 # export NVM_DIR="$HOME/.nvm"

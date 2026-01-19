@@ -85,10 +85,19 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 unset ANDROID_SDK_ROOT
 
 # mise
-eval "$(mise activate zsh)"
+if command -v mise &> /dev/null; then
+  eval "$(mise activate zsh)"
+elif [[ -f "$HOME/.local/bin/mise" ]]; then
+  eval "$($HOME/.local/bin/mise activate zsh)"
+fi
 
 # zoxide initialization
-eval "$(/opt/homebrew/bin/zoxide init zsh)"
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh)"
+elif [[ -f "/opt/homebrew/bin/zoxide" ]]; then
+  eval "$(/opt/homebrew/bin/zoxide init zsh)"
+fi
+
 export PATH="$HOME/.local/bin:$PATH"
 
 # Added by Antigravity

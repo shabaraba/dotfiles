@@ -4,10 +4,22 @@
 # This file is deployed to ~/.config/mise/config.toml
 # Tasks defined here are available from any directory
 
+[env]
+DOTFILES_DIR = "{{env.HOME}}/workspace/dotfiles"
+
 [settings]
 # Enable idiomatic version files for common tools
 # This allows mise to read .node-version, .python-version, etc. in other projects
 idiomatic_version_file_enable_tools = ["node", "python", "ruby", "go", "java"]
+
+# =============================================================================
+# Default Tool Versions (for dotfiles repository development)
+# =============================================================================
+[tools]
+node = "22"      # LTS (Jod) - supported until April 2027
+python = "3.13"  # Latest stable - supported until 2029
+go = "latest"
+pnpm = "latest"  # Package manager - minimum 10.27.0
 
 # =============================================================================
 # Global Tasks (available from anywhere)
@@ -15,21 +27,21 @@ idiomatic_version_file_enable_tools = ["node", "python", "ruby", "go", "java"]
 
 [tasks.deploy]
 description = "Deploy dotfiles symlinks to home directory"
-run = "sh deployer.sh"
-dir = "~/dotfiles"
+run = "bash deployer.sh"
+dir = "{{env.DOTFILES_DIR}}"
 
 [tasks."dotfiles:update"]
 description = "Update dotfiles from git and redeploy"
 run = """
 git pull origin main
-sh deployer.sh
+bash deployer.sh
 """
-dir = "~/dotfiles"
+dir = "{{env.DOTFILES_DIR}}"
 
 [tasks."dotfiles:status"]
 description = "Show git status of dotfiles"
 run = "git status"
-dir = "~/dotfiles"
+dir = "{{env.DOTFILES_DIR}}"
 
 [tasks."brew:update"]
 description = "Update Homebrew and all packages"
@@ -42,12 +54,12 @@ brew cleanup
 [tasks."brew:dump"]
 description = "Update Brewfile with currently installed packages"
 run = "brew bundle dump --force --describe --file=installers/Brewfile"
-dir = "~/dotfiles"
+dir = "{{env.DOTFILES_DIR}}"
 
 [tasks."brew:check"]
 description = "Check if all Brewfile packages are installed"
 run = "brew bundle check --file=installers/Brewfile"
-dir = "~/dotfiles"
+dir = "{{env.DOTFILES_DIR}}"
 
 [tasks."cache:clean"]
 description = "Clean system caches"

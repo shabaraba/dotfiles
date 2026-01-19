@@ -3,93 +3,55 @@
 
 Personal dotfiles configuration for development environment setup.
 
+## Entry Points (簡潔なエントリーポイント)
+
+| 用途 | コマンド |
+|------|----------|
+| **初回セットアップ** | `make install` |
+| **日常操作（deploy等）** | `mise run deploy`, `mise run dotfiles:update` 等 |
+
 ## Quick Start
 
-### Initial Setup (First Time Only)
-
-1. Clone this repository:
-   ```sh
-   git clone https://github.com/shabaraba/dotfiles.git
-   cd dotfiles
-   ```
-
-2. Run the installation script:
-   ```sh
-   sh install.sh
-   ```
-
-   This will:
-   - Install Homebrew (if not installed)
-   - Install mise (language version manager)
-   - Install packages from Brewfile
-   - Install Neovim and Zsh configurations
-   - Deploy dotfiles to your home directory
-
-3. Restart your shell:
-   ```sh
-   exec $SHELL -l
-   ```
-
-### Daily Usage (After Installation)
-
-Once installed, you can use mise tasks from anywhere:
+### 1. Initial Setup (初回のみ)
 
 ```sh
-# Redeploy dotfiles (after making changes)
-mise run deploy
-
-# Update dotfiles from git and redeploy
-mise run dotfiles:update
-
-# Check dotfiles git status
-mise run dotfiles:status
-
-# Update Homebrew packages
-mise run brew:update
-
-# List all available tasks
-mise tasks
+git clone https://github.com/shabaraba/dotfiles.git
+cd dotfiles
+make install
 ```
 
-# install
+OSを自動検出し、以下を実行します：
+- **macOS**: Homebrewパッケージをインストール
+- **Ubuntu**: sudo有無を選択してインストーラーを実行
+- dotfilesをホームディレクトリにデプロイ
 
-Executing [the above command](#usage), you can install as following:
+### 2. Restart Shell
 
-- neovim
-- zinit
+```sh
+exec $SHELL -l
+```
 
-## NOTICE
+### 3. Daily Operations (日常操作)
 
-if you use not `.vimspector.json` in your project root
-but configuration files in .vimspector-config/\* to debug,  
-you have to set your project root to `/var/www/html/src`
-and launch neovim in your project root
-because we set path-mapping as belows in the configuration file.
+インストール後は**mise tasks**を使用します：
 
-```json
-{"/var/www/html/src": "${cwd}"}
+```sh
+mise run deploy           # dotfilesを再デプロイ
+mise run dotfiles:update  # git pullして再デプロイ
+mise run dotfiles:status  # git statusを確認
+mise tasks                # 全タスク一覧
 ```
 
 ## Security Notice
 
-⚠️ **Important**: Before using these dotfiles, please configure your private settings:
+⚠️ 使用前にプライベート設定を構成してください：
 
-1. Copy example files and update with your credentials:
-   ```sh
-   cp sh/zsh/private/env.zsh.example sh/zsh/private/env.zsh
-   cp sh/zsh/private/alias.zsh.example sh/zsh/private/alias.zsh
-   ```
+```sh
+cp sh/zsh/private/env.zsh.example sh/zsh/private/env.zsh
+cp sh/zsh/private/alias.zsh.example sh/zsh/private/alias.zsh
+```
 
-2. Update placeholders in private files with your actual values:
-   - `YOUR_GITHUB_TOKEN`: Your GitHub personal access token
-   - `YOUR_CLAUDE_API_TOKEN`: Your Claude API key
-   - `YOUR_COMPANY_DOMAIN`: Your company's domain
-   - `YOUR_USERNAME`: Your username
-   - Other placeholder values as needed
-
-3. **Never commit private files** - they are already in `.gitignore`
-
-4. **Review all configurations** before using in your environment
+プレースホルダーを実際の値に更新してください。
 
 ## Available mise Tasks
 
@@ -111,15 +73,28 @@ because we set path-mapping as belows in the configuration file.
 - `mise run git:cleanup` - Delete merged git branches
 - `mise run sysinfo` - Show system information
 
+### GitHub Repository Setup
+- `mise run gh:repo-init` - Initialize repository with release-please
+- `mise run gh:repo-init --help` - Show detailed options
+
 Run `mise tasks` to see all available tasks with descriptions.
 
-# Brewfile Management
+## Brewfile Management
 
-This repository includes a `Brewfile` (located in `installers/`) to manage Homebrew packages.
-
-## Package Categories
+Brewfile is located in `installers/Brewfile`. Categories include:
 - **System Tools**: bash, gnu-sed, wget
 - **Development Tools**: mise, openjdk, gh, jq, ripgrep
 - **Shell & CLI Enhancement**: sheldon, zoxide, neovim
 - **GUI Applications**: claude-code, jetbrains-toolbox, wezterm
 
+## NOTICE
+
+if you use not `.vimspector.json` in your project root
+but configuration files in .vimspector-config/\* to debug,
+you have to set your project root to `/var/www/html/src`
+and launch neovim in your project root
+because we set path-mapping as belows in the configuration file.
+
+```json
+{"/var/www/html/src": "${cwd}"}
+```

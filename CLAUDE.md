@@ -6,57 +6,55 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Personal dotfiles repository for macOS/Linux development environment configuration. Manages shell (zsh), editor (neovim), terminal (wezterm), and AI tool configurations (Claude Code, Cursor).
 
+## Entry Points (エントリーポイント)
+
+| 用途 | コマンド |
+|------|----------|
+| **初回セットアップ** | `make install` |
+| **日常操作** | `mise run deploy`, `mise run dotfiles:update` 等 |
+
+※ `install.sh`や`make deploy`は削除済み。deployer.shは内部スクリプトとして使用。
+
 ## Common Commands
 
+### Initial Setup
+
 ```bash
-# Initial setup (first time only)
+git clone https://github.com/shabaraba/dotfiles.git
+cd dotfiles
 make install
-
-# Deploy dotfiles to home directory (creates symlinks)
-make deploy
-
-# List managed dotfiles
-make list
 ```
 
-### Homebrew Package Management
+OSを自動検出：
+- **macOS**: Homebrewパッケージをインストール
+- **Ubuntu**: sudo有無を選択してインストーラーを実行
+- **その他**: 手動でツールをインストール後、dotfilesをデプロイ
+
+### Daily Operations (mise tasks)
+
 ```bash
-# Install all packages from Brewfile
-brew bundle install --file=installers/Brewfile
+mise run deploy           # dotfilesを再デプロイ
+mise run dotfiles:update  # git pullして再デプロイ
+mise run dotfiles:status  # git statusを確認
+mise tasks                # 全タスク一覧
+make list                 # 管理対象のdotfiles一覧
+```
 
-# Update Brewfile with currently installed packages
-brew bundle dump --force --describe --file=installers/Brewfile
+### Homebrew Package Management (macOS only)
 
-# Check if all packages are installed
-brew bundle check --file=installers/Brewfile
+```bash
+brew bundle install --file=installers/Brewfile   # パッケージをインストール
+brew bundle dump --force --describe --file=installers/Brewfile  # Brewfileを更新
+brew bundle check --file=installers/Brewfile     # インストール状態を確認
 ```
 
 ### GitHub Repository Setup (mise tasks)
-Available globally after deploying dotfiles (`make deploy`):
 
 ```bash
-# Show help message
-mise run gh:repo-init --help
-
-# Full repository initialization (all-in-one, default settings)
-mise run gh:repo-init
-
-# Using CLI arguments (recommended)
-mise run gh:repo-init --version 1.0.0 --release-type node
-mise run gh:repo-init -v 2.0.0 -t python
-mise run gh:repo-init -v 1.0.0 -t go --skip-branch-protection
-
-# Using environment variables (also supported)
-VERSION=1.0.0 mise run gh:repo-init
-RELEASE_TYPE=node mise run gh:repo-init
-VERSION=1.0.0 RELEASE_TYPE=rust mise run gh:repo-init
-
-# Individual setup tasks (modular approach)
-mise run gh:repo-init:workflow  # Create release-please workflow only
-mise run gh:repo-init:config --help  # Show help for config task
-mise run gh:repo-init:config -v 1.0.0 -t node  # Create config files only
-mise run gh:repo-init:hook      # Setup pre-commit hook only
-mise run gh:repo-init:protect   # Setup GitHub protection settings only
+mise run gh:repo-init --help             # ヘルプ表示
+mise run gh:repo-init                    # フル初期化
+mise run gh:repo-init -v 1.0.0 -t node   # バージョン・タイプ指定
+mise run gh:repo-init -v 1.0.0 -t go --skip-branch-protection  # ブランチ保護スキップ
 ```
 
 **CLI Options:**
@@ -65,22 +63,7 @@ mise run gh:repo-init:protect   # Setup GitHub protection settings only
 - `--skip-branch-protection` - Skip branch protection setup
 - `-h, --help` - Show help message
 
-**Valid release types:**
-- `simple` - Generic projects (language-agnostic)
-- `node` - Node.js/JavaScript/TypeScript
-- `python` - Python
-- `go` - Go
-- `rust` - Rust
-- `ruby` - Ruby
-- `java` - Java
-- `php` - PHP
-- `terraform` - Terraform
-- `helm` - Helm charts
-
-**Environment variables** (alternative to CLI options):
-- `VERSION` - Same as `--version`
-- `RELEASE_TYPE` - Same as `--release-type`
-- `SKIP_BRANCH_PROTECTION` - Set to `true` to skip branch protection
+**Valid release types:** simple, node, python, go, rust, ruby, java, php, terraform, helm
 
 **What `gh:repo-init` does:**
 1. Creates `.github/workflows/release-please.yml` for automated releases
@@ -95,16 +78,17 @@ mise run gh:repo-init:protect   # Setup GitHub protection settings only
 
 ```
 dotfiles/
-├── Makefile              # Installation and deployment automation
-├── deployer.sh           # Symlink creation script
-├── installers/           # Installation scripts
-│   ├── Brewfile          # Homebrew package definitions
+├── Makefile              # 初回セットアップ用 (make install, make list)
+├── deployer.sh           # 内部スクリプト (symlink作成)
+├── installers/           # インストーラースクリプト
+│   ├── Brewfile          # Homebrewパッケージ定義
+│   ├── ubuntu_installer.sh
+│   ├── ubuntu_userspace_installer.sh
 │   ├── neovim_installer.sh
 │   └── zsh_installer.sh
-├── sh/                   # Shell configuration
-│   ├── .zshrc            # Main zsh config (→ ~/.zshrc)
-│   ├── .zshenv           # Environment variables (→ ~/.zshenv)
-│   └── zsh/              # Modular zsh configs
+├── sh/                   # シェル設定
+│   ├── .zshrc, .zshenv, .zprofile
+│   └── zsh/              # モジュラー設定
 │       ├── public/       # Public configs (alias, prompt, etc.)
 │       ├── private/      # Private configs (API keys, tokens)
 │       ├── sheldon/      # Plugin manager configuration
@@ -121,33 +105,40 @@ dotfiles/
 │   └── commands/         # Custom slash commands
 ├── mise/                 # mise task manager configuration
 │   └── config.toml       # Global tasks (→ ~/.config/mise/config.toml)
-├── terminal/wezterm/     # WezTerm terminal config
+├── terminal/
+│   ├── wezterm/          # WezTerm terminal config (→ ~/.config/wezterm)
+│   └── ghostty/          # Ghostty terminal config (→ ~/.config/ghostty)
 └── cursor/cursorrules    # Cursor IDE rules (→ ~/.cursorrules)
 ```
 
 ## Key Architecture
 
 ### Symlink Strategy
-The `deployer.sh` script creates symlinks from this repo to home directory:
+
+deployer.shがシンボリックリンクを作成：
 - Shell configs → `~/.zshrc`, `~/.zshenv`, `~/.zsh/`
 - Neovim → `~/.config/nvim`
 - Claude Code → `~/.claude/`
 - mise → `~/.config/mise/config.toml`
 - WezTerm → `~/.config/wezterm`
+- Ghostty → `~/.config/ghostty`
 
 ### Shell Configuration
+
 - **Plugin Manager**: sheldon (configured in `sh/zsh/sheldon/`)
 - **Prompt**: Powerlevel10k with instant prompt
 - **Runtime Manager**: mise (replaces nvm, rbenv, pyenv)
 - **Directory Navigation**: zoxide
 
 ### Neovim Configuration
+
 - **Plugin Manager**: lazy.nvim
 - **LSP**: mason.nvim + nvim-lspconfig
 - **AI Integration**: Copilot, Claude Code integration
 - Plugins organized by category: `core/`, `ui/`, `action/`, `coding/`, `ai/`
 
 ### Private Configuration
+
 Private settings (API keys, tokens) are stored in `sh/zsh/private/` and excluded from git:
 1. Copy example files: `*.example` → remove `.example` suffix
 2. Fill in actual values for placeholders
@@ -157,7 +148,31 @@ Private settings (API keys, tokens) are stored in `sh/zsh/private/` and excluded
 1. Add config files to appropriate directory
 2. Update `deployer.sh` to create symlinks
 3. If Homebrew package, add to `installers/Brewfile`
-4. Run `make deploy` to apply changes
+4. Run `mise run deploy` to apply changes
+
+## Code Style Guidelines
+
+- **Languages**: Lua (Neovim), Shell script (zsh/bash)
+- **Lua style**: Use lowercase_with_underscores for variables/functions, CamelCase for modules
+- **Shell style**: Use sh/bash compatible syntax where possible
+- **File organization**: Keep configurations modular and organized by function
+- **Comments**: Use -- for Lua, # for shell scripts
+- **Indentation**: 2 spaces for Lua, 4 spaces for shell scripts
+- **Error handling**: Check return codes and file existence before operations
+- **Imports**: Use `require()` for Lua modules, `source` for shell scripts
+
+## Testing/Validation
+
+- No automated tests exist; test manually after changes
+- Validate shell scripts with `shellcheck` when possible
+- Test Neovim configs with `:checkhealth` command after changes
+
+## Git Guidelines
+
+- Use Semantic Commit Messages (feat, fix, chore, test, refactor)
+- Commit messages in English only
+- Create branches for features (never commit to main directly)
+- Owner: shabaraba
 
 ## Notes
 
