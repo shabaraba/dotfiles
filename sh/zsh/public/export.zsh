@@ -79,3 +79,9 @@ if command -v mise >/dev/null 2>&1; then
 fi
 
 export XDG_CONFIG_HOME="$HOME/.config"
+
+# X11 DISPLAY設定（ローカルログイン時のみ）
+if [ -z "$DISPLAY" ] && [ -z "$SSH_TTY" ]; then
+    # ローカルログイン時のみDISPLAYを設定
+    export DISPLAY=:0
+fi
