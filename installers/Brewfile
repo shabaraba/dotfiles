@@ -1,65 +1,25 @@
 # =============================================================================
-# Brewfile - Homebrew Bundle Configuration for dotfiles
+# Brewfile - Homebrew Bundle Configuration (DEPRECATED)
 # =============================================================================
+#
+# ⚠️  DEPRECATION NOTICE
+# This file has been split into two separate files for better cross-platform support:
+#
+#   - Brewfile.common: Cross-platform packages (macOS & Linux)
+#   - Brewfile.macos:  macOS-specific GUI applications (cask)
+#
 # Usage:
-#   brew bundle install         # Install all packages
-#   brew bundle check           # Check if packages are installed
-#   brew bundle cleanup         # Uninstall packages not in Brewfile
+#   macOS:  make install  (installs both Brewfile.common + Brewfile.macos)
+#   Linux:  make install  (installs only Brewfile.common)
+#
+# Manual installation:
+#   brew bundle install --file=installers/Brewfile.common
+#   brew bundle install --file=installers/Brewfile.macos  # macOS only
+#
+# This file is kept for backward compatibility but should not be used directly.
+# It will be removed in a future version.
+# =============================================================================
 
-# =============================================================================
-# Taps - Additional Homebrew Repositories
-# =============================================================================
-tap "shabaraba/tap"
-
-# =============================================================================
-# System Tools
-# =============================================================================
-# Bourne-Again SHell, a UNIX command interpreter
-brew "bash"
-# GNU implementation of the famous stream editor (for git hooks)
-brew "gnu-sed"
-# Internet file retriever
-brew "wget"
-
-# =============================================================================
-# Development Tools
-# =============================================================================
-# Polyglot runtime manager (replaces nvm, rbenv, pyenv etc.)
-brew "mise"
-# Development kit for the Java programming language
-brew "openjdk"
-# GitHub command-line tool
-brew "gh"
-# Lightweight and flexible command-line JSON processor
-brew "jq"
-# Search tool like grep and The Silver Searcher
-brew "ripgrep"
-
-brew "rust"
-
-# =============================================================================
-# Shell & CLI Enhancement
-# =============================================================================
-# Fast, configurable, shell plugin manager
-brew "sheldon"
-# Shell extension to navigate your filesystem faster
-brew "zoxide"
-# Simplistic interactive filtering tool
-brew "peco"
-# Clone of ls with colorful output, file type icons, and more
-brew "lsd"
-# Ambitious Vim-fork focused on extensibility and agility
-brew "neovim", args: ["HEAD"]
-
-brew "shaba-cli"
-
-# =============================================================================
-# GUI Applications
-# =============================================================================
-# Terminal-based AI coding assistant
-cask "claude-code"
-# GPU-accelerated cross-platform terminal emulator and multiplexer
-cask "wezterm@nightly"
-# Fast, feature-rich, cross-platform terminal emulator (macOS only)
-# Note: On Linux/Ubuntu, use ubuntu_installer.sh which installs via .deb package
-cask "ghostty"
+# For actual package definitions, see:
+# - installers/Brewfile.common  (cross-platform packages)
+# - installers/Brewfile.macos   (macOS-specific applications)

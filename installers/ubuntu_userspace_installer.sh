@@ -20,15 +20,15 @@ else
     echo "✓ Homebrew already installed"
 fi
 
-# Install packages from Brewfile
-echo "📦 Installing packages from Brewfile..."
-BREWFILE_PATH="$(dirname "$0")/Brewfile"
+# Install packages from Brewfile.common (cross-platform packages only)
+echo "📦 Installing packages from Brewfile.common..."
+BREWFILE_COMMON="$(dirname "$0")/Brewfile.common"
 
-if [[ -f "$BREWFILE_PATH" ]]; then
-    brew bundle install --file="$BREWFILE_PATH"
-    echo "✅ All packages installed from Brewfile"
+if [[ -f "$BREWFILE_COMMON" ]]; then
+    brew bundle install --file="$BREWFILE_COMMON"
+    echo "✅ All packages installed from Brewfile.common"
 else
-    echo "⚠️  Brewfile not found at $BREWFILE_PATH"
+    echo "⚠️  Brewfile.common not found at $BREWFILE_COMMON"
     exit 1
 fi
 

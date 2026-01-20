@@ -28,7 +28,10 @@ install: ## Initial setup: install tools and deploy dotfiles (run once)
 ifeq ($(os_name),'macos')
 	@echo '==> Installing Homebrew packages...'
 	@if command -v brew >/dev/null 2>&1; then \
-		brew bundle install --file=installers/Brewfile; \
+		echo 'Installing cross-platform packages from Brewfile.common...'; \
+		brew bundle install --file=installers/Brewfile.common; \
+		echo 'Installing macOS-specific packages from Brewfile.macos...'; \
+		brew bundle install --file=installers/Brewfile.macos; \
 	else \
 		echo "Homebrew not found. Please install Homebrew first:"; \
 		echo '  /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'; \

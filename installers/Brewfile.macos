@@ -1,0 +1,22 @@
+# =============================================================================
+# Brewfile.macos - macOS-specific Homebrew packages (cask applications)
+# =============================================================================
+# Usage:
+#   brew bundle install --file=Brewfile.macos
+#
+# This file contains macOS-specific GUI applications installed via Homebrew cask.
+# Linux users should use platform-specific installers for these applications.
+# =============================================================================
+
+# =============================================================================
+# GUI Applications (macOS only)
+# =============================================================================
+# Terminal-based AI coding assistant
+cask "claude-code"
+
+# GPU-accelerated cross-platform terminal emulator and multiplexer
+cask "wezterm@nightly"
+
+# Fast, feature-rich, cross-platform terminal emulator
+# Note: On Linux/Ubuntu, use ubuntu_installer.sh which installs via .deb package
+cask "ghostty"

@@ -40,12 +40,24 @@ mise tasks                # 全タスク一覧
 make list                 # 管理対象のdotfiles一覧
 ```
 
-### Homebrew Package Management (macOS only)
+### Homebrew Package Management
+
+Brewfileは2つに分割されています：
+- **Brewfile.common**: クロスプラットフォーム対応パッケージ（macOS & Linux）
+- **Brewfile.macos**: macOS専用アプリケーション（caskのみ）
 
 ```bash
-brew bundle install --file=installers/Brewfile   # パッケージをインストール
-brew bundle dump --force --describe --file=installers/Brewfile  # Brewfileを更新
-brew bundle check --file=installers/Brewfile     # インストール状態を確認
+# Cross-platform packages
+brew bundle install --file=installers/Brewfile.common
+brew bundle check --file=installers/Brewfile.common
+
+# macOS-specific applications
+brew bundle install --file=installers/Brewfile.macos  # macOS only
+brew bundle check --file=installers/Brewfile.macos    # macOS only
+
+# Update Brewfile after installing new packages
+brew bundle dump --force --describe --file=installers/Brewfile.common  # For common packages
+brew bundle dump --force --describe --file=installers/Brewfile.macos   # For macOS apps
 ```
 
 ### GitHub Repository Setup (mise tasks)
@@ -81,7 +93,9 @@ dotfiles/
 ├── Makefile              # 初回セットアップ用 (make install, make list)
 ├── deployer.sh           # 内部スクリプト (symlink作成)
 ├── installers/           # インストーラースクリプト
-│   ├── Brewfile          # Homebrewパッケージ定義
+│   ├── Brewfile          # (DEPRECATED) 分割されたBrewfileへの参照
+│   ├── Brewfile.common   # クロスプラットフォーム対応パッケージ
+│   ├── Brewfile.macos    # macOS専用GUI アプリケーション
 │   ├── ubuntu_installer.sh
 │   ├── ubuntu_userspace_installer.sh
 │   ├── neovim_installer.sh
@@ -147,7 +161,9 @@ Private settings (API keys, tokens) are stored in `sh/zsh/private/` and excluded
 
 1. Add config files to appropriate directory
 2. Update `deployer.sh` to create symlinks
-3. If Homebrew package, add to `installers/Brewfile`
+3. If Homebrew package:
+   - Add to `installers/Brewfile.common` for cross-platform tools
+   - Add to `installers/Brewfile.macos` for macOS-specific GUI apps (cask)
 4. Run `mise run deploy` to apply changes
 
 ## Code Style Guidelines

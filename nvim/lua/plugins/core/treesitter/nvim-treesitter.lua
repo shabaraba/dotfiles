@@ -1,5 +1,6 @@
 return {
   "nvim-treesitter/nvim-treesitter",
+  branch = "master",  -- 旧API互換のため master ブランチを使用
   event = "VimEnter",
   build = ":TSUpdate",
   main = 'nvim-treesitter.configs',
