@@ -10,6 +10,11 @@ abbr "docker compose u"="docker compose up %-d"
 abbr "docker compose pu"="docker compose --profile % up -d"
 abbr "docker compose pd"="docker compose --profile % down"
 abbr "dp"="docker ps"
+
+abbr "devup"='docker compose -f .devcontainer/docker-compose.yml -f .devcontainer/docker-compose.override.yml -f .devcontainer/docker-compose.local.yml up -d'
+abbr "devdn"='docker compose -f .devcontainer/docker-compose.yml -f .devcontainer/docker-compose.override.yml -f .devcontainer/docker-compose.local.yml down'
+abbr "devexc"='docker compose -f .devcontainer/docker-compose.yml -f .devcontainer/docker-compose.override.yml -f .devcontainer/docker-compose.local.yml exec app zsh'
+
 abbr "g"="git"
 abbr "ga"="git add"
 abbr "git a"="git add"
