@@ -35,6 +35,7 @@ brew "gh"
 brew "jq"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
+brew "fzf"
 # System programming language
 brew "rust"
 
