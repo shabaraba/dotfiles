@@ -27,11 +27,11 @@ return {
       hide_during_completion = true,
       debounce = 75,
       keymap = {
-        accept = "<Tab>",
+        accept = "<M-l>",  -- Alt+l でサジェスチョンを受け入れ
         accept_word = false,
         accept_line = false,
-        next = "<C-i>",
-        prev = "<M-[>",
+        next = "<M-]>",    -- Alt+] で次のサジェスチョン
+        prev = "<M-[>",    -- Alt+[ で前のサジェスチョン
         dismiss = "<C-]>",
       },
     },

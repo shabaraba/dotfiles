@@ -39,6 +39,7 @@ opt.listchars:append "tab:>-,trail:_"
 
 opt.expandtab = true
 opt.shiftwidth = 4
+opt.softtabstop = 4
 opt.smartindent = true
 
 -- disable tilde on end of buffer: https://github.com/neovim/neovim/pull/8546#issuecomment-643643758

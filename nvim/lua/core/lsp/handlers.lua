@@ -94,13 +94,86 @@ M.setup = function()
       M.on_attach(vim.lsp.get_client_by_id(ev.data.client_id), ev.buf)
     end,
   })
-  
+
   -- LSP終了処理の設定
   M.setup_exit_handlers()
-  
+
   -- 診断設定の読み込み
   require("core.lsp.diagnostic").setup()
   require("core.lsp.diagnostic").setup_keymaps()
+
+  -- :LspInfo代替コマンドの作成
+  vim.api.nvim_create_user_command('LspInfo', function()
+    M.show_lsp_info()
+  end, {})
+end
+
+-- LSP情報の表示（:LspInfo代替）
+M.show_lsp_info = function()
+  local buf = vim.api.nvim_get_current_buf()
+  local clients = vim.lsp.get_clients({ bufnr = buf })
+  local ft = vim.bo[buf].filetype
+
+  local lines = {}
+  table.insert(lines, "Language client log: " .. vim.lsp.get_log_path())
+  table.insert(lines, "Detected filetype: " .. ft)
+  table.insert(lines, "")
+
+  if #clients == 0 then
+    table.insert(lines, "No LSP clients attached to this buffer")
+  else
+    table.insert(lines, string.format("%d client(s) attached to this buffer:", #clients))
+    table.insert(lines, "")
+
+    for _, client in ipairs(clients) do
+      table.insert(lines, string.format("Client: %s (id: %d)", client.name, client.id))
+      table.insert(lines, string.format("  Root directory: %s", client.root_dir or "N/A"))
+      table.insert(lines, string.format("  Filetypes: %s", table.concat(client.config.filetypes or {}, ", ")))
+      table.insert(lines, string.format("  Autostart: true"))
+      table.insert(lines, string.format("  Command: %s", table.concat(client.config.cmd or {}, " ")))
+
+      local attached_bufs = vim.lsp.get_buffers_by_client_id(client.id)
+      table.insert(lines, string.format("  Attached buffers: %d", #attached_bufs))
+      table.insert(lines, "")
+    end
+  end
+
+  local all_clients = vim.lsp.get_clients()
+  if #all_clients > #clients then
+    table.insert(lines, string.format("Other active clients: %d", #all_clients - #clients))
+    for _, client in ipairs(all_clients) do
+      local is_attached = false
+      for _, attached_client in ipairs(clients) do
+        if client.id == attached_client.id then
+          is_attached = true
+          break
+        end
+      end
+      if not is_attached then
+        table.insert(lines, string.format("  - %s (id: %d)", client.name, client.id))
+      end
+    end
+  end
+
+  local buf_info = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf_info, 0, -1, false, lines)
+  vim.api.nvim_buf_set_option(buf_info, 'modifiable', false)
+  vim.api.nvim_buf_set_option(buf_info, 'buftype', 'nofile')
+
+  local win_info = vim.api.nvim_open_win(buf_info, true, {
+    relative = 'editor',
+    width = math.floor(vim.o.columns * 0.8),
+    height = math.floor(vim.o.lines * 0.8),
+    row = math.floor(vim.o.lines * 0.1),
+    col = math.floor(vim.o.columns * 0.1),
+    style = 'minimal',
+    border = 'rounded',
+    title = ' LSP Information ',
+    title_pos = 'center',
+  })
+
+  vim.api.nvim_buf_set_keymap(buf_info, 'n', 'q', ':close<CR>', { noremap = true, silent = true })
+  vim.api.nvim_buf_set_keymap(buf_info, 'n', '<Esc>', ':close<CR>', { noremap = true, silent = true })
 end
 
 -- LSP終了処理の設定
