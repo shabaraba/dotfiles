@@ -53,8 +53,16 @@ local FUNCTION = {
     FIND_HELP = "TELESCOPE FIND HELP",
     FIND_COLOR_SHCEME = "TELESCOPE FIND COLOR SCHEME",
     JUMP_MOTION = "JUMP MOTION",
+    JUMP_TREESITTER = "JUMP TO TREESITTER NODE",
+    JUMP_REMOTE = "REMOTE JUMP",
     COMMANDS = "FIND AND EXEC COMMANDS",
     KEYMAPS = "FIND AND EXEC KEYMAPS",
+  },
+  MOTION = {
+    WORD_FORWARD = "MOVE TO NEXT WORD (SUBWORD)",
+    WORD_END = "MOVE TO END OF WORD (SUBWORD)",
+    WORD_BACKWARD = "MOVE TO PREVIOUS WORD (SUBWORD)",
+    WORD_END_BACKWARD = "MOVE TO END OF PREVIOUS WORD (SUBWORD)",
   },
   GIT = {
     SHOW_COMMITS = "TELESCOPE GIT COMMITS",
@@ -121,7 +129,8 @@ local Mapping = {
   { Prefix.jump .. ']',        '<cmd>lua vim.diagnostic.goto_next()<cr>',                                    desc = FUNCTION.DIAGNOSTIC.GO_TO_NEXT,              silent = true },
   { Prefix.jump .. '[',        '<cmd>lua vim.diagnostic.goto_prev()<cr>',                                    desc = FUNCTION.DIAGNOSTIC.GO_TO_PREV,              silent = true },
   { Prefix.jump .. "h",        ":Lspsaga finder<cr>",                                                        desc = FUNCTION.LSP.GG_TO_DEFINITION_OR_REFERENCES, silent = true },
-  { Prefix.jump .. 's',        '<cmd>HopChar2<cr>',                                                          desc = FUNCTION.FINDER.JUMP_MOTION,                 silent = true },
+  { Prefix.jump .. 's',        function() require("flash").jump() end,                                       desc = FUNCTION.FINDER.JUMP_MOTION,                 silent = true },
+  { Prefix.jump .. 'S',        function() require("flash").treesitter() end,                                 desc = FUNCTION.FINDER.JUMP_TREESITTER,             silent = true },
 
   { Prefix.finder .. "f",      ":Telescope find_files <cr>",                                                 desc = FUNCTION.FINDER.FIND_FILES,                  silent = true },
   { Prefix.finder .. "a",      ":Telescope find_files follow=true no_ignore=true hidden=true <cr>",          desc = FUNCTION.FINDER.FIND_ALL_FILES,              silent = true },
@@ -170,6 +179,12 @@ local Mapping = {
   { Prefix.ai .. 'cc',         '<cmd>VibingChat current<cr>',                                                desc = FUNCTION.AI.VIBING_CHAT_CURRENT,             silent = true },
   { Prefix.ai .. 's',          '<cmd>VibingContext<cr>',                                                     desc = FUNCTION.AI.VIBING_CONTEXT,                  silent = true },
   { Prefix.ai .. 'i',          '<cmd>VibingInline<cr>',                                                      desc = FUNCTION.AI.VIBING_INLINE,                   silent = true,                      mode = 'v' },
+
+  -- spider (subword motion)
+  { 'w',                       function() require('spider').motion('w') end,                                 desc = FUNCTION.MOTION.WORD_FORWARD,                silent = true,                      mode = { 'n', 'o', 'x' } },
+  { 'e',                       function() require('spider').motion('e') end,                                 desc = FUNCTION.MOTION.WORD_END,                    silent = true,                      mode = { 'n', 'o', 'x' } },
+  { 'b',                       function() require('spider').motion('b') end,                                 desc = FUNCTION.MOTION.WORD_BACKWARD,               silent = true,                      mode = { 'n', 'o', 'x' } },
+  { 'ge',                      function() require('spider').motion('ge') end,                                desc = FUNCTION.MOTION.WORD_END_BACKWARD,           silent = true,                      mode = { 'n', 'o', 'x' } },
 }
 
 local FunctionKeyMapping = extract_values(Mapping, "desc")
@@ -245,8 +260,16 @@ M.copilot_chat = {
   FunctionKeyMapping[FUNCTION.AI.OPEN_CHAT],
 }
 
-M.hop = {
+M.flash = {
   FunctionKeyMapping[FUNCTION.FINDER.JUMP_MOTION],
+  FunctionKeyMapping[FUNCTION.FINDER.JUMP_TREESITTER],
+}
+
+M.spider = {
+  FunctionKeyMapping[FUNCTION.MOTION.WORD_FORWARD],
+  FunctionKeyMapping[FUNCTION.MOTION.WORD_END],
+  FunctionKeyMapping[FUNCTION.MOTION.WORD_BACKWARD],
+  FunctionKeyMapping[FUNCTION.MOTION.WORD_END_BACKWARD],
 }
 
 M.pile = {

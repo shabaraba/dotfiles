@@ -51,7 +51,7 @@ opt.mouse = ""
 -- Numbers
 opt.number = true
 opt.numberwidth = 4
-opt.relativenumber = false
+opt.relativenumber = true
 opt.ruler = true
 
 -- disable nvim intro
@@ -77,3 +77,9 @@ g.mapleader = " "
 -- 日本語キーボード対応: ¥ を \ として扱う
 vim.keymap.set({ "n", "v", "o" }, "¥", "\\", { remap = true })
 vim.keymap.set("c", "¥", "\\", { remap = false })
+
+-- Display line movement (for wrapped lines)
+vim.keymap.set({ "n", "v" }, "j", "gj", { noremap = true, silent = true, desc = "Move down (display line)" })
+vim.keymap.set({ "n", "v" }, "k", "gk", { noremap = true, silent = true, desc = "Move up (display line)" })
+vim.keymap.set({ "n", "v" }, "gj", "j", { noremap = true, silent = true, desc = "Move down (logical line)" })
+vim.keymap.set({ "n", "v" }, "gk", "k", { noremap = true, silent = true, desc = "Move up (logical line)" })
