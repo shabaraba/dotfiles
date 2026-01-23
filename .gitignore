@@ -21,6 +21,7 @@ debugger/
 gemini/settings.json
 
 .vibing/
+.moteignore
 
 # Private files with sensitive information
 sh/zsh/private/env.zsh
@@ -60,3 +61,4 @@ Thumbs.db
 nvim/lua/plugins/local/**
 !nvim/lua/plugins/local/README.md
 !nvim/lua/plugins/local/example-*.lua
+
