@@ -12,13 +12,16 @@ return {
   config = function()
     local cmp = require("cmp")
     local lspkind = require("lspkind")
-    
+
     -- Setup copilot-cmp
     require("copilot_cmp").setup()
 
     cmp.setup({
       completion = {
         completeopt = "menu,menuone,preview,noselect",
+      },
+      experimental = {
+        ghost_text = false,
       },
       snippet = { -- configure how nvim-cmp interacts with snippet engine
       },
@@ -48,6 +51,20 @@ return {
           ellipsis_char = "...",
           symbol_map = { Copilot = "" }
         }),
+      },
+
+      window = {
+        completion = {
+          border = "rounded",
+          winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+          -- winblend = 10,
+        },
+        documentation = {
+          border = "rounded",
+          winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+          max_height = 20,
+          max_width = 60,
+        },
       },
     })
     vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
