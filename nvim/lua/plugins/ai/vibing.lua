@@ -36,6 +36,29 @@ return {
           },
           interval = 50,
         },
+        tool_markers = {
+          default = "⏺", -- Default marker for other tools
+          Task = "▶", -- Task tool start marker
+          TaskComplete = "✓", -- Task tool complete marker
+          Read = "📄", -- Custom marker for Read tool
+          Edit = "✏️", -- Custom marker for Edit tool
+          Write = "📝", -- Custom marker for Write tool
+          Bash = {
+            default = "💻",
+            patterns = {
+              -- package managers
+              ["^(npm|pnpm|yarn|bun) install"] = "📦⬇",
+              ["^(npm|pnpm|yarn|bun) run"] = "📦▶",
+              ["^yarn "] = "📦▶",
+              -- git
+              ["^git commit"] = "🌿💾",
+              ["^git push"] = "🌿⬆",
+              -- docker
+              ["^docker build"] = "🐳🔨",
+              ["^docker run"] = "🐳▶",
+            }
+          },
+        },
       },
       mcp = {
         enabled = true,
@@ -64,6 +87,9 @@ return {
         send = "<CR>",
         cancel = "<C-c>",
         add_context = "<C-a>",
+      },
+      daily_summary = {
+        save_dir = vim.fn.expand("~/workspace/ObsidianVault/vault/Daily/"),
       },
     })
   end,
