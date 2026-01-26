@@ -27,12 +27,12 @@ return {
       hide_during_completion = true,
       debounce = 75,
       keymap = {
-        accept = "<M-l>",  -- Alt+l でサジェスチョンを受け入れ
+        accept = "<C-l>",
         accept_word = false,
         accept_line = false,
-        next = "<M-]>",    -- Alt+] で次のサジェスチョン
-        prev = "<M-[>",    -- Alt+[ で前のサジェスチョン
-        dismiss = "<C-]>",
+        next = "<C-]>",
+        prev = "<C-[>",
+        dismiss = "<C-e>",
       },
     },
     filetypes = {
