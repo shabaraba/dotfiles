@@ -85,6 +85,9 @@ return {
       add_context = "<C-a>",
     },
     daily_summary = {
+      search_dirs = {
+        vim.fn.expand("~/workspace"),
+      },
       save_dir = vim.fn.expand("~/workspace/ObsidianVault/vault/Daily/"),
     },
   },
