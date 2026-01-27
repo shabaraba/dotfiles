@@ -60,5 +60,5 @@ Thumbs.db
 # Neovim local plugin configurations (not tracked in dotfiles)
 nvim/lua/plugins/local/**
 !nvim/lua/plugins/local/README.md
-!nvim/lua/plugins/local/example-*.lua
+!nvim/lua/plugins/local/*.lua.example
 

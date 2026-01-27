@@ -16,11 +16,9 @@ return {
       },
       session = {
         auto_save = true,      -- 終了時に自動保存
-        auto_restore = true,   -- 起動時に自動復元（これがポイント！）
+        auto_restore = true,   -- 起動時に自動復元
         preserve_order = true, -- 並び順を保持
       },
     },
-    -- config関数は削除し、プラグインのデフォルト設定に任せる
   },
 }
-
