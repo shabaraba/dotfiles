@@ -24,8 +24,16 @@ local spec = {
   { import = "plugins.core.treesitter" },
   { import = "plugins.colorscheme" },
   { import = "plugins.dependencies" },
-  { import = "plugins.local" },
 }
+
+-- Import local plugins if they exist
+local local_plugins_path = vim.fn.stdpath("config") .. "/lua/plugins/local"
+local has_local_plugins = vim.fn.isdirectory(local_plugins_path) == 1
+  and vim.fn.empty(vim.fn.glob(local_plugins_path .. "/*.lua")) == 0
+
+if has_local_plugins then
+  table.insert(spec, { import = "plugins.local" })
+end
 
 if vim.g.no_plugin == 1 then
   spec = {}
