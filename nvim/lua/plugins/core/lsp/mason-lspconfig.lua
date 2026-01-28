@@ -21,7 +21,7 @@ return {
       -- "biome",  -- 一時的に無効化（nvim-lspconfigのバグ）
       "intelephense",
       "marksman",  -- Markdown LSP (wiki-link, Zettelkasten対応)
-      -- "jdtls",  -- nvim-jdtlsプラグインで管理
+      "jdtls",  -- Java LSP (nvim-jdtlsプラグインと連携)
       "eslint",  -- ESLint LSPサーバー
       "bashls",
       "gopls",

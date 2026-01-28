@@ -20,11 +20,26 @@ return {
         end
         
         local jdtls = require('jdtls')
-        
+
+        -- プロジェクトルートを取得
+        local root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle'})
+
+        -- ワークスペースディレクトリを~/.cache/jdtls配下に設定
+        -- プロジェクトパスのハッシュを使って衝突を回避
+        local workspace_dir = vim.fn.expand('~/.cache/jdtls/workspace_') .. vim.fn.fnamemodify(root_dir, ':t')
+
         -- jdtls設定（cmdは必須）
+        -- Masonでインストールされたjdtlsを使用
+        local mason_registry = require('mason-registry')
+        local jdtls_pkg = mason_registry.get_package('jdtls')
+        local jdtls_path = jdtls_pkg:get_install_path() .. '/bin/jdtls'
+
         local config = {
-          cmd = { 'jdtls' },
-          root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle'}),
+          cmd = {
+            jdtls_path,
+            '-data', workspace_dir  -- ワークスペースディレクトリを指定
+          },
+          root_dir = root_dir,
           on_attach = function(client, bufnr)
             require("core.lsp.handlers").on_attach(client, bufnr)
             
