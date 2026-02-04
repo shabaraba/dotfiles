@@ -61,7 +61,7 @@ if command -v rbenv >/dev/null 2>&1; then
     eval "$(rbenv init -)"
 fi
 
-export PATH="$PATH:/Users/t002451/go/bin"
+export PATH="$PATH:$HOME/go/bin"
 
 # docker compose for better performance
 export COMPOSE_BAKE=true
@@ -85,3 +85,5 @@ if [ -z "$DISPLAY" ] && [ -z "$SSH_TTY" ]; then
     # ローカルログイン時のみDISPLAYを設定
     export DISPLAY=:0
 fi
+
+export PATH="$HOME/.cargo/bin:$PATH"
