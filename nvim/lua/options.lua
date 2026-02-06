@@ -5,6 +5,7 @@ local g = vim.g
 vim.cmd [[lang en_US.UTF-8]]
 
 opt.title = true
+opt.titlestring = "%{v:lua.require('core.title').get_title()}"
 opt.clipboard = "unnamedplus"
 opt.cmdheight = 0  -- コマンドラインを隠す
 opt.laststatus = 0  -- ステータスラインを完全に非表示
