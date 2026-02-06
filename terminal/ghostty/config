@@ -12,6 +12,9 @@ adjust-cell-height = 2
 font-thicken = true
 keybind = cmd+shift+h=goto_split:left
 keybind = cmd+shift+l=goto_split:right
+
+# Allow Ctrl+L to pass through to Neovim (for Copilot)
+keybind = ctrl+l=unbind
 window-inherit-working-directory = true
 # shell-integration-features = ssh-terminfo,ssh-env
 term = xterm-256color
