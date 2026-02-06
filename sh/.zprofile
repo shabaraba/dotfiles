@@ -7,3 +7,8 @@ fi
 # rbenvが未インストールのためコメントアウト（miseに一本化）
 # Added by `rbenv init` on Thu May  1 15:28:44 JST 2025
 # eval "$(rbenv init - --no-rehash zsh)"
+
+
+
+# gh-hooks: GitHub CLI hooks
+source "/Users/shaba/.local/share/gh/extensions/gh-hooks/gh-hooks.sh"

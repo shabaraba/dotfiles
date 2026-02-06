@@ -112,11 +112,5 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 eval "$(/Users/shaba/workspace/holecard/target/debug/hc completion zsh)"
 
-
-
-
-
-
-
 # gh-hooks: GitHub CLI hooks
-source "/Users/shaba/.local/share/gh/extensions/gh-hooks/gh-hooks.sh"
+source "/Users/shaba/workspace/gh-hooks/gh-hooks.sh"

@@ -36,6 +36,8 @@ brew "jq"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 brew "fzf"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
 # System programming language
 brew "rust"
 
@@ -52,3 +54,13 @@ brew "peco"
 brew "lsd"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim", args: ["HEAD"]
+
+# =============================================================================
+# Code Formatters & Linters
+# =============================================================================
+# Python code formatter
+brew "black"
+# Lua code formatter
+brew "stylua"
+# Mighty, modern linter that helps you avoid errors and enforce conventions in your styles
+brew "eslint_d"

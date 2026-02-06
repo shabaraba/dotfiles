@@ -71,6 +71,14 @@ Claude Codeは以下の原則に従って動作してください：
 ## Code Style Guidelines
 - **Comments**: 必要最小限のコメントのみ。コードは自己文書化を心がける
 
+## ファイル操作のベストプラクティス
+
+### Vim/Neovimでのファイル保存
+- **既存ファイルへの上書き**: `vim.cmd.write({ bang = true })` を使用して強制上書きを行う
+  - ❌ 悪い例: `vim.cmd("write")` → `E13: File exists` エラーが発生する可能性
+  - ✅ 良い例: `vim.cmd.write({ bang = true })` → 確実に上書き保存
+  - 理由: ファイル名が変更された後の保存処理や、複数回実行される可能性のある保存処理では、既存ファイルとの衝突を避けるため強制上書きが必要
+
 ## 命名規則
 - **リファクタリング時の命名**: 一時的・段階的な改善を示すプレフィックス/サフィックスは絶対に使用しない
   - ❌ 悪い例（プレフィックス）: `NewGameLogic`, `OldUserService`, `TempDatabase`, `UltimateParser`, `SuperController`, `OptimizedRenderer`

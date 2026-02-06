@@ -22,3 +22,15 @@ cursor-style = block_hollow
 # 色
 cursor-color = #00d1b2
 keybind = shift+enter=text:\x1b\r
+
+# Quakeモードのトグル (Cmd+H)
+keybind = super+h=toggle_quick_terminal
+quick-terminal-position = top
+quick-terminal-size = 2000px
+quick-terminal-animation-duration = 0.1
+
+# コピー時に行末のスペースをトリムする
+clipboard-trim-trailing-spaces = true
+
+# 選択時に自動コピーしない（手動コピーのみ）
+copy-on-select = false

@@ -38,6 +38,20 @@ return {
         dismiss = false,
       },
     },
+    should_attach = function(bufnr, bufname)
+      local filetype = vim.bo[bufnr].filetype
+      if filetype == "vibing" then
+        return true
+      end
+      if not vim.bo[bufnr].buflisted then
+        return false
+      end
+      local buftype = vim.bo[bufnr].buftype
+      if buftype ~= "" and buftype ~= "acwrite" then
+        return false
+      end
+      return true
+    end,
     filetypes = {
       yaml = true,
       markdown = true,
