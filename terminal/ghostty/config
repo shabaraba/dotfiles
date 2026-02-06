@@ -10,8 +10,8 @@ background-blur = true
 font-size = 14
 adjust-cell-height = 2
 font-thicken = true
-keybind = ctrl+h=goto_split:left
-keybind = ctrl+l=goto_split:right
+keybind = cmd+shift+h=goto_split:left
+keybind = cmd+shift+l=goto_split:right
 window-inherit-working-directory = true
 # shell-integration-features = ssh-terminfo,ssh-env
 term = xterm-256color
