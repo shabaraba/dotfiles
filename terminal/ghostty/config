@@ -4,6 +4,7 @@ theme = Iceberg Dark
 maximize = true
 window-save-state = always
 font-family = HackGenNerd Console
+window-title-font-family = HackGenNerd Console
 background-opacity = 0.8
 macos-titlebar-style = tabs
 background-blur = true
