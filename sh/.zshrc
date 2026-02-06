@@ -110,13 +110,8 @@ export PATH="/Users/shaba/.antigravity/antigravity/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-eval "$(/Users/shaba/workspace/holecard/target/debug/hc completion zsh)"
-
-
-
-
-
-
+# hc (claude-code hooks) completions
+command -v hc &>/dev/null && eval "$(hc completion zsh)"
 
 # gh-hooks: GitHub CLI hooks
-source "/Users/shaba/.local/share/gh/extensions/gh-hooks/gh-hooks.sh"
+[[ -f "$HOME/.local/share/gh/extensions/gh-hooks/gh-hooks.sh" ]] && source "$HOME/.local/share/gh/extensions/gh-hooks/gh-hooks.sh"

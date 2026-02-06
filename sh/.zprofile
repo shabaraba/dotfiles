@@ -11,4 +11,4 @@ fi
 
 
 # gh-hooks: GitHub CLI hooks
-source "/Users/shaba/.local/share/gh/extensions/gh-hooks/gh-hooks.sh"
+[[ -f "$HOME/.local/share/gh/extensions/gh-hooks/gh-hooks.sh" ]] && source "$HOME/.local/share/gh/extensions/gh-hooks/gh-hooks.sh"
