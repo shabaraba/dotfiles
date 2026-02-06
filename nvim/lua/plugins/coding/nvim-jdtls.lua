@@ -29,10 +29,8 @@ return {
         local workspace_dir = vim.fn.expand('~/.cache/jdtls/workspace_') .. vim.fn.fnamemodify(root_dir, ':t')
 
         -- jdtls設定（cmdは必須）
-        -- Masonでインストールされたjdtlsを使用
-        local mason_registry = require('mason-registry')
-        local jdtls_pkg = mason_registry.get_package('jdtls')
-        local jdtls_path = jdtls_pkg:get_install_path() .. '/bin/jdtls'
+        -- Mason 2.0以降はPATHに自動追加されるため、直接実行ファイル名を使用
+        local jdtls_path = 'jdtls'
 
         local config = {
           cmd = {
