@@ -7,14 +7,13 @@ return {
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
     "onsails/lspkind.nvim",
-    "zbirenbaum/copilot-cmp",
+    -- "zbirenbaum/copilot-cmp",
   },
   config = function()
     local cmp = require("cmp")
     local lspkind = require("lspkind")
 
-    -- Setup copilot-cmp
-    require("copilot_cmp").setup()
+    -- require("copilot_cmp").setup()
 
     cmp.setup({
       completion = {
@@ -38,10 +37,10 @@ return {
       }),
       -- sources for autocompletion
       sources = cmp.config.sources({
-        { name = "copilot",  group_index = 2 },
+        -- { name = "copilot",  group_index = 2 },
         { name = "nvim_lsp", group_index = 2 },
-        { name = "buffer",   group_index = 2 }, -- text within current buffer
-        { name = "path",     group_index = 2 }, -- file system paths
+        { name = "buffer",   group_index = 2 },
+        { name = "path",     group_index = 2 },
       }),
       -- configure lspkind for vs-code like pictograms in completion menu
       formatting = {

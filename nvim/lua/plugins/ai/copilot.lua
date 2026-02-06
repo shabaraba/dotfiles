@@ -1,10 +1,13 @@
-local vim = vim;
-
 return {
-  -- "github/copilot.vim",
   "zbirenbaum/copilot.lua",
   cmd = "Copilot",
   event = "InsertEnter",
+  config = function(_, opts)
+    require("copilot").setup(opts)
+    vim.keymap.set("i", "<C-l>", function()
+      require("copilot.suggestion").accept()
+    end, { desc = "[copilot] accept suggestion" })
+  end,
   opts = {
     panel = {
       enabled = true,
@@ -17,7 +20,7 @@ return {
         open = "<M-CR>"
       },
       layout = {
-        position = "bottom", -- | top | left | right
+        position = "bottom",
         ratio = 0.4
       },
     },
@@ -27,12 +30,12 @@ return {
       hide_during_completion = true,
       debounce = 75,
       keymap = {
-        accept = "<C-l>",
+        accept = false,
         accept_word = false,
         accept_line = false,
-        next = "<C-]>",
-        prev = "<C-[>",
-        dismiss = "<C-e>",
+        next = false,
+        prev = false,
+        dismiss = false,
       },
     },
     filetypes = {
@@ -44,12 +47,11 @@ return {
       hgcommit = false,
       svn = false,
       cvs = false,
+      vibing = true,
       ["."] = true,
     },
-    copilot_node_command = 'node', -- Node.js version must be > 18.x
+    copilot_node_command = 'node',
     server_opts_overrides = {},
-  },
-  -- config = function()
-  --   -- vim.g.copilot_filetypes = { markdown = true, gitcommit = true, yaml = true }
-  -- end,
+
+  }
 }
