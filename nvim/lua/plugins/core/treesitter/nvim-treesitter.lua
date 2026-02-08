@@ -27,7 +27,7 @@ return {
     auto_install = false,
 
     -- 不要なパーサーを除外
-    ignore_install = { "phpdoc", "tree-sitter-phpdoc" },
+    ignore_install = { "phpdoc", "tree-sitter-phpdoc", "latex" },
 
     highlight = {
       enable = true,

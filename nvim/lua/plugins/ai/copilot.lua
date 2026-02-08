@@ -43,9 +43,9 @@ return {
       if filetype == "vibing" then
         return true
       end
-      if not vim.bo[bufnr].buflisted then
-        return false
-      end
+      -- if not vim.bo[bufnr].buflisted then
+      --   return false
+      -- end
       local buftype = vim.bo[bufnr].buftype
       if buftype ~= "" and buftype ~= "acwrite" then
         return false

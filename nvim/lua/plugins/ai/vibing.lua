@@ -2,7 +2,7 @@ return {
   "shabaraba/vibing.nvim",
   dev = true,
   build = "./build.sh",
-  ft = "vibing",
+  ft = { "markdown", "vibing" },
   cmd = { "VibingChat", "VibingInline", "VibingContext", "VibingToggleChat" },
   keys = require("mappings").vibing,
   opts = {
