@@ -36,7 +36,7 @@ return {
         },
         methods = {
           tyd = 'textDocument/typeDefinition',
-        }
+        },
       },
       outline = {
         win_position = "right",
@@ -48,10 +48,9 @@ return {
       },
       -- サーバー可用性チェックの改善
       beacon = {
-        enable = false,  -- beacon機能を無効化してエラーを回避
+        enable = false,
       },
       ui = {
-        -- UIの改善でエラー表示を抑制
         title = true,
         border = 'rounded',
         winblend = 0,
@@ -62,13 +61,11 @@ return {
         outgoing = ' ',
         hover = ' ',
       },
-      -- hover機能のfallback設定
       hover = {
         max_width = 0.6,
         open_link = 'gx',
         open_cmd = '!open',
       },
-      -- 診断設定の改善
       diagnostic = {
         show_code_action = true,
         show_source = true,
@@ -83,6 +80,7 @@ return {
           quit = 'q',
         },
       },
+      request_timeout = 3000,
     })
   end,
 }
