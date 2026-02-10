@@ -52,6 +52,58 @@ Claude Codeは以下の原則に従って動作してください：
 - **Web検索**: MCP提供のWebツールが利用可能な場合は、通常のWebFetchツールよりも優先する
 - **ローカルサーバー操作**: devtoolsMCPを使うこと
 
+## Android開発環境
+
+### エミュレータ操作
+Android SDKのパス: `~/Library/Android/sdk`
+
+#### エミュレータ起動
+```bash
+# エミュレータを起動
+~/Library/Android/sdk/emulator/emulator -avd test_device &
+
+# 利用可能なAVDリスト
+~/Library/Android/sdk/emulator/emulator -list-avds
+
+# デバイス確認
+adb devices
+```
+
+#### APKインストール
+```bash
+# アプリをインストール
+adb install your-app.apk
+
+# アンインストール
+adb uninstall com.example.package
+```
+
+#### エミュレータ管理
+```bash
+# エミュレータプロセスの停止
+pkill -f emulator
+
+# AVD作成（新規デバイスが必要な場合）
+$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd \
+  -n device_name \
+  -k "system-images;android-34;google_apis;arm64-v8a"
+```
+
+### Gradle操作
+```bash
+# ビルド
+./gradlew build
+
+# デバッグAPKの作成
+./gradlew assembleDebug
+
+# リリースAPKの作成
+./gradlew assembleRelease
+
+# 特定モジュールのビルド
+./gradlew :apps:waterremind:assembleDebug
+```
+
 ## 言語設定
 - **応答言語**: 日本語で応答する
 - **コミットメッセージ**: 英語でSemantic Commit Messagesを使用
