@@ -56,6 +56,16 @@ brew "lsd"
 brew "neovim", args: ["HEAD"]
 
 # =============================================================================
+# Container Tools
+# =============================================================================
+# Pack, ship and run any application as a lightweight container
+brew "docker"
+# Isolated development environments using Docker
+brew "docker-compose"
+# Container runtimes on MacOS (and Linux) with minimal setup
+brew "colima"
+
+# =============================================================================
 # Code Formatters & Linters
 # =============================================================================
 # Python code formatter

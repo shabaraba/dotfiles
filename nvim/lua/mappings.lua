@@ -31,7 +31,8 @@ local FUNCTION = {
     SHOW_BUFFER = "SHOW DIAGNOSTIC IN BUFFER",
   },
   LSP = {
-    GG_TO_DEFINITION_OR_REFERENCES = "GO TO DEFINITION OR REFERENCES",
+    GO_TO_DEFINITION = "GO TO DEFINITION",
+    GO_TO_REFERENCES = "GO TO REFERENCES",
     HOVER = "HOVER UNDER THE CURSOR",
     SHOW_TYPE_DEFINITION = "SHOW TYPE DEFINITION",
     RENAME_VALIABLE_NAME = "RENAME VALIABLE NAME UNDER THE CURSOR",
@@ -128,7 +129,8 @@ end
 local Mapping = {
   { Prefix.jump .. ']',        '<cmd>lua vim.diagnostic.goto_next()<cr>',                                    desc = FUNCTION.DIAGNOSTIC.GO_TO_NEXT,              silent = true },
   { Prefix.jump .. '[',        '<cmd>lua vim.diagnostic.goto_prev()<cr>',                                    desc = FUNCTION.DIAGNOSTIC.GO_TO_PREV,              silent = true },
-  { Prefix.jump .. "h",        ":Lspsaga finder<cr>",                                                        desc = FUNCTION.LSP.GG_TO_DEFINITION_OR_REFERENCES, silent = true },
+  { Prefix.jump .. "d",        "<CMD>Glance definitions<CR>",                                                desc = FUNCTION.LSP.GO_TO_DEFINITION,               silent = true },
+  { Prefix.jump .. "r",        "<CMD>Glance references<CR>",                                                 desc = FUNCTION.LSP.GO_TO_REFERENCES,               silent = true },
   { Prefix.jump .. 's',        function() require("flash").jump() end,                                       desc = FUNCTION.FINDER.JUMP_MOTION,                 silent = true },
   { Prefix.jump .. 'S',        function() require("flash").treesitter() end,                                 desc = FUNCTION.FINDER.JUMP_TREESITTER,             silent = true },
 
@@ -208,7 +210,6 @@ M.lsp = {
 }
 
 M.lspsaga = {
-  FunctionKeyMapping[FUNCTION.LSP.GG_TO_DEFINITION_OR_REFERENCES],
   FunctionKeyMapping[FUNCTION.LSP.SHOW_TYPE_DEFINITION],
   FunctionKeyMapping[FUNCTION.LSP.CALL_HIERARCHY],
   FunctionKeyMapping[FUNCTION.LSP.CODE_ACTION],
@@ -270,6 +271,11 @@ M.spider = {
   FunctionKeyMapping[FUNCTION.MOTION.WORD_END],
   FunctionKeyMapping[FUNCTION.MOTION.WORD_BACKWARD],
   FunctionKeyMapping[FUNCTION.MOTION.WORD_END_BACKWARD],
+}
+
+M.glance = {
+  FunctionKeyMapping[FUNCTION.LSP.GO_TO_DEFINITION],
+  FunctionKeyMapping[FUNCTION.LSP.GO_TO_REFERENCES],
 }
 
 M.pile = {

@@ -14,12 +14,10 @@ return {
     },
     modes = {
       char = {
-        enabled = true,
-        autohide = false,
-        jump_labels = true,
+        enabled = false,  -- Disable to allow ; and , as prefix keys for which-key
       },
       search = {
-        enabled = true,
+        enabled = false,  -- Disable to prevent interference with / search
       },
     },
   },

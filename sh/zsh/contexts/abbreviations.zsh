@@ -1,3 +1,4 @@
+abbr "colima start"="colima start --vm-type vz --vz-rosetta --cpu 4 --memory 8"
 abbr "d"="docker"
 abbr "dc"="docker compose"
 abbr "docker c"="docker compose"
