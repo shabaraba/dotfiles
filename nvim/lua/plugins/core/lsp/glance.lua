@@ -1,23 +1,23 @@
 -- VSCode-like peek preview for LSP locations
 -- Replaces Lspsaga finder for better jdtls compatibility
+--
+-- Features:
+-- Definition
+-- References
+-- TypeDefinition
+-- Implementation
+--
 return {
   'dnlhc/glance.nvim',
-  event = 'LspAttach',
-  config = function()
-    local glance = require('glance')
-    local actions = glance.actions
+  event = { "LspAttach" },
+  keys = require("mappings").glance,
+  opts = function()
+    local actions = require('glance').actions
 
-    -- キーマップ登録
-    vim.keymap.set('n', 'gd', '<CMD>Glance definitions<CR>', { desc = 'Glance definitions' })
-    vim.keymap.set('n', 'gr', '<CMD>Glance references<CR>', { desc = 'Glance references' })
-    vim.keymap.set('n', 'gi', '<CMD>Glance implementations<CR>', { desc = 'Glance implementations' })
-
-    glance.setup({
+    return {
       height = 18,
       zindex = 45,
-      detached = function(winid)
-        return vim.api.nvim_win_get_width(winid) < 100
-      end,
+      detached = false,
       preview_win_opts = {
         cursorline = true,
         number = true,
@@ -63,17 +63,10 @@ return {
           ['<Tab>'] = actions.next_location,
           ['<S-Tab>'] = actions.previous_location,
           ['<leader>l'] = actions.enter_win('list'),
+          ['<CR>'] = actions.jump,
         },
       },
-      hooks = {
-        before_open = function(results, open, jump, method)
-          if #results == 1 then
-            jump(results[1])
-          else
-            open(results)
-          end
-        end,
-      },
+      hooks = {},
       folds = {
         fold_closed = '',
         fold_open = '',
@@ -86,6 +79,6 @@ return {
       winbar = {
         enable = true,
       },
-    })
+    }
   end,
 }

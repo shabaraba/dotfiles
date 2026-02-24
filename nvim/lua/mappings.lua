@@ -129,8 +129,8 @@ end
 local Mapping = {
   { Prefix.jump .. ']',        '<cmd>lua vim.diagnostic.goto_next()<cr>',                                    desc = FUNCTION.DIAGNOSTIC.GO_TO_NEXT,              silent = true },
   { Prefix.jump .. '[',        '<cmd>lua vim.diagnostic.goto_prev()<cr>',                                    desc = FUNCTION.DIAGNOSTIC.GO_TO_PREV,              silent = true },
-  { Prefix.jump .. "d",        "<CMD>Glance definitions<CR>",                                                desc = FUNCTION.LSP.GO_TO_DEFINITION,               silent = true },
-  { Prefix.jump .. "r",        "<CMD>Glance references<CR>",                                                 desc = FUNCTION.LSP.GO_TO_REFERENCES,               silent = true },
+  { Prefix.jump .. "d",        "<cmd>Glance definitions<cr>",                                               desc = FUNCTION.LSP.GO_TO_DEFINITION,               silent = true },
+  { Prefix.jump .. "r",        "<cmd>Glance references<cr>",                                                 desc = FUNCTION.LSP.GO_TO_REFERENCES,               silent = true },
   { Prefix.jump .. 's',        function() require("flash").jump() end,                                       desc = FUNCTION.FINDER.JUMP_MOTION,                 silent = true },
   { Prefix.jump .. 'S',        function() require("flash").treesitter() end,                                 desc = FUNCTION.FINDER.JUMP_TREESITTER,             silent = true },
 
