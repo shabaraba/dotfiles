@@ -2,16 +2,7 @@ return {
   "stevearc/conform.nvim",
   event = { "BufReadPre", "BufNewFile" },
   cmd = { "ConformInfo" },
-  keys = {
-    {
-      "<leader>mp",
-      function()
-        require("conform").format({ async = true, lsp_fallback = true })
-      end,
-      mode = "",
-      desc = "[mp] Format buffer",
-    },
-  },
+  keys = require("mappings").conform,
   opts = {
     formatters_by_ft = {
       javascript = { "prettier" },
@@ -27,11 +18,6 @@ return {
       graphql = { "prettier" },
       lua = { "stylua" },
       python = { "black" },
-    },
-    format_on_save = {
-      lsp_fallback = true,
-      async = false,
-      timeout_ms = 1000,
     },
     formatters = {
       prettier = {

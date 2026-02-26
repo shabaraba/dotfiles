@@ -60,6 +60,37 @@ brew bundle dump --force --describe --file=installers/Brewfile.common  # For com
 brew bundle dump --force --describe --file=installers/Brewfile.macos   # For macOS apps
 ```
 
+### Docker/Colima Management
+
+このリポジトリではDocker Desktopの代わりにColimaを使用します。
+
+```bash
+# Start Colima
+colima start --cpu 4 --memory 8 --disk 100
+
+# Stop Colima
+colima stop
+
+# Check Colima status
+colima status
+
+# Switch Docker context to Colima (if needed)
+docker context use colima
+
+# Verify Docker is using Colima
+docker context ls
+docker version
+
+# Test Docker
+docker run --rm hello-world
+```
+
+**Colima Configuration:**
+- CPU: 4 cores
+- Memory: 8 GB
+- Disk: 100 GB
+- Docker socket: `~/.config/colima/default/docker.sock`
+
 ### GitHub Repository Setup (mise tasks)
 
 ```bash
