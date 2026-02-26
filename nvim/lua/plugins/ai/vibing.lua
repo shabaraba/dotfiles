@@ -88,7 +88,7 @@ return {
       search_dirs = {
         vim.fn.expand("~/workspace"),
       },
-      save_dir = vim.fn.expand("~/workspace/ObsidianVault/vault/Daily/"),
+      save_dir = vim.fn.expand("~/workspace/ObsidianVault/vault/Daily/private/"),
       file_finder_strategy = "auto", -- "auto" | "fd" | "ripgrep" | "find" | "locate"
     },
   },
