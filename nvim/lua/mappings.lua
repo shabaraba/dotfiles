@@ -33,6 +33,7 @@ local FUNCTION = {
   LSP = {
     GO_TO_DEFINITION = "GO TO DEFINITION",
     GO_TO_REFERENCES = "GO TO REFERENCES",
+    GO_TO_IMPLEMENTATION = "GO TO IMPLEMENTATION",
     HOVER = "HOVER UNDER THE CURSOR",
     SHOW_TYPE_DEFINITION = "SHOW TYPE DEFINITION",
     RENAME_VALIABLE_NAME = "RENAME VALIABLE NAME UNDER THE CURSOR",
@@ -131,6 +132,7 @@ local Mapping = {
   { Prefix.jump .. '[',        '<cmd>lua vim.diagnostic.goto_prev()<cr>',                                    desc = FUNCTION.DIAGNOSTIC.GO_TO_PREV,              silent = true },
   { Prefix.jump .. "d",        "<cmd>Glance definitions<cr>",                                               desc = FUNCTION.LSP.GO_TO_DEFINITION,               silent = true },
   { Prefix.jump .. "r",        "<cmd>Glance references<cr>",                                                 desc = FUNCTION.LSP.GO_TO_REFERENCES,               silent = true },
+  { Prefix.jump .. "i",        "<cmd>Glance implementations<cr>",                                            desc = FUNCTION.LSP.GO_TO_IMPLEMENTATION,           silent = true },
   { Prefix.jump .. 's',        function() require("flash").jump() end,                                       desc = FUNCTION.FINDER.JUMP_MOTION,                 silent = true },
   { Prefix.jump .. 'S',        function() require("flash").treesitter() end,                                 desc = FUNCTION.FINDER.JUMP_TREESITTER,             silent = true },
 
@@ -276,6 +278,7 @@ M.spider = {
 M.glance = {
   FunctionKeyMapping[FUNCTION.LSP.GO_TO_DEFINITION],
   FunctionKeyMapping[FUNCTION.LSP.GO_TO_REFERENCES],
+  FunctionKeyMapping[FUNCTION.LSP.GO_TO_IMPLEMENTATION],
 }
 
 M.pile = {
