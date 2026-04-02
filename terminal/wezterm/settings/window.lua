@@ -4,7 +4,8 @@ function M.get_config()
   return {
     initial_rows = 30,
     initial_cols = 150,
-    window_decorations = 'RESIZE',
+    window_decorations = 'INTEGRATED_BUTTONS | RESIZE',
+    -- integrated_title_buttons = {},  -- 一時的にコメントアウト
     window_frame = {
       -- 現在はデフォルト設定を使用
     },

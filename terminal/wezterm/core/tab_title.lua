@@ -73,8 +73,8 @@ function M.setup()
     local workspace = window:active_workspace()
     local dir_name = get_directory_name(pane)
     
-    -- ステータスバーにワークスペースとディレクトリを表示
-    window:set_left_status(wezterm.format({
+    -- ステータスバーにワークスペースとディレクトリを表示（右側）
+    window:set_right_status(wezterm.format({
       { Text = ' ' .. workspace .. ' | ' .. dir_name .. ' ' }
     }))
   end)
