@@ -17,6 +17,9 @@ alias ....='cd ../../..'
 alias v='nvim'
 alias vl='nvim --listen /tmp/nvim'
 
+alias npx='echo "WARNING: npx の利用は禁止されています。代わりに pnpm exec を利用してください。" && false'
+alias npm='echo "WARNING: npm の利用は禁止されています。代わりに pnpm を利用してください。" && false'
+
 # android device bridgh
 # wsl2ではusb接続されたデバイスを認識できず、実機デバッグしにくいので、
 # windowsのadbを使用する（rootにadbという名前でwindowsのadb.exeにシンボリックリンクを張っている）

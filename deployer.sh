@@ -45,4 +45,16 @@ if [ -d "$PWD/gemini" ]; then
   ln -snfv $PWD/gemini/commands $HOME/.gemini/commands
 fi
 
+echo "  - 🔒 package manager security settings"
+command -v npm >/dev/null 2>&1 && npm config set ignore-scripts true --user
+command -v yarn >/dev/null 2>&1 && yarn config set enableScripts false
+if command -v npm >/dev/null 2>&1 && [ -n "${TAKUMI_GUARD_API_KEY:-}" ]; then
+  npm config set registry https://npm.flatt.tech/
+  npm config set //npm.flatt.tech/:_authToken "$TAKUMI_GUARD_API_KEY"
+fi
+if command -v pnpm >/dev/null 2>&1; then
+  pnpm config set -g minimumReleaseAge 1440
+  pnpm config set -g --json minimumReleaseAgeExclude '["@anthropic-ai/claude-code"]'
+fi
+
 echo "🎉 deploy finished."
