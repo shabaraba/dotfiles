@@ -5,7 +5,7 @@
 # Tasks defined here are available from any directory
 
 [env]
-DOTFILES_DIR = "{{env.HOME}}/workspace/dotfiles"
+DOTFILES_DIR = "{{env.HOME}}/dotfiles"
 
 [settings]
 # Enable idiomatic version files for common tools
