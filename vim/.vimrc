@@ -28,7 +28,6 @@ endif
 " Required:
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
-let g:dein#install_github_api_token = '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'
 " source ~/.vim/dein_github_api_token.vim
 
 " Required:
@@ -77,3 +76,5 @@ endif
 "End dein Scripts-------------------------
         
 source ~/.vim/visual/*.vim
+
+set nomodeline
