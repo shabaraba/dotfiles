@@ -47,6 +47,7 @@ abbr "gsp"="git stash pop"
 abbr "gst"="git stash"
 abbr "gsu"="git stash -u"
 abbr "gpuld"='git fetch --depth 1 origin $(git branch --show-current) && git reset --hard origin/$(git branch --show-current) && git clean -fdx && git gc --prune=now --quiet'
+abbr "gsm"="git-shallow-merge"
 
 abbr "poff"="http_proxy= https_proxy="
 abbr "gnome logout"="env DISPLAY=:0 gnome-session-quit --logout"
