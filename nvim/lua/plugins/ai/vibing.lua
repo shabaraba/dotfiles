@@ -6,13 +6,14 @@ return {
   cmd = { "VibingChat", "VibingInline", "VibingContext", "VibingToggleChat" },
   keys = require("mappings").vibing,
   opts = {
+    adapter = "claude",
     agent = {
       default_mode = "code",
       default_model = "sonnet",
     },
     permissions = {
       mode = "acceptEdits",
-      allow = { "Skill", "Read", "Edit", "Write", "Glob", "Grep", "WebSearch", "WebFetch", "Bash", "mcp__chrome-devtools__*", "mcp__internal-*" },
+      allow = { "Skill", "Read", "Edit", "Write", "Glob", "Grep", "WebSearch", "WebFetch", "Bash", "mcp__chrome-devtools__*" },
       ask = { "Bash(rm:*)" },
       deny = {},
     },

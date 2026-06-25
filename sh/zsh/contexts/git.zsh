@@ -10,3 +10,8 @@ function git-shallow-merge() {
   git fetch origin "$current" --shallow-since="$date"
   git merge "origin/$target"
 }
+
+# gh uses stored credentials instead of GITHUB_TOKEN env var
+gh() {
+  GITHUB_TOKEN="" command gh "$@"
+}
