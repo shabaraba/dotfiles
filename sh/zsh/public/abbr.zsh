@@ -1,9 +1,12 @@
 # zsh-abbrの設定（存在する場合のみ）
 if command -v abbr >/dev/null 2>&1; then
     abbr_file="$HOME/.zsh/contexts/abbreviations.zsh"
+    abbr_global_file="$HOME/.zsh/contexts/global-abbreviations.zsh"
     [[ -d "$HOME/.zsh/contexts" ]] || mkdir -p "$HOME/.zsh/contexts"
     [[ -f "$abbr_file" ]] || touch "$abbr_file"
+    [[ -f "$abbr_global_file" ]] || touch "$abbr_global_file"
     export ABBR_USER_ABBREVIATIONS_FILE="$abbr_file"
+    export ABBR_GLOBAL_USER_ABBREVIATIONS_FILE="$abbr_global_file"
 
     ABBR_SET_EXPANSION_CURSOR=1
     ABBR_SET_LINE_CURSOR=1

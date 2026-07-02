@@ -11,7 +11,7 @@ abbr "docker compose u"="docker compose up %-d"
 abbr "docker compose pu"="docker compose --profile % up -d"
 abbr "docker compose pd"="docker compose --profile % down"
 abbr "dp"="docker ps"
-
+
 abbr "devup"='docker compose -f .devcontainer/docker-compose.yml -f .devcontainer/docker-compose.override.yml -f .devcontainer/docker-compose.local.yml up -d'
 abbr "devdn"='docker compose -f .devcontainer/docker-compose.yml -f .devcontainer/docker-compose.override.yml -f .devcontainer/docker-compose.local.yml down'
 abbr "devexc"='docker compose -f .devcontainer/docker-compose.yml -f .devcontainer/docker-compose.override.yml -f .devcontainer/docker-compose.local.yml exec app zsh'
@@ -46,7 +46,7 @@ abbr "gsl"="git stash list"
 abbr "gsp"="git stash pop"
 abbr "gst"="git stash"
 abbr "gsu"="git stash -u"
-abbr "gpuld"='git fetch --depth 1 origin $(git branch --show-current) && git reset --hard origin/$(git branch --show-current) && git clean -fd && git gc --prune=now --quiet'
+abbr "gpuld"='git fetch --depth 10 origin $(git branch --show-current) && git reset --hard origin/$(git branch --show-current) && git clean -fd && _git_clean_shallow'
 abbr "gsm"="git-shallow-merge"
 
 abbr "poff"="http_proxy= https_proxy="
@@ -55,3 +55,6 @@ abbr "gnome logout"="env DISPLAY=:0 gnome-session-quit --logout"
 # Claude Code shortcuts
 abbr "cl"="claude --dangerously-skip-permissions -c"
 abbr "clr"="claude --dangerously-skip-permissions -r"
+
+# cocoreview
+abbr "crsetup"="/Users/shaba/workspace/jobs/coco/docker/review-setup.sh"
