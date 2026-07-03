@@ -37,6 +37,13 @@ if [ -d "$PWD/claude/skills/private" ]; then
 fi
 # Link shared skills
 ln -snfv $PWD/claude/skills/shared $HOME/.claude/skills/shared
+# Link personal skills (claude/skills/* excluding private and shared)
+for skill_dir in $PWD/claude/skills/*/; do
+  skill_name=$(basename "$skill_dir")
+  if [ "$skill_name" != "private" ] && [ "$skill_name" != "shared" ]; then
+    ln -snfv "$skill_dir" "$HOME/.claude/skills/$skill_name"
+  fi
+done
 ln -snfv $PWD/cursor/cursorrules $HOME/.cursorrules
 # geminiディレクトリが存在しない場合はスキップ
 if [ -d "$PWD/gemini" ]; then

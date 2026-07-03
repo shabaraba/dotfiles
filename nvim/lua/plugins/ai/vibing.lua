@@ -22,7 +22,7 @@ return {
         position = "right",
         border = "rounded",
       },
-      auto_context = true,
+      auto_context = false,
       save_location_type = "project",
     },
     ui = {

@@ -6,10 +6,58 @@ local function is_vim(pane)
   return process:find('n?vim$') ~= nil
 end
 
+-- get_lines_as_text() joins wrapped lines into logical lines,
+-- so URLs spanning multiple visual lines appear as single strings.
+local function open_url_from_viewport(window, pane)
+  local text = pane:get_lines_as_text(200)
+  local urls = {}
+  local seen = {}
+
+  for url in text:gmatch('https?://[^%s<>"]+') do
+    url = url:gsub('[%.,%!%?%;%:%(%)%[%]]+$', '')
+    if not seen[url] then
+      seen[url] = true
+      table.insert(urls, url)
+    end
+  end
+
+  if #urls == 0 then
+    window:toast_notification('WezTerm', 'No URLs found in viewport', nil, 2000)
+    return
+  end
+
+  if #urls == 1 then
+    wezterm.open_with(urls[1])
+    return
+  end
+
+  local choices = {}
+  for _, url in ipairs(urls) do
+    table.insert(choices, { id = url, label = url })
+  end
+
+  window:perform_action(
+    act.InputSelector {
+      action = wezterm.action_callback(function(_, _, _, label)
+        if label then wezterm.open_with(label) end
+      end),
+      title = 'Open URL',
+      choices = choices,
+      fuzzy = true,
+    },
+    pane
+  )
+end
+
 local M = {}
 
 function M.create_general_bindings()
   return {
+    {
+      key = 'u',
+      mods = 'LEADER',
+      action = wezterm.action_callback(open_url_from_viewport),
+    },
     { key = 'h', mods = 'CMD', action = act.Hide },
 
     -- Pane add (split)

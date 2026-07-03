@@ -109,6 +109,14 @@ echo "Homebrew: $(brew --version | head -n 1)"
 """
 
 # =============================================================================
+# Local Gitea → GitHub PR Workflow
+# =============================================================================
+
+[tasks."pr:publish"]
+description = "Publish a local Gitea PR to GitHub as a draft PR"
+run = "bash \"$HOME/dotfiles/mise/scripts/pr-publish.sh\" \"$@\""
+
+# =============================================================================
 # GitHub Repository Setup Tasks
 # =============================================================================
 
