@@ -25,6 +25,7 @@ ln -snfv $PWD/claude/CLAUDE.md $HOME/.claude/CLAUDE.md
 ln -snfv $PWD/claude/settings.json $HOME/.claude/settings.json
 ln -snfv $PWD/claude/commands $HOME/.claude/commands
 ln -snfv $PWD/claude/agents $HOME/.claude/agents
+ln -snfv $PWD/claude/hooks $HOME/.claude/hooks
 mkdir -p $HOME/.claude/skills
 # Link private skills directly to ~/.claude/skills/ (not as subdirectory)
 if [ -d "$PWD/claude/skills/private" ]; then
