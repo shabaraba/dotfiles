@@ -42,6 +42,12 @@ M.on_attach = function(client, bufnr)
     client.server_capabilities.documentFormattingProvider = false
   end
   
+  -- navic（パンくずリスト用シンボル追跡）
+  local ok_navic, navic = pcall(require, "nvim-navic")
+  if ok_navic and client.server_capabilities.documentSymbolProvider then
+    navic.attach(client, bufnr)
+  end
+
   -- インレイヒントの設定（対応している場合）
   if client.server_capabilities.inlayHintProvider then
     -- Neovim 0.10+ の新しいAPI
