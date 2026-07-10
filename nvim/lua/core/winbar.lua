@@ -1,6 +1,6 @@
 local M = {}
 
-local GIT_ICON = "\xEE\x82\xA0 " -- U+E0A0 Nerd Font git branch icon
+local GIT_ICON = "\xEF\x84\xA6 " -- U+F126 Nerd Font git branch icon (same as p10k)
 
 local function patch_winbar(win, bufnr)
   if vim.bo[bufnr].buftype ~= "" then return end
