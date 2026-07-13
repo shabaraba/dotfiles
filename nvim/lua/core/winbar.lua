@@ -6,7 +6,6 @@ local GIT_ICON = "\xEF\x84\xA6 " -- U+F126 Nerd Font git branch icon (same as p1
 local SEPARATOR_LINE = "%{repeat('─', winwidth(0))}"
 
 local WINBAR_BG_FALLBACK = "#2f333d" -- Stringハイライトが取得できない場合のフォールバック
-local WINBAR_FG = "#1e1e1e" -- 文字列色の背景に対するコントラスト用(視認性重視で黒系固定)
 local WINBARNC_BG = "#202226" -- 非アクティブウィンドウのwinbar背景
 
 local function resolve_hex_fg(name)
@@ -15,7 +14,20 @@ local function resolve_hex_fg(name)
   return string.format("#%06x", hl.fg)
 end
 
--- lspsagaのパンくず(フォルダ/ファイル名/セパレータ)も同じ濃色に揃えて視認性を確保する
+local CONTRAST_DARK = "#1e1e1e"
+local CONTRAST_LIGHT = "#f0f0f0"
+
+-- 背景色の知覚輝度(YIQ)から読みやすい文字色(黒 or 白系)を選ぶ
+-- 単純なRGB反転は中間輝度の彩度色だと別の中間輝度色になりコントラストが弱いため使わない
+local function contrast_fg(hex)
+  local r = tonumber(hex:sub(2, 3), 16)
+  local g = tonumber(hex:sub(4, 5), 16)
+  local b = tonumber(hex:sub(6, 7), 16)
+  local brightness = (r * 299 + g * 587 + b * 114) / 1000
+  return brightness >= 128 and CONTRAST_DARK or CONTRAST_LIGHT
+end
+
+-- lspsagaのパンくず(フォルダ/ファイル名/セパレータ)はアクティブウィンドウでのみ濃色にする
 -- 実際にwinbar文字列内で使われるのは"Winbar"接頭辞のない実体グループ
 -- （SagaWinbarXxxはこれらへのlinkでしかなく、文字列組み立て側は直接SagaXxxを使う）
 local SAGA_WINBAR_GROUPS = {
@@ -26,14 +38,26 @@ local SAGA_WINBAR_GROUPS = {
   "SagaFileIcon",
 }
 
+local BREADCRUMB_ACTIVE_GROUP = "CoreWinBarBreadcrumb"
+
+local ACTIVE_WINHIGHLIGHT = (function()
+  local parts = {}
+  for _, group in ipairs(SAGA_WINBAR_GROUPS) do
+    table.insert(parts, group .. ":" .. BREADCRUMB_ACTIVE_GROUP)
+  end
+  return table.concat(parts, ",")
+end)()
+
+local function is_floating(win)
+  return vim.api.nvim_win_get_config(win).relative ~= ""
+end
+
 local function ensure_winbar_highlight()
   local active_bg = resolve_hex_fg("String") or WINBAR_BG_FALLBACK
-  vim.api.nvim_set_hl(0, "WinBar", { bg = active_bg, fg = WINBAR_FG })
+  local active_fg = contrast_fg(active_bg)
+  vim.api.nvim_set_hl(0, "WinBar", { bg = active_bg, fg = active_fg })
   vim.api.nvim_set_hl(0, "WinBarNC", { bg = WINBARNC_BG })
-
-  for _, group in ipairs(SAGA_WINBAR_GROUPS) do
-    vim.api.nvim_set_hl(0, group, { fg = WINBAR_FG })
-  end
+  vim.api.nvim_set_hl(0, BREADCRUMB_ACTIVE_GROUP, { fg = active_fg })
 end
 
 local function patch_winbar(win, bufnr)
@@ -86,6 +110,22 @@ function M.setup()
         if vim.api.nvim_get_current_buf() ~= ev.buf then return end
         patch_winbar(win, ev.buf)
       end)
+    end,
+  })
+
+  vim.api.nvim_create_autocmd({ "WinEnter", "BufWinEnter" }, {
+    group = group,
+    callback = function()
+      if is_floating(0) then return end
+      vim.wo.winhighlight = ACTIVE_WINHIGHLIGHT
+    end,
+  })
+
+  vim.api.nvim_create_autocmd("WinLeave", {
+    group = group,
+    callback = function()
+      if is_floating(0) then return end
+      vim.wo.winhighlight = ""
     end,
   })
 end
