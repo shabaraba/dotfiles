@@ -218,7 +218,6 @@ Private settings (API keys, tokens) are stored in `sh/zsh/private/` and excluded
 
 - Use Semantic Commit Messages (feat, fix, chore, test, refactor)
 - Commit messages in English only
-- Create branches for features (never commit to main directly)
 - Owner: shabaraba
 
 ## Notes
