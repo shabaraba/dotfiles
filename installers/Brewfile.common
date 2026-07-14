@@ -37,6 +37,8 @@ brew "gitea"
 brew "tea"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
+# Tree-sitter CLI (required by nvim-treesitter main branch to compile parsers)
+brew "tree-sitter-cli"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 brew "fzf"

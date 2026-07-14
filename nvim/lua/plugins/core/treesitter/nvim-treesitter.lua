@@ -1,67 +1,43 @@
+local parsers = {
+  "lua",
+  "vim",
+  "vimdoc",
+  "query",
+  "javascript",
+  "typescript",
+  "tsx",
+  "json",
+  "yaml",
+  "markdown",
+  "markdown_inline",
+}
+
+-- indentexpr は一部言語で精度が低いため除外
+local indent_disabled = { yaml = true }
+
 return {
   "nvim-treesitter/nvim-treesitter",
-  branch = "master",  -- 旧API互換のため master ブランチを使用
-  event = "VimEnter",
+  branch = "main",  -- master は archived のため main（Neovim 0.12+ 対応）を使用
+  lazy = false,
   build = ":TSUpdate",
-  main = 'nvim-treesitter.configs',
-  opts = {
-    -- 必要最小限のパーサーのみインストール
-    ensure_installed = {
-      "lua",
-      "vim",
-      "vimdoc",
-      "query",
-      "javascript",
-      "typescript",
-      "tsx",
-      "json",
-      "yaml",
-      "markdown",
-      "markdown_inline",
-    },
+  config = function()
+    require("nvim-treesitter").install(parsers)
 
-    -- Install parsers synchronously (only applied to `ensure_installed`)
-    sync_install = false,
-
-    -- 自動インストールを無効化（パフォーマンス向上）
-    auto_install = false,
-
-    -- 不要なパーサーを除外
-    ignore_install = { "phpdoc", "tree-sitter-phpdoc", "latex" },
-
-    highlight = {
-      enable = true,
-      -- 大きなファイルでのハイライトを無効化
-      disable = function(lang, buf)
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = parsers,
+      callback = function(args)
         local max_filesize = 100 * 1024 -- 100 KB
-        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(args.buf))
         if ok and stats and stats.size > max_filesize then
-          return true
+          return
+        end
+
+        vim.treesitter.start()
+
+        if not indent_disabled[args.match] then
+          vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end
       end,
-      -- 追加のvim正規表現ハイライトを無効化（パフォーマンス向上）
-      additional_vim_regex_highlighting = false,
-    },
-    -- incremental_selection = {
-    --   enable = true,
-    --   keymaps = {
-    --     init_selection = "v",        -- Enterキーで選択開始
-    --     node_incremental = "v",      -- Enterキーでさらに広げる
-    --     scope_incremental = "<Tab>", -- スコープ（関数など）単位で広げる
-    --     node_decremental = "V",      -- Backspaceで範囲を戻す
-    --   },
-    -- },
-    indent = {
-      enable = true,
-      -- パフォーマンスのため、特定の言語でのみ有効化
-      disable = { "yaml", "python" }
-    },
-
-    -- 不要なモジュールを無効化
-    playground = { enable = false },
-    textobjects = { enable = false },
-    refactor = { enable = false },
-    rainbow = { enable = false },
-    context_commentstring = { enable = false },
-  },
+    })
+  end,
 }
