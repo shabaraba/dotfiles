@@ -36,8 +36,16 @@ if [ -d "$PWD/claude/skills/private" ]; then
     fi
   done
 fi
-# Link shared skills
-ln -snfv $PWD/claude/skills/shared $HOME/.claude/skills/shared
+# Link shared skills directly to ~/.claude/skills/ (not as subdirectory —
+# Claude Code only discovers skills one level deep under ~/.claude/skills/<name>/SKILL.md)
+if [ -d "$PWD/claude/skills/shared" ]; then
+  for skill_dir in $PWD/claude/skills/shared/*/; do
+    if [ -d "$skill_dir" ]; then
+      skill_name=$(basename "$skill_dir")
+      ln -snfv "$skill_dir" "$HOME/.claude/skills/$skill_name"
+    fi
+  done
+fi
 # Link personal skills (claude/skills/* excluding private and shared)
 for skill_dir in $PWD/claude/skills/*/; do
   skill_name=$(basename "$skill_dir")
