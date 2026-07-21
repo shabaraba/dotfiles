@@ -360,6 +360,8 @@ M.misc = function()
   -- get out of terminal mode
   map("t", { "jj" }, "<C-\\><C-n>")
   -- terminal mappings end --
+
+  map('n', '<leader>w', '<cmd>setlocal wrap!<cr>', { desc = "TOGGLE WRAP" })
 end
 
 return M
