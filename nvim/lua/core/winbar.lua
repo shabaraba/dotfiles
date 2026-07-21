@@ -30,7 +30,7 @@ end
 -- lspsagaのパンくず(フォルダ/ファイル名/セパレータ)はアクティブウィンドウでのみ濃色にする
 -- 実際にwinbar文字列内で使われるのは"Winbar"接頭辞のない実体グループ
 -- （SagaWinbarXxxはこれらへのlinkでしかなく、文字列組み立て側は直接SagaXxxを使う）
-local SAGA_WINBAR_GROUPS = {
+local BASE_SAGA_WINBAR_GROUPS = {
   "SagaSep",
   "SagaFileName",
   "SagaFolderName",
@@ -40,16 +40,32 @@ local SAGA_WINBAR_GROUPS = {
 
 local BREADCRUMB_ACTIVE_GROUP = "CoreWinBarBreadcrumb"
 
-local ACTIVE_WINHIGHLIGHT = (function()
-  local parts = {}
-  for _, group in ipairs(SAGA_WINBAR_GROUPS) do
-    table.insert(parts, group .. ":" .. BREADCRUMB_ACTIVE_GROUP)
-  end
-  return table.concat(parts, ",")
-end)()
-
 local function is_floating(win)
   return vim.api.nvim_win_get_config(win).relative ~= ""
+end
+
+-- シンボルパンくず(関数名/メソッド名等)はLSPシンボル種別ごとに"Saga<Kind>"という
+-- 別グループを使うため、lspsaga側の種別一覧から動的にグループ名を収集する
+local active_winhighlight_cache
+
+local function build_active_winhighlight()
+  if active_winhighlight_cache then return active_winhighlight_cache end
+
+  local groups = vim.deepcopy(BASE_SAGA_WINBAR_GROUPS)
+  local ok, lspkind = pcall(require, "lspsaga.lspkind")
+  if ok and lspkind.kind then
+    for _, item in pairs(lspkind.kind) do
+      table.insert(groups, "Saga" .. item[1])
+      table.insert(groups, "Saga" .. item[1] .. "Word")
+    end
+  end
+
+  local parts = {}
+  for _, group in ipairs(groups) do
+    table.insert(parts, group .. ":" .. BREADCRUMB_ACTIVE_GROUP)
+  end
+  active_winhighlight_cache = table.concat(parts, ",")
+  return active_winhighlight_cache
 end
 
 local function ensure_winbar_highlight()
@@ -117,7 +133,7 @@ function M.setup()
     group = group,
     callback = function()
       if is_floating(0) then return end
-      vim.wo.winhighlight = ACTIVE_WINHIGHLIGHT
+      vim.wo.winhighlight = build_active_winhighlight()
     end,
   })
 
