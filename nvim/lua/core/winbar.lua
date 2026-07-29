@@ -40,6 +40,49 @@ local BASE_SAGA_WINBAR_GROUPS = {
 
 local BREADCRUMB_ACTIVE_GROUP = "CoreWinBarBreadcrumb"
 
+-- lspsagaのファイル名パンくずは日本語等の全角文字でも幅チェックをしないため、
+-- ウィンドウ幅を超える文字列がそのまま描画され隣のウィンドウにはみ出すことがある。
+-- ここで表示幅を計算して安全にクリップする（マージンはアイコングリフの表示幅ズレの吸収用）
+local WIDTH_SAFETY_MARGIN = 4
+local ELLIPSIS = "…"
+
+local function strip_stl_markup(str)
+  return (str:gsub("%%#%w+#", ""):gsub("%%%*", ""))
+end
+
+-- statuslineのハイライト指定(%#Group#, %*)を維持したまま表示幅でクリップする
+local function clip_to_width(str, max_width)
+  if max_width <= 0 then return "" end
+  if vim.fn.strdisplaywidth(strip_stl_markup(str)) <= max_width then return str end
+
+  local budget = math.max(max_width - vim.fn.strwidth(ELLIPSIS), 0)
+  local out, width, pos, len = {}, 0, 1, #str
+
+  while pos <= len do
+    local s, e = str:find("^%%#%w+#", pos)
+    if not s then s, e = str:find("^%%%*", pos) end
+    if s then
+      out[#out + 1] = str:sub(s, e)
+      pos = e + 1
+    else
+      local next_markup = str:find("%%[#%*]", pos)
+      local text_end = (next_markup and next_markup - 1) or len
+      for _, ch in ipairs(vim.fn.split(str:sub(pos, text_end), "\\zs")) do
+        local w = vim.fn.strwidth(ch)
+        if width + w > budget then
+          out[#out + 1] = ELLIPSIS
+          return table.concat(out)
+        end
+        out[#out + 1] = ch
+        width = width + w
+      end
+      pos = text_end + 1
+    end
+  end
+
+  return table.concat(out)
+end
+
 local function is_floating(win)
   return vim.api.nvim_win_get_config(win).relative ~= ""
 end
@@ -94,7 +137,8 @@ local function patch_winbar(win, bufnr)
   local branch = require("core.worktree").get_branch(bufnr)
   if not branch then return end
 
-  vim.wo[win].winbar = GIT_ICON .. branch .. "  " .. current
+  local combined = GIT_ICON .. branch .. "  " .. current
+  vim.wo[win].winbar = clip_to_width(combined, vim.api.nvim_win_get_width(win) - WIDTH_SAFETY_MARGIN)
 end
 
 function M.setup()
@@ -142,6 +186,39 @@ function M.setup()
     callback = function()
       if is_floating(0) then return end
       vim.wo.winhighlight = ""
+    end,
+  })
+
+  -- ウィンドウ分割/リサイズ直後はwinbarが古い幅のまま再描画されず
+  -- 隣のペインに文字がはみ出て残ることがあるため、強制的に全画面再描画する
+  vim.api.nvim_create_autocmd({ "VimResized", "WinResized" }, {
+    group = group,
+    callback = function()
+      vim.schedule(function()
+        vim.cmd.redraw({ bang = true })
+      end)
+    end,
+  })
+
+  -- lspsagaはCursorMoved等で同期的にwinbarを再設定するため、こちらの
+  -- patch_winbar（vim.schedule経由）が追いつく前に幅チェックなしの文字列が
+  -- 一瞬描画されることがある。OptionSetで即座に横幅クリップして安全弁とする
+  local suppress_option_set = false
+  vim.api.nvim_create_autocmd("OptionSet", {
+    group = group,
+    pattern = "winbar",
+    callback = function()
+      if suppress_option_set then return end
+      local win = vim.api.nvim_get_current_win()
+      if is_floating(win) then return end
+
+      local current = vim.wo[win].winbar
+      local clipped = clip_to_width(current, vim.api.nvim_win_get_width(win) - WIDTH_SAFETY_MARGIN)
+      if clipped == current then return end
+
+      suppress_option_set = true
+      vim.wo[win].winbar = clipped
+      suppress_option_set = false
     end,
   })
 end
