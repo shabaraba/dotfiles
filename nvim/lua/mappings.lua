@@ -20,6 +20,7 @@ local Prefix = {
   action = ",",
   finder = ";",
   ai = "\\",
+  window = "<C-w>",
 }
 
 local FUNCTION = {
@@ -75,6 +76,10 @@ local FUNCTION = {
     GO_TO_NEXT = "GO TO NEXT BUFFER",
     GO_TO_PREV = "GO TO PREV BUFFER",
   },
+  WINDOW = {
+    PICK = "PICK WINDOW",
+    PICK_CYCLE = "PICK WINDOW (CYCLE)",
+  },
   CODING = {
     GENERATE_DOC_COMMENT = "GENERATE_DOC_COMMENT",
     TOGGLE_COMMENT = "TOGGLE COMMENT",
@@ -128,6 +133,13 @@ for _, commands in ipairs(Commands) do
   command(commands[1], commands[2], commands[3])
 end
 
+local function pick_window()
+  local picked_window_id = require("window-picker").pick_window()
+  if picked_window_id then
+    vim.api.nvim_set_current_win(picked_window_id)
+  end
+end
+
 local Mapping = {
   { Prefix.jump .. ']',        '<cmd>lua vim.diagnostic.goto_next()<cr>',                                       desc = FUNCTION.DIAGNOSTIC.GO_TO_NEXT,        silent = true },
   { Prefix.jump .. '[',        '<cmd>lua vim.diagnostic.goto_prev()<cr>',                                       desc = FUNCTION.DIAGNOSTIC.GO_TO_PREV,        silent = true },
@@ -154,6 +166,8 @@ local Mapping = {
   { Prefix.show .. "i",        ":Lspsaga incoming_calls<cr>",                                                   desc = FUNCTION.LSP.CALL_HIERARCHY,           silent = true },
   { Prefix.show .. "o",        ":Lspsaga outline<cr>",                                                          desc = FUNCTION.LSP.OUTLINE,                  silent = true },
   { Prefix.show .. "<leader>", "<cmd>Oil  --float<cr>",                                                         desc = FUNCTION.FILER.OPEN,                   silent = true },
+  { Prefix.window .. "w",       pick_window,                                                                    desc = FUNCTION.WINDOW.PICK,                  silent = true },
+  { Prefix.window .. Prefix.window, pick_window,                                                                desc = FUNCTION.WINDOW.PICK_CYCLE,            silent = true },
   -- { Prefix.show .. "f",        ":lua require(\"vuffers\").toggle()<cr>",                                      desc = FUNCTION.BUFFER.SHOW_LIST,                   silent = true },
   -- { "<C-j>",                   ":lua require(\"vuffers\").go_to_buffer_by_count({direction = \"next\"})<cr>", desc = FUNCTION.BUFFER.GO_TO_NEXT,                  silent = true },
   -- { "<C-k>",                   ":lua require(\"vuffers\").go_to_buffer_by_count({direction = \"prev\"})<cr>", desc = FUNCTION.BUFFER.GO_TO_PREV,                  silent = true },
@@ -298,6 +312,11 @@ M.vibing = {
 
 M.conform = {
   FunctionKeyMapping[FUNCTION.CODING.FORMAT_BUFFER],
+}
+
+M.window_picker = {
+  FunctionKeyMapping[FUNCTION.WINDOW.PICK],
+  FunctionKeyMapping[FUNCTION.WINDOW.PICK_CYCLE],
 }
 
 -- M.searchbox = {
