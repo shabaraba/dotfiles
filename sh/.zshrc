@@ -15,6 +15,7 @@ if [[ -d "/home/linuxbrew/.linuxbrew" ]]; then
 fi
 # fpath設定（補完関数のパスを追加）
 # fpath=(~/.zsh/completions $fpath)  # 必要に応じてカスタム補完ディレクトリを追加
+fpath=(~/.grok/completions/zsh $fpath)
 
 # ヒストリー設定
 HISTFILE=~/.zsh_history
@@ -114,6 +115,12 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 command -v hc &>/dev/null && eval "$(hc completion zsh)"
 
 # gh-hooks: GitHub CLI hooks
-if [[ -f "$HOME/.local/share/gh/extensions/gh-hooks/gh-hooks.sh" ]]; then
+# Skip inside Claude Code sessions: its Bash-tool shell snapshot doesn't capture
+# single-underscore-prefixed functions (e.g. _gh_hooks_command_exists), which
+# breaks the gh() wrapper there. Interactive terminals are unaffected.
+if [[ -z "$CLAUDECODE" ]] && [[ -f "$HOME/.local/share/gh/extensions/gh-hooks/gh-hooks.sh" ]]; then
     source "$HOME/.local/share/gh/extensions/gh-hooks/gh-hooks.sh"
 fi
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+# <<< grok installer <<<
