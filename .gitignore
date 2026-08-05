@@ -64,3 +64,9 @@ nvim/lua/plugins/local/**
 !nvim/lua/plugins/local/README.md
 !nvim/lua/plugins/local/*.lua.example
 
+# WezTerm local plugin overrides (not tracked in dotfiles)
+terminal/wezterm/core/plugins/local/**
+!terminal/wezterm/core/plugins/local/init.lua
+!terminal/wezterm/core/plugins/local/README.md
+!terminal/wezterm/core/plugins/local/*.lua.example
+

@@ -1,0 +1,4 @@
+-- Local plugin overrides (machine-specific)
+-- This directory is for machine-specific plugin URL overrides.
+-- Files here are gitignored except for this file, README.md, and *.lua.example.
+-- See: core/plugins/local/*.lua.example for usage

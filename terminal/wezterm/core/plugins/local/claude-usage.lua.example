@@ -1,0 +1,6 @@
+-- このファイルを `claude-usage.lua` にリネームして使う（.gitignore で除外される）。
+-- ~/workspace/private/claude-usage.wezterm で開発中のコードを使う例。
+return {
+  name = 'claude-usage.wezterm',
+  url = 'file:///Users/YOUR_NAME/workspace/private/claude-usage.wezterm',
+}
