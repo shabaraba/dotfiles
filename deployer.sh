@@ -23,6 +23,7 @@ echo "  - 🚚 for AI✨️"
 mkdir -p $HOME/.claude
 ln -snfv $PWD/claude/CLAUDE.md $HOME/.claude/CLAUDE.md
 ln -snfv $PWD/claude/settings.json $HOME/.claude/settings.json
+ln -snfv $PWD/claude/statusline.sh $HOME/.claude/statusline.sh
 ln -snfv $PWD/claude/commands $HOME/.claude/commands
 ln -snfv $PWD/claude/agents $HOME/.claude/agents
 ln -snfv $PWD/claude/hooks $HOME/.claude/hooks

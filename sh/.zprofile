@@ -12,3 +12,7 @@ fi
 
 # gh-hooks: GitHub CLI hooks
 [[ -f "$HOME/.local/share/gh/extensions/gh-hooks/gh-hooks.sh" ]] && source "$HOME/.local/share/gh/extensions/gh-hooks/gh-hooks.sh"
+
+# ~/.local/bin (claude CLI 等) を非対話ログインシェル（GUIアプリの `zsh -lc` 経由等）でも解決できるようにする。
+# .zshrcはインタラクティブシェルでしか読まれないため、ここに置く必要がある。
+export PATH="$HOME/.local/bin:$PATH"
