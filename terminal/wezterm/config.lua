@@ -10,15 +10,15 @@ local function merge_tables(t1, t2)
 end
 
 local function require_claude_usage()
-  local local_path = wezterm.config_dir .. '/core/plugins/local/claude-usage.wezterm/plugin/init.lua'
-  local ok, claude_usage = pcall(dofile, local_path)
+  local dev_dir = os.getenv('HOME') .. '/workspace/private/claude-usage.wezterm'
+  local ok, claude_usage = pcall(dofile, dev_dir .. '/plugin/init.lua')
   if ok and claude_usage then
-    wezterm.log_info('config.lua: using local claude-usage fixed plugin')
-    return claude_usage
+    wezterm.log_info('config.lua: using claude-usage dev workspace plugin')
+    return claude_usage, dev_dir
   end
 
   wezterm.log_info('config.lua: falling back to registered claude-usage plugin')
-  return plugins.require('claude-usage.wezterm')
+  return plugins.require('claude-usage.wezterm'), nil
 end
 
 -- 設定を集約
@@ -47,12 +47,12 @@ local function get_config()
     merge_tables(config, module_config)
   end
 
-  -- Claude Codeの使用量をタブバーに表示する。local固定版があれば直接読み、
+  -- Claude Codeの使用量をタブバーに表示する。開発用ワークスペースがあれば直接読み、
   -- なければ core/plugins/init.lua の registry/override 経由で読み込む。
-  local claude_usage = require_claude_usage()
+  local claude_usage, plugin_dir = require_claude_usage()
   claude_usage.apply_to_config(config, {
     position = 'left',
-    refresh_interval_secs = 60,
+    plugin_dir = plugin_dir,
   })
 
   return config
