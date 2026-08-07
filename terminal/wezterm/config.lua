@@ -14,11 +14,11 @@ local function require_claude_usage()
   local ok, claude_usage = pcall(dofile, dev_dir .. '/plugin/init.lua')
   if ok and claude_usage then
     wezterm.log_info('config.lua: using claude-usage dev workspace plugin')
-    return claude_usage, dev_dir
+    return claude_usage
   end
 
   wezterm.log_info('config.lua: falling back to registered claude-usage plugin')
-  return plugins.require('claude-usage.wezterm'), nil
+  return plugins.require('claude-usage.wezterm')
 end
 
 -- 設定を集約
@@ -49,10 +49,10 @@ local function get_config()
 
   -- Claude Codeの使用量をタブバーに表示する。開発用ワークスペースがあれば直接読み、
   -- なければ core/plugins/init.lua の registry/override 経由で読み込む。
-  local claude_usage, plugin_dir = require_claude_usage()
+  local claude_usage = require_claude_usage()
   claude_usage.apply_to_config(config, {
     position = 'left',
-    plugin_dir = plugin_dir,
+    refresh_interval = 60,
   })
 
   return config

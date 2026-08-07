@@ -1,22 +1,19 @@
 #!/bin/bash
-# Claude Codeのstatusline hook。stdinのセッションJSONからrate_limits(5h/週次の
-# 正確な使用率とリセット時刻)を抜き出し、WezTermプラグインが読むキャッシュへ書き出す。
-# rate_limitsはPro/Maxサブスクライバーのセッション初回API応答後にのみ出現するため、
-# 存在しない場合はnullのまま書き出す(wezterm側で前回値を維持する想定)。
+# Claude Codeのstatusline hook。モデル名はstdinのセッションJSONから、使用率は
+# ~/.claude.json の cachedUsageUtilization から取る。
+#
+# stdinのrate_limitsはセッション初回API応答後にしか現れず起動直後は空になるが、
+# cachedUsageUtilizationには前回の値が残っているため起動直後から表示できる。
+# ただしこのフィールドが更新されるのは /usage が実行されたときだけなので、
+# 鮮度はclaude-usage.wezterm側の定期リフレッシュ（毎分 claude -p "/usage"）に依存する。
 
-CACHE_FILE="/tmp/wezterm-claude-usage.json"
+MODEL=$(jq -r '.model.display_name // "?"')
 
-input=$(cat)
-
-echo "$input" | jq -c '{
-  five_hour: .rate_limits.five_hour,
-  seven_day: .rate_limits.seven_day,
-  updated_at: now
-}' > "${CACHE_FILE}.tmp" 2>/dev/null && mv "${CACHE_FILE}.tmp" "$CACHE_FILE"
-
-MODEL=$(echo "$input" | jq -r '.model.display_name // "?"')
-FIVE_H=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
-WEEK=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
+read -r FIVE_H WEEK < <(
+  jq -r '.cachedUsageUtilization.utilization
+         | "\(.five_hour.utilization // "") \(.seven_day.utilization // "")"' \
+     "$HOME/.claude.json" 2>/dev/null
+)
 
 if [[ -n "$FIVE_H" && -n "$WEEK" ]]; then
   printf '[%s] 5h %.0f%% / week %.0f%%\n' "$MODEL" "$FIVE_H" "$WEEK"
