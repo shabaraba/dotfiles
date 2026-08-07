@@ -1,5 +1,7 @@
-if [ "$(uname)" = 'Darwin' ]; then
-    # eval "$(/opt/homebrew/bin/brew shellenv)"
+# GUIアプリが起動する非対話ログインシェル（WezTermの background_child_process 等）にも
+# Homebrewのパスを通す。対話シェル向けには zsh/public/export.zsh が別途追加している。
+if [ "$(uname)" = 'Darwin' ] && [ -x /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 # eval $(/usr/bin/locale-check C.UTF-8)
 
