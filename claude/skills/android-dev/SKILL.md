@@ -1,11 +1,9 @@
 ---
-paths:
-  - "**/*.{kt,kts}"
-  - "**/*.gradle"
-  - "**/AndroidManifest.xml"
+name: android-dev
+description: This skill should be used for Android development environment operations — starting or stopping the Android emulator, creating AVDs, checking connected devices, installing or uninstalling APKs via adb, and building APKs with Gradle. Trigger on requests mentioning Android, emulator, AVD, adb, APK, or gradlew.
 ---
 
-# Android開発環境
+# Android Development Environment
 
 Android SDKのパス: `~/Library/Android/sdk`
 

@@ -148,7 +148,8 @@ dotfiles/
 │   ├── rules/            # Topic-split user rules (→ ~/.claude/rules/)
 │   ├── settings.json     # Claude settings
 │   ├── agents/           # Custom agent definitions
-│   └── commands/         # Custom slash commands
+│   ├── commands/         # Custom slash commands
+│   └── skills/           # Custom skills (→ ~/.claude/skills/<name>)
 ├── mise/                 # mise task manager configuration
 │   └── config.toml       # Global tasks (→ ~/.config/mise/config.toml)
 ├── terminal/
