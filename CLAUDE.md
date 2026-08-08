@@ -144,7 +144,8 @@ dotfiles/
 │       ├── core/         # Core settings (autocmds, lsp)
 │       └── plugins/      # Plugin configurations by category
 ├── claude/               # Claude Code configuration (→ ~/.claude/)
-│   ├── CLAUDE.md         # Global Claude rules (→ ~/.claude/CLAUDE.md)
+│   ├── CLAUDE.md         # User-scope memory (→ ~/.claude/CLAUDE.md)
+│   ├── rules/            # Topic-split user rules (→ ~/.claude/rules/)
 │   ├── settings.json     # Claude settings
 │   ├── agents/           # Custom agent definitions
 │   └── commands/         # Custom slash commands
@@ -222,6 +223,7 @@ Private settings (API keys, tokens) are stored in `sh/zsh/private/` and excluded
 
 ## Notes
 
-- Global Claude Code rules are maintained in `claude/CLAUDE.md`
+- User-scope Claude Code memory is maintained in `claude/CLAUDE.md` (deployed to `~/.claude/CLAUDE.md`); it holds only cross-project preferences and stays under 200 lines
+- Topic-specific user rules live in `claude/rules/` (deployed to `~/.claude/rules/`); rules with `paths` frontmatter load only when matching files are touched
 - Custom Claude agents are defined in `claude/agents/`
 - Custom slash commands are in `claude/commands/`
