@@ -10,6 +10,9 @@ return {
     agent = {
       default_mode = "code",
       default_model = "opus",
+      auto_resume_on_limit = {
+        enabled = true,
+      },
     },
     permissions = {
       mode = "auto",
