@@ -9,10 +9,10 @@ return {
     adapter = "claude",
     agent = {
       default_mode = "code",
-      default_model = "sonnet",
+      default_model = "opus",
     },
     permissions = {
-      mode = "acceptEdits",
+      mode = "auto",
       allow = { "Edit", "Write", "Glob", "Grep", "WebSearch", "WebFetch", "Bash", "mcp__chrome-devtools__*" },
       ask = { "Bash(rm:*)" },
       deny = {},
