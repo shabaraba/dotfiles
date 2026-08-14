@@ -98,6 +98,8 @@ local FUNCTION = {
     VIBING_CHAT_RIGHT = "OPEN VIBING CHAT ON THE NEW RIGHT WINDOW",
     VIBING_CONTEXT = "VIBING CONTEXT",
     VIBING_INLINE = "VIBING INLINE",
+    VIBING_CHAT_JUMP_NEXT = "JUMP TO NEXT VIBING CHAT MESSAGE",
+    VIBING_CHAT_JUMP_PREV = "JUMP TO PREV VIBING CHAT MESSAGE",
   },
   OVERRIDE = {
     YANK = "YANK",
@@ -199,6 +201,8 @@ local Mapping = {
   { Prefix.ai .. 'cc',         '<cmd>VibingChat current<cr>',                                                   desc = FUNCTION.AI.VIBING_CHAT_CURRENT,       silent = true },
   { Prefix.ai .. 's',          '<cmd>VibingContext<cr>',                                                        desc = FUNCTION.AI.VIBING_CONTEXT,            silent = true },
   { Prefix.ai .. 'i',          '<cmd>VibingInline<cr>',                                                         desc = FUNCTION.AI.VIBING_INLINE,             silent = true,                      mode = 'v' },
+  { Prefix.ai .. ']',          '<cmd>VibingChatJumpNext<cr>',                                                   desc = FUNCTION.AI.VIBING_CHAT_JUMP_NEXT,     silent = true },
+  { Prefix.ai .. '[',          '<cmd>VibingChatJumpPrev<cr>',                                                   desc = FUNCTION.AI.VIBING_CHAT_JUMP_PREV,     silent = true },
 
   -- spider (subword motion)
   { 'w',                       function() require('spider').motion('w') end,                                    desc = FUNCTION.MOTION.WORD_FORWARD,          silent = true,                      mode = { 'n', 'o', 'x' } },
@@ -308,6 +312,8 @@ M.vibing = {
   FunctionKeyMapping[FUNCTION.AI.VIBING_CHAT_CURRENT],
   FunctionKeyMapping[FUNCTION.AI.VIBING_CONTEXT],
   FunctionKeyMapping[FUNCTION.AI.VIBING_INLINE],
+  FunctionKeyMapping[FUNCTION.AI.VIBING_CHAT_JUMP_NEXT],
+  FunctionKeyMapping[FUNCTION.AI.VIBING_CHAT_JUMP_PREV],
 }
 
 M.conform = {
