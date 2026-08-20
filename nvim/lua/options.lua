@@ -53,7 +53,7 @@ opt.mouse = ""
 -- Numbers
 opt.number = true
 opt.numberwidth = 4
-opt.relativenumber = true
+opt.relativenumber = false
 opt.ruler = true
 
 -- disable nvim intro
