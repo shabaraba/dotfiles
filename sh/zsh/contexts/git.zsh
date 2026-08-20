@@ -1,61 +1,77 @@
 git config --global color.ui auto
 
-function _git_clean_shallow() {
-  [[ -f .git/shallow ]] || return
-  local tmp sha
-  tmp=$(mktemp)
-  while IFS= read -r sha; do
-    git cat-file -e "$sha" 2>/dev/null && printf '%s\n' "$sha"
-  done < .git/shallow > "$tmp"
-  mv "$tmp" .git/shallow
+# --- partial clone ---------------------------------------------------------
+# 巨大リポジトリは shallow (--depth) ではなく blob フィルタで軽くする。
+# shallow は履歴を切り詰めるため graft 境界が生まれ、PR のマージや rebase で
+# 履歴が書き換わるとローカルのコミットが到達不能になる。partial clone は
+# コミットとツリーを全部持ち blob だけ遅延取得するので、merge / rebase /
+# merge-base がすべて素直に動く。サイズは shallow より小さくなることも多い。
+
+# 既存のクローン（shallow でも通常でも）をその場で partial clone に変換する。
+#   git-partial-convert [filter]   filter 既定: blob:none
+function git-partial-convert() {
+  local filter=${1:-blob:none}
+  local common
+  common=$(git rev-parse --git-common-dir 2>/dev/null) || {
+    echo "git リポジトリではありません" >&2; return 1
+  }
+
+  git config remote.origin.promisor true
+  git config remote.origin.partialclonefilter "$filter"
+
+  if [[ -f "$common/shallow" ]]; then
+    echo "==> shallow を解除しつつ $filter で取得"
+    git fetch --unshallow --filter="$filter" origin || return 1
+  else
+    echo "==> $filter で取得"
+    git fetch --filter="$filter" origin || return 1
+  fi
+
+  git gc
+  git-partial-status
 }
 
-function git-shallow-merge() {
-  local target=${1:-develop}
-  local current=$(git branch --show-current)
-  local repo=$(gh repo view --json nameWithOwner -q .nameWithOwner)
-  local base=$(gh api "repos/$repo/compare/$target...$current" --jq '.merge_base_commit.sha')
-  local date=$(git show "$base" --format="%ci" -s)
-  local adjusted=$(date -j -v-1S -f "%Y-%m-%d %H:%M:%S %z" "$date" "+%Y-%m-%d %H:%M:%S %z")
+# partial clone の状態と .git の内訳を点検する。
+function git-partial-status() {
+  local common filter promisor
+  common=$(git rev-parse --git-common-dir 2>/dev/null) || {
+    echo "git リポジトリではありません" >&2; return 1
+  }
 
-  git fetch origin "$target" --shallow-since="$adjusted"
-  git fetch origin "$current" --shallow-since="$adjusted"
-
-  # 通常パス: シャロー履歴からマージベースが見つかれば普通にマージ
-  if git merge-base HEAD "origin/$target" &>/dev/null; then
-    git merge "origin/$target"
-    return
-  fi
-
-  # 深掘りパス: depth を計算して fetch
-  local depth=$(gh api "repos/$repo/compare/$base...$target" --jq '.ahead_by')
-  if git fetch origin "$target" --depth=$((depth + 2)) 2>/dev/null &&
-     git merge-base HEAD "origin/$target" &>/dev/null; then
-    git merge "origin/$target"
-    return
-  fi
-
-  # フォールバック: シャロー履歴が壊れていても merge-tree で直接3-wayマージ
-  echo "shallow history broken, falling back to merge-tree (base: $base)"
-  local output mt_exit tree_sha
-  output=$(git merge-tree --write-tree --merge-base="$base" HEAD "origin/$target" 2>&1)
-  mt_exit=$?
-  tree_sha=$(echo "$output" | head -1)
-
-  if [[ $mt_exit -eq 0 ]]; then
-    git reset --hard "$(git commit-tree "$tree_sha" \
-      -p HEAD -p "origin/$target" \
-      -m "Merge branch '$target' into $current")"
-    _git_clean_shallow
+  if [[ -f "$common/shallow" ]]; then
+    echo "shallow  : YES ($(wc -l < "$common/shallow" | tr -d ' ') 境界) — --depth 付き fetch の形跡"
   else
-    echo "$output" | tail -n +2
-    git read-tree --reset -u HEAD
-    git read-tree -m -u "${base}^{tree}" HEAD "origin/$target"
-    git rev-parse "origin/$target" > .git/MERGE_HEAD
-    printf "Merge branch '%s' into %s\n" "$target" "$current" > .git/MERGE_MSG
-    echo "conflicts detected. resolve and run: git merge --continue"
+    echo "shallow  : no"
+  fi
+
+  filter=$(git config remote.origin.partialclonefilter 2>/dev/null)
+  promisor=$(git config remote.origin.promisor 2>/dev/null)
+  echo "filter   : ${filter:-(なし)}"
+  echo "promisor : ${promisor:-(なし)}"
+  echo "commits  : $(git rev-list --count HEAD 2>/dev/null)"
+  echo ".git     : $(du -sh "$common" 2>/dev/null | cut -f1)"
+  git count-objects -vH | grep -E 'size-pack|garbage'
+}
+
+# 中断した fetch の残骸（objects/pack/tmp_pack_*）を回収する。
+# .git が実パックサイズより極端に大きいときに効く。
+function git-gc-garbage() {
+  local common
+  common=$(git rev-parse --git-common-dir 2>/dev/null) || {
+    echo "git リポジトリではありません" >&2; return 1
+  }
+
+  if pgrep -f "git (fetch|push|clone|gc|repack)" >/dev/null 2>&1; then
+    echo "中断: 他の git プロセスが動いています。終わってから実行してください" >&2
     return 1
   fi
+
+  echo "==> 削除前"
+  git count-objects -vH | grep -E 'size-pack|garbage'
+  rm -fv "$common"/objects/pack/tmp_pack_*
+  git gc --prune=now
+  echo "==> 削除後"
+  git count-objects -vH | grep -E 'size-pack|garbage'
 }
 
 # gh uses stored credentials instead of GITHUB_TOKEN env var
