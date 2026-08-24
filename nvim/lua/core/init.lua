@@ -18,5 +18,6 @@ for _, module in ipairs(core_modules) do
 end
 
 require("core.winbar").setup()
+require("core.shada").setup()
 
 
