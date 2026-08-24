@@ -21,6 +21,14 @@ vim.cmd [[
     augroup END
 ]]
 
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*/.vibing/chat/*.md",
+  callback = function(ev)
+    vim.bo[ev.buf].filetype = "vibing"
+  end,
+  desc = "Treat Vibing chat history as vibing filetype"
+})
+
 -- ジョブとプロセス管理の改善
 local job_group = vim.api.nvim_create_augroup("JobManagement", { clear = true })
 

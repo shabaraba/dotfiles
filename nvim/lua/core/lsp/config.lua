@@ -134,10 +134,13 @@ M.define_server_configs = function()
   }
 
   -- marksman (Markdown LSP)
+  -- root_markers から .git を除外。巨大リポジトリ(.md 数万件)の直下で
+  -- インデックスが走ると起動時に数秒のCPUを消費するため、
+  -- .marksman.toml を置いたディレクトリでのみ有効にする。
   vim.lsp.config.marksman = {
     cmd = { mason_path .. "/bin/marksman", "server" },
     filetypes = { "markdown", "markdown.mdx" },
-    root_markers = { ".marksman.toml", ".git" },
+    root_markers = { ".marksman.toml" },
     capabilities = capabilities,
   }
 

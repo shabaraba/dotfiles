@@ -33,7 +33,9 @@ return {
     automatic_installation = true,
     -- automatic_enable: インストール済みパッケージを勝手に有効化する機能。
     -- markdown_oxide はマスト削除できないゴースト状態(旧設定の名残)なので明示的に除外。
-    automatic_enable = { exclude = { "markdown_oxide" } },
+    -- marksman は .marksman.toml があるディレクトリでのみ使う。ここで除外しないと
+    -- config.lua の enable_servers から外しても自動有効化されてしまう。
+    automatic_enable = { exclude = { "markdown_oxide", "marksman" } },
     -- handlers は使わない（nvim-lspconfig.luaで手動設定）
   },
   config = function(_, opts)

@@ -12,6 +12,7 @@ return {
   end,
   opts = {
     file_types = { 'markdown', 'vibing' },
+    max_file_size = 1.0,
     render_modes = { 'n', 'c' },
     anti_conceal = {
       enabled = false,
