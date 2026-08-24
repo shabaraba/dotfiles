@@ -82,5 +82,20 @@ return {
       },
       request_timeout = 3000,
     })
+
+    -- winbarのdocumentSymbol要求はLspNotifyから500ms遅延+vim.scheduleで実行されるため、
+    -- その間にバッファが削除されるとvim.uri_from_bufnrが"Invalid buffer id"で落ちる。
+    -- upstreamのdo_requestにバッファ有効性チェックが無いのでここで補う
+    local ok, head = pcall(require, 'lspsaga.symbol.head')
+    local symbol = ok and getmetatable(head) or nil
+    if symbol and type(symbol.do_request) == 'function' then
+      local do_request = symbol.do_request
+      symbol.do_request = function(self, buf, client_id)
+        if not vim.api.nvim_buf_is_valid(buf) then
+          return
+        end
+        return do_request(self, buf, client_id)
+      end
+    end
   end,
 }
