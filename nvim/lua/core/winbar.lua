@@ -39,6 +39,7 @@ local BASE_SAGA_WINBAR_GROUPS = {
 }
 
 local BREADCRUMB_ACTIVE_GROUP = "CoreWinBarBreadcrumb"
+local BREADCRUMB_INACTIVE_GROUP = "CoreWinBarBreadcrumbNC"
 
 -- lspsagaのファイル名パンくずは日本語等の全角文字でも幅チェックをしないため、
 -- ウィンドウ幅を超える文字列がそのまま描画され隣のウィンドウにはみ出すことがある。
@@ -89,14 +90,15 @@ end
 
 -- シンボルパンくず(関数名/メソッド名等)はLSPシンボル種別ごとに"Saga<Kind>"という
 -- 別グループを使うため、lspsaga側の種別一覧から動的にグループ名を収集する
-local active_winhighlight_cache
+local winhighlight_cache = {}
 
-local function build_active_winhighlight()
-  if active_winhighlight_cache then return active_winhighlight_cache end
+local function build_winhighlight(target_group)
+  if winhighlight_cache[target_group] then return winhighlight_cache[target_group] end
 
   local groups = vim.deepcopy(BASE_SAGA_WINBAR_GROUPS)
   local ok, lspkind = pcall(require, "lspsaga.lspkind")
-  if ok and lspkind.kind then
+  local has_kinds = ok and lspkind.kind ~= nil
+  if has_kinds then
     for _, item in pairs(lspkind.kind) do
       table.insert(groups, "Saga" .. item[1])
       table.insert(groups, "Saga" .. item[1] .. "Word")
@@ -105,18 +107,34 @@ local function build_active_winhighlight()
 
   local parts = {}
   for _, group in ipairs(groups) do
-    table.insert(parts, group .. ":" .. BREADCRUMB_ACTIVE_GROUP)
+    table.insert(parts, group .. ":" .. target_group)
   end
-  active_winhighlight_cache = table.concat(parts, ",")
-  return active_winhighlight_cache
+  local result = table.concat(parts, ",")
+  -- lspsaga未ロードで種別グループを取りこぼした場合はキャッシュせず、
+  -- 次回呼び出しで完全な割り当てを再構築させる（シンボル部分の色ズレ防止）
+  if has_kinds then
+    winhighlight_cache[target_group] = result
+  end
+  return result
 end
 
+-- 一度解決できたStringの色を保持する。ColorSchemeがString未定義の瞬間に発火すると
+-- resolve_hex_fgがnilを返し、フォールバックの暗色背景→白文字に切り替わって固定されるため、
+-- 直近の有効な色を再利用してアクティブ窓の文字色がちらつかないようにする
+local last_active_bg
+
 local function ensure_winbar_highlight()
-  local active_bg = resolve_hex_fg("String") or WINBAR_BG_FALLBACK
+  local resolved = resolve_hex_fg("String")
+  if resolved then last_active_bg = resolved end
+  local active_bg = last_active_bg or WINBAR_BG_FALLBACK
   local active_fg = contrast_fg(active_bg)
+  -- 非アクティブwinbarは暗い背景なので、その背景に対して読める文字色を選ぶ
+  -- （Sagaネイティブfgはアクティブ側の明背景向けで、暗背景だと潰れて見えなくなる）
+  local inactive_fg = contrast_fg(WINBARNC_BG)
   vim.api.nvim_set_hl(0, "WinBar", { bg = active_bg, fg = active_fg })
-  vim.api.nvim_set_hl(0, "WinBarNC", { bg = WINBARNC_BG })
+  vim.api.nvim_set_hl(0, "WinBarNC", { bg = WINBARNC_BG, fg = inactive_fg })
   vim.api.nvim_set_hl(0, BREADCRUMB_ACTIVE_GROUP, { fg = active_fg })
+  vim.api.nvim_set_hl(0, BREADCRUMB_INACTIVE_GROUP, { fg = inactive_fg })
 end
 
 local function patch_winbar(win, bufnr)
@@ -177,15 +195,17 @@ function M.setup()
     group = group,
     callback = function()
       if is_floating(0) then return end
-      vim.wo.winhighlight = build_active_winhighlight()
+      vim.wo.winhighlight = build_winhighlight(BREADCRUMB_ACTIVE_GROUP)
     end,
   })
 
+  -- 非アクティブ窓もクリアせず専用グループへ割り当てる。クリアするとSagaネイティブ色
+  -- （アクティブ側の明背景向けの濃色）が暗いWinBarNC背景に乗って読めなくなるため
   vim.api.nvim_create_autocmd("WinLeave", {
     group = group,
     callback = function()
       if is_floating(0) then return end
-      vim.wo.winhighlight = ""
+      vim.wo.winhighlight = build_winhighlight(BREADCRUMB_INACTIVE_GROUP)
     end,
   })
 
