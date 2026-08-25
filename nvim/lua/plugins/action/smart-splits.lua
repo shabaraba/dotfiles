@@ -1,6 +1,5 @@
 return {
   'mrjones2014/smart-splits.nvim',
-  lazy = false,
   opts = {
     ignored_buftypes = { 'nofile', 'quickfix', 'prompt' },
     ignored_filetypes = { 'NvimTree' },

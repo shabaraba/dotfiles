@@ -13,7 +13,9 @@ vim.filetype.add({ extension = { mq5 = 'cpp', mqh = 'cpp' } })
 -- Mason-lspconfigを本来の役割（インストール管理）のみに戻す
 return {
   "williamboman/mason-lspconfig.nvim",
-  lazy = false,  -- Masonも即座に読み込む
+  -- インストール管理なので最初のバッファを開くまで遅延してよい
+  event = { "BufReadPre", "BufNewFile" },
+  dependencies = { "williamboman/mason.nvim" },
   opts = {
     ensure_installed = {
       "lua_ls",

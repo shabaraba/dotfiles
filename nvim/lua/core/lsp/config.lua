@@ -4,7 +4,13 @@
 local M = {}
 
 -- プロジェクト固有のNode.jsパスを取得（vtsls用）
+-- mise呼び出しは~100ms超の同期I/Oのため、vtsls起動時まで遅延し結果をキャッシュする
+local node_path_cache
+
 local function get_project_node_path()
+  if node_path_cache then
+    return node_path_cache
+  end
   local cwd = vim.fn.getcwd()
 
   -- 1. プロジェクトのmise設定を確認
@@ -31,7 +37,8 @@ local function get_project_node_path()
 
   local project_node = get_mise_project_node()
   if project_node then
-    return project_node
+    node_path_cache = project_node
+    return node_path_cache
   end
 
   -- フォールバック: システムのNode.js
@@ -43,11 +50,13 @@ local function get_project_node_path()
 
   for _, path in ipairs(fallback_paths) do
     if vim.fn.filereadable(path) == 1 then
-      return path
+      node_path_cache = path
+      return node_path_cache
     end
   end
 
-  return "node"
+  node_path_cache = "node"
+  return node_path_cache
 end
 
 -- グローバル設定
@@ -67,11 +76,13 @@ M.define_server_configs = function()
 
   -- vtsls (TypeScript/JavaScript)
   local mason_path = vim.fn.stdpath("data") .. "/mason"
-  local node_path = get_project_node_path()
   local vtsls_path = mason_path .. "/packages/vtsls/node_modules/@vtsls/language-server/bin/vtsls.js"
 
   vim.lsp.config.vtsls = {
-    cmd = { node_path, vtsls_path, "--stdio" },
+    -- cmdを関数にすることで、node解決（mise呼び出し）をサーバー起動時まで遅延する
+    cmd = function(dispatchers)
+      return vim.lsp.rpc.start({ get_project_node_path(), vtsls_path, "--stdio" }, dispatchers)
+    end,
     filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
     root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
     capabilities = capabilities,

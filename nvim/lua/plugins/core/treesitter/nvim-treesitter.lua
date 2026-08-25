@@ -18,7 +18,7 @@ local indent_disabled = { yaml = true }
 return {
   "nvim-treesitter/nvim-treesitter",
   branch = "main",  -- master は archived のため main（Neovim 0.12+ 対応）を使用
-  lazy = false,
+  event = { "BufReadPre", "BufNewFile" },
   build = ":TSUpdate",
   config = function()
     require("nvim-treesitter").install(parsers)

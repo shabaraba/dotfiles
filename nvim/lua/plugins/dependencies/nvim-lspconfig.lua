@@ -1,7 +1,8 @@
 -- nvim-lspconfig: Neovim 0.11+ vim.lsp.config API使用
 return {
   "neovim/nvim-lspconfig",
-  lazy = false,  -- LSPは即座に読み込む
+  -- vim.lsp.enable()は登録のみでクライアントを起動しないため、バッファを開くまで遅延できる
+  event = { "BufReadPre", "BufNewFile" },
   config = function()
     -- ハンドラーとキーマッピングの統一設定
     require("core.lsp.handlers").setup()

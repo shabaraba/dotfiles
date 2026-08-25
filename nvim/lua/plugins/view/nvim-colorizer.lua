@@ -4,7 +4,12 @@ return {
   event = "BufRead", 
   config = function()
     require("colorizer").setup({
-      filetypes = { "*" },
+      -- "*" は全バッファをスキャンして重いため、色コードが登場するftに限定する
+      filetypes = {
+        "css", "scss", "sass", "html", "vue", "svelte",
+        "javascript", "typescript", "javascriptreact", "typescriptreact",
+        "lua", "vim", "yaml", "toml", "conf", "dosini", "markdown",
+      },
       user_default_options = {
         RGB = true, -- #RGB hex codes
         RRGGBB = true, -- #RRGGBB hex codes

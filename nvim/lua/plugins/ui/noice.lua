@@ -11,18 +11,23 @@ return {
     -- メッセージ履歴を保持するためのグローバル変数（永続化）
     local history_file = vim.fn.stdpath("cache") .. "/noice_message_history.json"
 
-    -- 履歴の読み込み
-    if vim.fn.filereadable(history_file) == 1 then
-      local ok, content = pcall(vim.fn.readfile, history_file)
-      if ok and #content > 0 then
-        local ok2, decoded = pcall(vim.fn.json_decode, table.concat(content, "\n"))
-        if ok2 then
-          _G.noice_message_history = decoded
+    _G.noice_message_history = _G.noice_message_history or {}
+
+    -- 履歴の読み込みは起動をブロックしないよう遅延し、起動中に届いたメッセージは後ろに連結する
+    vim.schedule(function()
+      if vim.fn.filereadable(history_file) == 1 then
+        local ok, content = pcall(vim.fn.readfile, history_file)
+        if ok and #content > 0 then
+          local ok2, decoded = pcall(vim.fn.json_decode, table.concat(content, "\n"))
+          if ok2 and type(decoded) == "table" then
+            for _, entry in ipairs(_G.noice_message_history) do
+              table.insert(decoded, entry)
+            end
+            _G.noice_message_history = decoded
+          end
         end
       end
-    end
-
-    _G.noice_message_history = _G.noice_message_history or {}
+    end)
 
     -- 履歴の保存関数
     _G.save_noice_history = function()
@@ -301,9 +306,7 @@ return {
   dependencies = {
     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
     "MunifTanjim/nui.nvim",
-    -- OPTIONAL:
-    --   `nvim-notify` is only needed, if you want to use the notification view.
-    --   If not available, we use `mini` as the fallback
-    "rcarriga/nvim-notify",
+    -- nvim-notify は notify.view = "mini" のため未使用。
+    -- dependencies に入れると lazy=false の道連れで起動時ロードされるので外している。
   }
 }
