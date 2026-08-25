@@ -90,7 +90,7 @@ return {
     
     telescope.setup(opts)
     
-    local extensions = { "file_browser", "fzf", "frecency", "yank_history" }
+    local extensions = { "file_browser", "fzf", "frecency", "yank_history", "notify" }
     pcall(function()
       for _, ext in ipairs(extensions) do
         telescope.load_extension(ext)

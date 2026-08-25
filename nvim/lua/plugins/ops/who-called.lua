@@ -3,7 +3,10 @@
 return {
   "shabaraba/who-called.nvim",
   dev = true,  -- Use local development version from ~/workspaces/nvim-plugins
-  lazy = false,  -- Eager load to ensure it wraps vim.notify before noice checks
+  -- 機能自体を enabled=false で使っていないため spec ごと無効化する。
+  -- lazy=false だと dependencies の noice / nvim-notify / telescope まで
+  -- 起動時ロードに巻き込み、startuptime を ~30ms 押し上げていた。
+  enabled = false,
   dependencies = { "folke/noice.nvim" },  -- Load after noice.nvim to wrap vim.notify properly
   config = function()
     require("who-called").setup({

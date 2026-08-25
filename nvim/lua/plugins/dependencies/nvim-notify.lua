@@ -65,8 +65,6 @@ return {
       notify(msg, level, opts_param)
     end
     
-    -- Telescope拡張を読み込む
-    require("telescope").load_extension("notify")
     
     -- キーマッピング
     -- vim.keymap.set("n", "<leader>fn", function()
