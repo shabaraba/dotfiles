@@ -141,26 +141,147 @@ local function ensure_winbar_highlight()
   vim.api.nvim_set_hl(0, BREADCRUMB_INACTIVE_GROUP, { fg = inactive_fg })
 end
 
-local function patch_winbar(win, bufnr)
-  if vim.bo[bufnr].buftype ~= "" then return end
+-- 非アクティブ窓もクリアせず専用グループへ割り当てる。クリアするとSagaネイティブ色
+-- （アクティブ側の明背景向けの濃色）が暗いWinBarNC背景に乗って読めなくなるため。
+-- WinLeaveではなくカレント窓との比較で決めることで、背景で開かれた窓にも行き渡る
+local function apply_winhighlight(win)
+  local target = (win == vim.api.nvim_get_current_win()) and BREADCRUMB_ACTIVE_GROUP
+    or BREADCRUMB_INACTIVE_GROUP
+  local value = build_winhighlight(target)
+  if vim.wo[win].winhighlight ~= value then
+    vim.wo[win].winhighlight = value
+  end
+end
 
+-- lspsagaのパンくずはファイル名を %#SagaFileName#<basename> で埋め込む。
+-- そのウィンドウのバッファ由来かどうかはここで判定する
+-- （lspsagaのfile_barは「LspAttachした瞬間のカレントウィンドウ」に書くため、
+--   pile.nvimのセッション復元のように裏でbufloadされると別窓の内容が乗る）
+local function saga_bar_matches(bar, bufnr)
+  if not bar or bar == "" then return false end
+  local name = vim.api.nvim_buf_get_name(bufnr)
+  if name == "" then return false end
+  return bar:find("%#SagaFileName#" .. vim.fn.fnamemodify(name, ":t"), 1, true) ~= nil
+end
+
+-- lspsagaのレンダラを対象ウィンドウのコンテキストで呼び直し、その窓のバッファの
+-- パンくずを書かせる。nvim_win_call中はautocmdがブロックされるので再入しない
+local function render_saga_bar(win)
+  local ok, saga_winbar = pcall(require, "lspsaga.symbol.winbar")
+  if not ok or type(saga_winbar.get_bar) ~= "function" then return end
+  pcall(vim.api.nvim_win_call, win, function()
+    pcall(saga_winbar.get_bar)
+  end)
+end
+
+-- lspsagaのpath_in_barと同じ文字列をこちらで組む。
+-- lspsagaがパス部分を出すのはLspAttach時の一度きり、かつ書き込み先が
+-- そのときのカレントウィンドウなので、LSPが無いバッファや復元された窓には
+-- 永久にパンくずが乗らない。シンボル無しでもパスだけは必ず出せるようにする
+local function build_path_bar(bufnr)
+  local ok_saga, saga = pcall(require, "lspsaga")
+  local ok_util, util = pcall(require, "lspsaga.util")
+  if not (ok_saga and ok_util) then return nil end
+
+  local cfg = saga.config.symbol_in_winbar
+  local ui = saga.config.ui
+
+  local icon, icon_hl
+  if ui.devicon then
+    icon, icon_hl = util.icon_from_devicon(vim.bo[bufnr].filetype)
+  end
+
+  local folder = ui.winbar_prefix
+  if ui.foldericon then
+    local ok_kind, lspkind = pcall(require, "lspsaga.lspkind")
+    if ok_kind then
+      folder = ui.winbar_prefix .. lspkind.get_kind_icon(302)[2]
+    end
+  end
+
+  local items = {}
+  for item in util.path_itera(bufnr) do
+    item = item:gsub("%%", "%%%%")
+    if #items == 0 then
+      items[1] = "%#"
+        .. (icon_hl or "SagaFileIcon")
+        .. "#"
+        .. (icon and icon .. " " or "")
+        .. "%*%#SagaFileName#"
+        .. item
+    else
+      items[#items + 1] = "%#SagaFolder#" .. folder .. "%*%#SagaFolderName#" .. item .. "%*"
+    end
+    if #items > cfg.folder_level then break end
+  end
+  if #items == 0 then return nil end
+
+  local sep = "%#SagaSep#" .. cfg.separator .. "%*"
+  local bar = ""
+  for i = #items, 1, -1 do
+    bar = bar .. items[i] .. (i > 1 and sep or "")
+  end
+  return bar
+end
+
+-- カレントウィンドウ前提で組むと、フォーカスを奪わずに開かれたウィンドウ
+-- （nvim_open_winのenter=false等）にwinbarが一切付かないため、
+-- 対象ウィンドウを引数で受け取りバッファはそこから引く
+local function patch_winbar(win)
+  if not vim.api.nvim_win_is_valid(win) or is_floating(win) then return end
+
+  apply_winhighlight(win)
+
+  local bufnr = vim.api.nvim_win_get_buf(win)
   local current = vim.wo[win].winbar
 
-  if not current or current == "" or not current:find("%#Saga", 1, true) then
+  -- 特殊バッファ(terminal/help/quickfix等)はgitブランチもパンくずも出さないが、
+  -- laststatus=0では境界線が他に無いのでセパレータだけは引く
+  if vim.bo[bufnr].buftype ~= "" then
     if current ~= SEPARATOR_LINE then
       vim.wo[win].winbar = SEPARATOR_LINE
     end
     return
   end
 
-  -- 先頭にすでにgitアイコンがある場合はスキップ
-  if current:sub(1, #GIT_ICON) == GIT_ICON then return end
+  -- この窓のバッファのパンくずが乗っていなければ、まずlspsagaに描き直させ
+  -- （シンボル付き）、それも無理なら自前でパスだけのパンくずを組む
+  if not saga_bar_matches(current, bufnr) then
+    render_saga_bar(win)
+    current = vim.wo[win].winbar
+  end
+  if not saga_bar_matches(current, bufnr) then
+    current = build_path_bar(bufnr) or ""
+  end
 
-  local branch = require("core.worktree").get_branch(bufnr)
-  if not branch then return end
+  -- 名前無しバッファ等でパンくずすら組めない場合はセパレータにフォールバック
+  if current == "" then
+    if vim.wo[win].winbar ~= SEPARATOR_LINE then
+      vim.wo[win].winbar = SEPARATOR_LINE
+    end
+    return
+  end
 
-  local combined = GIT_ICON .. branch .. "  " .. current
-  vim.wo[win].winbar = clip_to_width(combined, vim.api.nvim_win_get_width(win) - WIDTH_SAFETY_MARGIN)
+  local prefix = ""
+  if current:sub(1, #GIT_ICON) ~= GIT_ICON then
+    local branch = require("core.worktree").get_branch(bufnr)
+    prefix = branch and (GIT_ICON .. branch .. "  ") or ""
+  end
+
+  local width = vim.api.nvim_win_get_width(win) - WIDTH_SAFETY_MARGIN
+  local combined = clip_to_width(prefix .. current, width)
+  if combined ~= current then
+    vim.wo[win].winbar = combined
+  end
+end
+
+-- タブページ内の全ウィンドウを対象にする。BufWinEnter/WinNewはフォーカスが
+-- 移らないウィンドウでも発火するが、その時点ではまだバッファ確定前のことがあるため
+-- vim.scheduleで遅延させたうえでレイアウト全体を舐め直す
+local function patch_all_wins()
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    patch_winbar(win)
+  end
 end
 
 function M.setup()
@@ -172,53 +293,54 @@ function M.setup()
     callback = ensure_winbar_highlight,
   })
 
-  vim.api.nvim_create_autocmd({ "CursorMoved", "BufEnter", "WinEnter" }, {
+  vim.api.nvim_create_autocmd("CursorMoved", {
     group = group,
-    callback = function(ev)
+    callback = function()
+      local win = vim.api.nvim_get_current_win()
       vim.schedule(function()
-        local win = vim.api.nvim_get_current_win()
-        if vim.api.nvim_get_current_buf() ~= ev.buf then return end
-        patch_winbar(win, ev.buf)
+        patch_winbar(win)
       end)
+    end,
+  })
+
+  -- WinNew/BufWinEnterはenter=falseで開かれたウィンドウでも発火する。
+  -- WinClosed/TabEnterはレイアウト変化でwinbarが未設定のまま残る窓を拾うため
+  vim.api.nvim_create_autocmd(
+    { "BufEnter", "WinEnter", "BufWinEnter", "WinNew", "WinClosed", "TabEnter", "TermOpen" },
+    {
+      group = group,
+      callback = function()
+        vim.schedule(patch_all_wins)
+      end,
+    }
+  )
+
+  -- lspsagaのパンくずはLspAttach（=非同期）で初めて生成される。
+  -- pile.nvimのセッション復元のように裏でbufloadされたバッファは、
+  -- こちらの巡回が終わった後にアタッチされるためここで拾い直す
+  vim.api.nvim_create_autocmd("LspAttach", {
+    group = group,
+    callback = function()
+      vim.schedule(patch_all_wins)
     end,
   })
 
   vim.api.nvim_create_autocmd("User", {
     pattern = "SagaSymbolUpdate",
     group = group,
-    callback = function(ev)
-      vim.schedule(function()
-        local win = vim.api.nvim_get_current_win()
-        if vim.api.nvim_get_current_buf() ~= ev.buf then return end
-        patch_winbar(win, ev.buf)
-      end)
-    end,
-  })
-
-  vim.api.nvim_create_autocmd({ "WinEnter", "BufWinEnter" }, {
-    group = group,
     callback = function()
-      if is_floating(0) then return end
-      vim.wo.winhighlight = build_winhighlight(BREADCRUMB_ACTIVE_GROUP)
-    end,
-  })
-
-  -- 非アクティブ窓もクリアせず専用グループへ割り当てる。クリアするとSagaネイティブ色
-  -- （アクティブ側の明背景向けの濃色）が暗いWinBarNC背景に乗って読めなくなるため
-  vim.api.nvim_create_autocmd("WinLeave", {
-    group = group,
-    callback = function()
-      if is_floating(0) then return end
-      vim.wo.winhighlight = build_winhighlight(BREADCRUMB_INACTIVE_GROUP)
+      vim.schedule(patch_all_wins)
     end,
   })
 
   -- ウィンドウ分割/リサイズ直後はwinbarが古い幅のまま再描画されず
-  -- 隣のペインに文字がはみ出て残ることがあるため、強制的に全画面再描画する
+  -- 隣のペインに文字がはみ出て残ることがあるため、幅に合わせて組み直してから
+  -- 強制的に全画面再描画する
   vim.api.nvim_create_autocmd({ "VimResized", "WinResized" }, {
     group = group,
     callback = function()
       vim.schedule(function()
+        patch_all_wins()
         vim.cmd.redraw({ bang = true })
       end)
     end,
@@ -226,7 +348,9 @@ function M.setup()
 
   -- lspsagaはCursorMoved等で同期的にwinbarを再設定するため、こちらの
   -- patch_winbar（vim.schedule経由）が追いつく前に幅チェックなしの文字列が
-  -- 一瞬描画されることがある。OptionSetで即座に横幅クリップして安全弁とする
+  -- 一瞬描画されることがある。OptionSetで即座に横幅クリップして安全弁とする。
+  -- なおlspsagaのfile_barはnvim_set_option_value(win=...)で書くためOptionSetは
+  -- 発火しない（win指定時はautocmdがブロックされる）。そちらはLspAttachで拾う
   local suppress_option_set = false
   vim.api.nvim_create_autocmd("OptionSet", {
     group = group,
