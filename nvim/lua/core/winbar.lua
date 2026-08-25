@@ -54,6 +54,10 @@ end
 -- statuslineのハイライト指定(%#Group#, %*)を維持したまま表示幅でクリップする
 local function clip_to_width(str, max_width)
   if max_width <= 0 then return "" end
+  -- %{...} / %{%...%} は評価前の文字列から表示幅を測れず、途中で切ると
+  -- E540 (Unclosed expression sequence) になるためクリップ対象外にする。
+  -- 例: SEPARATOR_LINE の "%{repeat('─', winwidth(0))}"
+  if str:find("%%{") then return str end
   if vim.fn.strdisplaywidth(strip_stl_markup(str)) <= max_width then return str end
 
   local budget = math.max(max_width - vim.fn.strwidth(ELLIPSIS), 0)
