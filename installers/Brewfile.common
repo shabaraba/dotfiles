@@ -80,3 +80,9 @@ brew "black"
 brew "stylua"
 # Mighty, modern linter that helps you avoid errors and enforce conventions in your styles
 brew "eslint_d"
+
+# =============================================================================
+# Language Runtimes
+# =============================================================================
+# Powerful, clean, object-oriented scripting language (PATH set in zsh/public/export.zsh)
+brew "ruby"
