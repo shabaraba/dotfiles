@@ -20,6 +20,7 @@ local spec = {
   { import = "plugins.action" },
   { import = "plugins.coding" },
   { import = "plugins.ai" },
+  { import = "plugins.ops" },
   { import = "plugins.core.lsp" },
   { import = "plugins.core.treesitter" },
   { import = "plugins.colorscheme" },

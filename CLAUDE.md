@@ -182,7 +182,7 @@ deployer.shがシンボリックリンクを作成：
 - **Plugin Manager**: lazy.nvim
 - **LSP**: mason.nvim + nvim-lspconfig
 - **AI Integration**: Copilot, Claude Code integration
-- Plugins organized by category: `core/`, `ui/`, `action/`, `coding/`, `ai/`
+- Plugins organized by category: `core/`, `ui/`, `action/`, `coding/`, `ai/`, `ops/` (plugin-management/observability plugins)
 
 ### Private Configuration
 
