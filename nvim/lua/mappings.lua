@@ -100,7 +100,7 @@ local FUNCTION = {
     VIBING_INLINE = "VIBING INLINE",
     VIBING_CHAT_JUMP_NEXT = "JUMP TO NEXT VIBING CHAT MESSAGE",
     VIBING_CHAT_JUMP_PREV = "JUMP TO PREV VIBING CHAT MESSAGE",
-    VIBING_TITLE_AND_SUMMARY = "SET FILE TITLE AND SUMMARIZE VIBING CHAT",
+    VIBING_SUMMARY_AND_TITLE = "SUMMARIZE VIBING CHAT AND SET FILE TITLE",
   },
   OVERRIDE = {
     YANK = "YANK",
@@ -204,7 +204,7 @@ local Mapping = {
   { Prefix.ai .. 'i',          '<cmd>VibingInline<cr>',                                                         desc = FUNCTION.AI.VIBING_INLINE,             silent = true,                      mode = 'v' },
   { Prefix.ai .. ']',          '<cmd>VibingChatJumpNext<cr>',                                                   desc = FUNCTION.AI.VIBING_CHAT_JUMP_NEXT,     silent = true },
   { Prefix.ai .. '[',          '<cmd>VibingChatJumpPrev<cr>',                                                   desc = FUNCTION.AI.VIBING_CHAT_JUMP_PREV,     silent = true },
-  { Prefix.ai .. 'cs',         '<cmd>VibingSetFileTitle<cr><cmd>VibingSummarize<cr>',                           desc = FUNCTION.AI.VIBING_TITLE_AND_SUMMARY,  silent = true },
+  { Prefix.ai .. 'cs',         function() require("core.vibing").summarize_then_set_title() end,                desc = FUNCTION.AI.VIBING_SUMMARY_AND_TITLE,  silent = true },
 
   -- spider (subword motion)
   { 'w',                       function() require('spider').motion('w') end,                                    desc = FUNCTION.MOTION.WORD_FORWARD,          silent = true,                      mode = { 'n', 'o', 'x' } },
@@ -316,7 +316,7 @@ M.vibing = {
   FunctionKeyMapping[FUNCTION.AI.VIBING_INLINE],
   FunctionKeyMapping[FUNCTION.AI.VIBING_CHAT_JUMP_NEXT],
   FunctionKeyMapping[FUNCTION.AI.VIBING_CHAT_JUMP_PREV],
-  FunctionKeyMapping[FUNCTION.AI.VIBING_TITLE_AND_SUMMARY],
+  FunctionKeyMapping[FUNCTION.AI.VIBING_SUMMARY_AND_TITLE],
 }
 
 M.conform = {
