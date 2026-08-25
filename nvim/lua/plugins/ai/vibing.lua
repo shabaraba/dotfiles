@@ -46,18 +46,7 @@ return {
         Read = "📄",
         Edit = "✏️",
         Write = "📝",
-        Bash = {
-          default = "💻",
-          patterns = {
-            ["^(npm|pnpm|yarn|bun) install"] = "📦⬇",
-            ["^(npm|pnpm|yarn|bun) run"] = "📦▶",
-            ["^yarn "] = "📦▶",
-            ["^git commit"] = "🌿💾",
-            ["^git push"] = "🌿⬆",
-            ["^docker build"] = "🐳🔨",
-            ["^docker run"] = "🐳▶",
-          }
-        },
+        Bash = "💻",
       },
     },
     mcp = {
