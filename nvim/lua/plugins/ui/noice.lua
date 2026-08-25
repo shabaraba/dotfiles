@@ -1,7 +1,11 @@
 return {
   "folke/noice.nvim",
   -- version = "4.4.7", -- バージョン指定を削除して最新版を使用
-  event = "VeryLazy",
+  -- vim.notifyを起動時に奪うためeagerロードする。
+  -- VeryLazyだと、それ以前に走るプラグインのvim.notifyが素のechoに落ち、
+  -- cmdheight=0 環境では1メッセージごとにhit-enterプロンプトになる。
+  lazy = false,
+  priority = 900,
   enabled = true, -- noice.nvimを有効化
   init = function()
     -- メッセージ履歴を保持するためのグローバル変数（永続化）
