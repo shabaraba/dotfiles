@@ -11,12 +11,13 @@
 - 英語で簡潔に記述する
 - 「🤖 Generated with Claude Code」等の自動追加フッターは含めない
 - 「Co-Authored-By: Claude」等のメタデータも含めない
+- issue番号は含めない。issueとの紐付けはPR側で行う
 
 ## Pull Request
 
 - タイトル: 英語・Semantic Commit Messages形式
-- 本文: 日本語で詳細を記載
-- 対応するissueがある場合は `fixes #<issue番号>` を含める
+- 本文: リポジトリ固有のルール・PRテンプレートがあればそれに従うことを最優先する。無い場合は日本語で詳細を記載する
+- issueの参照: `fixes #<issue番号>` は、そのPRのマージでissueをクローズしてよいと判断できる場合のみ記載する。部分的な対応や判断がつかない場合はcloseキーワードを使わず `#<issue番号>` の参照に留める
 
 ## BREAKING CHANGEの使用基準
 
