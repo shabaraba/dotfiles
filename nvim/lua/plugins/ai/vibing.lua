@@ -15,7 +15,7 @@ return {
       },
     },
     permissions = {
-      mode = "auto",
+      mode = "acceptEdits",
       allow = { "Edit", "Write", "Glob", "Grep", "WebSearch", "WebFetch", "Bash", "mcp__chrome-devtools__*" },
       ask = { "Bash(rm:*)" },
       deny = {},
