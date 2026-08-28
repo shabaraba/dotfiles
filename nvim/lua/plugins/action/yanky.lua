@@ -26,7 +26,3 @@ return {
   },
   keys = require("mappings").yanky,
 }
-
--- dependencies = {
---   { "kkharji/sqlite.lua" }
--- },

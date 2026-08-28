@@ -90,7 +90,7 @@ return {
     
     telescope.setup(opts)
     
-    local extensions = { "file_browser", "fzf", "frecency", "yank_history", "notify" }
+    local extensions = { "file_browser", "fzf", "yank_history", "notify" }
     pcall(function()
       for _, ext in ipairs(extensions) do
         telescope.load_extension(ext)
@@ -101,9 +101,3 @@ return {
     vim.api.nvim_set_hl(0, "TelescopeBorder", { bg = "none" })
   end,
 }
-
--- dependencies = {
---   {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
---   {"nvim-telescope/telescope-file-browser.nvim"},
---   {"nvim-telescope/telescope-frecency.nvim"}
--- },

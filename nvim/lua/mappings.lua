@@ -28,8 +28,6 @@ local FUNCTION = {
     GO_TO_NEXT = "GO TO NEXT DIAGNOSTIC",
     GO_TO_PREV = "GO TO PREV DIAGNOSTIC",
     SHOW = "SHOW DIAGNOSTIC UNDER THE CURSOR",
-    SHOW_ALL = "SHOW DIAGNOSTICS",
-    SHOW_BUFFER = "SHOW DIAGNOSTIC IN BUFFER",
   },
   LSP = {
     GO_TO_DEFINITION = "GO TO DEFINITION",
@@ -44,10 +42,6 @@ local FUNCTION = {
   },
   FILER = {
     OPEN = "OPEN FILER",
-  },
-  TERMINAL = {
-    TOGGLE_FLOAT = "TOGGLE TERMINAL FLOAT",
-    TOGGLE_VERTICAL = "TOGGLE TERMINAL VERTICAL",
   },
   FINDER = {
     FIND_FILES = "TELESCOPE FIND FILES",
@@ -81,15 +75,8 @@ local FUNCTION = {
     PICK_CYCLE = "PICK WINDOW (CYCLE)",
   },
   CODING = {
-    GENERATE_DOC_COMMENT = "GENERATE_DOC_COMMENT",
-    TOGGLE_COMMENT = "TOGGLE COMMENT",
-    SURROUND = "Add a surrounding pair around a motion (normal mode)",
-    SURROUND_VISUAL = "Add a surrounding pair around a visual selection",
-    SURROUND_CHANGE = "Change a surrounding pair",
-    SURROUND_DELETE = "Delete a surrounding pair",
     FORMAT = "FORMAT",
     FORMAT_BUFFER = "FORMAT BUFFER",
-    REFACTOR = "REFACTOR",
   },
   AI = {
     OPEN_CHAT = "OPEN COPILOT CHAT",
@@ -128,8 +115,6 @@ local Commands = {
     end
     require("conform").format({ async = true, lsp_format = "fallback", range = range })
   end, { range = true, desc = FUNCTION.CODING.FORMAT } },
-  { "T",    function() vim.api.nvim_command("ToggleTerm direction=float name=desktop") end,    { desc = FUNCTION.TERMINAL.TOGGLE_FLOAT } },
-  { "VT",   function() vim.api.nvim_command("ToggleTerm direction=vertical name=desktop") end, { desc = FUNCTION.TERMINAL.TOGGLE_FLOAT } },
 }
 
 for _, commands in ipairs(Commands) do
@@ -164,8 +149,6 @@ local Mapping = {
   { Prefix.show .. 'h',        '<cmd>lua vim.lsp.buf.hover()<cr>',                                              desc = FUNCTION.LSP.HOVER,                    silent = true },
   { Prefix.show .. "t",        ":Lspsaga peek_type_definition<cr>",                                             desc = FUNCTION.LSP.SHOW_TYPE_DEFINITION,     silent = true },
   { Prefix.show .. 'e',        '<cmd>lua vim.diagnostic.open_float()<cr>',                                      desc = FUNCTION.DIAGNOSTIC.SHOW,              silent = true },
-  { Prefix.show .. "xx",       "<cmd>Trouble diagnostics toggle<cr>",                                           desc = FUNCTION.DIAGNOSTIC.SHOW_ALL,          silent = true },
-  { Prefix.show .. "xX",       "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",                              desc = FUNCTION.DIAGNOSTIC.SHOW_BUFFER,       silent = true },
   { Prefix.show .. "i",        ":Lspsaga incoming_calls<cr>",                                                   desc = FUNCTION.LSP.CALL_HIERARCHY,           silent = true },
   { Prefix.show .. "o",        ":Lspsaga outline<cr>",                                                          desc = FUNCTION.LSP.OUTLINE,                  silent = true },
   { Prefix.show .. "<leader>", "<cmd>Oil  --float<cr>",                                                         desc = FUNCTION.FILER.OPEN,                   silent = true },
@@ -178,15 +161,8 @@ local Mapping = {
   { "<C-j>",                   '<cmd>PileGoToNextBuffer<CR>',                                                   desc = FUNCTION.BUFFER.GO_TO_NEXT,            noremap = true,                     silent = true },
   { "<C-k>",                   '<cmd>PileGoToPrevBuffer<CR>',                                                   desc = FUNCTION.BUFFER.GO_TO_PREV,            noremap = true,                     silent = true },
 
-  { Prefix.action .. 's',      '<Plug>(nvim-surround-normal)',                                                  desc = FUNCTION.CODING.SURROUND,              silent = true },
-  { Prefix.action .. 's',      '<Plug>(nvim-surround-visual)',                                                  desc = FUNCTION.CODING.SURROUND_VISUAL,       mode = "v",                         silent = true },
-  { Prefix.action .. 'cs',     '<Plug>(nvim-surround-change)',                                                  desc = FUNCTION.CODING.SURROUND_CHANGE,       silent = true },
-  { Prefix.action .. 'ds',     '<Plug>(nvim-surround-delete)',                                                  desc = FUNCTION.CODING.SURROUND_DELETE,       silent = true },
   { Prefix.action .. 'n',      '<cmd>lua vim.lsp.buf.rename()<cr>',                                             desc = FUNCTION.LSP.RENAME_VALIABLE_NAME,     silent = true },
   { Prefix.action .. "c",      ":Lspsaga code_action<cr>",                                                      desc = FUNCTION.LSP.CODE_ACTION,              silent = true },
-  { Prefix.action .. "cc",     "<Plug>(comment_toggle_linewise_current)",                                       desc = FUNCTION.CODING.TOGGLE_COMMENT,        mode = { "n", "x", silent = true } },
-  { Prefix.action .. "cd",     function() require("neogen").generate({}) end,                                   desc = FUNCTION.CODING.GENERATE_DOC_COMMENT,  silent = true },
-  { Prefix.action .. "r",      function() require("refactoring").select_refactor() end,                         desc = FUNCTION.CODING.REFACTOR,              silent = true,                      mode = "v",              noremap = true, expr = false },
   { Prefix.action .. "p",      function() require("telescope").extensions.yank_history.yank_history({}) end,    desc = FUNCTION.OVERRIDE.OPEN_YANK_HISTORY,   silent = true },
   { Prefix.action .. "f",      function() require("conform").format({ async = true, lsp_fallback = true }) end, desc = FUNCTION.CODING.FORMAT_BUFFER,         silent = true },
   { "y",                       "<Plug>(YankyYank)",                                                             desc = FUNCTION.OVERRIDE.YANK,                mode = { "n", "x", silent = true }, },
@@ -242,27 +218,8 @@ M.lspsaga = {
 
 M.none_ls = {}
 
-M.neogen = {
-  FunctionKeyMapping[FUNCTION.CODING.GENERATE_DOC_COMMENT],
-}
-
-M.comment = {
-  FunctionKeyMapping[FUNCTION.CODING.TOGGLE_COMMENT],
-}
-
-M.refactoring = {
-  FunctionKeyMapping[FUNCTION.CODING.REFACTOR],
-}
-
 M.oil = {
   FunctionKeyMapping[FUNCTION.FILER.OPEN],
-}
-
-M.surround = {
-  FunctionKeyMapping[FUNCTION.CODING.SURROUND],
-  FunctionKeyMapping[FUNCTION.CODING.SURROUND_VISUAL],
-  FunctionKeyMapping[FUNCTION.CODING.SURROUND_CHANGE],
-  FunctionKeyMapping[FUNCTION.CODING.SURROUND_DELETE],
 }
 
 M.yanky = {
@@ -274,11 +231,6 @@ M.yanky = {
   FunctionKeyMapping[FUNCTION.OVERRIDE.PASTE_NEXT_YANK],
   FunctionKeyMapping[FUNCTION.OVERRIDE.PASTE_PREV_YANK],
   FunctionKeyMapping[FUNCTION.OVERRIDE.OPEN_YANK_HISTORY],
-}
-
-M.trouble = {
-  FunctionKeyMapping[FUNCTION.DIAGNOSTIC.SHOW_ALL],
-  FunctionKeyMapping[FUNCTION.DIAGNOSTIC.SHOW_BUFFER],
 }
 
 M.copilot_chat = {

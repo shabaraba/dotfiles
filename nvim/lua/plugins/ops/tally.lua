@@ -18,7 +18,6 @@ return {
       "lspkind",
       "plenary",
       "nui",
-      "sqlite",
       "nvim%-treesitter",
       "diagflow",
       "nvim%-navic",

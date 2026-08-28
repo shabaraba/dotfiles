@@ -62,8 +62,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
       local bufname = vim.api.nvim_buf_get_name(buf)
       if bufname:match("^term://") then
         vim.bo[buf].buftype = "terminal"
-      elseif bufname:match("^fugitive://") then
-        vim.bo[buf].buftype = "nofile"
       elseif bufname == "" and vim.api.nvim_buf_line_count(buf) == 1 and
           vim.api.nvim_buf_get_lines(buf, 0, 1, false)[1] == "" then
         -- 空の無名バッファ
