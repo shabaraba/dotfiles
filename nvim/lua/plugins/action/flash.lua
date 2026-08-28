@@ -7,7 +7,7 @@ return {
       multi_window = true,
       forward = true,
       wrap = true,
-      incremental = true,
+      incremental = false,
     },
     jump = {
       autojump = false,
