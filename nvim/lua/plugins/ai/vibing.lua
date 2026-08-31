@@ -13,6 +13,9 @@ return {
       auto_resume_on_limit = {
         enabled = true,
       },
+      chat_notifications = {
+        enabled = true,
+      },
     },
     permissions = {
       mode = "acceptEdits",
