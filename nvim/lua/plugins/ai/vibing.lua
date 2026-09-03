@@ -16,6 +16,10 @@ return {
       chat_notifications = {
         enabled = true,
       },
+      token_usage = {
+        enabled = true,
+        warn_context = 250000,
+      },
     },
     permissions = {
       mode = "acceptEdits",
