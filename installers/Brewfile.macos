@@ -20,6 +20,9 @@ cask "font-hackgen-nerd"
 # Terminal-based AI coding assistant
 cask "claude-code"
 
+# OpenAI's coding agent that runs in the terminal
+cask "codex"
+
 # GPU-accelerated cross-platform terminal emulator and multiplexer
 cask "wezterm@nightly"
 
