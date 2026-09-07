@@ -19,6 +19,10 @@ return {
       token_usage = {
         enabled = true,
         warn_context = 250000,
+        auto_compact = {
+          enabled = true,
+          at = 300000,
+        },
       },
     },
     permissions = {
