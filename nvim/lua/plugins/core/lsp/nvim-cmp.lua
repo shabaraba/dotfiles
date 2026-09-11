@@ -60,8 +60,9 @@ return {
       mapping = cmp.mapping.preset.insert({
         ["<C-k>"] = cmp.mapping.select_prev_item(),
         ["<C-j>"] = cmp.mapping.select_next_item(),
-        ["<C-p>"] = cmp.mapping.select_prev_item(),
-        ["<C-n>"] = cmp.mapping.select_next_item(),
+        -- <C-p>/<C-n> は preset.insert の既定に任せる。
+        -- select_prev_item()/select_next_item() で上書きするとメニュー非表示時に
+        -- Vim標準の単語補完へfallbackしてしまい、enum等の候補が出なくなる
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
@@ -71,6 +72,7 @@ return {
       -- sources for autocompletion
       sources = cmp.config.sources({
         -- { name = "copilot",  group_index = 2 },
+        { name = "lazydev",  group_index = 0 },
         { name = "nvim_lsp", group_index = 2 },
         { name = "buffer",   group_index = 2 },
         { name = "path",     group_index = 2 },
