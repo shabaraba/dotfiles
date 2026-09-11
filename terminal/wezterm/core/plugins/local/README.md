@@ -13,13 +13,13 @@
 
 ### ローカルの作業クローンを使う
 
-例: `~/workspace/private/claude-usage.wezterm` で開発中のコードを使う
+例: `~/workspace/private/ai-usage.wezterm` で開発中のコードを使う
 
 ```lua
--- core/plugins/local/claude-usage.lua
+-- core/plugins/local/ai-usage.lua
 return {
-  name = 'claude-usage.wezterm',
-  url = 'file:///Users/YOUR_NAME/workspace/private/claude-usage.wezterm',
+  name = 'ai-usage.wezterm',
+  url = 'file:///Users/YOUR_NAME/workspace/private/ai-usage.wezterm',
 }
 ```
 
@@ -41,4 +41,4 @@ WezTermのランタイムディレクトリに同期されません）。実行�
 
 ## 📖 サンプル
 
-`claude-usage.lua.example` を参考にしてください。
+`ai-usage.lua.example` を参考にしてください。

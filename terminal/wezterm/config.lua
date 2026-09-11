@@ -9,15 +9,15 @@ local function merge_tables(t1, t2)
   return t1
 end
 
-local function require_claude_usage()
+local function require_ai_usage()
   local dev_dir = os.getenv('HOME') .. '/workspace/private/ai-usage.wezterm'
   local ok, ai_usage = pcall(dofile, dev_dir .. '/plugin/init.lua')
   if ok and ai_usage then
-    wezterm.log_info('config.lua: using claude-usage dev workspace plugin')
+    wezterm.log_info('config.lua: using ai-usage dev workspace plugin')
     return ai_usage
   end
 
-  wezterm.log_info('config.lua: falling back to registered claude-usage plugin')
+  wezterm.log_info('config.lua: falling back to registered ai-usage plugin')
   return plugins.require('ai-usage.wezterm')
 end
 
@@ -47,10 +47,10 @@ local function get_config()
     merge_tables(config, module_config)
   end
 
-  -- Claude Codeの使用量をタブバーに表示する。開発用ワークスペースがあれば直接読み、
+  -- Claude Code/Codexの使用量をタブバーに表示する。開発用ワークスペースがあれば直接読み、
   -- なければ core/plugins/init.lua の registry/override 経由で読み込む。
-  local claude_usage = require_claude_usage()
-  claude_usage.apply_to_config(config, {
+  local ai_usage = require_ai_usage()
+  ai_usage.apply_to_config(config, {
     position = 'left',
     refresh_interval = 60,
     toggle_key = { key = 'u', mods = 'CTRL|SHIFT' },

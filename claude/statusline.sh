@@ -5,7 +5,7 @@
 # stdinのrate_limitsはセッション初回API応答後にしか現れず起動直後は空になるが、
 # cachedUsageUtilizationには前回の値が残っているため起動直後から表示できる。
 # ただしこのフィールドが更新されるのは /usage が実行されたときだけなので、
-# 鮮度はclaude-usage.wezterm側の定期リフレッシュ（毎分 claude -p "/usage"）に依存する。
+# 鮮度はai-usage.wezterm側の定期リフレッシュ（毎分 claude -p "/usage"）に依存する。
 
 MODEL=$(jq -r '.model.display_name // "?"')
 

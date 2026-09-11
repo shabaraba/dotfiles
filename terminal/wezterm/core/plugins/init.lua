@@ -4,7 +4,7 @@ local M = {}
 
 -- name -> GitHub URL のレジストリ
 M.registry = {
-  ['claude-usage.wezterm'] = 'https://github.com/shabaraba/claude-usage.wezterm',
+  ['ai-usage.wezterm'] = 'https://github.com/shabaraba/ai-usage.wezterm',
 }
 
 -- core/plugins/local/*.lua を走査し、{ name = url } の上書きエントリを集める。
