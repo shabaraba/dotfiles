@@ -1,25 +1,200 @@
-# =============================================================================
-# Brewfile - Homebrew Bundle Configuration (DEPRECATED)
-# =============================================================================
-#
-# ⚠️  DEPRECATION NOTICE
-# This file has been split into two separate files for better cross-platform support:
-#
-#   - Brewfile.common: Cross-platform packages (macOS & Linux)
-#   - Brewfile.macos:  macOS-specific GUI applications (cask)
-#
-# Usage:
-#   macOS:  make install  (installs both Brewfile.common + Brewfile.macos)
-#   Linux:  make install  (installs only Brewfile.common)
-#
-# Manual installation:
-#   brew bundle install --file=installers/Brewfile.common
-#   brew bundle install --file=installers/Brewfile.macos  # macOS only
-#
-# This file is kept for backward compatibility but should not be used directly.
-# It will be removed in a future version.
-# =============================================================================
-
-# For actual package definitions, see:
-# - installers/Brewfile.common  (cross-platform packages)
-# - installers/Brewfile.macos   (macOS-specific applications)
+tap "cloudflare/cloudflare"
+tap "riodelphino/tap"
+tap "shabaraba/tap"
+# Codec library for encoding and decoding AV1 video streams
+brew "aom"
+# Fast, lightweight CLI for App Store Connect
+brew "asc"
+# General-purpose data compression with high compression ratio
+brew "xz"
+# Official Amazon AWS command-line interface
+brew "awscli"
+# GNU internationalization (i18n) and localization (l10n) library
+brew "gettext"
+# Bourne-Again SHell, a UNIX command interpreter
+brew "bash"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
+# Python code formatter
+brew "black"
+# Core application library for C
+brew "glib"
+# Vector graphics library with cross-device output support
+brew "cairo"
+# Object-file caching compiler wrapper
+brew "ccache"
+# Tool for emulating mouse and keyboard events
+brew "cliclick"
+# Cloudflare Tunnel client (formerly Argo Tunnel)
+brew "cloudflared"
+# Cross-platform make
+brew "cmake"
+# Dependency manager for Cocoa projects
+brew "cocoapods"
+# Container runtimes on MacOS (and Linux) with minimal setup
+brew "colima"
+# Library and utilities for processing GIFs
+brew "giflib"
+# New file format for still image compression
+brew "jpeg-xl"
+# General-purpose scripting language
+brew "php"
+# Dependency Manager for PHP
+brew "composer"
+# Pack, ship and run any application as a lightweight container
+brew "docker"
+# Docker CLI plugin for extended build capabilities with BuildKit
+brew "docker-buildx"
+# Isolated development environments using Docker
+brew "docker-compose"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node"
+# Speed up eslint to accelerate your development workflow
+brew "eslint_d"
+# Perl lib for reading and writing EXIF metadata
+brew "exiftool"
+# Easiest way to build and release mobile apps
+brew "fastlane"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
+# Play, record, convert, and stream select audio and video codecs
+brew "ffmpeg"
+# Command-line fuzzy finder written in Go
+brew "fzf"
+# GitHub command-line tool
+brew "gh"
+# Distributed revision control system
+brew "git"
+# Syntax-highlighting pager for git and diff output
+brew "git-delta"
+# Quickly rewrite git repository history
+brew "git-filter-repo"
+# Syntax highlighted side-by-side diffs in your terminal
+brew "git-split-diffs"
+# GNU implementation of the famous stream editor
+brew "gnu-sed"
+# Open source programming language to build simple/reliable/efficient software
+brew "go"
+# OpenType text shaping engine
+brew "harfbuzz"
+# Open-source build automation tool based on the Groovy and Kotlin DSL
+brew "gradle"
+# Post-modern modal text editor
+brew "helix", args: ["HEAD"]
+# C/C++ and Java libraries for Unicode and globalization
+brew "icu4c@77"
+# Tools and libraries to manipulate images in select formats
+brew "imagemagick"
+# Git-compatible distributed version control system
+brew "jj"
+# Image manipulation library
+brew "jpeg"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
+# Framework for layout and rendering of i18n text
+brew "pango"
+# Library to render SVG files using Cairo
+brew "librsvg"
+# LLM inference in C/C++
+brew "llama.cpp"
+# Clone of ls with colorful output, file type icons, and more
+brew "lsd"
+# Package manager for the Lua programming language
+brew "luarocks"
+# Polyglot runtime manager (asdf rust clone)
+brew "mise"
+# Simple tool to make locally trusted development certificates
+brew "mkcert"
+# Media player based on MPlayer and mplayer2
+brew "mpv"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim", args: ["HEAD"]
+# Manage multiple Node.js versions
+brew "nvm"
+# Create, run, and share large language models (LLMs)
+brew "ollama", restart_service: :changed
+# Perl compatible regular expressions library
+brew "pcre"
+# Simplistic interactive filtering tool
+brew "peco"
+# Package compiler and linker metadata toolkit
+brew "pkgconf"
+# Protocol buffers (Google's data interchange format)
+brew "protobuf"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.10"
+# Python interface to Tcl/Tk
+brew "python-tk@3.10"
+# Reverse engineering framework
+brew "radare2"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# Safe, concurrent, practical language
+brew "rust"
+# Fast, configurable, shell plugin manager
+brew "sheldon"
+# Non-interactive SSH password auth
+brew "sshpass"
+# Opinionated Lua code formatter
+brew "stylua"
+# Tool to build, change, and version infrastructure
+brew "terraform"
+# Terminal image and video viewer
+brew "timg"
+# Terminal multiplexer
+brew "tmux"
+# Parser generator tool
+brew "tree-sitter-cli"
+# Extremely fast Python package installer and resolver, written in Rust
+brew "uv"
+# Watch files and take action when they change
+brew "watchman"
+# Internet file retriever
+brew "wget"
+# JavaScript package manager
+brew "yarn"
+# Shell extension to navigate your filesystem faster
+brew "zoxide"
+# UNIX shell (command interpreter)
+brew "zsh"
+# Command-line interface for 1Password
+cask "1password-cli"
+# Command-line tools for building and debugging Android apps
+cask "android-commandlinetools"
+# Tools for building Android applications
+cask "android-studio"
+# Virtual Audio Driver
+cask "blackhole-16ch"
+# Terminal-based AI coding assistant
+cask "claude-code"
+# Brings the power of Copilot coding agent directly to your terminal
+cask "copilot-cli"
+cask "font-hackgen"
+cask "font-hackgen-nerd"
+# Terminal emulator that uses platform-native UI and GPU acceleration
+cask "ghostty"
+# Electronics design automation suite
+cask "kicad"
+# Free cross-platform office suite, fresh version
+cask "libreoffice"
+# File system integration
+cask "macfuse"
+# Utility that provides NTFS read and write support
+cask "ntfstool"
+# Image viewer
+cask "qview"
+# CLI to create, run, and deploy Slack apps
+cask "slack-cli"
+# JDK from the Eclipse Foundation (Adoptium)
+cask "temurin"
+# GPU-accelerated cross-platform terminal emulator and multiplexer
+cask "wezterm@nightly"
+go "cmd/go"
+go "cmd/gofmt"
+cargo "devproc"
+cargo "holecard-cli"
+npm "corepack"
+npm "eas-cli"
+npm "mcp-hub"
+npm "neovim"
+npm "prettier"

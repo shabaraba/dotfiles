@@ -37,11 +37,12 @@ source "$HOME/.zsh/sheldon/init.zsh"
 
 # 補完の初期化を最適化
 autoload -Uz compinit
-# zcompdumpが24時間以上古い場合は再生成
-if [[ ! -f ~/.zcompdump ]] || [[ ~/.zshrc -nt ~/.zcompdump ]]; then
-  compinit
+# zshのバージョンごとにdumpを分け、更新時に古いキャッシュを使わないようにする
+ZSH_COMPDUMP=~/.zcompdump-$ZSH_VERSION
+if [[ ! -f $ZSH_COMPDUMP ]] || [[ ~/.zshrc -nt $ZSH_COMPDUMP ]]; then
+  compinit -d $ZSH_COMPDUMP
 else
-  compinit -C
+  compinit -C -d $ZSH_COMPDUMP
 fi
 
 zstyle ':completion:*' menu select

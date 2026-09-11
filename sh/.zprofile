@@ -2,6 +2,10 @@
 # Homebrewのパスを通す。対話シェル向けには zsh/public/export.zsh が別途追加している。
 if [ "$(uname)" = 'Darwin' ] && [ -x /opt/homebrew/bin/brew ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
+    # brew shellenvはFPATHをexportする。zsh本体を更新すると旧バージョンの
+    # Cellarパスが既存プロセス経由で子シェルに継承され、補完関数を解決できなくなるため
+    # exportを外してfpathをシェル内に留める
+    typeset +x FPATH 2>/dev/null
 fi
 # eval $(/usr/bin/locale-check C.UTF-8)
 

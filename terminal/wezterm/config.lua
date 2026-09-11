@@ -10,15 +10,15 @@ local function merge_tables(t1, t2)
 end
 
 local function require_claude_usage()
-  local dev_dir = os.getenv('HOME') .. '/workspace/private/claude-usage.wezterm'
-  local ok, claude_usage = pcall(dofile, dev_dir .. '/plugin/init.lua')
-  if ok and claude_usage then
+  local dev_dir = os.getenv('HOME') .. '/workspace/private/ai-usage.wezterm'
+  local ok, ai_usage = pcall(dofile, dev_dir .. '/plugin/init.lua')
+  if ok and ai_usage then
     wezterm.log_info('config.lua: using claude-usage dev workspace plugin')
-    return claude_usage
+    return ai_usage
   end
 
   wezterm.log_info('config.lua: falling back to registered claude-usage plugin')
-  return plugins.require('claude-usage.wezterm')
+  return plugins.require('ai-usage.wezterm')
 end
 
 -- 設定を集約
