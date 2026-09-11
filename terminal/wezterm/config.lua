@@ -53,6 +53,7 @@ local function get_config()
   claude_usage.apply_to_config(config, {
     position = 'left',
     refresh_interval = 60,
+    toggle_key = { key = 'u', mods = 'CTRL|SHIFT' },
   })
 
   return config
