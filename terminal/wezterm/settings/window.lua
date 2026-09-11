@@ -4,8 +4,10 @@ function M.get_config()
   return {
     initial_rows = 30,
     initial_cols = 150,
-    window_decorations = 'INTEGRATED_BUTTONS | RESIZE',
-    -- integrated_title_buttons = {},  -- 一時的にコメントアウト
+    -- タブバー左端はai-usageの使用量バーが使うため、ウィンドウボタンは描画しない。
+    -- macOSのintegrated_title_button_styleはMacOsNativeが既定で、
+    -- integrated_title_buttons = {} ではネイティブボタンを消せないためINTEGRATED_BUTTONS自体を外す。
+    window_decorations = 'RESIZE',
     window_frame = {
       -- 現在はデフォルト設定を使用
     },
