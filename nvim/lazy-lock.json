@@ -12,6 +12,7 @@
   "hlchunk.nvim": { "branch": "main", "commit": "4ddc056e4ca45f1c7dc6aa21935df710b263b1aa" },
   "ime-auto.nvim": { "branch": "main", "commit": "7b7c46467c642a38859c5ac4ab807a03e59eea8a" },
   "lazy.nvim": { "branch": "main", "commit": "306a05526ada86a7b30af95c5cc81ffba93fef97" },
+  "lazydev.nvim": { "branch": "main", "commit": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d" },
   "lspkind.nvim": { "branch": "master", "commit": "c7274c48137396526b59d86232eabcdc7fed8a32" },
   "lspsaga.nvim": { "branch": "main", "commit": "cf6fc9473bba1d332eda9887855ea29ed9b37701" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "5d32a9b8de9f90466797a740edb0fb4b3c27e423" },

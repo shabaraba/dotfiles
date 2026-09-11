@@ -1,3 +1,8 @@
+---@module "vibing"
+-- 各Configクラスの@fieldが`?`無しで定義されており、一部だけ上書きする使い方だと
+-- missing-fieldsが大量に出るため無効化する（補完には影響しない）
+---@diagnostic disable: missing-fields
+
 return {
   "shabaraba/vibing.nvim",
   dev = true,
@@ -5,6 +10,7 @@ return {
   ft = { "vibing" },
   cmd = { "VibingChat", "VibingInline", "VibingContext", "VibingToggleChat" },
   keys = require("mappings").vibing,
+  ---@type Vibing.Config
   opts = {
     adapter = "claude",
     agent = {
@@ -63,20 +69,6 @@ return {
     mcp = {
       enabled = true,
       rpc_port = 9876,
-      auto_setup = true,
-      auto_configure_claude_json = true
-    },
-    ollama = {
-      enabled = true,
-      model = "qwen2.5-coder:1.5b",
-      url = "http://localhost:11434",
-      timeout = 30000,
-      stream = true,
-      use_for_title = true,
-      use_for_doc = true,
-    },
-    preview = {
-      enabled = true
     },
     language = {
       default = "ja",
