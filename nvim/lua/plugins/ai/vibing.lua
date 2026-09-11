@@ -22,6 +22,9 @@ return {
       chat_notifications = {
         enabled = true,
       },
+      orchestration = {
+        delegated_approval = true,
+      },
       token_usage = {
         enabled = true,
         warn_context = 250000,
