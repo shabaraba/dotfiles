@@ -36,9 +36,22 @@ return {
     },
     permissions = {
       mode = "acceptEdits",
-      allow = { "Edit", "Write", "Glob", "Grep", "WebSearch", "WebFetch", "webrun","view_image", "Bash", "mcp__chrome-devtools__*" },
+      allow = { "Edit", "Write", "Glob", "Grep", "WebSearch", "WebFetch", "webrun", "view_image", "Bash", "mcp__chrome-devtools__*" },
       ask = { "Bash(rm:*)" },
       deny = {},
+      codex_profile_content = [[
+default_permissions = "vibing-project"
+
+[permissions.vibing-project]
+description = "Workspace editing with Git metadata access"
+extends = ":workspace"
+
+[permissions.vibing-project.filesystem.":workspace_roots"]
+".git" = "write"
+
+[permissions.vibing-project.network]
+enabled = true
+]],
     },
     chat = {
       window = {
