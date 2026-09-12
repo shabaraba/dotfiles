@@ -359,6 +359,12 @@ M.misc = function()
 
   map('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true })
 
+  -- tab mappings under the <C-w>t prefix
+  map('n', Prefix.window .. 'tt', '<cmd>tab split<cr>', { desc = 'Open current buffer in a new tab' })
+  map('n', Prefix.window .. 'tq', '<cmd>tabclose<cr>', { desc = 'Close current tab' })
+  map('n', Prefix.window .. 'tl', '<cmd>tabnext<cr>', { desc = 'Go to next tab' })
+  map('n', Prefix.window .. 'th', '<cmd>tabprevious<cr>', { desc = 'Go to previous tab' })
+
   -- terminal mappings --
   -- get out of terminal mode
   map("t", { "jj" }, "<C-\\><C-n>")

@@ -19,6 +19,4 @@ end
 
 require("core.winbar").setup()
 require("core.shada").setup()
-require("core.tabs").setup()
-
 
