@@ -36,7 +36,20 @@ return {
     },
     permissions = {
       mode = "acceptEdits",
-      allow = { "Edit", "Write", "Glob", "Grep", "WebSearch", "WebFetch", "webrun", "view_image", "Bash", "mcp__chrome-devtools__*" },
+      allow = {
+        "Edit",
+        "Write",
+        "Glob",
+        "Grep",
+        "WebSearch",
+        "WebFetch",
+        "webrun",
+        "view_image",
+        "Bash",
+        "mcp__chrome-devtools__*",
+        -- codex はサーバー名の `-` を `_` に正規化してからツール名を組み立てる
+        "mcp__chrome_devtools__*",
+      },
       ask = { "Bash(rm:*)" },
       deny = {},
       codex_profile_content = [[
@@ -51,6 +64,7 @@ extends = ":workspace"
 
 [permissions.vibing-project.network]
 enabled = true
+
 ]],
     },
     chat = {

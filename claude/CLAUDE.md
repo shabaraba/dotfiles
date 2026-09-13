@@ -46,3 +46,6 @@
 - GitHub操作: GitHub MCPツール（`mcp_`で始まるツール）が利用可能な場合は`gh`コマンドより優先する
 - Web検索: MCP提供のWebツールが利用可能な場合は通常のWebFetchツールより優先する
 - ローカルサーバー操作: devtools MCPを使う
+# graphify
+- **graphify** (`~/.claude/skills/graphify/SKILL.md`) - any input to knowledge graph. Trigger: `/graphify`
+When the user types `/graphify`, use the installed graphify skill or instructions before doing anything else.
