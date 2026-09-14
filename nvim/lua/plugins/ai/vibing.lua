@@ -13,6 +13,7 @@ local allow = {
   "WebFetch",
   "Bash",
   "mcp__chrome-devtools__*",
+  "mcp__codegraph__*",
 }
 
 local ask = {
