@@ -3,6 +3,39 @@
 -- missing-fieldsが大量に出るため無効化する（補完には影響しない）
 ---@diagnostic disable: missing-fields
 
+-- アダプタごとの綴り分けは不要。can_use_tool は canonical 名（Claude語彙）で照合し、
+-- 各backendの native 名は *_tool_vocabulary が変換する。MCPサーバー名の `-` / `_` 揺れも
+-- matchers 側で吸収される（codexは `-` を `_` に正規化した名前を送ってくる）
+local allow = {
+  "Edit",
+  "Write",
+  "WebSearch",
+  "WebFetch",
+  "Bash",
+  "mcp__chrome-devtools__*",
+}
+
+local ask = {
+  "Bash(rm:*)",
+}
+
+local deny = { }
+
+local codex_profile_content = [[
+default_permissions = "vibing-project"
+
+[permissions.vibing-project]
+description = "Workspace editing with Git metadata access"
+extends = ":workspace"
+
+[permissions.vibing-project.filesystem.":workspace_roots"]
+".git" = "write"
+
+[permissions.vibing-project.network]
+enabled = true
+
+]]
+
 return {
   "shabaraba/vibing.nvim",
   dev = true,
@@ -36,36 +69,10 @@ return {
     },
     permissions = {
       mode = "acceptEdits",
-      allow = {
-        "Edit",
-        "Write",
-        "Glob",
-        "Grep",
-        "WebSearch",
-        "WebFetch",
-        "webrun",
-        "view_image",
-        "Bash",
-        "mcp__chrome-devtools__*",
-        -- codex はサーバー名の `-` を `_` に正規化してからツール名を組み立てる
-        "mcp__chrome_devtools__*",
-      },
-      ask = { "Bash(rm:*)" },
-      deny = {},
-      codex_profile_content = [[
-default_permissions = "vibing-project"
-
-[permissions.vibing-project]
-description = "Workspace editing with Git metadata access"
-extends = ":workspace"
-
-[permissions.vibing-project.filesystem.":workspace_roots"]
-".git" = "write"
-
-[permissions.vibing-project.network]
-enabled = true
-
-]],
+      allow = allow,
+      ask = ask,
+      deny = deny,
+      codex_profile_content = codex_profile_content,
     },
     chat = {
       window = {
