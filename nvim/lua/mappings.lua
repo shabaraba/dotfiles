@@ -202,7 +202,7 @@ local Mapping = {
   { Prefix.ai .. 'i',          '<cmd>VibingInline<cr>',                                                         desc = FUNCTION.AI.VIBING_INLINE,             silent = true,                      mode = 'v' },
   { Prefix.ai .. ']',          '<cmd>VibingChatJumpNext<cr>',                                                   desc = FUNCTION.AI.VIBING_CHAT_JUMP_NEXT,     silent = true },
   { Prefix.ai .. '[',          '<cmd>VibingChatJumpPrev<cr>',                                                   desc = FUNCTION.AI.VIBING_CHAT_JUMP_PREV,     silent = true },
-  { Prefix.ai .. 'cs',         '<cmd>VibingSummarize --with-title<cr>',                                         desc = FUNCTION.AI.VIBING_SUMMARY_AND_TITLE,  silent = true },
+  { Prefix.ai .. 'cs',         '<cmd>VibingSummarize --linked --with-title<cr>',                                         desc = FUNCTION.AI.VIBING_SUMMARY_AND_TITLE,  silent = true },
 
   -- spider (subword motion)
   { 'w',                       function() require('spider').motion('w') end,                                    desc = FUNCTION.MOTION.WORD_FORWARD,          silent = true,                      mode = { 'n', 'o', 'x' } },
