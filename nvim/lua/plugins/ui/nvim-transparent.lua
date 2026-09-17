@@ -14,7 +14,7 @@ return {
       -- "BufferLineSeparator",
       -- "BufferLineIndicatorSelected",
     },
-    exclude_groups = {}, -- table: groups you don't want to clear
+    exclude_groups = { "CursorLine", "CursorLineNr" }, -- table: groups you don't want to clear
   },
   config = function(_, opts)
     require("transparent").setup(opts)
@@ -26,7 +26,7 @@ return {
         -- 背景のみ透過、前景色は保持
         local highlights = {
           "Normal", "NormalNC", "NormalFloat", "SignColumn", "EndOfBuffer",
-          "LineNr", "CursorLineNr", "Folded", "FoldColumn",
+          "LineNr", "Folded", "FoldColumn",
           "StatusLine", "StatusLineNC", "VertSplit"
         }
 
@@ -40,7 +40,6 @@ return {
         -- 特定の要素は半透明の背景を保持（視認性のため）
         local semi_transparent = {
           -- Visual = { bg = "#2e3145", blend = 50 },
-          -- CursorLine = { bg = "#232334", blend = 30 },
           -- Pmenu = { bg = "#232334", blend = 85 },
           -- PmenuSel = { bg = "#3a3d55", blend = 85 },
           -- Search = { bg = "#f0b5d2", fg = "#1a1a26", blend = 30 },

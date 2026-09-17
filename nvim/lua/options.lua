@@ -9,7 +9,6 @@ opt.titlestring = "%{v:lua.require('core.title').get_title()}"
 opt.clipboard = "unnamedplus"
 opt.cmdheight = 0  -- コマンドラインを隠す
 opt.laststatus = 0  -- ステータスラインを完全に非表示
-opt.cul = true -- cursor line
 
 opt.redrawtime = 10000
 opt.encoding = 'utf-8'
