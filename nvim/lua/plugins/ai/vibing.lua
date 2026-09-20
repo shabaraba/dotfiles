@@ -68,6 +68,11 @@ return {
         },
       },
     },
+    backends = {
+      claude = {
+        process = "duplex",
+      },
+    },
     permissions = {
       mode = "acceptEdits",
       allow = allow,
