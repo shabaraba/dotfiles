@@ -72,6 +72,13 @@ return {
       claude = {
         process = "duplex",
       },
+      pi = {
+        -- `~` is not expanded: the value reaches execvp as argv[0] literally.
+        executable = vim.fn.expand("~/.local/share/pi-agent/node_modules/.bin/pi"),
+        -- ~/.pi/agent/models.json の mlx-local。model: は
+        -- `mlx-community/Qwen3.6-27B-4bit` を指定する
+        provider = "mlx-local",
+      },
     },
     permissions = {
       mode = "acceptEdits",
