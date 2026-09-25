@@ -71,6 +71,11 @@ return {
         auto_restore = true,   -- 起動時に自動復元
         preserve_order = true, -- 並び順を保持
       },
+      window_picker = {
+        hint = "floating-big-letter",
+        selection_chars = "FJDKSLA;CMRUEIWOQP",
+        prompt_message = "Pick window to open buffer: ",
+      },
     },
   },
 }
