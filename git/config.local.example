@@ -1,0 +1,10 @@
+# マシン・組織固有のgit設定。
+# git/config.local にコピーして使う（gitignore済み。deployで ~/.config/git/config.local にリンクされる）。
+# git/config 末尾の [include] から読み込まれ、同名キーはこちらが優先される。
+
+# [user]
+# 	email = you@example.com
+# 	signingkey = ~/.ssh/id_ed25519_work.pub
+
+# [url "git@github.com:example-org"]
+# 	insteadOf = https://github.com/example-org

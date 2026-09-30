@@ -18,6 +18,12 @@ ln -snfv $PWD/terminal/ghostty $HOME/.config/ghostty
 ln -snfv $PWD/sh/zsh/sheldon $HOME/.config/sheldon
 mkdir -p $HOME/.config/mise
 ln -snfv $PWD/mise/config.toml $HOME/.config/mise/config.toml
+mkdir -p $HOME/.config/git
+ln -snfv $PWD/git/config $HOME/.config/git/config
+ln -snfv $PWD/git/ignore $HOME/.config/git/ignore
+if [ -f "$PWD/git/config.local" ]; then
+  ln -snfv $PWD/git/config.local $HOME/.config/git/config.local
+fi
 
 echo "  - 🚚 for AI✨️"
 mkdir -p $HOME/.claude

@@ -150,6 +150,10 @@ dotfiles/
 │   ├── agents/           # Custom agent definitions
 │   ├── commands/         # Custom slash commands
 │   └── skills/           # Custom skills (→ ~/.claude/skills/<name>)
+├── git/                  # Git configuration (→ ~/.config/git/)
+│   ├── config            # Global git config (→ ~/.config/git/config)
+│   ├── ignore            # Global gitignore (→ ~/.config/git/ignore)
+│   └── config.local.example  # Machine/org-specific overrides (gitignored when copied)
 ├── mise/                 # mise task manager configuration
 │   └── config.toml       # Global tasks (→ ~/.config/mise/config.toml)
 ├── terminal/
@@ -167,6 +171,7 @@ deployer.shがシンボリックリンクを作成：
 - Neovim → `~/.config/nvim`
 - Claude Code → `~/.claude/`
 - mise → `~/.config/mise/config.toml`
+- Git → `~/.config/git/config`, `~/.config/git/ignore`
 - WezTerm → `~/.config/wezterm`
 - Ghostty → `~/.config/ghostty`
 
@@ -189,6 +194,9 @@ deployer.shがシンボリックリンクを作成：
 Private settings (API keys, tokens) are stored in `sh/zsh/private/` and excluded from git:
 1. Copy example files: `*.example` → remove `.example` suffix
 2. Fill in actual values for placeholders
+
+Machine/org-specific git settings follow the same pattern in `git/config.local`
+(gitignored, loaded via `[include]` from `git/config`).
 
 ## Adding New Configurations
 

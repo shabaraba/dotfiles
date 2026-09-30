@@ -26,6 +26,7 @@ gemini/settings.json
 # Private files with sensitive information
 sh/zsh/private/env.zsh
 sh/zsh/private/alias.zsh
+git/config.local
 claude/settings.json
 claude/skills/private/
 .serena/
