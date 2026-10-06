@@ -20,7 +20,7 @@ local ask = {
   "Bash(rm:*)",
 }
 
-local deny = { }
+local deny = {}
 
 local codex_profile_content = [[
 default_permissions = "vibing-project"
@@ -74,6 +74,7 @@ return {
       },
       codex = {
         process = "duplex",
+        approval_policy = "on-request",
       },
       pi = {
         -- `~` is not expanded: the value reaches execvp as argv[0] literally.
