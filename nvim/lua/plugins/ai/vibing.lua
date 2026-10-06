@@ -49,7 +49,7 @@ return {
     adapter = "claude",
     agent = {
       default_mode = "code",
-      default_model = "opus",
+      default_model = "sonnet",
       auto_resume_on_limit = {
         enabled = true,
       },
@@ -72,12 +72,15 @@ return {
       claude = {
         process = "duplex",
       },
+      codex = {
+        process = "duplex",
+      },
       pi = {
         -- `~` is not expanded: the value reaches execvp as argv[0] literally.
         executable = vim.fn.expand("~/.local/share/pi-agent/node_modules/.bin/pi"),
-        -- ~/.pi/agent/models.json の mlx-local。model: は
-        -- `mlx-community/Qwen3.6-27B-4bit` を指定する
-        provider = "mlx-local",
+        -- ~/.pi/agent/models.json の bonsai-local（llama-server :8080）。model: は
+        -- `bonsai2-27b` を指定する。mlx-local（:8081）に戻す場合はここを差し替える
+        provider = "bonsai-local",
       },
     },
     permissions = {
