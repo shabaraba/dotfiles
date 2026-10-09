@@ -36,10 +36,6 @@ if has_local_plugins then
   table.insert(spec, { import = "plugins.local" })
 end
 
-if vim.g.no_plugin == 1 then
-  spec = {}
-end
-
 require("lazy").setup({
   spec = spec,
   dev = {

@@ -13,6 +13,8 @@ end
 vim.g.python3_host_prog = vim.fn.expand('~/.config/nvim/env/bin/python')
 
 require("core")
-require("plugins")
+if vim.g.no_plugin ~= 1 then
+   require("plugins")
+end
 -- non plugin mappings
 require("mappings").misc()

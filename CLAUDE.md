@@ -188,6 +188,8 @@ deployer.shがシンボリックリンクを作成：
 - **LSP**: mason.nvim + nvim-lspconfig
 - **AI Integration**: Copilot, Claude Code integration
 - Plugins organized by category: `core/`, `ui/`, `action/`, `coding/`, `ai/`, `ops/` (plugin-management/observability plugins)
+- **Plugin-less mode**: `vim.g.no_plugin = 1` で `lua/root.lua` が `require("plugins")` をスキップする。`options.lua` / `mappings.lua` / `core/` は読み込まれるため、プラグイン非依存のキーマッピングと設定は維持される。シェルエイリアス `vn`（`nvim --cmd "let g:no_plugin = 1"`）で起動する
+- プラグイン非依存を保つため、`core/` からプラグインを参照する場合は必ず `pcall(require, ...)` か遅延評価されるクロージャ内で行う
 
 ### Private Configuration
 

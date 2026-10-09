@@ -16,6 +16,7 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias v='nvim'
 alias vl='nvim --listen /tmp/nvim'
+alias vn='nvim --cmd "let g:no_plugin = 1"'
 
 alias npx='echo "WARNING: npx の利用は禁止されています。代わりに pnpm exec を利用してください。" && false'
 alias npm='echo "WARNING: npm の利用は禁止されています。代わりに pnpm を利用してください。" && false'
