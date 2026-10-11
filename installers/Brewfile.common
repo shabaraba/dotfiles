@@ -59,7 +59,7 @@ brew "peco"
 # Clone of ls with colorful output, file type icons, and more
 brew "lsd"
 # Ambitious Vim-fork focused on extensibility and agility
-brew "neovim", args: ["HEAD"]
+brew "neovim"
 
 # =============================================================================
 # Container Tools

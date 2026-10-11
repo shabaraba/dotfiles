@@ -24,11 +24,11 @@ elif [ "$1" = centos ]; then
 else
     echo 'macos' 1>&2
     if !(type "nvim" > /dev/null 2>&1); then
-        echo 'Installing latest nightly neovim...'
-        brew install neovim --HEAD
+        echo 'Installing neovim...'
+        brew install neovim
     else
-        echo 'Upgrading to latest nightly neovim...'
-        brew upgrade neovim --fetch-HEAD
+        echo 'Upgrading neovim...'
+        brew upgrade neovim
     fi
 fi
 
