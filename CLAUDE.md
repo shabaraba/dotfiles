@@ -167,6 +167,7 @@ dotfiles/
 ### Symlink Strategy
 
 deployer.shがシンボリックリンクを作成：
+- Repository root → `~/.dotfiles`（clone先に依存せず mise タスクが `DOTFILES_DIR` として参照する）
 - Shell configs → `~/.zshrc`, `~/.zshenv`, `~/.zsh/`
 - Neovim → `~/.config/nvim`
 - Claude Code → `~/.claude/`

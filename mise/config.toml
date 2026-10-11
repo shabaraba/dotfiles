@@ -5,7 +5,8 @@
 # Tasks defined here are available from any directory
 
 [env]
-DOTFILES_DIR = "{{env.HOME}}/dotfiles"
+# ~/.dotfiles is a symlink to the repo created by deployer.sh, so the clone location doesn't matter
+DOTFILES_DIR = "{{env.HOME}}/.dotfiles"
 
 [settings]
 # Enable idiomatic version files for common tools
@@ -55,12 +56,12 @@ brew cleanup
 
 [tasks."brew:dump"]
 description = "Update Brewfile with currently installed packages"
-run = "brew bundle dump --force --describe --file=installers/Brewfile"
+run = "brew bundle dump --force --describe --file=installers/Brewfile.common"
 dir = "{{env.DOTFILES_DIR}}"
 
 [tasks."brew:check"]
 description = "Check if all Brewfile packages are installed"
-run = "brew bundle check --file=installers/Brewfile"
+run = "brew bundle check --file=installers/Brewfile.common"
 dir = "{{env.DOTFILES_DIR}}"
 
 [tasks."cache:clean"]
@@ -116,7 +117,7 @@ echo "Homebrew: $(brew --version | head -n 1)"
 
 [tasks."pr:publish"]
 description = "Publish a local Gitea PR to GitHub as a draft PR"
-run = "bash \"$HOME/dotfiles/mise/scripts/pr-publish.sh\" \"$@\""
+run = "bash \"$DOTFILES_DIR/mise/scripts/pr-publish.sh\" \"$@\""
 
 # =============================================================================
 # GitHub Repository Setup Tasks
@@ -124,20 +125,20 @@ run = "bash \"$HOME/dotfiles/mise/scripts/pr-publish.sh\" \"$@\""
 
 [tasks."gh:repo-init"]
 description = "Initialize repository with release-please and branch protection"
-run = "bash \"$HOME/dotfiles/mise/scripts/gh-repo-init.sh\" \"$@\""
+run = "bash \"$DOTFILES_DIR/mise/scripts/gh-repo-init.sh\" \"$@\""
 
 [tasks."gh:repo-init:workflow"]
 description = "Create release-please workflow file only"
-run = "bash \"$HOME/dotfiles/mise/scripts/gh-repo-init-workflow.sh\""
+run = "bash \"$DOTFILES_DIR/mise/scripts/gh-repo-init-workflow.sh\""
 
 [tasks."gh:repo-init:config"]
 description = "Create release-please config files only"
-run = "bash \"$HOME/dotfiles/mise/scripts/gh-repo-init-config.sh\" \"$@\""
+run = "bash \"$DOTFILES_DIR/mise/scripts/gh-repo-init-config.sh\" \"$@\""
 
 [tasks."gh:repo-init:hook"]
 description = "Setup pre-commit hook to prevent commits to main"
-run = "bash \"$HOME/dotfiles/mise/scripts/gh-repo-init-hook.sh\""
+run = "bash \"$DOTFILES_DIR/mise/scripts/gh-repo-init-hook.sh\""
 
 [tasks."gh:repo-init:protect"]
 description = "Setup GitHub repository protection settings"
-run = "bash \"$HOME/dotfiles/mise/scripts/gh-repo-init-protect.sh\""
+run = "bash \"$DOTFILES_DIR/mise/scripts/gh-repo-init-protect.sh\""

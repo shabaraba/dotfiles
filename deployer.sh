@@ -1,5 +1,8 @@
+cd "$(dirname "$0")" || exit 1
+
 echo "🚚 deploy dotfiles and configs..."
 echo "  - 🚚 to ~"
+ln -snfv $PWD $HOME/.dotfiles
 ln -snfv $PWD/sh/zsh $HOME/.zsh
 ln -snfv $PWD/sh/zsh/public/p10k.zsh $HOME/.p10k.zsh
 
@@ -77,6 +80,8 @@ if command -v npm >/dev/null 2>&1 && [ -n "${TAKUMI_GUARD_API_KEY:-}" ]; then
   npm config set //npm.flatt.tech/:_authToken "$TAKUMI_GUARD_API_KEY"
 fi
 if command -v pnpm >/dev/null 2>&1; then
+  # pnpm refuses global config writes unless its global bin dir is on PATH
+  [ -n "${PNPM_HOME:-}" ] && export PATH="$PNPM_HOME:$PATH"
   pnpm config set -g minimumReleaseAge 1440
   pnpm config set -g --json minimumReleaseAgeExclude '["@anthropic-ai/claude-code"]'
 fi
