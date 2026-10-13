@@ -7,17 +7,17 @@
 -- 各backendの native 名は *_tool_vocabulary が変換する。MCPサーバー名の `-` / `_` 揺れも
 -- matchers 側で吸収される（codexは `-` を `_` に正規化した名前を送ってくる）
 local allow = {
-  "Edit",
-  "Write",
-  "WebSearch",
-  "WebFetch",
-  "Bash",
-  "mcp__chrome-devtools__*",
-  "mcp__codegraph__*",
+	"Edit",
+	"Write",
+	"WebSearch",
+	"WebFetch",
+	"Bash",
+	"mcp__chrome-devtools__*",
+	"mcp__codegraph__*",
 }
 
 local ask = {
-  "Bash(rm:*)",
+	"Bash(rm:*)",
 }
 
 local deny = {}
@@ -38,108 +38,104 @@ enabled = true
 ]]
 
 return {
-  "shabaraba/vibing.nvim",
-  dev = true,
-  build = "./build.sh",
-  ft = { "vibing" },
-  cmd = { "VibingChat", "VibingInline", "VibingContext", "VibingToggleChat" },
-  keys = require("mappings").vibing,
-  ---@type Vibing.Config
-  opts = {
-    adapter = "claude",
-    agent = {
-      default_mode = "code",
-      default_model = "sonnet",
-      auto_resume_on_limit = {
-        enabled = true,
-      },
-      chat_notifications = {
-        enabled = true,
-      },
-      orchestration = {
-        delegated_approval = true,
-      },
-      token_usage = {
-        enabled = true,
-        warn_context = 250000,
-        auto_compact = {
-          enabled = true,
-          at = 300000,
-        },
-      },
-    },
-    backends = {
-      claude = {
-        process = "duplex",
-      },
-      codex = {
-        process = "duplex",
-        approval_policy = "on-request",
-      },
-      pi = {
-        -- `~` is not expanded: the value reaches execvp as argv[0] literally.
-        executable = vim.fn.expand("~/.local/share/pi-agent/node_modules/.bin/pi"),
-        -- ~/.pi/agent/models.json の bonsai-local（llama-server :8080）。model: は
-        -- `bonsai2-27b` を指定する。mlx-local（:8081）に戻す場合はここを差し替える
-        provider = "bonsai-local",
-      },
-    },
-    permissions = {
-      mode = "acceptEdits",
-      allow = allow,
-      ask = ask,
-      deny = deny,
-      codex_profile_content = codex_profile_content,
-    },
-    chat = {
-      window = {
-        position = "right",
-        border = "rounded",
-      },
-      auto_context = false,
-      save_location_type = "project",
-    },
-    ui = {
-      wrap = "on",
-      tool_result_display = "none",
-      gradient = {
-        enabled = true,
-        colors = {
-          "#ff3300",
-          "#5a5aff",
-        },
-        interval = 50,
-      },
-      tool_markers = {
-        default = "⏺",
-        Task = "▶",
-        TaskComplete = "✓",
-        Read = "📄",
-        Edit = "✏️",
-        Write = "📝",
-        Bash = "💻",
-      },
-    },
-    mcp = {
-      enabled = true,
-      rpc_port = 9876,
-    },
-    language = {
-      default = "ja",
-      chat = "ja",
-      inline = "ja",
-    },
-    keymaps = {
-      send = "<CR>",
-      cancel = "<C-c>",
-      add_context = "<C-a>",
-    },
-    daily_summary = {
-      search_dirs = {
-        vim.fn.expand("~/workspace"),
-      },
-      save_dir = vim.fn.expand("~/workspace/ObsidianVault/vault/Daily/private/"),
-      file_finder_strategy = "auto", -- "auto" | "fd" | "ripgrep" | "find" | "locate"
-    },
-  },
+	"shabaraba/vibing.nvim",
+	dev = true,
+	build = "./build.sh",
+	ft = { "vibing" },
+	cmd = { "VibingChat", "VibingInline", "VibingContext", "VibingToggleChat" },
+	keys = require("mappings").vibing,
+	---@type Vibing.Config
+	opts = {
+		ai = {
+			chat = {
+				agent = "claude",
+				model = "sonnet",
+			},
+			agents = {
+				claude = {
+					process = "duplex",
+				},
+				codex = {
+					process = "duplex",
+					extensions = {
+						approval_policy = "on-request",
+						profile_content = codex_profile_content,
+					},
+				},
+				-- 現在のvibing.nvimはPi未対応。対応版で有効化する際の設定を保存。
+				-- pi = {
+				--   path = vim.fn.expand("~/.local/share/pi-agent/node_modules/.bin/pi"),
+				--   extensions = { provider = "bonsai-local" },
+				-- },
+				-- bonsai-localはllama-server :8080、modelはbonsai2-27b。
+			},
+		},
+		automation = {
+			limits = {
+				resume = { enabled = true },
+			},
+			orchestration = {
+				notifications = { enabled = true },
+			},
+		},
+		permissions = {
+			mode = "acceptEdits",
+			allow = allow,
+			ask = ask,
+			deny = deny,
+			delegated_approval = true,
+		},
+		chat = {
+			context = {
+				auto_include = false,
+				warn_tokens = 250000,
+				compaction = {
+					enabled = true,
+					threshold_tokens = 300000,
+				},
+			},
+			storage = { location = "project" },
+			language = { default = "ja", chat = "ja" },
+			daily_summary = {
+				search_dirs = {
+					vim.fn.expand("~/workspace"),
+				},
+				save_dir = vim.fn.expand("~/workspace/ObsidianVault/vault/Daily/private/"),
+				file_finder_strategy = "auto", -- "auto" | "fd" | "ripgrep" | "find" | "locate"
+			},
+		},
+		ui = {
+			window = {
+				position = "right",
+				border = "rounded",
+			},
+			wrap = "on",
+			usage = { enabled = true },
+			gradient = {
+				enabled = true,
+				colors = { "#ff3300", "#5a5aff" },
+				interval_ms = 50,
+			},
+			tools = {
+				results = "none",
+				markers = {
+					default = "⏺",
+					Task = "▶",
+					TaskComplete = "✓",
+					Read = "📄",
+					Edit = "✏️",
+					Write = "📝",
+					Bash = "💻",
+				},
+			},
+		},
+		integrations = {
+			nvim = { enabled = true, port = 9876 },
+		},
+		keymaps = {
+			send = "<CR>",
+			cancel = "<C-c>",
+			add_context = "<C-a>",
+		},
+	},
 }
