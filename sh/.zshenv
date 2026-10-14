@@ -21,3 +21,13 @@ for _zfuncdir in \
     [[ -d $_zfuncdir && -z ${fpath[(r)$_zfuncdir]} ]] && fpath+=("$_zfuncdir")
 done
 unset _zfuncdir
+
+# npm / npx は禁止。非対話シェル(codex の zsh -lc 等)でも alias.zsh と同じ挙動にする
+npm() {
+  echo "WARNING: npm の利用は禁止されています。代わりに pnpm を利用してください。"
+  return 1
+}
+npx() {
+  echo "WARNING: npx の利用は禁止されています。代わりに pnpm dlx を利用してください。"
+  return 1
+}

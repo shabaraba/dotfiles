@@ -22,6 +22,38 @@ local ask = {
 
 local deny = {}
 
+-- npm / npx は禁止(pnpm を使う)。コマンド位置(行頭・; & | 改行 ( ` クォートの直後・パス付き・
+-- env/xargs 等の直後)だけを拒否し、`rg npm` のような引数中の語は巻き込まない。
+-- `bash -c 'npx x'` のようにクォート内のコマンドも対象にするため、クォート直後も位置とみなす
+local SEPARATORS = "[;&|\n(`'\"]"
+local WRAPPERS = { "env", "xargs", "exec", "sudo", "time", "command", "nohup" }
+
+local function at_command_position(...)
+  local patterns = {}
+  for _, command in ipairs({ ... }) do
+    local starts = { "^%s*", SEPARATORS .. "%s*" }
+    for _, wrapper in ipairs(WRAPPERS) do
+      table.insert(starts, "%f[%w_]" .. wrapper .. "%s+")
+    end
+    for _, start in ipairs(starts) do
+      table.insert(patterns, start .. command .. "%f[%s]")
+      table.insert(patterns, start .. command .. "$")
+      table.insert(patterns, start .. command .. "[\"'`)]")
+      table.insert(patterns, start .. "[%w_%./%-]*/" .. command .. "%f[%s]")
+    end
+  end
+  return patterns
+end
+
+local rules = {
+  {
+    tools = { "Bash" },
+    patterns = at_command_position("npm", "npx"),
+    action = "deny",
+    message = "npm / npx は使用禁止です。pnpm / pnpm exec / pnpm dlx を使ってください。",
+  },
+}
+
 local codex_profile_content = [[
 default_permissions = "vibing-project"
 
@@ -100,6 +132,7 @@ return {
       allow = allow,
       ask = ask,
       deny = deny,
+      rules = rules,
       delegated_approval = true,
     },
     chat = {
