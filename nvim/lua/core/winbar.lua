@@ -141,13 +141,30 @@ local function ensure_winbar_highlight()
   vim.api.nvim_set_hl(0, BREADCRUMB_INACTIVE_GROUP, { fg = inactive_fg })
 end
 
+-- winbar管理外の割り当て（pile.nvimのCursorLineNr等）は残し、管理対象のグループだけ差し替える
+local function merge_winhighlight(current, managed)
+  local managed_groups = {}
+  for group in managed:gmatch("([^,:]+):") do
+    managed_groups[group] = true
+  end
+  local kept = {}
+  for entry in current:gmatch("[^,]+") do
+    local group = entry:match("^([^:]+):")
+    if group and not managed_groups[group] then
+      table.insert(kept, entry)
+    end
+  end
+  table.insert(kept, managed)
+  return table.concat(kept, ",")
+end
+
 -- 非アクティブ窓もクリアせず専用グループへ割り当てる。クリアするとSagaネイティブ色
 -- （アクティブ側の明背景向けの濃色）が暗いWinBarNC背景に乗って読めなくなるため。
 -- WinLeaveではなくカレント窓との比較で決めることで、背景で開かれた窓にも行き渡る
 local function apply_winhighlight(win)
   local target = (win == vim.api.nvim_get_current_win()) and BREADCRUMB_ACTIVE_GROUP
     or BREADCRUMB_INACTIVE_GROUP
-  local value = build_winhighlight(target)
+  local value = merge_winhighlight(vim.wo[win].winhighlight, build_winhighlight(target))
   if vim.wo[win].winhighlight ~= value then
     vim.wo[win].winhighlight = value
   end
