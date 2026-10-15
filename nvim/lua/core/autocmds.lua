@@ -76,23 +76,5 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.opt.updatetime = 300 -- CursorHold イベントのタイムアウト
 vim.opt.timeoutlen = 500 -- キーマップのタイムアウト
 
--- カーソル行のハイライトをアクティブなウィンドウのみに適用
-local cursorline_group = vim.api.nvim_create_augroup("AutoCursorLine", { clear = true })
-
-vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
-  group = cursorline_group,
-  callback = function()
-    vim.wo.cursorline = true
-  end,
-  desc = "Enable cursorline in the focused window"
-})
-
-vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
-  group = cursorline_group,
-  callback = function()
-    vim.wo.cursorline = false
-  end,
-  desc = "Disable cursorline in unfocused windows"
-})
-
-vim.wo.cursorline = true
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = "both"
