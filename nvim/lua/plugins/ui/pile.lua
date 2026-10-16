@@ -33,9 +33,6 @@ local function patch_session_restore_filter()
     filtered.buffers = vim.tbl_filter(function(buf)
       return not should_skip_session_path(buf.path)
     end, filtered.buffers or {})
-    filtered.layout = vim.tbl_filter(function(win)
-      return not should_skip_session_path(win.bufpath)
-    end, filtered.layout or {})
     return filtered
   end
 
@@ -75,6 +72,9 @@ return {
         hint = "floating-big-letter",
         selection_chars = "FJDKSLA;CMRUEIWOQP",
         prompt_message = "Pick window to open buffer: ",
+      },
+      exclude = {
+        buftypes = { "terminal" },
       },
     },
   },
