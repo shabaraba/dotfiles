@@ -63,6 +63,7 @@ return {
           trace_query = false,
         }
       },
+      tabline = { enabled = true },
       session = {
         auto_save = true,      -- 終了時に自動保存
         auto_restore = true,   -- 起動時に自動復元
