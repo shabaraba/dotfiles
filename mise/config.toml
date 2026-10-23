@@ -17,7 +17,7 @@ idiomatic_version_file_enable_tools = ["node", "python", "ruby", "go", "java"]
 # Default Tool Versions (for dotfiles repository development)
 # =============================================================================
 [tools]
-node = "22"      # LTS (Jod) - supported until April 2027
+node = "lts"      # LTS (Jod) - supported until April 2027
 python = "3.13"  # Latest stable - supported until 2029
 go = "latest"
 pnpm = "latest"  # Package manager - minimum 10.27.0
