@@ -69,6 +69,11 @@ return {
         auto_restore = true,   -- 起動時に自動復元
         preserve_order = true, -- 並び順を保持
       },
+      window_indicator = {
+        style = "block",          -- "block" | "line"
+        position = "left",       -- "left" | "right"（"block" のときだけ使う）
+      },
+      icons = { position = "right" }, -- "left" | "right"
       window_picker = {
         hint = "floating-big-letter",
         selection_chars = "FJDKSLA;CMRUEIWOQP",
