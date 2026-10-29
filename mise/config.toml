@@ -5,8 +5,8 @@
 # Tasks defined here are available from any directory
 
 [env]
-# ~/.dotfiles is a symlink to the repo created by deployer.sh, so the clone location doesn't matter
-DOTFILES_DIR = "{{env.HOME}}/.dotfiles"
+# Resolve from the config's real path, including when deployed as a symlink.
+DOTFILES_DIR = "{{config_source | canonicalize | dirname | dirname}}"
 
 [settings]
 # Enable idiomatic version files for common tools
@@ -17,12 +17,41 @@ idiomatic_version_file_enable_tools = ["node", "python", "ruby", "go", "java"]
 # Default Tool Versions (for dotfiles repository development)
 # =============================================================================
 [tools]
-node = "lts"      # LTS (Jod) - supported until April 2027
-python = "3.13"  # Latest stable - supported until 2029
+node = "lts"
+python = "3.13"
 go = "latest"
 pnpm = "latest"  # Package manager - minimum 10.27.0
 deno = "latest"  # Required by peek.nvim (markdown preview)
 actionlint = "latest"
+
+# Development CLIs; Homebrew owns system packages and applications.
+gh = "latest"
+jq = "latest"
+ripgrep = "latest"
+fd = "latest"
+fzf = "latest"
+bat = "latest"
+delta = "latest"
+jj = "latest"
+zoxide = "latest"
+lsd = "latest"
+peco = "latest"
+stylua = "latest"
+black = "latest"
+tree-sitter = "latest"
+uv = "latest"
+awscli = "latest"
+terraform = "1.5.7"
+cmake = "latest"
+gradle = "latest"
+cloudflared = "latest"
+"npm:eslint_d" = "15"
+"npm:yarn" = "1.22"
+
+# Python CLIs use uv internally; their versions are managed by mise.
+"pypi:graphifyy" = { version = "latest", python = "3.13" }
+"pypi:mlx-lm" = { version = "latest", python = "3.13", os = ["macos/arm64"] }
+"pypi:mlx-vlm" = { version = "latest", python = "3.13", os = ["macos/arm64"] }
 
 # =============================================================================
 # Global Tasks (available from anywhere)
@@ -47,16 +76,37 @@ run = "git status"
 dir = "{{env.DOTFILES_DIR}}"
 
 [tasks."brew:update"]
-description = "Update Homebrew and all packages"
+description = "Install Brewfile packages and update Homebrew packages, including HEAD builds"
 run = """
 brew update
-brew upgrade
+brew bundle install --no-upgrade --file=installers/Brewfile
+brew upgrade --fetch-HEAD
 brew cleanup
 """
+dir = "{{env.DOTFILES_DIR}}"
+
+[tasks."tools:install"]
+description = "Install development tools managed by mise"
+run = "mise install"
+dir = "{{env.DOTFILES_DIR}}"
+
+[tasks."tools:update"]
+description = "Update mise tools, Homebrew packages, and shell plugins"
+run = """
+mise upgrade --no-prune
+mise run brew:update
+sheldon lock --update
+"""
+dir = "{{env.DOTFILES_DIR}}"
+
+[tasks."tools:migrate"]
+description = "Remove migrated duplicate installations after verification"
+run = "bash mise/scripts/consolidate-tools.sh"
+dir = "{{env.DOTFILES_DIR}}"
 
 [tasks."brew:dump"]
-description = "Update Brewfile with currently installed packages"
-run = "brew bundle dump --force --describe --file=installers/Brewfile.common"
+description = "Export a Homebrew snapshot for review (does not overwrite managed Brewfiles)"
+run = "brew bundle dump --force --describe --file=installers/Brewfile.snapshot"
 dir = "{{env.DOTFILES_DIR}}"
 
 [tasks."brew:check"]

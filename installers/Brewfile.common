@@ -29,21 +29,10 @@ brew "wget"
 brew "mise"
 # Development kit for the Java programming language
 brew "openjdk"
-# GitHub command-line tool
-brew "gh"
 # Self-hosted Git service (local GitHub alternative)
 brew "gitea"
 # Gitea CLI (like gh for Gitea)
 brew "tea"
-# Lightweight and flexible command-line JSON processor
-brew "jq"
-# Tree-sitter CLI (required by nvim-treesitter main branch to compile parsers)
-brew "tree-sitter-cli"
-# Search tool like grep and The Silver Searcher
-brew "ripgrep"
-brew "fzf"
-# Simple, fast and user-friendly alternative to find
-brew "fd"
 # System programming language
 brew "rust"
 
@@ -52,14 +41,8 @@ brew "rust"
 # =============================================================================
 # Fast, configurable, shell plugin manager
 brew "sheldon"
-# Shell extension to navigate your filesystem faster
-brew "zoxide"
-# Simplistic interactive filtering tool
-brew "peco"
-# Clone of ls with colorful output, file type icons, and more
-brew "lsd"
 # Ambitious Vim-fork focused on extensibility and agility
-brew "neovim"
+brew "neovim", args: ["HEAD"]
 
 # =============================================================================
 # Container Tools
@@ -71,15 +54,7 @@ brew "docker-compose"
 # Container runtimes on MacOS (and Linux) with minimal setup
 brew "colima"
 
-# =============================================================================
-# Code Formatters & Linters
-# =============================================================================
-# Python code formatter
-brew "black"
-# Lua code formatter
-brew "stylua"
-# Mighty, modern linter that helps you avoid errors and enforce conventions in your styles
-brew "eslint_d"
+# Development CLIs and formatters are declared in mise/config.toml.
 
 # =============================================================================
 # Language Runtimes

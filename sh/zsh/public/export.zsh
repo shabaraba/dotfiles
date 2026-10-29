@@ -73,9 +73,9 @@ export PATH="$HOME/.local/nvim/bin:$HOME/.local/bin:$PATH"
 # [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 # [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-# mise - polyglot runtime manager
-if command -v mise >/dev/null 2>&1; then
-    eval "$(mise activate zsh)"
+# Shims also resolve mise tools before the first interactive prompt.
+if [[ -d "${MISE_DATA_DIR:-$HOME/.local/share/mise}/shims" ]]; then
+    path=("${MISE_DATA_DIR:-$HOME/.local/share/mise}/shims" $path)
 fi
 
 export XDG_CONFIG_HOME="$HOME/.config"

@@ -42,6 +42,12 @@ make list                 # 管理対象のdotfiles一覧
 
 ### Homebrew Package Management
 
+開発 CLI は `mise/config.toml` の `[tools]` で管理する。
+Homebrew はシェル・Neovim・sheldon・コンテナ・Ruby/Rust/Java・アプリを担当する。
+`mise run tools:update` で mise・Homebrew・sheldon を順次更新する。
+Homebrew の更新時は Brewfile の未導入パッケージも導入し、`--fetch-HEAD` で HEAD 版を更新する。Neovim は HEAD 版を指定する。
+`mise run tools:migrate` は移行済みの重複だけを削除し、Homebrew の依存は残す。
+
 Brewfileは2つに分割されています：
 - **Brewfile.common**: クロスプラットフォーム対応パッケージ（macOS & Linux）
 - **Brewfile.macos**: macOS専用アプリケーション（caskのみ）
@@ -56,8 +62,7 @@ brew bundle install --file=installers/Brewfile.macos  # macOS only
 brew bundle check --file=installers/Brewfile.macos    # macOS only
 
 # Update Brewfile after installing new packages
-brew bundle dump --force --describe --file=installers/Brewfile.common  # For common packages
-brew bundle dump --force --describe --file=installers/Brewfile.macos   # For macOS apps
+mise run brew:dump  # Review installers/Brewfile.snapshot, then edit the managed Brewfiles
 ```
 
 ### Docker/Colima Management
@@ -167,7 +172,7 @@ dotfiles/
 ### Symlink Strategy
 
 deployer.shがシンボリックリンクを作成：
-- Repository root → `~/.dotfiles`（clone先に依存せず mise タスクが `DOTFILES_DIR` として参照する）
+- Repository root → `~/.dotfiles`（互換用。mise タスクは設定ファイルの実体から `DOTFILES_DIR` を解決する）
 - Shell configs → `~/.zshrc`, `~/.zshenv`, `~/.zsh/`
 - Neovim → `~/.config/nvim`
 - Claude Code → `~/.claude/`
@@ -208,6 +213,7 @@ Machine/org-specific git settings follow the same pattern in `git/config.local`
 3. If Homebrew package:
    - Add to `installers/Brewfile.common` for cross-platform tools
    - Add to `installers/Brewfile.macos` for macOS-specific GUI apps (cask)
+   - Development CLIs belong in `mise/config.toml` instead
 4. Run `mise run deploy` to apply changes
 
 ## Code Style Guidelines

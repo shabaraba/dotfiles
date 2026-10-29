@@ -60,6 +60,8 @@ endif
 	@echo ''
 	@echo '==> Deploying dotfiles...'
 	@sh deployer.sh
+	@echo '==> Installing mise development tools...'
+	@mise install
 	@echo ''
 	@echo '==> Installation complete!'
 	@echo ''

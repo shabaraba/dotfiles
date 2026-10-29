@@ -90,13 +90,6 @@ export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 unset ANDROID_SDK_ROOT
 
-# mise
-if command -v mise &> /dev/null; then
-  eval "$(mise activate zsh)"
-elif [[ -f "$HOME/.local/bin/mise" ]]; then
-  eval "$($HOME/.local/bin/mise activate zsh)"
-fi
-
 # zoxide initialization
 if command -v zoxide &> /dev/null; then
   eval "$(zoxide init zsh)"
@@ -129,3 +122,10 @@ fi
 # >>> grok installer >>>
 export PATH="$HOME/.grok/bin:$PATH"
 # <<< grok installer <<<
+
+# Activate after PATH additions so managed tools take precedence.
+if command -v mise &> /dev/null; then
+  eval "$(mise activate zsh)"
+elif [[ -f "$HOME/.local/bin/mise" ]]; then
+  eval "$($HOME/.local/bin/mise activate zsh)"
+fi

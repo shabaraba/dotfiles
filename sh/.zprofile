@@ -22,3 +22,7 @@ fi
 # ~/.local/bin (claude CLI 等) を非対話ログインシェル（GUIアプリの `zsh -lc` 経由等）でも解決できるようにする。
 # .zshrcはインタラクティブシェルでしか読まれないため、ここに置く必要がある。
 export PATH="$HOME/.local/bin:$PATH"
+
+if [[ -d "${MISE_DATA_DIR:-$HOME/.local/share/mise}/shims" ]]; then
+    export PATH="${MISE_DATA_DIR:-$HOME/.local/share/mise}/shims:$PATH"
+fi
