@@ -358,7 +358,9 @@ function M.setup()
     callback = function()
       vim.schedule(function()
         patch_all_wins()
-        vim.cmd.redraw({ bang = true })
+        -- バッファ短縮直後でcursor/toplineが行数を超えた窓があると
+        -- redraw!がE315を投げるため、補助的な再描画として失敗は無視する
+        pcall(vim.cmd.redraw, { bang = true })
       end)
     end,
   })
