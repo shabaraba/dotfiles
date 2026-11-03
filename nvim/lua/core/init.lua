@@ -19,4 +19,5 @@ end
 
 require("core.winbar").setup()
 require("core.shada").setup()
+require("core.undo").setup()
 
