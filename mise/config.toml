@@ -7,6 +7,7 @@
 [env]
 # Resolve from the config's real path, including when deployed as a symlink.
 DOTFILES_DIR = "{{config_source | canonicalize | dirname | dirname}}"
+CMD_ZDR = "1"
 
 [settings]
 # Enable idiomatic version files for common tools
@@ -47,6 +48,7 @@ gradle = "latest"
 cloudflared = "latest"
 "npm:eslint_d" = "15"
 "npm:yarn" = "1.22"
+"npm:command-code" = "latest"
 
 # Python CLIs use uv internally; their versions are managed by mise.
 "pypi:graphifyy" = { version = "latest", python = "3.13" }

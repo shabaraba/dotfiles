@@ -31,3 +31,5 @@ npx() {
   echo "WARNING: npx の利用は禁止されています。代わりに pnpm dlx を利用してください。"
   return 1
 }
+
+export CMD_ZDR = "1"
