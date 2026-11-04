@@ -117,9 +117,6 @@ return {
         opencode = {
           process = "duplex",
         },
-        commandcode = {
-          process = "duplex",
-        },
         -- 現在のvibing.nvimはPi未対応。対応版で有効化する際の設定を保存。
         -- pi = {
         --   path = vim.fn.expand("~/.local/share/pi-agent/node_modules/.bin/pi"),
