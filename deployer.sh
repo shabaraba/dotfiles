@@ -76,6 +76,13 @@ if [ -d "$PWD/gemini" ]; then
   ln -snfv $PWD/gemini/commands $HOME/.gemini/commands
 fi
 
+echo "  - 🚚 for Command Code"
+mkdir -p $HOME/.commandcode
+# Command Code rewrites these atomically (temp file + rename), which replaces a symlink.
+# Keep the source in dotfiles and deploy copies; edit here and re-run deploy.
+install -m 600 $PWD/.commandcode/settings.json $HOME/.commandcode/settings.json
+install -m 600 $PWD/.commandcode/config.json $HOME/.commandcode/config.json
+
 echo "  - 🔒 package manager security settings"
 command -v npm >/dev/null 2>&1 && npm config set ignore-scripts true --user
 command -v yarn >/dev/null 2>&1 && yarn config set enableScripts false

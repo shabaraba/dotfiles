@@ -1,0 +1,8 @@
+{
+  "installed": true,
+  "firstMessageSent": true,
+  "reasoningEffort": {
+    "deepseek/deepseek-v4-flash": "high"
+  },
+  "tasteLearning": false
+}
