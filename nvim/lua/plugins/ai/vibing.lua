@@ -142,6 +142,11 @@ return {
       delegated_approval = true,
     },
     chat = {
+      frontmatter = {
+        cycle = {
+          agent = { "claude", "codex", "commandcode" }, -- ]v はこれらを往復する
+        },
+      },
       context = {
         auto_include = false,
         warn_tokens = 250000,
