@@ -71,3 +71,6 @@ terminal/wezterm/core/plugins/local/**
 !terminal/wezterm/core/plugins/local/README.md
 !terminal/wezterm/core/plugins/local/*.lua.example
 
+
+# Machine-specific mise tools
+mise/conf.d/local.toml

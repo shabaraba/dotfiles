@@ -21,6 +21,10 @@ ln -snfv $PWD/terminal/ghostty $HOME/.config/ghostty
 ln -snfv $PWD/sh/zsh/sheldon $HOME/.config/sheldon
 mkdir -p $HOME/.config/mise
 ln -snfv $PWD/mise/config.toml $HOME/.config/mise/config.toml
+if [ -f "$PWD/mise/conf.d/local.toml" ]; then
+  mkdir -p $HOME/.config/mise/conf.d
+  ln -snfv $PWD/mise/conf.d/local.toml $HOME/.config/mise/conf.d/local.toml
+fi
 mkdir -p $HOME/.config/git
 ln -snfv $PWD/git/config $HOME/.config/git/config
 ln -snfv $PWD/git/ignore $HOME/.config/git/ignore

@@ -48,7 +48,6 @@ gradle = "latest"
 cloudflared = "latest"
 "npm:eslint_d" = "15"
 "npm:yarn" = "1.22"
-"npm:command-code" = "latest"
 
 # Python CLIs use uv internally; their versions are managed by mise.
 "pypi:graphifyy" = { version = "latest", python = "3.13" }
