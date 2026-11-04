@@ -32,4 +32,4 @@ npx() {
   return 1
 }
 
-export CMD_ZDR = "1"
+export CMD_ZDR="1"
