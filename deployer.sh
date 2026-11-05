@@ -86,13 +86,17 @@ install -m 600 $PWD/.commandcode/config.json $HOME/.commandcode/config.json
 echo "  - 🔒 package manager security settings"
 command -v npm >/dev/null 2>&1 && npm config set ignore-scripts true --user
 command -v yarn >/dev/null 2>&1 && yarn config set enableScripts false
-if command -v npm >/dev/null 2>&1 && [ -n "${TAKUMI_GUARD_API_KEY:-}" ]; then
-  npm config set registry https://npm.flatt.tech/
-  npm config set //npm.flatt.tech/:_authToken "$TAKUMI_GUARD_API_KEY"
+# Takumi Guard: 匿名でも悪性パッケージのブロックは有効（トークンがあれば追跡・通知も有効）
+if command -v npm >/dev/null 2>&1; then
+  npm config set registry https://npm.flatt.tech/ --user
+  if [ -n "${TAKUMI_GUARD_API_KEY:-}" ]; then
+    npm config set //npm.flatt.tech/:_authToken "$TAKUMI_GUARD_API_KEY" --user
+  fi
 fi
 if command -v pnpm >/dev/null 2>&1; then
   # pnpm refuses global config writes unless its global bin dir is on PATH
   [ -n "${PNPM_HOME:-}" ] && export PATH="$PNPM_HOME:$PATH"
+  pnpm config set -g registry https://npm.flatt.tech/
   pnpm config set -g minimumReleaseAge 1440
   pnpm config set -g --json minimumReleaseAgeExclude '["@anthropic-ai/claude-code"]'
 fi
