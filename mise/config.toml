@@ -46,8 +46,10 @@ terraform = "1.5.7"
 cmake = "latest"
 gradle = "latest"
 cloudflared = "latest"
+imagemagick = "latest"  # Required by image.nvim (diagram.nvim)
 "npm:eslint_d" = "15"
 "npm:yarn" = "1.22"
+"npm:@mermaid-js/mermaid-cli" = "latest"  # mmdc for diagram.nvim
 
 # Python CLIs use uv internally; their versions are managed by mise.
 "pypi:graphifyy" = { version = "latest", python = "3.13" }
