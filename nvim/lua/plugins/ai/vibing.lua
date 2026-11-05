@@ -79,6 +79,39 @@ return {
   ---@type Vibing.Config
   opts = {
     ai = {
+      agents = {
+        claude      = {
+          process = "duplex",
+          chat_model = "opus",
+          helper_model = "haiku"
+        },
+        codex       = {
+          process = "duplex",
+          chat_model = "gpt-6-sol",
+          helper_model = "gpt-6-luna",
+          extensions = {
+            approval_policy = "on-request",
+            profile_content = codex_profile_content,
+          },
+        },
+        grok        = {
+          process = "duplex",
+        },
+        opencode    = {
+          process = "duplex",
+        },
+        commandcode = {
+          process = "duplex",
+          chat_model = "deepseek/deepseek-v4.1-flash",
+          helper_model = "deepseek/deepseek-v4.1-flash"
+        },
+        -- 現在のvibing.nvimはPi未対応。対応版で有効化する際の設定を保存。
+        -- pi = {
+        --   path = vim.fn.expand("~/.local/share/pi-agent/node_modules/.bin/pi"),
+        --   extensions = { provider = "bonsai-local" },
+        -- },
+        -- bonsai-localはllama-server :8080、modelはbonsai2-27b。
+      },
       chat = {
         agent = "claude",
         model = "sonnet",
@@ -100,30 +133,6 @@ return {
           setting_sources = { "user", "project", "local" },
         },
       },
-      agents = {
-        claude = {
-          process = "duplex",
-        },
-        codex = {
-          process = "duplex",
-          extensions = {
-            approval_policy = "on-request",
-            profile_content = codex_profile_content,
-          },
-        },
-        grok = {
-          process = "duplex",
-        },
-        opencode = {
-          process = "duplex",
-        },
-        -- 現在のvibing.nvimはPi未対応。対応版で有効化する際の設定を保存。
-        -- pi = {
-        --   path = vim.fn.expand("~/.local/share/pi-agent/node_modules/.bin/pi"),
-        --   extensions = { provider = "bonsai-local" },
-        -- },
-        -- bonsai-localはllama-server :8080、modelはbonsai2-27b。
-      },
     },
     automation = {
       limits = {
@@ -134,7 +143,7 @@ return {
       },
     },
     permissions = {
-      mode = "acceptEdits",
+      mode = "auto",
       allow = allow,
       ask = ask,
       deny = deny,
