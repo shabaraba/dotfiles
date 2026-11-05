@@ -51,20 +51,20 @@ if [ -d "$PWD/claude/skills/private" ]; then
     fi
   done
 fi
-# Link shared skills directly to ~/.claude/skills/ (not as subdirectory —
-# Claude Code only discovers skills one level deep under ~/.claude/skills/<name>/SKILL.md)
-if [ -d "$PWD/claude/skills/shared" ]; then
-  for skill_dir in $PWD/claude/skills/shared/*/; do
-    if [ -d "$skill_dir" ]; then
-      skill_name=$(basename "$skill_dir")
-      ln -snfv "$skill_dir" "$HOME/.claude/skills/$skill_name"
-    fi
-  done
-fi
-# Link personal skills (claude/skills/* excluding private and shared)
+# Link agent-agnostic skills to ~/.claude/skills/ and ~/.agents/skills/
+# (~/.agents/skills is read by Codex, Grok and Command Code)
+mkdir -p $HOME/.agents/skills
+for skill_dir in $PWD/agents/skills/*/; do
+  if [ -d "$skill_dir" ]; then
+    skill_name=$(basename "$skill_dir")
+    ln -snfv "$skill_dir" "$HOME/.claude/skills/$skill_name"
+    ln -snfv "$skill_dir" "$HOME/.agents/skills/$skill_name"
+  fi
+done
+# Link Claude-only personal skills (claude/skills/* excluding private)
 for skill_dir in $PWD/claude/skills/*/; do
   skill_name=$(basename "$skill_dir")
-  if [ "$skill_name" != "private" ] && [ "$skill_name" != "shared" ]; then
+  if [ "$skill_name" != "private" ]; then
     ln -snfv "$skill_dir" "$HOME/.claude/skills/$skill_name"
   fi
 done
