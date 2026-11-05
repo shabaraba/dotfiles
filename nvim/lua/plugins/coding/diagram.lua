@@ -1,12 +1,22 @@
+local filetypes = { 'markdown', 'vibing' }
+local renderer_options = {
+  mermaid = { scale = 3 },
+}
+
+local function markdown_integration()
+  return vim.tbl_extend('force', require('diagram.integrations.markdown'), { filetypes = filetypes })
+end
+
 return {
   '3rd/diagram.nvim',
-  ft = { 'markdown', 'vibing' },
+  ft = filetypes,
   dependencies = {
     {
       '3rd/image.nvim',
       opts = {
         backend = 'kitty',
         processor = 'magick_cli',
+        max_height_window_percentage = 100,
         integrations = {
           markdown = { enabled = false },
           asciidoc = { enabled = false },
@@ -21,18 +31,16 @@ return {
     {
       '<leader>d',
       function()
-        require('diagram').show_diagram_hover()
+        require('utils.diagram_float').show(markdown_integration(), renderer_options)
       end,
-      ft = { 'markdown', 'vibing' },
-      desc = 'Show diagram in new tab',
+      ft = filetypes,
+      desc = 'Show diagram in float',
     },
   },
   config = function()
-    local markdown = require('diagram.integrations.markdown')
     require('diagram').setup({
-      integrations = {
-        vim.tbl_extend('force', markdown, { filetypes = { 'markdown', 'vibing' } }),
-      },
+      integrations = { markdown_integration() },
+      renderer_options = renderer_options,
       events = {
         render_buffer = {},
         clear_buffer = {},
