@@ -81,6 +81,7 @@ return {
       auto_load = false,
       theme = 'light',
       syntax = true,
+      filetype = { 'markdown', 'vibing' },
     })
     vim.api.nvim_create_user_command('PeekOpen', open_preview, {})
     vim.api.nvim_create_user_command('PeekClose', function()
