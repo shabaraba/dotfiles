@@ -37,7 +37,8 @@ return {
     -- markdown_oxide はマスト削除できないゴースト状態(旧設定の名残)なので明示的に除外。
     -- marksman は .marksman.toml があるディレクトリでのみ使う。ここで除外しないと
     -- config.lua の enable_servers から外しても自動有効化されてしまう。
-    automatic_enable = { exclude = { "markdown_oxide", "marksman" } },
+    -- jdtls は nvim-jdtls が起動する。ここで除外しないと lspconfig 版も別ワークスペースで二重起動する。
+    automatic_enable = { exclude = { "markdown_oxide", "marksman", "jdtls" } },
     -- handlers は使わない（nvim-lspconfig.luaで手動設定）
   },
   config = function(_, opts)
