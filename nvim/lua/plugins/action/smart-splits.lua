@@ -3,10 +3,9 @@ return {
   opts = {
     ignored_buftypes = { 'nofile', 'quickfix', 'prompt' },
     ignored_filetypes = { 'NvimTree' },
-    default_amount = 3,
-    at_edge = 'wrap',
-    multiplexer_integration = 'wezterm',
-    disable_multiplexer_nav_when_zoomed = true,
+    resize = { amount = 3 },
+    move = { at_edge = 'wrap' },
+    mux = { backend = 'wezterm' },
   },
   keys = {
     { '<C-w>r', function()
