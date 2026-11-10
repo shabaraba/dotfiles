@@ -87,7 +87,7 @@ return {
         },
         codex       = {
           process = "duplex",
-          chat_model = "gpt-6-sol",
+          chat_model = "gpt-6.1-sol",
           helper_model = "gpt-6-luna",
           extensions = {
             approval_policy = "on-request",
