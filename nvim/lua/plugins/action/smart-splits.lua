@@ -5,7 +5,6 @@ return {
     ignored_filetypes = { 'NvimTree' },
     resize = { amount = 3 },
     move = { at_edge = 'wrap' },
-    mux = { backend = 'wezterm' },
   },
   keys = {
     { '<C-w>r', function()
