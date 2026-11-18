@@ -91,6 +91,7 @@ return {
           helper_model = "gpt-6-luna",
           extensions = {
             approval_policy = "on-request",
+            auto_approve = true,
             profile_content = codex_profile_content,
           },
         },
