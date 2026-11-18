@@ -49,7 +49,10 @@ cloudflared = "latest"
 imagemagick = "latest"  # Required by image.nvim (diagram.nvim)
 "npm:eslint_d" = "15"
 "npm:yarn" = "1.22"
-"npm:@mermaid-js/mermaid-cli" = "latest"  # mmdc for diagram.nvim
+# mmdc for diagram.nvim. Chromium BiDi moved publishing from GitHub Actions to CfT.
+# https://github.com/GoogleChromeLabs/chromium-bidi#publish-new-npm-release
+# Reviewed npm metadata/tarball against ChromeDevTools/chrome-devtools-mcp's lockfile.
+"npm:@mermaid-js/mermaid-cli" = { version = "latest", trust_policy_excludes = ["chromium-bidi@157.0.8090-0"] }
 
 # Python CLIs use uv internally; their versions are managed by mise.
 "pypi:graphifyy" = { version = "latest", python = "3.13" }
