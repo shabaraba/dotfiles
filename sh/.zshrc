@@ -69,8 +69,8 @@ else
     export PNPM_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/pnpm"
 fi
 case ":$PATH:" in
-    *":$PNPM_HOME:"*) ;;
-    *) export PATH="$PNPM_HOME:$PATH" ;;
+    *":$PNPM_HOME/bin:"*) ;;
+    *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
 # pnpm end
 
