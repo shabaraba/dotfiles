@@ -141,6 +141,7 @@ return {
       },
       orchestration = {
         notifications = { enabled = true },
+        worker_defaults = { agent = "claude", model = "sonnet", effort = "medium" },
       },
     },
     permissions = {
