@@ -129,3 +129,6 @@ if command -v mise &> /dev/null; then
 elif [[ -f "$HOME/.local/bin/mise" ]]; then
   eval "$($HOME/.local/bin/mise activate zsh)"
 fi
+
+# sentry
+fpath=("/Users/shaba/.local/share/zsh/site-functions" $fpath); if [[ -o interactive ]]; then if ! (( $+functions[compdef] )); then autoload -Uz compinit; compinit; fi; autoload -Uz _sentry; compdef _sentry sentry; fi
