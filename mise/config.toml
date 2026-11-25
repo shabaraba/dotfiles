@@ -14,6 +14,12 @@ CMD_ZDR = "1"
 # This allows mise to read .node-version, .python-version, etc. in other projects
 idiomatic_version_file_enable_tools = ["node", "python", "ruby", "go", "java"]
 
+# mise's default "auto" picks the bundled "aube" client, which fails on very
+# large packuments (drizzle-orm, 64MB) with `too_many_data_frames` over HTTP/2,
+# so npm:command-code could not be installed. Use pnpm instead of npm: it also
+# honors the global minimumReleaseAge from ~/.config/pnpm/config.yaml.
+npm.package_manager = "pnpm"
+
 # =============================================================================
 # Default Tool Versions (for dotfiles repository development)
 # =============================================================================
